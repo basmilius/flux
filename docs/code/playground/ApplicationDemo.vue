@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="$style.frame"
+        :class="$style.demoFrame"
         data-prose-full>
         <div :class="$style.scroller">
             <FluxApplication show-desktop-menu-toggle>
@@ -113,7 +113,7 @@
                         <FluxAdaptiveSlot>
                             <FluxFormInput
                                 v-model="search"
-                                :class="$style.search"
+                                :class="$style.demoSearch"
                                 icon-leading="magnifying-glass"
                                 placeholder="Search invoices, clients..."
                                 type="search"/>
@@ -201,14 +201,14 @@
                     <FluxApplicationSection
                         info="Compared to the previous 30 days"
                         title="Key figures">
-                        <div :class="$style.metrics">
+                        <div :class="$style.demoMetrics">
                             <FluxPane
                                 v-for="metric of metrics"
                                 :key="metric.label">
                                 <FluxPaneBody>
-                                    <div :class="$style.metric">
-                                        <span :class="$style.metricLabel">{{ metric.label }}</span>
-                                        <strong :class="$style.metricValue">{{ metric.value }}</strong>
+                                    <div :class="$style.demoMetric">
+                                        <span :class="$style.demoMetricLabel">{{ metric.label }}</span>
+                                        <strong :class="$style.demoMetricValue">{{ metric.value }}</strong>
 
                                         <FluxBadge
                                             :color="metric.color"
@@ -382,7 +382,7 @@
     // `--application-height` is what the shell measures against instead of the
     // viewport, and containment makes this the containing block for its
     // `position: fixed` rail and backdrop, clipped to the radius.
-    .frame {
+    .demoFrame {
         --application-height: 1080px;
 
         position: relative;
@@ -399,29 +399,29 @@
         overflow-y: auto;
     }
 
-    .search {
+    .demoSearch {
         width: 261px;
     }
 
-    .metrics {
+    .demoMetrics {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         gap: 21px;
     }
 
-    .metric {
+    .demoMetric {
         display: flex;
         align-items: start;
         flex-flow: column;
         gap: 6px;
     }
 
-    .metricLabel {
+    .demoMetricLabel {
         font-size: var(--font-size-small);
         color: var(--foreground-secondary);
     }
 
-    .metricValue {
+    .demoMetricValue {
         font-size: 27px;
         font-weight: 700;
         line-height: 1.2;

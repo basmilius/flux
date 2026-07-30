@@ -1,6 +1,6 @@
 <template>
     <FluxProse
-        :class="$style.playground"
+        :class="$style.statisticsPlayground"
         container
         tag="article">
         <h1>Flux Statistics playground</h1>
@@ -37,14 +37,14 @@
 <style
     lang="scss"
     module>
-    .playground {
+    .statisticsPlayground {
         container: playground / inline-size;
         padding-block: 60px;
         max-width: 1800px;
         margin-inline: auto;
     }
 
-    .playground > :global([data-prose-full]) {
+    .statisticsPlayground > :global([data-prose-full]) {
         margin-inline: 30px;
     }
 </style>

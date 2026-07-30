@@ -2,7 +2,7 @@
     <div
         :class="$style.viewport"
         data-prose-full>
-        <div :class="$style.toolbar">
+        <div :class="$style.viewportToolbar">
             <FluxSegmentedControl
                 v-model="preset"
                 size="small">
@@ -15,14 +15,14 @@
 
             <FluxSpacer/>
 
-            <span :class="$style.readout">{{ stageWidth > 0 ? `${resolvedWidth} px` : '' }}</span>
+            <span :class="$style.viewportReadout">{{ stageWidth > 0 ? `${resolvedWidth} px` : '' }}</span>
         </div>
 
         <div
             ref="stage"
-            :class="[$style.stage, isDragging && $style.isDragging]">
+            :class="[$style.stage, isDragging && $style.isViewportDragging]">
             <div
-                :class="$style.frame"
+                :class="$style.viewportFrame"
                 :style="{height: `${height}px`, width: frameWidth}">
                 <iframe
                     :class="$style.document"
@@ -148,13 +148,13 @@
         gap: 12px;
     }
 
-    .toolbar {
+    .viewportToolbar {
         display: flex;
         align-items: center;
         gap: 12px;
     }
 
-    .readout {
+    .viewportReadout {
         min-width: 72px;
         color: var(--foreground-secondary);
         font-size: var(--font-size-small);
@@ -170,14 +170,14 @@
         padding-inline: 18px;
         justify-content: center;
 
-        &.isDragging {
+        &.isViewportDragging {
             cursor: col-resize;
             user-select: none;
         }
     }
 
     // The stroke is a shadow rather than a border, so the readout above is the width the iframe really gets.
-    .frame {
+    .viewportFrame {
         position: relative;
         max-width: 100%;
         flex: 0 0 auto;
@@ -232,7 +232,7 @@
         }
     }
 
-    .isDragging .handle::before {
+    .isViewportDragging .handle::before {
         background: var(--primary-solid);
     }
 </style>

@@ -1,25 +1,25 @@
 <template>
     <div :class="$style.rows">
         <div :class="$style.row">
-            <span :class="$style.label">Shimmer</span>
+            <span :class="$style.textEffectLabel">Shimmer</span>
             <FluxVisualTextShimmer
-                :class="$style.value"
+                :class="$style.textEffectValue"
                 :duration="1.8"
                 :spread="25">{{ text }}</FluxVisualTextShimmer>
         </div>
 
         <div :class="$style.row">
-            <span :class="$style.label">Scramble</span>
+            <span :class="$style.textEffectLabel">Scramble</span>
             <FluxVisualTextScramble
                 ref="scramble"
-                :class="$style.value"
+                :class="$style.textEffectValue"
                 :text="text"/>
         </div>
 
         <div :class="$style.row">
-            <span :class="$style.label">Slot text</span>
+            <span :class="$style.textEffectLabel">Slot text</span>
             <FluxVisualSlotText
-                :class="$style.value"
+                :class="$style.textEffectValue"
                 :text="text"/>
         </div>
 
@@ -76,14 +76,14 @@
         align-items: baseline;
     }
 
-    .label {
+    .textEffectLabel {
         flex: 0 0 auto;
         width: 96px;
         font-size: 13px;
         color: var(--foreground-secondary);
     }
 
-    .value {
+    .textEffectValue {
         font-size: 21px;
         font-weight: 600;
     }

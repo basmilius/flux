@@ -1,6 +1,6 @@
 <template>
     <FluxProse
-        :class="$style.playground"
+        :class="$style.applicationPlayground"
         container
         tag="article">
         <h1>Application playground</h1>
@@ -55,13 +55,13 @@
 <style
     lang="scss"
     module>
-    .playground {
+    .applicationPlayground {
         padding-block: 60px;
         max-width: 1800px;
         margin-inline: auto;
     }
 
-    .playground > :global([data-prose-full]) {
+    .applicationPlayground > :global([data-prose-full]) {
         margin-inline: 30px;
     }
 </style>

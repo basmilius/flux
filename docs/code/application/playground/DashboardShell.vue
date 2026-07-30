@@ -121,7 +121,7 @@
                 <FluxAdaptiveSlot>
                     <FluxFormInput
                         v-model="search"
-                        :class="$style.search"
+                        :class="$style.dashboardSearch"
                         icon-leading="magnifying-glass"
                         placeholder="Search orders, tracking codes..."
                         type="search"/>
@@ -223,14 +223,14 @@
                     <FluxApplicationSection
                         info="Compared to the previous seven days"
                         title="Key figures">
-                        <div :class="$style.metrics">
+                        <div :class="$style.dashboardMetrics">
                             <FluxPane
                                 v-for="metric of metrics"
                                 :key="metric.label">
                                 <FluxPaneBody>
-                                    <div :class="$style.metric">
-                                        <span :class="$style.metricLabel">{{ metric.label }}</span>
-                                        <strong :class="$style.metricValue">{{ metric.value }}</strong>
+                                    <div :class="$style.dashboardMetric">
+                                        <span :class="$style.dashboardMetricLabel">{{ metric.label }}</span>
+                                        <strong :class="$style.dashboardMetricValue">{{ metric.value }}</strong>
 
                                         <FluxBadge
                                             :color="metric.color"
@@ -599,7 +599,7 @@
 <style
     lang="scss"
     module>
-    .search {
+    .dashboardSearch {
         width: 261px;
     }
 
@@ -608,25 +608,25 @@
         overflow-y: auto;
     }
 
-    .metrics {
+    .dashboardMetrics {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         gap: 21px;
     }
 
-    .metric {
+    .dashboardMetric {
         display: flex;
         align-items: start;
         flex-flow: column;
         gap: 6px;
     }
 
-    .metricLabel {
+    .dashboardMetricLabel {
         font-size: var(--font-size-small);
         color: var(--foreground-secondary);
     }
 
-    .metricValue {
+    .dashboardMetricValue {
         font-size: 27px;
         font-weight: 700;
         line-height: 1.2;

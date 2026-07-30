@@ -1,6 +1,6 @@
 <template>
     <FluxProse
-        :class="$style.playground"
+        :class="$style.aiPlayground"
         container
         tag="article">
         <h1>AI playground</h1>
@@ -18,7 +18,7 @@
         <StreamingDemo/>
         <p>Two frames from the middle of a stream, frozen. These are the cases a naive renderer flickers on. On the left the closing pair of an emphasis run has not arrived: the run is closed virtually, so the words are already bold and never flip from literal asterisks to formatted text. On the right a link is half typed: the whole thing is held back until its closing bracket lands, so a partial url never becomes an anchor. Neither one should show a stray <code>*</code> or <code>[</code>.</p>
         <div
-            :class="$style.pair"
+            :class="$style.aiPair"
             data-prose-full>
             <FluxPane>
                 <FluxPaneHeader
@@ -44,7 +44,7 @@
         </div>
         <p>A fenced block is a <code>FluxAiCodeBlock</code>, which also stands on its own. The header carries the language from the info string, or the word code when the fence had none, and the copy button holds its confirmation for a couple of seconds before it falls back. Copy from the one on the left and watch the label rather than the clipboard.</p>
         <div
-            :class="$style.pair"
+            :class="$style.aiPair"
             data-prose-full>
             <FluxAiCodeBlock
                 :code="snippet"
@@ -125,7 +125,7 @@
         <h2>Citations</h2>
         <p>The same paragraph twice: on the left with three markers in it, on the right without a single one. What to look at. The markers take room, so the two columns do not break their lines in the same places, but they do have to share a baseline grid: every line on the left has to sit at the same height as the line on the right, and the gap between the two paragraphs has to match. A marker is a button that opens a card, so it also carries a focus ring and a hover state, and neither is allowed to push the line apart. Tab into the left column and walk through the three of them.</p>
         <div
-            :class="$style.pair"
+            :class="$style.aiPair"
             data-prose-full>
             <FluxProse>
                 <p>
@@ -334,18 +334,18 @@
 <style
     lang="scss"
     module>
-    .playground {
+    .aiPlayground {
         container: playground / inline-size;
         padding-block: 60px;
         max-width: 1800px;
         margin-inline: auto;
     }
 
-    .playground > :global([data-prose-full]) {
+    .aiPlayground > :global([data-prose-full]) {
         margin-inline: 30px;
     }
 
-    .pair {
+    .aiPair {
         display: grid;
         gap: 24px;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -366,7 +366,7 @@
     }
 
     @container playground (width < 690px) {
-        .pair,
+        .aiPair,
         .trio {
             grid-template-columns: minmax(0, 1fr);
         }

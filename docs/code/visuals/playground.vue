@@ -1,6 +1,6 @@
 <template>
     <FluxProse
-        :class="$style.playground"
+        :class="$style.visualsPlayground"
         container
         tag="article">
         <h1>Flux Visuals playground</h1>
@@ -40,7 +40,7 @@
         </div>
         <p>The grid pattern above carries <code>glow</code>, so it lights up under the pointer. Move across the band and check that the halo tracks without lag and that it stays inside the rounded corners. The grain over it is a plain <code>FluxVisualNoise</code> at five percent, which is lifted by half again in dark; if the band looks dirty rather than textured, that lift is the first thing to question.</p>
         <div
-            :class="$style.grid"
+            :class="$style.effectGrid"
             data-prose-full>
             <FluxVisualBorderBeam>
                 <FluxPane>
@@ -70,7 +70,7 @@
                         :gap="6">
                         <span :class="$style.caption">Monthly recurring revenue</span>
                         <FluxVisualNumberFlow
-                            :class="$style.metric"
+                            :class="$style.effectMetric"
                             :format="CURRENCY"
                             :value="revenue"/>
                         <FluxBadge
@@ -390,18 +390,18 @@
 <style
     lang="scss"
     module>
-    .playground {
+    .visualsPlayground {
         container: playground / inline-size;
         padding-block: 60px;
         max-width: 1800px;
         margin-inline: auto;
     }
 
-    .playground > :global([data-prose-full]) {
+    .visualsPlayground > :global([data-prose-full]) {
         margin-inline: 30px;
     }
 
-    .grid {
+    .effectGrid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 24px;
@@ -409,13 +409,13 @@
     }
 
     @container playground (width < 1320px) {
-        .grid {
+        .effectGrid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
     @container playground (width < 690px) {
-        .grid {
+        .effectGrid {
             grid-template-columns: minmax(0, 1fr);
         }
     }
@@ -523,7 +523,7 @@
         font-weight: 700;
     }
 
-    .metric {
+    .effectMetric {
         font-size: 33px;
         font-weight: 700;
     }

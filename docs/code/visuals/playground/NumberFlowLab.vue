@@ -1,25 +1,25 @@
 <template>
     <div :class="$style.lab">
         <div :class="$style.readouts">
-            <div :class="$style.readout">
-                <span :class="$style.label">Plain</span>
+            <div :class="$style.numberFlowReadout">
+                <span :class="$style.numberFlowLabel">Plain</span>
                 <FluxVisualNumberFlow
-                    :class="$style.value"
+                    :class="$style.numberFlowValue"
                     :value="value"/>
             </div>
 
-            <div :class="$style.readout">
-                <span :class="$style.label">Currency</span>
+            <div :class="$style.numberFlowReadout">
+                <span :class="$style.numberFlowLabel">Currency</span>
                 <FluxVisualNumberFlow
-                    :class="$style.value"
+                    :class="$style.numberFlowValue"
                     :format="CURRENCY"
                     :value="value"/>
             </div>
 
-            <div :class="$style.readout">
-                <span :class="$style.label">Compact</span>
+            <div :class="$style.numberFlowReadout">
+                <span :class="$style.numberFlowLabel">Compact</span>
                 <FluxVisualNumberFlow
-                    :class="$style.value"
+                    :class="$style.numberFlowValue"
                     :format="COMPACT"
                     :value="value"/>
             </div>
@@ -83,7 +83,7 @@
         }
     }
 
-    .readout {
+    .numberFlowReadout {
         display: flex;
         flex-direction: column;
         gap: 3px;
@@ -93,12 +93,12 @@
         border-radius: var(--radius);
     }
 
-    .label {
+    .numberFlowLabel {
         font-size: 13px;
         color: var(--foreground-secondary);
     }
 
-    .value {
+    .numberFlowValue {
         font-size: 27px;
         font-weight: 700;
     }

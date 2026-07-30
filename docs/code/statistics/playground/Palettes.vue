@@ -26,7 +26,7 @@
     </div>
     <p>Twelve categories in one donut, drawn twice. On the left the eight cycle, so the ninth slice starts again at <code>--chart-1</code> and four pairs of slices share a color; the legend is the only way to tell them apart. On the right every category has a hue of its own. The trade is visible in the same pair: contrast ordering gives the first slices a clear hierarchy, hue spacing gives twelve equal voices.</p>
     <div
-        :class="$style.pair"
+        :class="$style.palettePair"
         data-prose-full>
         <FluxStatisticsChartPane
             :aspect-ratio="1.3"
@@ -56,7 +56,7 @@
     </div>
     <p>The same comparison on lines, which is the harder case. A donut gives every color a large filled area; a line gives it two pixels. Equal lightness is exactly what makes a thin mark hard to place, so if the colorful set is going to fail anywhere it is here, and the six lines on the left should stay easier to follow than the six on the right even though they carry less hue separation.</p>
     <div
-        :class="$style.pair"
+        :class="$style.palettePair"
         data-prose-full>
         <FluxStatisticsChartPane
             :aspect-ratio="1.8"
@@ -200,7 +200,7 @@
         font-variant-numeric: tabular-nums;
     }
 
-    .pair {
+    .palettePair {
         display: grid;
         align-items: start;
         gap: 24px;
@@ -208,7 +208,7 @@
     }
 
     @container playground (width < 1008px) {
-        .pair {
+        .palettePair {
             grid-template-columns: minmax(0, 1fr);
         }
     }

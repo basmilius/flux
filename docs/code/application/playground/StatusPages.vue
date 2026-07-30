@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.grid">
+    <div :class="$style.statusGrid">
         <div :class="$style.box">
             <FluxApplicationStatusPage
                 code="404"
@@ -92,7 +92,7 @@
 <style
     lang="scss"
     module>
-    .grid {
+    .statusGrid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         min-height: 100dvh;
@@ -101,7 +101,7 @@
     }
 
     @media (width < 1008px) {
-        .grid {
+        .statusGrid {
             grid-template-columns: minmax(0, 1fr);
         }
     }

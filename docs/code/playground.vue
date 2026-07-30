@@ -1,6 +1,6 @@
 <template>
     <FluxProse
-        :class="$style.playground"
+        :class="$style.componentsPlayground"
         container
         tag="article">
         <h1>Flux playground</h1>
@@ -1257,7 +1257,7 @@
         <h2>Tab bars and segmented controls</h2>
         <p>A tab bar inside a pane sits on a recessed track, so the active tab reads as a raised chip on top of it. The pill variant drops the track and keeps only the chip.</p>
         <div
-            :class="$style.grid"
+            :class="$style.cardGrid"
             data-prose-full>
             <FluxPane>
                 <FluxTabs v-model="tab">
@@ -1777,7 +1777,7 @@
         <h2>Elevation and shadows</h2>
         <p>Elevation is a level rather than a set of declarations. Sunken is a recessed area inside a surface, surface is a card on the page, and raised is anything floating above it. In light the shadow does the work, in dark the surface lightness does.</p>
         <div
-            :class="$style.grid"
+            :class="$style.cardGrid"
             data-prose-full>
             <FluxPane>
                 <FluxPaneHeader
@@ -2962,20 +2962,20 @@ const article = FluxProse;</code></pre>
 <style
     lang="scss"
     module>
-    .playground {
+    .componentsPlayground {
         container: playground / inline-size;
         padding-block: 60px;
         max-width: 1800px;
         margin-inline: auto;
     }
 
-    .playground > :global([data-prose-full]) {
+    .componentsPlayground > :global([data-prose-full]) {
         margin-inline: 30px;
     }
 
     // Fixed column counts rather than `auto-fill`, so a card is the same width in
     // every section of the page.
-    .grid {
+    .cardGrid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 24px;
@@ -2983,13 +2983,13 @@ const article = FluxProse;</code></pre>
     }
 
     @container playground (width < 1320px) {
-        .grid {
+        .cardGrid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
     @container playground (width < 690px) {
-        .grid {
+        .cardGrid {
             grid-template-columns: minmax(0, 1fr);
         }
     }
