@@ -44,7 +44,8 @@
 }
 
 // A control has no hover background of its own, so it lines up with the edge of the one on the items
-// around it rather than with their padding. The label keeps that padding, matching the sub header.
+// around it rather than with their padding. Only the icon and the label keep that padding, matching
+// the sub header; a row that is nothing but the control lines up on both sides.
 .menuControl {
     display: flex;
     min-height: 42px;
@@ -52,6 +53,10 @@
     align-items: center;
     gap: 15px;
     color: var(--foreground);
+
+    &:has(> .menuControlContent:only-child) {
+        padding-left: 0;
+    }
 }
 
 .menuControlDisabled {

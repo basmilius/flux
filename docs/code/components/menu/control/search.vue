@@ -6,7 +6,6 @@
                     v-model="query"
                     type="search"
                     icon-leading="magnifying-glass"
-                    is-condensed
                     placeholder="Filter actions..."/>
             </FluxMenuControl>
 
