@@ -7,6 +7,7 @@
             disabled && $style.isDisabled,
             isDragging && $style.isDragging
         )"
+        :style="overdragStyle"
         :aria-disabled="disabled ? true : undefined"
         @pointerdown="onPointerDown">
         <FluxTicks
@@ -23,8 +24,9 @@
     import { unwrapElement } from '@basmilius/common';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
+    import { computed, type CSSProperties, onUnmounted, ref, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
+    import { useElasticOverdrag } from '~flux/components/composable/private';
     import FluxTicks from '../FluxTicks.vue';
     import $style from '~flux/components/css/component/primitive/Slider.module.scss';
 
@@ -51,6 +53,19 @@
     const isDragging = ref(false);
     const pointerId = ref<number | null>(null);
 
+    const {
+        scale: overdragScale,
+        transformOrigin: overdragOrigin,
+        update: updateOverdrag,
+        reset: resetOverdrag,
+        dispose: disposeOverdrag
+    } = useElasticOverdrag({direction: () => direction});
+
+    const overdragStyle = computed<CSSProperties>(() => ({
+        '--slider-overdrag-scale': unref(overdragScale),
+        '--slider-overdrag-origin': unref(overdragOrigin)
+    }));
+
     function onPointerDown(evt: PointerEvent): void {
         if (unref(disabled) || evt.button !== 0) {
             return;
@@ -76,30 +91,23 @@
         }
 
         const rect = root.getBoundingClientRect();
-        let fraction: number;
+        const vertical = direction === 'vertical';
+        const size = vertical ? rect.height : rect.width;
 
-        if (direction === 'vertical') {
-            const top = rect.top + 6; // margin.
-            const height = rect.height - 12; // margin times two.
-
-            if (height <= 0) {
-                return;
-            }
-
-            // Bottom is the minimum, so invert: dragging up raises the value.
-            fraction = 1 - (evt.clientY - top) / height;
-        } else {
-            const left = rect.left + 6; // margin.
-            const width = rect.width - 12; // margin times two.
-
-            if (width <= 0) {
-                return;
-            }
-
-            fraction = (evt.clientX - left) / width;
+        if (size <= 0) {
+            return;
         }
 
+        const coord = vertical ? evt.clientY : evt.clientX;
+        const start = vertical ? rect.top : rect.left;
+
+        // Bottom is the minimum when vertical, so invert: dragging up raises the value.
+        const fraction = vertical
+            ? 1 - (coord - start) / size
+            : (coord - start) / size;
+
         emit('update', Math.max(0, Math.min(1, fraction)));
+        updateOverdrag(coord, start, start + size);
         evt.preventDefault();
     }
 
@@ -113,12 +121,14 @@
 
         isDragging.value = false;
         emit('dragging', false);
+        resetOverdrag();
         document.removeEventListener('pointermove', onPointerMove);
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     }
 
     onUnmounted(() => {
+        disposeOverdrag();
         document.removeEventListener('pointermove', onPointerMove);
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);

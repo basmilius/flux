@@ -459,17 +459,18 @@
         }
 
         const coord = vertical ? evt.clientY : evt.clientX;
+        const start = vertical ? rect.top : rect.left;
 
         if (Math.abs(coord - dragStart) > 3) {
             isScrubbing.value = true;
         }
 
-        updateOverdrag(coord, rect);
+        updateOverdrag(coord, start, start + size);
 
         // Bottom is the minimum when vertical, so invert the fraction.
         const fraction = vertical
-            ? Math.max(0, Math.min(1, 1 - (coord - rect.top) / size))
-            : Math.max(0, Math.min(1, (coord - rect.left) / size));
+            ? Math.max(0, Math.min(1, 1 - (coord - start) / size))
+            : Math.max(0, Math.min(1, (coord - start) / size));
         const target = snap(fraction * unref(span) + min);
 
         // When the track is pressed without grabbing a thumb, start dragging

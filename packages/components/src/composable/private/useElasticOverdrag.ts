@@ -43,7 +43,7 @@ type UseElasticOverdragOptions = {
  *
  * The consumer owns the pointer session; feed the pointer's main-axis coordinate
  * (`clientX` when horizontal, `clientY` when vertical) to `update` together with
- * the surface's (unscaled) rect, and call `reset` on release.
+ * the (unscaled) bounds it may travel between, and call `reset` on release.
  */
 export function useElasticOverdrag(options: UseElasticOverdragOptions = {}) {
     const {
@@ -103,18 +103,15 @@ export function useElasticOverdrag(options: UseElasticOverdragOptions = {}) {
         frame = requestAnimationFrame(step);
     }
 
-    function update(coord: number, rect: DOMRect): void {
+    function update(coord: number, start: number, end: number): void {
         const vertical = isVertical();
-        const startEdge = vertical ? rect.top : rect.left;
-        const endEdge = vertical ? rect.bottom : rect.right;
-        const size = vertical ? rect.height : rect.width;
 
         let past = 0;
 
-        if (coord < startEdge) {
-            past = coord - startEdge;
-        } else if (coord > endEdge) {
-            past = coord - endEdge;
+        if (coord < start) {
+            past = coord - start;
+        } else if (coord > end) {
+            past = coord - end;
         }
 
         if (past === 0) {
@@ -138,7 +135,7 @@ export function useElasticOverdrag(options: UseElasticOverdragOptions = {}) {
 
         stop();
 
-        scale.value = 1 + elasticResistance(Math.abs(past), {deadZone, max: maxStretch, range}) / size;
+        scale.value = 1 + elasticResistance(Math.abs(past), {deadZone, max: maxStretch, range}) / (end - start);
     }
 
     function reset(): void {
@@ -150,5 +147,5 @@ export function useElasticOverdrag(options: UseElasticOverdragOptions = {}) {
         stop();
     }
 
-    return {transform, transformOrigin, update, reset, dispose};
+    return {scale, transform, transformOrigin, update, reset, dispose};
 }

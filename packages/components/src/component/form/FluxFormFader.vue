@@ -385,6 +385,7 @@
         }
 
         const coord = vertical ? evt.clientY : evt.clientX;
+        const start = vertical ? rect.top : rect.left;
 
         if (Math.abs(coord - dragStart) > 3) {
             isScrubbing.value = true;
@@ -392,11 +393,11 @@
 
         // Bottom is the minimum when vertical, so invert the fraction.
         const fraction = vertical
-            ? 1 - (coord - rect.top) / size
-            : (coord - rect.left) / size;
+            ? 1 - (coord - start) / size
+            : (coord - start) / size;
 
         setFromFraction(Math.max(0, Math.min(1, fraction)));
-        updateOverdrag(coord, rect);
+        updateOverdrag(coord, start, start + size);
         evt.preventDefault();
     }
 

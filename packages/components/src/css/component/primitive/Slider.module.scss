@@ -31,6 +31,8 @@
     cursor: grab;
     outline: 0;
     translate: -50% -50%;
+    // Undo the track's overdrag stretch, so the thumb rides the stretched edge without deforming.
+    transform: scaleX(calc(1 / var(--slider-overdrag-scale, 1)));
 
     @include mixin.focus-ring-transition(2px);
 
@@ -57,6 +59,9 @@
     background-clip: padding-box;
     border-radius: var(--radius-half);
     box-shadow: inset 0 0 0 1px var(--surface-stroke-out);
+    transform: scaleX(var(--slider-overdrag-scale, 1));
+    transform-origin: var(--slider-overdrag-origin, 0% 50%);
+    will-change: transform;
 }
 
 .sliderTrackValue {
@@ -119,12 +124,14 @@
     .sliderTrack {
         height: auto;
         width: 12px;
+        transform: scaleY(var(--slider-overdrag-scale, 1));
     }
 
     .sliderThumb {
         top: auto;
         left: 50%;
         translate: -50% 50%;
+        transform: scaleY(calc(1 / var(--slider-overdrag-scale, 1)));
     }
 
     .sliderTrackValue {
