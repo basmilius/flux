@@ -15,6 +15,7 @@
             color === 'warning' && $style.tableRowWarning
         )"
         role="row"
+        :aria-selected="isSelected"
         :tabindex="tabindex"
         @click="onClick"
         @focusin="onFocusin"

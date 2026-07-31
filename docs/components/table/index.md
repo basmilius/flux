@@ -67,7 +67,40 @@ render=../../code/components/table/preview.vue
 :::
 
 ::: info Accessible loading
-While `is-loading` is set the table exposes `aria-busy` on the underlying `<table>`, so assistive technologies announce that the data is updating.
+While `is-loading` is set the table exposes `aria-busy` on the table element, so assistive technologies announce that the data is updating.
+:::
+
+## Copying data
+
+The table is a CSS grid rather than a `<table>`, and a browser copying a grid of
+elements hands over one line per cell with nothing marking where a row ends. The
+table therefore writes the clipboard itself, tab separated for a spreadsheet and
+as real table markup for anything that reads HTML. What it copies follows how far
+the selection reaches:
+
+- **Across several rows** it copies those rows whole, with the column headers in
+  front of them. A drag ends halfway through its first and last row, which would
+  otherwise copy those two short of the rows in between.
+- **Within one row** it copies the cells that were dragged over, without headers.
+- **Within one cell** it stays out of the way, so dragging over a few words still
+  copies those words.
+
+Two attributes steer what ends up on the clipboard, and both work on any element
+inside the table:
+
+- `data-flux-copy-value` states the value a cell copies instead of the text it
+  renders. [Cell](./cell) takes it as the `copy-value` prop.
+- `data-flux-copy="none"` leaves something out. On a row or a cell it drops that
+  row or cell entirely; inside a cell it only drops that subtree's text, so the
+  cell still copies as an empty column and the columns stay aligned.
+
+The table bar, the filler row and the sort and resize controls carry it already,
+as do the selection and expand columns of the [Data table](../data-table).
+
+::: tip Copying without a selection
+The table instance exposes `copy(rows?)`, which writes the whole table to the
+clipboard, or only the rows that are passed to it. The data table builds its
+selection bar's `copy()` on top of it.
 :::
 
 <FrontmatterDocs/>

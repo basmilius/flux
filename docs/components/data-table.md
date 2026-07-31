@@ -125,6 +125,7 @@ slots:
             selected: (string | number)[]
             count: number
             clear: () => void
+            copy: () => Promise<boolean>
 
     -   name: filter
         description: Renders above the table header, typically a `FluxFilterBar` for filtering the data set.
@@ -210,6 +211,10 @@ render=../code/components/data-table/preview.vue
 
 <FrontmatterDocs/>
 
+::: info Copying the selection
+The `selection` slot binds a `copy()` that writes the selected rows to the clipboard, column headers included, as tab separated text and as table markup a spreadsheet understands. It reads the rendered rows, because only the DOM knows what a column made of an item, so a selection that reaches beyond the current page is copied as far as it is rendered. Give a formatted cell a `copy-value` to have it paste as the value behind it. See [Copying data](./table#copying-data) for what the table leaves out.
+:::
+
 ::: info Server-side pagination
 The data table does **not** paginate `items` internally. The `items` prop should contain only the rows for the currently active page, fetched from your server or API. The `page` and `per-page` props are used to drive the pagination bar and are exposed through slot bindings so you can display them, but the component never slices or filters the `items` array itself.
 :::
@@ -250,6 +255,10 @@ example=../code/components/data-table/selection-single.vue
 
 ::: example Selection toolbar || A bar with bulk actions that takes the place of the filter bar while rows are selected.
 example=../code/components/data-table/selection-toolbar.vue
+:::
+
+::: example Copy the selection || A selection bar that copies the selected rows to the clipboard, with the amounts and dates pasting as their raw values.
+example=../code/components/data-table/selection-copy.vue
 :::
 
 ::: example Sortable columns || A data table whose columns drive a single, coordinated client-side sort.

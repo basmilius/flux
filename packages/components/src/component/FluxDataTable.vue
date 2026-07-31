@@ -12,7 +12,7 @@
             <FluxTableBar v-if="hasSelectionBar">
                 <slot
                     name="selection"
-                    v-bind="{selected: selectedIds, count: selectedCount, clear: clearSelection}"/>
+                    v-bind="{selected: selectedIds, count: selectedCount, clear: clearSelection, copy: copySelection}"/>
             </FluxTableBar>
 
             <slot
@@ -25,7 +25,8 @@
                     v-if="selectionMode"
                     is-shrinking
                     :pinned="leadingPinned ? 'start' : undefined"
-                    :class="$style.tableCellSelection">
+                    :class="$style.tableCellSelection"
+                    data-flux-copy="none">
                     <FluxFormCheckbox
                         v-if="selectionMode === 'multiple'"
                         :model-value="selectAllState"
@@ -36,7 +37,8 @@
                     v-if="hasExpandable"
                     is-shrinking
                     :pinned="leadingPinned ? 'start' : undefined"
-                    :class="$style.tableCellExpand"/>
+                    :class="$style.tableCellExpand"
+                    data-flux-copy="none"/>
 
                 <slot
                     name="header"
@@ -99,7 +101,8 @@
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
                         v-if="selectionMode"
-                        :class="$style.tableCellSelection">
+                        :class="$style.tableCellSelection"
+                        data-flux-copy="none">
                         <FluxFormCheckbox
                             :model-value="rowStates.get(entry.key)?.isSelected"
                             @update:model-value="onSelectRow(entry.item)"/>
@@ -107,7 +110,8 @@
 
                     <FluxTableCell
                         v-if="hasExpandable"
-                        :class="$style.tableCellExpand">
+                        :class="$style.tableCellExpand"
+                        data-flux-copy="none">
                         <FluxTableActions v-if="rowStates.get(entry.key)?.isExpandable">
                             <FluxAction
                                 :class="clsx($style.tableExpandToggle, rowStates.get(entry.key)?.isExpanded && $style.isExpanded)"
@@ -299,6 +303,8 @@
             readonly count: number;
 
             clear(): void;
+
+            copy(): Promise<boolean>;
         }): VNode;
 
         expandable(props: {
@@ -428,7 +434,7 @@
     const collapsedGroupSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(collapsedGroups)));
 
     const rowStates = computed(() => {
-        const states = new Map<SelectionId, { color: FluxColor | undefined; isExpandable: boolean; isExpanded: boolean; isSelected: boolean }>();
+        const states = new Map<SelectionId, { color: FluxColor | undefined; isExpandable: boolean; isExpanded: boolean; isSelected: boolean | undefined }>();
 
         for (const chunk of unref(renderChunks)) {
             for (const entry of chunk.entries) {
@@ -436,7 +442,9 @@
                     color: rowColor?.(entry.item),
                     isExpandable: isRowExpandable(entry.item),
                     isExpanded: isItemExpanded(entry.item),
-                    isSelected: isItemSelected(entry.item)
+                    // Left undefined without a selection mode: the row would otherwise
+                    // report aria-selected="false" and promise a selection that is not there.
+                    isSelected: selectionMode ? isItemSelected(entry.item) : undefined
                 });
             }
         }
@@ -476,6 +484,20 @@
 
     function clearSelection(): void {
         selected.value = selectionMode === 'multiple' ? [] : null;
+    }
+
+    // Reads the rendered rows rather than the items: only the DOM knows what a
+    // column made of an item. A selection reaching beyond the current page is
+    // therefore copied as far as it is rendered.
+    function copySelection(): Promise<boolean> {
+        const tableRef = unref(table);
+        const rows = (tableRef?.$el as HTMLElement | undefined)?.querySelectorAll<HTMLElement>('[role="row"][aria-selected="true"]');
+
+        if (!tableRef || !rows?.length) {
+            return Promise.resolve(false);
+        }
+
+        return tableRef.copy(Array.from(rows));
     }
 
     function getItemId(item: T): SelectionId | undefined {

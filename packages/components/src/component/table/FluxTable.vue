@@ -45,7 +45,8 @@
             <FluxTableRow
                 v-if="isFilled"
                 :class="$style.tableFill"
-                aria-hidden="true">
+                aria-hidden="true"
+                data-flux-copy="none">
                 <FluxTableCell
                     v-for="n of fillCellCount"
                     :key="n"/>
@@ -53,7 +54,8 @@
 
             <FluxTableRow
                 v-if="slots.empty"
-                :class="$style.tableEmptyFill">
+                :class="$style.tableEmptyFill"
+                data-flux-copy="none">
                 <slot name="empty"/>
             </FluxTableRow>
 
@@ -94,7 +96,7 @@
     import { useScrollPosition } from '@basmilius/common';
     import { animationFrameDebounce } from '@basmilius/utils';
     import { computed, onMounted, onScopeDispose, provide, type Ref, ref, shallowReactive, shallowRef, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
-    import { countColumns, getColumnSpan, useTableTree } from '~flux/components/composable/private';
+    import { countColumns, getColumnSpan, useTableClipboard, useTableTree } from '~flux/components/composable/private';
     import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';
     import { subscribeToRootFontSize } from '~flux/components/util';
     import FluxPaneBody from '../FluxPaneBody.vue';
@@ -152,6 +154,7 @@
     const pinnedOffsets = shallowRef(new Map<number, number>());
     const columnRegistrations = shallowReactive(new Set<ColumnRegistration>());
 
+    const {copy} = useTableClipboard(base);
     const {registerTreeNode, treeLines} = useTableTree(bodyRef);
 
     const isScrolledStart = computed(() => x.value > 0);
@@ -485,6 +488,7 @@
     });
 
     defineExpose({
-        columns: sortedColumns
+        columns: sortedColumns,
+        copy
     });
 </script>

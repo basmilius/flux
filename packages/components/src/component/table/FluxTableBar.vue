@@ -1,7 +1,8 @@
 <template>
     <div
         :class="$style.tableRow"
-        role="row">
+        role="row"
+        data-flux-copy="none">
         <div
             :class="$style.tableBar"
             role="cell">
