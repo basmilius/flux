@@ -9,7 +9,8 @@ export { findKanbanSwimlaneTarget, toKanbanCellId, useKanbanLayout, useKanbanLay
 export { default as useMenuFlyout, useMenuFlyoutContext, useMenuFlyoutProvider, type UseMenuFlyoutOptions, type UseMenuFlyoutProviderOptions, type UseMenuFlyoutReturn } from './useMenuFlyout';
 export { MENU_PANE_SELECTOR, onMenuPaneKeydown } from './useMenuPane';
 export { useSplitView, type SplitViewPane, type UseSplitViewOptions, type UseSplitViewReturn } from './useSplitView';
-export { useTableClipboard, type UseTableClipboardReturn } from './useTableClipboard';
+export { useTableCellSelection, type UseTableCellSelectionReturn } from './useTableCellSelection';
+export { useTableClipboard, type UseTableClipboardOptions, type UseTableClipboardReturn } from './useTableClipboard';
 export { countColumns, getColumnSpan, resolveColumnIndex, useTableColumnIndex } from './useTableColumnIndex';
 export { useTableTree, TREE_STEP, TREE_MARKER_SIZE } from './useTableTree';
 export { useTimeline } from './useTimeline';

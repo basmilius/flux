@@ -319,6 +319,7 @@ export type FluxTablePinnedEdges = {
 
 export type FluxTableInjection = {
     readonly activeRow: Ref<HTMLElement | null>;
+    readonly cellRole: Readonly<Ref<'cell' | 'gridcell'>>;
     readonly columns: Readonly<Ref<readonly FluxTableColumnDef[]>>;
     readonly pinnedEdges: Ref<FluxTablePinnedEdges>;
     readonly pinnedOffsets: Ref<Map<number, number>>;

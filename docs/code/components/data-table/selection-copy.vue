@@ -22,7 +22,7 @@
                         <FluxSecondaryButton
                             icon-leading="copy"
                             label="Copy"
-                            @click="onCopy(copy)"/>
+                            @click="copy()"/>
 
                         <FluxSecondaryButton
                             label="Clear"
@@ -63,7 +63,7 @@
 <script
     setup
     lang="ts">
-    import { FluxDataTable, FluxFlex, FluxFlexItem, FluxPane, FluxSecondaryButton, FluxSpacer, FluxTableCell, FluxTableHeader, showSnackbar } from '@flux-ui/components';
+    import { FluxDataTable, FluxFlex, FluxFlexItem, FluxPane, FluxSecondaryButton, FluxSpacer, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { DateTime } from 'luxon';
     import { ref } from 'vue';
 
@@ -84,14 +84,5 @@
 
     function formatDue(due: string): string {
         return DateTime.fromISO(due).toLocaleString(DateTime.DATE_MED);
-    }
-
-    async function onCopy(copy: () => Promise<boolean>): Promise<void> {
-        if (await copy()) {
-            showSnackbar({
-                icon: 'circle-check',
-                message: 'Copied the selected rows to the clipboard.'
-            });
-        }
     }
 </script>

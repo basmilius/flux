@@ -31,6 +31,12 @@ props:
         description: The data to show in the table. This should already be the current page's data. Pagination is handled server-side. Pass the subset of items for the active page here.
         type: T[]
 
+    -   name: is-cell-selectable
+        description: Enables spreadsheet-style cell selection, so a rectangle of cells can be dragged or walked with the arrow keys and copied as a grid. Requires rows that are not interactive, so it cannot be combined with `selection-mode` or a `row-click` listener; doing so logs a warning and leaves the mode off. See the table's own documentation for the keyboard model.
+        type: boolean
+        optional: true
+        default: false
+
     -   name: is-filled
         description: Renders a filler row that stretches to the bottom of the table when the page has fewer items than `per-page`.
         type: boolean

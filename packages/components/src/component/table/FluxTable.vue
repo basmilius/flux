@@ -3,6 +3,7 @@
         ref="base"
         :class="[
             $style.table,
+            isCellSelectable && $style.isCellSelectable,
             isHoverable && $style.isHoverable,
             isSticky && $style.isSticky
         ]"
@@ -10,10 +11,13 @@
         <div
             ref="grid"
             :class="$style.tableBase"
-            role="table"
+            :role="isCellSelectable ? 'grid' : 'table'"
+            :aria-activedescendant="activeCellId"
             :aria-busy="isLoading || undefined"
             :aria-describedby="slots.caption ? captionId : undefined"
+            :aria-multiselectable="isCellSelectable || undefined"
             :aria-rowcount="ariaRowcount"
+            :tabindex="isCellSelectable ? 0 : undefined"
             :style="{gridTemplateRows: resolveGridTemplateRows()}">
             <div
                 v-if="slots.header"
@@ -95,8 +99,8 @@
     setup>
     import { useScrollPosition } from '@basmilius/common';
     import { animationFrameDebounce } from '@basmilius/utils';
-    import { computed, onMounted, onScopeDispose, provide, type Ref, ref, shallowReactive, shallowRef, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
-    import { countColumns, getColumnSpan, useTableClipboard, useTableTree } from '~flux/components/composable/private';
+    import { computed, onMounted, onScopeDispose, provide, type Ref, ref, shallowReactive, shallowRef, toRef, unref, useId, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
+    import { countColumns, getColumnSpan, useTableCellSelection, useTableClipboard, useTableTree } from '~flux/components/composable/private';
     import { type FluxTableColumnDef, FluxTableInjectionKey, type FluxTablePinnedEdges } from '~flux/components/data';
     import { subscribeToRootFontSize } from '~flux/components/util';
     import FluxPaneBody from '../FluxPaneBody.vue';
@@ -112,6 +116,7 @@
 
     const {
         captionSide = 'bottom',
+        isCellSelectable = false,
         isFilled = false,
         isHoverable = false,
         isLoading = false,
@@ -119,6 +124,7 @@
     } = defineProps<{
         readonly ariaRowcount?: number;
         readonly captionSide?: 'top' | 'bottom';
+        readonly isCellSelectable?: boolean;
         readonly isFilled?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
@@ -154,7 +160,10 @@
     const pinnedOffsets = shallowRef(new Map<number, number>());
     const columnRegistrations = shallowReactive(new Set<ColumnRegistration>());
 
-    const {copy} = useTableClipboard(base);
+    const cellRole = computed<'cell' | 'gridcell'>(() => isCellSelectable ? 'gridcell' : 'cell');
+
+    const {activeCellId, clear: clearSelection, getSelectedCells} = useTableCellSelection(gridRef, bodyRef, toRef(() => isCellSelectable));
+    const {copy} = useTableClipboard(base, {getSelectedCells});
     const {registerTreeNode, treeLines} = useTableTree(bodyRef);
 
     const isScrolledStart = computed(() => x.value > 0);
@@ -480,6 +489,7 @@
 
     provide(FluxTableInjectionKey, {
         activeRow,
+        cellRole,
         columns: sortedColumns,
         pinnedEdges,
         pinnedOffsets,
@@ -488,6 +498,7 @@
     });
 
     defineExpose({
+        clearSelection,
         columns: sortedColumns,
         copy
     });

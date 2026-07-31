@@ -2,6 +2,7 @@
     <FluxTable
         ref="table"
         :aria-rowcount="total + 1"
+        :is-cell-selectable="isCellSelectable && !isRowInteractive"
         :is-filled="limitedItems.length !== 0 && isFilled"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
@@ -176,9 +177,10 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
+    import { warn } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
     import FluxTableActions from './table/FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
@@ -231,6 +233,7 @@
         collapseMode = 'unmount',
         expandMode = 'multiple',
         groupBy,
+        isCellSelectable = false,
         isFilled = false,
         isHoverable = false,
         isLoading = false,
@@ -247,6 +250,7 @@
         readonly collapseMode?: 'hide' | 'unmount';
         readonly expandMode?: 'single' | 'multiple';
         readonly groupBy?: (item: T) => SelectionId;
+        readonly isCellSelectable?: boolean;
         readonly isFilled?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
@@ -480,6 +484,14 @@
 
     watch(() => items, () => {
         unref(table)?.$el.scrollTo(0, 0);
+    });
+
+    // Both claim the roving tabindex, Enter and the arrow keys, so cell selection
+    // stands down rather than half-working next to an interactive row.
+    watchEffect(() => {
+        if (isCellSelectable && unref(isRowInteractive)) {
+            warn('FluxDataTable: is-cell-selectable is ignored while the rows are interactive. Remove selection-mode and the row-click listener, or drop is-cell-selectable.');
+        }
     });
 
     function clearSelection(): void {

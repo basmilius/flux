@@ -185,6 +185,56 @@
     }
 }
 
+.table.isCellSelectable .tableBase {
+    outline: 0;
+    user-select: none;
+}
+
+// The selection paints over a pinned cell's own background, which is why these
+// outrank it; the attributes are set imperatively, so nothing here is bound.
+// The outline is four inset shadows instead of a border, which would take the
+// cells off the 3px grid, and instead of an outline, which cannot do one side.
+.table.isCellSelectable .tableBody .tableCell[data-flux-selected] {
+    background: var(--primary-soft);
+    box-shadow: inset 0 2px 0 0 var(--selection-edge-top, transparent),
+                inset -2px 0 0 0 var(--selection-edge-right, transparent),
+                inset 0 -2px 0 0 var(--selection-edge-bottom, transparent),
+                inset 2px 0 0 0 var(--selection-edge-left, transparent);
+    color: var(--primary-text);
+}
+
+.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='top'] {
+    --selection-edge-top: var(--primary-solid);
+}
+
+.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='right'] {
+    --selection-edge-right: var(--primary-solid);
+}
+
+.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='bottom'] {
+    --selection-edge-bottom: var(--primary-solid);
+}
+
+.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='left'] {
+    --selection-edge-left: var(--primary-solid);
+}
+
+// The cell keeps its 1px divider on the sides it did not draw, so only the sides
+// the outline covers lose their color; the width stays, and with it the layout.
+.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='top'] {
+    border-top-color: transparent;
+}
+
+.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='left'] {
+    border-left-color: transparent;
+}
+
+// No focus ring of its own: the block outline appears the moment the table takes
+// focus, and a ring inside it would read as a thicker line rather than a mark.
+.table.isCellSelectable .tableBody .tableCell[data-flux-active] {
+    background: var(--primary-soft-hover);
+}
+
 .tableFoot .tableCell {
     border-top: 1px solid var(--surface-stroke-muted);
 }

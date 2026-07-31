@@ -2,6 +2,10 @@ import { useEventListener } from '@basmilius/common';
 import { type Ref, unref } from 'vue';
 import { getColumnSpan } from './useTableColumnIndex';
 
+export type UseTableClipboardOptions = {
+    getSelectedCells?(): ReadonlySet<HTMLElement>;
+};
+
 export type UseTableClipboardReturn = {
     copy(rows?: readonly HTMLElement[]): Promise<boolean>;
 };
@@ -14,7 +18,7 @@ type CopiedCell = {
     readonly value: string;
 };
 
-const CELL_SELECTOR = '[role="cell"], [role="columnheader"]';
+const CELL_SELECTOR = '[role="cell"], [role="gridcell"], [role="columnheader"]';
 const EXCLUDED_SELECTOR = '[data-flux-copy="none"]';
 const HEADER_SELECTOR = '[role="columnheader"]';
 const ROW_SELECTOR = '[role="row"]';
@@ -107,9 +111,20 @@ function serializeRows(rows: HTMLElement[], isIncluded?: (cell: HTMLElement) => 
         .filter(cells => cells.length > 0));
 }
 
+// A cell selection is already a rectangle, so it is copied as it stands: no header
+// row, and no rounding out of the rows it only partly covers.
+function serializeSelectedCells(baseElement: HTMLElement, cells: ReadonlySet<HTMLElement>): CopiedCell[][] {
+    const rows = collectRows(baseElement).filter(row => Array.from(row.children).some(child => cells.has(child as HTMLElement)));
+
+    return serializeRows(rows, cell => cells.has(cell));
+}
+
+// A row is display: contents, which has no layout box, and checkVisibility() calls
+// anything without a box invisible. Only v-show hides a row, and that writes the
+// inline style this reads.
 function collectRows(baseElement: HTMLElement): HTMLElement[] {
     return Array.from(baseElement.querySelectorAll<HTMLElement>(ROW_SELECTOR))
-        .filter(row => !isExcluded(row) && (row.checkVisibility?.() ?? true));
+        .filter(row => !isExcluded(row) && row.style.display !== 'none');
 }
 
 // Rows pasted without their column names land in a spreadsheet as anonymous
@@ -190,12 +205,31 @@ async function write(rows: CopiedCell[][]): Promise<boolean> {
  * `data-flux-copy="none"` is left out: a whole row or cell when the attribute
  * sits on it, and only that subtree's text when it sits inside a cell.
  */
-export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>): UseTableClipboardReturn {
+export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>, options?: UseTableClipboardOptions): UseTableClipboardReturn {
     useEventListener(base, 'copy', evt => {
         const baseElement = unref(base);
+
+        if (!baseElement || !evt.clipboardData) {
+            return;
+        }
+
+        const cells = options?.getSelectedCells?.();
+
+        if (cells?.size) {
+            const selected = serializeSelectedCells(baseElement, cells);
+
+            if (selected.length > 0) {
+                evt.preventDefault();
+                evt.clipboardData.setData('text/plain', toText(selected));
+                evt.clipboardData.setData('text/html', toHtml(selected));
+            }
+
+            return;
+        }
+
         const selection = window.getSelection();
 
-        if (!baseElement || !evt.clipboardData || !selection || selection.rangeCount === 0 || selection.isCollapsed) {
+        if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
             return;
         }
 
@@ -224,11 +258,35 @@ export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>): UseT
         evt.clipboardData.setData('text/html', toHtml(rows));
     });
 
+    // A cell selection leaves the document selection empty, and a browser fires no
+    // copy event when there is nothing selected, so the shortcut is handled here.
+    // Preventing the default keeps the native copy from running twice.
+    useEventListener(base, 'keydown', evt => {
+        if (!(evt.ctrlKey || evt.metaKey) || evt.key.toLowerCase() !== 'c' || !navigator.clipboard) {
+            return;
+        }
+
+        if (!options?.getSelectedCells?.().size) {
+            return;
+        }
+
+        evt.preventDefault();
+        void copy();
+    });
+
     async function copy(rows?: readonly HTMLElement[]): Promise<boolean> {
         const baseElement = unref(base);
 
         if (!baseElement) {
             return false;
+        }
+
+        // Without rows to copy, a cell selection is what the user pointed at and
+        // outranks the whole table this would otherwise hand over.
+        const cells = rows ? undefined : options?.getSelectedCells?.();
+
+        if (cells?.size) {
+            return write(serializeSelectedCells(baseElement, cells));
         }
 
         const elements = rows ? withHeaderRow(baseElement, rows) : collectRows(baseElement);

@@ -13,6 +13,12 @@ props:
         optional: true
         default: bottom
 
+    -   name: is-cell-selectable
+        description: Enables spreadsheet-style cell selection over the table body, so a rectangle of cells can be dragged with the pointer or walked with the arrow keys and copied as a grid. The table becomes a `grid` for assistive technology and its own tab stop. Cannot be combined with clickable rows, which claim the same keys.
+        type: boolean
+        optional: true
+        default: false
+
     -   name: is-filled
         description: Renders a filler row that stretches to the bottom of the table, so the column dividers reach the bottom on full-height tables.
         type: boolean
@@ -98,9 +104,50 @@ The table bar, the filler row and the sort and resize controls carry it already,
 as do the selection and expand columns of the [Data table](../data-table).
 
 ::: tip Copying without a selection
-The table instance exposes `copy(rows?)`, which writes the whole table to the
-clipboard, or only the rows that are passed to it. The data table builds its
+The table instance exposes `copy(rows?)`, which writes the rows passed to it to
+the clipboard. Called without arguments it copies the current cell selection when
+there is one, and the whole table when there is not. The data table builds its
 selection bar's `copy()` on top of it.
+:::
+
+## Cell selection
+
+`is-cell-selectable` turns the body into a grid of selectable cells, the way a
+spreadsheet behaves: drag a rectangle with the pointer, shift-click to extend it,
+or walk it with the keyboard. The block is outlined as a whole, with the active
+cell held a shade darker inside it.
+
+Copying a rectangle hands over exactly that rectangle, so it pastes into a
+spreadsheet in the shape it was selected. `Ctrl`/`Cmd` + `C` does it, and so does
+the table instance's `copy()` when called without arguments, which is what a copy
+button of your own would reach for.
+
+The table itself becomes the tab stop and names the active cell through
+`aria-activedescendant`, which keeps a table of a thousand cells to one focusable
+element. It reports itself as a `grid` while the mode is on, and its cells as
+`gridcell`.
+
+| Key | Does |
+| --- | --- |
+| `Arrow` keys | Move the active cell |
+| `Shift` + arrow | Extend the rectangle |
+| `Home` / `End` | First or last cell of the row |
+| `Ctrl`/`Cmd` + `Home` / `End` | First or last cell of the table |
+| `Ctrl`/`Cmd` + `A` | Select every cell |
+| `Ctrl`/`Cmd` + `C` | Copy the rectangle |
+| `Escape` | Clear the selection |
+
+The selection is also cleared by clicking outside the table, and by the instance's
+`clearSelection()`. A copy button of your own placed outside the table still works:
+the click is handled before the selection is dropped.
+
+::: warning Not alongside clickable rows
+Clickable rows own the roving tabindex, `Enter`, `Space` and the arrow keys, so
+they cannot share a table with cell selection. On `FluxDataTable` that means no
+`selection-mode` and no `row-click` listener; passing `is-cell-selectable`
+anyway logs a warning and leaves the mode off. Selecting text inside the table is
+off while the mode is on, since a text range and a cell rectangle would fight
+over the same drag.
 :::
 
 <FrontmatterDocs/>
@@ -149,6 +196,10 @@ example=../../code/components/table/spanning.vue
 
 ::: example Spanning rows || A first column whose cell spans every row of its track through `rowspan`.
 example=../../code/components/table/rowspan.vue
+:::
+
+::: example Cell selection || A table whose cells are selected as a rectangle and copied as a grid, with the amounts pasting as their raw values.
+example=../../code/components/table/cell-selection.vue
 :::
 
 ::: example Footer totals || Line items with a footer that sums the amounts across spanning cells.

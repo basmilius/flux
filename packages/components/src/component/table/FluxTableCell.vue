@@ -11,7 +11,7 @@
             pinnedSide === 'end' && $style.isPinnedEnd,
             isPinnedEdge && $style.isPinnedEdge
         )"
-        role="cell"
+        :role="cellRole"
         :aria-colspan="colspan"
         :aria-rowspan="rowspan"
         :data-flux-copy-value="copyValue"
@@ -60,6 +60,7 @@
     const cell = useTemplateRef('cell');
 
     const {
+        cellRole,
         columns,
         pinnedEdges,
         pinnedOffsets
