@@ -14,6 +14,8 @@ A plain [Menu](./) runs a roving focus zone: arrow keys move between its items a
 
 Clicking inside a pane never closes the menu, so the embedded component stays usable while the menu is open.
 
+For a single control on one line next to a label, a [Menu control](./control) is the better fit: it opts out of the focus zone in exactly the same way, but keeps the row aligned with the menu items around it. For a plain on/off setting, use a [Menu toggle](./toggle).
+
 ::: render
 render=../../code/components/menu/pane/preview.vue
 :::
@@ -42,6 +44,6 @@ example=../../code/components/menu/pane/note.vue
 example=../../code/components/menu/pane/filter.vue
 :::
 
-::: example Settings || Several controls in one pane. `Tab` reaches every toggle, and toggling one never closes the menu.
+::: example Form || A small form in one pane. `Tab` reaches every field and the button, and submitting never closes the menu on its own.
 example=../../code/components/menu/pane/settings.vue
 :::

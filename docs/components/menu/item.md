@@ -106,6 +106,11 @@ props:
         type: boolean
         optional: true
 
+    -   name: role
+        description: Overrides the ARIA role of the menu item. Defaults to menuitem, or menuitemradio when is-selectable is enabled. Menu checkbox and Menu toggle use this to render as a menuitemcheckbox.
+        type: string
+        optional: true
+
     -   name: tabindex
         description: The tabindex of the menu item, works exactly the same as html.
         type: [ 'string', 'number' ]

@@ -13,7 +13,7 @@
     setup>
     import { useFocusZone } from '@flux-ui/internals';
     import { computed, inject, provide, toRef, useTemplateRef, type VNode } from 'vue';
-    import { useMenuFlyoutContext } from '~flux/components/composable/private';
+    import { MENU_PANE_SELECTOR, useMenuFlyoutContext } from '~flux/components/composable/private';
     import { FluxFlyoutInjectionKey, FluxMenuPersistentInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/Menu.module.scss';
 
@@ -36,7 +36,7 @@
 
     useFocusZone(elementRef, {
         direction: 'vertical',
-        ignore: '[data-flux-menu-pane]'
+        ignore: MENU_PANE_SELECTOR
     });
 
     const menuFlyout = useMenuFlyoutContext({

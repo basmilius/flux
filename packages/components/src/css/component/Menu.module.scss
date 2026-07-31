@@ -43,6 +43,46 @@
     padding: 9px;
 }
 
+// A control has no hover background of its own, so it lines up with the edge of the one on the items
+// around it rather than with their padding. The label keeps that padding, matching the sub header.
+.menuControl {
+    display: flex;
+    min-height: 42px;
+    padding: 0 0 0 12px;
+    align-items: center;
+    gap: 15px;
+    color: var(--foreground);
+}
+
+.menuControlDisabled {
+    color: var(--foreground-disabled);
+}
+
+.menuControlContent {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+
+    &:only-child {
+        flex-grow: 1;
+    }
+}
+
+.menuControlFill {
+    .menuControlLabel {
+        flex-grow: 0;
+    }
+
+    .menuControlContent {
+        flex-grow: 1;
+
+        > * {
+            min-width: 0;
+            flex-grow: 1;
+        }
+    }
+}
+
 .menuItem {
     composes: button from './base/Button.module.scss';
 
@@ -84,6 +124,14 @@
         margin-inline: 0;
         min-width: unset;
     }
+}
+
+.menuControlIcon {
+    composes: menuItemIcon;
+}
+
+.menuControlLabel {
+    composes: menuItemLabel;
 }
 
 .menuItemActive {
@@ -138,7 +186,8 @@
     margin-left: 33px;
 }
 
-.menuConeActive .menuItem {
+.menuConeActive .menuItem,
+.menuConeActive .menuControl {
     pointer-events: none;
 }
 
@@ -285,6 +334,11 @@
 
 .menuItem + .menuSubHeader {
     margin-top: 9px;
+}
+
+.menuLarge .menuControl {
+    min-height: 48px;
+    padding-left: 15px;
 }
 
 .menuLarge .menuItem {

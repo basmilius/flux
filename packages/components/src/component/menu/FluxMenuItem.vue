@@ -5,7 +5,7 @@
         :css-class-icon="$style.menuItemIcon"
         :css-class-label="$style.menuItemLabel"
         is-filled
-        :role="isSelectable ? 'menuitemradio' : 'menuitem'"
+        :role="role ?? (isSelectable ? 'menuitemradio' : 'menuitem')"
         :class="{
             [$style.menuItemActive]: isActive,
             [$style.menuItemDestructive]: isDestructive,
@@ -94,6 +94,7 @@
         readonly isPersistent?: boolean;
         readonly isSelectable?: boolean;
         readonly isSelected?: boolean;
+        readonly role?: string;
     }>();
 
     const slots = defineSlots<{

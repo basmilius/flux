@@ -1,5 +1,5 @@
 import { animationFrameDebounce } from '@basmilius/utils';
-import { isSSR } from '@flux-ui/internals';
+import { getFocusableElements, isSSR } from '@flux-ui/internals';
 import { type ComponentPublicInstance, inject, nextTick, onMounted, onUnmounted, provide, ref, type Ref, watch } from 'vue';
 import { type FluxMenuFlyoutCone, type FluxMenuFlyoutEntry, type FluxMenuFlyoutInjection, FluxMenuFlyoutInjectionKey, type FluxMenuFlyoutPointer } from '~flux/components/data';
 
@@ -450,7 +450,7 @@ export default function useMenuFlyout(options: UseMenuFlyoutOptions): UseMenuFly
             return;
         }
 
-        const focusable = popup.querySelector<HTMLElement>('[tabindex="0"]') ?? popup.querySelector<HTMLElement>('a[href], button:not([disabled])');
+        const focusable = popup.querySelector<HTMLElement>('[tabindex="0"]') ?? getFocusableElements(popup)[0];
         focusable?.focus();
     }
 

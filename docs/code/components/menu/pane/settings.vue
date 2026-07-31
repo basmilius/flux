@@ -7,19 +7,22 @@
                     label="Account"/>
 
                 <FluxMenuFlyout
-                    icon="bell"
-                    label="Notifications">
+                    icon="paper-plane"
+                    label="Send feedback">
                     <FluxMenu>
                         <FluxMenuPane>
-                            <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
-                                Email
-                                <FluxToggle v-model="email"/>
-                            </label>
+                            <FluxFormInput
+                                v-model="subject"
+                                placeholder="Subject"/>
 
-                            <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
-                                Push
-                                <FluxToggle v-model="push"/>
-                            </label>
+                            <FluxFormTextArea
+                                v-model="message"
+                                placeholder="What happened?"
+                                :rows="3"/>
+
+                            <FluxPrimaryButton
+                                label="Send"
+                                @click="send"/>
                         </FluxMenuPane>
                     </FluxMenu>
                 </FluxMenuFlyout>
@@ -31,9 +34,14 @@
 <script
     lang="ts"
     setup>
-    import { FluxMenu, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuPane, FluxPane, FluxToggle } from '@flux-ui/components';
+    import { FluxFormInput, FluxFormTextArea, FluxMenu, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuPane, FluxPane, FluxPrimaryButton } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const email = ref(true);
-    const push = ref(false);
+    const subject = ref('');
+    const message = ref('');
+
+    function send(): void {
+        subject.value = '';
+        message.value = '';
+    }
 </script>

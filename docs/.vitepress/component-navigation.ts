@@ -180,14 +180,17 @@ const navigation: SidebarItem[] = [
                 link: '/components/menu/',
                 collapsed: true,
                 items: [
+                    {text: 'Checkbox', link: '/components/menu/checkbox'},
                     {text: 'Collapsible', link: '/components/menu/collapsible'},
+                    {text: 'Control', link: '/components/menu/control'},
                     {text: 'Flyout', link: '/components/menu/flyout'},
                     {text: 'Group', link: '/components/menu/group'},
                     {text: 'Item', link: '/components/menu/item'},
                     {text: 'Options', link: '/components/menu/options'},
                     {text: 'Pane', link: '/components/menu/pane'},
                     {text: 'Sub header', link: '/components/menu/sub-header'},
-                    {text: 'Title', link: '/components/menu/title'}
+                    {text: 'Title', link: '/components/menu/title'},
+                    {text: 'Toggle', link: '/components/menu/toggle'}
                 ]
             },
             {

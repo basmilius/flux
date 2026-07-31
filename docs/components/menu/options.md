@@ -59,6 +59,10 @@ example=../../code/components/menu/options/option.vue
 example=../../code/components/menu/options/persistent.vue
 :::
 
+::: example Radios || With mode="select" every item is a menuitemradio and the selected one shows a checkmark, which is the menu equivalent of a radio group. For the same choice as a compact control, put a [Segmented control](../segmented-control/) in a [Menu control](./control) instead.
+example=../../code/components/menu/options/theme.vue
+:::
+
 ## Used components
 
 - [Button](../button)

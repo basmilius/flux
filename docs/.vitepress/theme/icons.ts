@@ -106,6 +106,8 @@ export {
     faRotate,
     faHardDrive,
     faSun,
+    faSunBright,
+    faCircleHalfStroke,
     faMoon,
     faMapLocation,
     faTruck,
