@@ -2,7 +2,7 @@ import { useEventListener, useMutationObserver } from '@basmilius/common';
 import { clamp } from '@basmilius/utils';
 import { isSSR } from '@flux-ui/internals';
 import { type Ref, ref, unref, useId, watch } from 'vue';
-import { CELL_SELECTOR, getColumnSpan, getRowSpan, HEADER_SELECTOR, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
+import { ANY_CELL_SELECTOR, getColumnSpan, getRowSpan, HEADER_SELECTOR, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
 
 export type UseTableCellSelectionReturn = {
     readonly activeCellId: Readonly<Ref<string | undefined>>;
@@ -36,7 +36,6 @@ type Position = {
 };
 
 const ACTIVE_ATTRIBUTE = 'data-flux-active';
-const ANY_CELL_SELECTOR = `${CELL_SELECTOR}, ${HEADER_SELECTOR}`;
 const EXCLUDED_SELECTOR = '[data-flux-copy="none"]';
 const SELECTED_ATTRIBUTE = 'data-flux-selected';
 
@@ -251,22 +250,35 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, i
         return element ? map.positions.get(element) ?? null : null;
     }
 
+    // A row covering fewer columns than the widest one leaves the grid with holes,
+    // and landing in one would drop both the outline and aria-activedescendant, so
+    // the nearest cell to the left is taken instead.
+    function selectAt(row: number, column: number, isExtending: boolean): void {
+        for (let candidate = column; candidate >= 0; candidate--) {
+            if (map.at.has(toKey(row, candidate))) {
+                select({column: candidate, row}, isExtending);
+                return;
+            }
+        }
+    }
+
     function moveBy(rowDelta: number, columnDelta: number, isExtending: boolean): void {
         const current = focus ?? anchor;
 
         if (!current) {
-            select({column: 0, row: 0}, false);
+            selectAt(0, 0, false);
             return;
         }
 
-        select({
-            column: clamp(current.column + columnDelta, 0, Math.max(map.columnCount - 1, 0)),
-            row: clamp(current.row + rowDelta, 0, Math.max(map.rowCount - 1, 0))
-        }, isExtending);
+        selectAt(
+            clamp(current.row + rowDelta, 0, Math.max(map.rowCount - 1, 0)),
+            clamp(current.column + columnDelta, 0, Math.max(map.columnCount - 1, 0)),
+            isExtending
+        );
     }
 
     function selectLastCell(isExtending: boolean): void {
-        select({column: Math.max(map.columnCount - 1, 0), row: Math.max(map.rowCount - 1, 0)}, isExtending);
+        selectAt(Math.max(map.rowCount - 1, 0), Math.max(map.columnCount - 1, 0), isExtending);
     }
 
     // A header claims its whole column, itself included, so the block a spreadsheet
@@ -325,6 +337,13 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, i
             return;
         }
 
+        // Pointer capture is optional, and without it a pointerup outside the table
+        // never reaches the grid, leaving the drag extending with no button held.
+        if (evt.buttons === 0 || !unref(isEnabled)) {
+            isDragging = false;
+            return;
+        }
+
         const position = resolvePosition(document.elementFromPoint(evt.clientX, evt.clientY));
 
         if (!position) {
@@ -345,7 +364,13 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, i
 
         const isModified = evt.ctrlKey || evt.metaKey;
 
+        // Only when there is something to clear: a table inside a dialog would
+        // otherwise swallow the Escape that closes it.
         if (evt.key === 'Escape') {
+            if (!anchor && !focus) {
+                return;
+            }
+
             evt.preventDefault();
             clear();
             return;
@@ -439,7 +464,7 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, i
         }
 
         refresh();
-        select({column: 0, row: map.firstDataRow}, false);
+        selectAt(map.firstDataRow, 0, false);
     });
 
     useEventListener(grid, 'pointerdown', onPointerDown);
@@ -451,6 +476,7 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, i
 
     watch(isEnabled, enabled => {
         if (!enabled) {
+            isDragging = false;
             clear();
         }
     });

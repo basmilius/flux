@@ -218,7 +218,7 @@ render=../code/components/data-table/preview.vue
 <FrontmatterDocs/>
 
 ::: info Copying the selection
-The `selection` slot binds a `copy()` that writes the selected rows to the clipboard, column headers included, as tab separated text and as table markup a spreadsheet understands. It reads the rendered rows, because only the DOM knows what a column made of an item, so a selection that reaches beyond the current page is copied as far as it is rendered. Give a formatted cell a `copy-value` to have it paste as the value behind it. See [Copying data](./table#copying-data) for what the table leaves out.
+The `selection` slot binds a `copy()` that writes the selected rows to the clipboard, column headers included, as tab-separated text and as table markup a spreadsheet understands. It reads the rendered rows, because only the DOM knows what a column made of an item, so a selection that reaches beyond the current page is copied as far as it is rendered. Give a formatted cell a `copy-value` to have it paste as the value behind it. See [Copying data](./table#copying-data) for what the table leaves out.
 :::
 
 ::: info Server-side pagination

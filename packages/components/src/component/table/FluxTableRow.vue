@@ -31,7 +31,7 @@
     import { clsx } from 'clsx';
     import { computed, onUnmounted, useTemplateRef, type VNode, watch } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
-    import { CELL_SELECTOR, HEADER_SELECTOR, INTERACTIVE_SELECTOR, resolveColumnIndex } from '~flux/components/composable/private';
+    import { ANY_CELL_SELECTOR, INTERACTIVE_SELECTOR, resolveColumnIndex } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/Table.module.scss';
 
     const emit = defineEmits<{
@@ -98,7 +98,7 @@
             return;
         }
 
-        const cell = target?.closest(`${CELL_SELECTOR}, ${HEADER_SELECTOR}`);
+        const cell = target?.closest(ANY_CELL_SELECTOR);
 
         emit('rowClick', resolveColumnIndex(cell), event);
     }

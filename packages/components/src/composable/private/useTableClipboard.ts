@@ -1,6 +1,6 @@
 import { useEventListener } from '@basmilius/common';
 import { type Ref, unref } from 'vue';
-import { CELL_SELECTOR, getColumnSpan, getRowSpan, HEADER_SELECTOR, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
+import { ANY_CELL_SELECTOR, getColumnSpan, getRowSpan, HEADER_SELECTOR, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
 
 export type UseTableClipboardOptions = {
     getSelectedCells?(): ReadonlySet<HTMLElement>;
@@ -24,7 +24,6 @@ type CopiedRow = {
     readonly isFullWidth: boolean;
 };
 
-const ANY_CELL_SELECTOR = `${CELL_SELECTOR}, ${HEADER_SELECTOR}`;
 const EXCLUDED_SELECTOR = '[data-flux-copy="none"]';
 const VALUE_ATTRIBUTE = 'data-flux-copy-value';
 
@@ -71,8 +70,20 @@ function readValue(cell: HTMLElement): string {
     const parts: string[] = [];
 
     while (walker.nextNode()) {
-        if (walker.currentNode.nodeType === Node.TEXT_NODE) {
-            parts.push(walker.currentNode.nodeValue ?? '');
+        const node = walker.currentNode;
+
+        if (node.nodeType === Node.TEXT_NODE) {
+            parts.push(node.nodeValue ?? '');
+            continue;
+        }
+
+        // innerText breaks the line between two block boxes, and this path has to
+        // agree with it or the same cell copies differently once it holds an
+        // excluded subtree.
+        const {display} = getComputedStyle(node as HTMLElement);
+
+        if (display !== 'contents' && !display.startsWith('inline')) {
+            parts.push(' ');
         }
     }
 
@@ -102,7 +113,7 @@ function normalize(rows: CopiedRow[]): CopiedRow[] {
         .filter(row => !row.isFullWidth)
         .map(row => row.cells.reduce((total, cell) => total + cell.colspan, 0)));
 
-    return rows.map(row => row.isFullWidth ? {...row, cells: [{...row.cells[0], colspan: width}]} : row);
+    return rows.map(row => row.isFullWidth && row.cells.length > 0 ? {...row, cells: [{...row.cells[0], colspan: width}]} : row);
 }
 
 function collectRows(baseElement: HTMLElement): HTMLElement[] {
@@ -195,25 +206,31 @@ function toHtml(rows: CopiedRow[]): string {
 }
 
 async function write(rows: CopiedRow[]): Promise<boolean> {
-    if (rows.length === 0 || !navigator.clipboard) {
+    if (rows.length === 0 || !navigator.clipboard || typeof ClipboardItem === 'undefined') {
         return false;
     }
 
-    await navigator.clipboard.write([
-        new ClipboardItem({
-            'text/html': new Blob([toHtml(rows)], {type: 'text/html'}),
-            'text/plain': new Blob([toText(rows)], {type: 'text/plain'})
-        })
-    ]);
+    // The shortcut copies without awaiting, so a denied permission has to come back
+    // as false rather than as an unhandled rejection.
+    try {
+        await navigator.clipboard.write([
+            new ClipboardItem({
+                'text/html': new Blob([toHtml(rows)], {type: 'text/html'}),
+                'text/plain': new Blob([toText(rows)], {type: 'text/plain'})
+            })
+        ]);
 
-    return true;
+        return true;
+    } catch {
+        return false;
+    }
 }
 
 /**
  * Rebuilds the clipboard from the cells of a table. A grid of divs serializes as
  * one line per cell with nothing marking where a row ends, so a spreadsheet
  * receives a single column; both clipboard flavors are therefore written from the
- * table structure instead, tab separated and as real table markup.
+ * table structure instead, tab-separated and as real table markup.
  *
  * A cell states its own value with `data-flux-copy-value`. Anything carrying
  * `data-flux-copy="none"` is left out: a whole row or cell when the attribute sits

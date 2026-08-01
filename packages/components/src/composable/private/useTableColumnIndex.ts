@@ -3,6 +3,7 @@ import type { FluxTableColumnDef } from '~flux/components/data';
 
 export const CELL_SELECTOR = '[role="cell"], [role="gridcell"]';
 export const HEADER_SELECTOR = '[role="columnheader"]';
+export const ANY_CELL_SELECTOR = `${CELL_SELECTOR}, ${HEADER_SELECTOR}`;
 export const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role="button"]';
 export const ROW_SELECTOR = '[role="row"]';
 

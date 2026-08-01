@@ -489,7 +489,7 @@
     });
 
     watchEffect(() => {
-        if (isCellSelectable && unref(isRowInteractive)) {
+        if (import.meta.env.DEV && isCellSelectable && unref(isRowInteractive)) {
             warn('FluxDataTable: is-cell-selectable is ignored while the rows are interactive. Remove selection-mode and the row-click listener, or drop is-cell-selectable.');
         }
     });

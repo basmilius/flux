@@ -80,7 +80,7 @@ While `is-loading` is set the table exposes `aria-busy` on the table element, so
 
 The table is a CSS grid rather than a `<table>`, and a browser copying a grid of
 elements hands over one line per cell with nothing marking where a row ends. The
-table therefore writes the clipboard itself, tab separated for a spreadsheet and
+table therefore writes the clipboard itself, tab-separated for a spreadsheet and
 as real table markup for anything that reads HTML. What it copies follows how far
 the selection reaches:
 
