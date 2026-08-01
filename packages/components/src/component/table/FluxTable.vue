@@ -162,8 +162,8 @@
 
     const cellRole = computed<'cell' | 'gridcell'>(() => isCellSelectable ? 'gridcell' : 'cell');
 
-    const {activeCellId, clear: clearSelection, getSelectedCells} = useTableCellSelection(gridRef, bodyRef, toRef(() => isCellSelectable));
-    const {copy} = useTableClipboard(base, {getSelectedCells});
+    const {activeCellId, clear: clearSelection, getSelectedCells, getSelectedHeaders} = useTableCellSelection(gridRef, toRef(() => isCellSelectable));
+    const {copy} = useTableClipboard(base, {getSelectedCells, getSelectedHeaders});
     const {registerTreeNode, treeLines} = useTableTree(bodyRef);
 
     const isScrolledStart = computed(() => x.value > 0);

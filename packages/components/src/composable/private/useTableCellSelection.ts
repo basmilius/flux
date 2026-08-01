@@ -2,7 +2,7 @@ import { useEventListener, useMutationObserver } from '@basmilius/common';
 import { clamp } from '@basmilius/utils';
 import { isSSR } from '@flux-ui/internals';
 import { type Ref, ref, unref, useId, watch } from 'vue';
-import { CELL_SELECTOR, getColumnSpan, getRowSpan, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
+import { CELL_SELECTOR, getColumnSpan, getRowSpan, HEADER_SELECTOR, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
 
 export type UseTableCellSelectionReturn = {
     readonly activeCellId: Readonly<Ref<string | undefined>>;
@@ -10,6 +10,8 @@ export type UseTableCellSelectionReturn = {
     clear(): void;
 
     getSelectedCells(): ReadonlySet<HTMLElement>;
+
+    getSelectedHeaders(): HTMLElement[];
 };
 
 type GridCell = {
@@ -23,6 +25,7 @@ type GridCell = {
 type Grid = {
     readonly at: ReadonlyMap<string, GridCell>;
     readonly columnCount: number;
+    readonly firstDataRow: number;
     readonly positions: ReadonlyMap<HTMLElement, Position>;
     readonly rowCount: number;
 };
@@ -33,29 +36,40 @@ type Position = {
 };
 
 const ACTIVE_ATTRIBUTE = 'data-flux-active';
+const ANY_CELL_SELECTOR = `${CELL_SELECTOR}, ${HEADER_SELECTOR}`;
+const EXCLUDED_SELECTOR = '[data-flux-copy="none"]';
 const SELECTED_ATTRIBUTE = 'data-flux-selected';
 
-const EMPTY_GRID: Grid = {at: new Map(), columnCount: 0, positions: new Map(), rowCount: 0};
+const EMPTY_GRID: Grid = {at: new Map(), columnCount: 0, firstDataRow: 0, positions: new Map(), rowCount: 0};
 
 function toKey(row: number, column: number): string {
     return `${row}:${column}`;
 }
 
+// The header row is row 0 of the grid, which is what makes a click on a header
+// mean "this column, header included" rather than a case of its own.
 function buildGrid(container: HTMLElement | null): Grid {
     if (!container) {
         return EMPTY_GRID;
     }
 
-    const rows = Array.from(container.querySelectorAll<HTMLElement>(ROW_SELECTOR)).filter(isVisibleRow);
+    const rows = Array.from(container.querySelectorAll<HTMLElement>(ROW_SELECTOR))
+        .filter(row => isVisibleRow(row) && !row.matches(EXCLUDED_SELECTOR));
+
     const at = new Map<string, GridCell>();
     const positions = new Map<HTMLElement, Position>();
     let columnCount = 0;
+    let firstDataRow = 0;
 
     rows.forEach((row, rowIndex) => {
         let column = 0;
 
+        if (row.querySelector(HEADER_SELECTOR)) {
+            firstDataRow = rowIndex + 1;
+        }
+
         for (const child of row.children) {
-            if (!child.matches(CELL_SELECTOR)) {
+            if (!child.matches(ANY_CELL_SELECTOR) || child.matches(EXCLUDED_SELECTOR)) {
                 continue;
             }
 
@@ -86,7 +100,7 @@ function buildGrid(container: HTMLElement | null): Grid {
         columnCount = Math.max(columnCount, column);
     });
 
-    return {at, columnCount, positions, rowCount: rows.length};
+    return {at, columnCount, firstDataRow, positions, rowCount: rows.length};
 }
 
 /**
@@ -99,7 +113,7 @@ function buildGrid(container: HTMLElement | null): Grid {
  * rendering it, so extending it by one column touches the cells that changed
  * instead of patching every row through Vue.
  */
-export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, container: Readonly<Ref<HTMLElement | null>>, isEnabled: Readonly<Ref<boolean>>): UseTableCellSelectionReturn {
+export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, isEnabled: Readonly<Ref<boolean>>): UseTableCellSelectionReturn {
     const activeCellId = ref<string | undefined>();
     const idPrefix = useId();
 
@@ -110,11 +124,12 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
     let painted = new Map<HTMLElement, string>();
     let activeCell: HTMLElement | null = null;
     let isDragging = false;
+    let isColumnDrag = false;
     let idCounter = 0;
 
     function refresh(): void {
         if (isMapStale) {
-            map = buildGrid(unref(container));
+            map = buildGrid(unref(grid));
             isMapStale = false;
         }
     }
@@ -231,7 +246,7 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
     }
 
     function resolvePosition(target: Element | null): Position | null {
-        const element = target?.closest(CELL_SELECTOR) as HTMLElement | null;
+        const element = target?.closest(ANY_CELL_SELECTOR) as HTMLElement | null;
 
         return element ? map.positions.get(element) ?? null : null;
     }
@@ -252,6 +267,16 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
 
     function selectLastCell(isExtending: boolean): void {
         select({column: Math.max(map.columnCount - 1, 0), row: Math.max(map.rowCount - 1, 0)}, isExtending);
+    }
+
+    // A header claims its whole column, itself included, so the block a spreadsheet
+    // gives you for a column click is the block that gets copied.
+    function selectColumn(column: number, isExtending: boolean): void {
+        anchor = {column: isExtending && anchor ? anchor.column : column, row: 0};
+        focus = {column, row: Math.max(map.rowCount - 1, 0)};
+
+        paint();
+        markActive({column, row: 0});
     }
 
     function onPointerDown(evt: PointerEvent): void {
@@ -285,7 +310,14 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
         // The table is the tab stop, so the pointer must not hand focus to a cell,
         // and must not start a text selection the cell rectangle would fight with.
         evt.preventDefault();
-        select(position, evt.shiftKey);
+
+        isColumnDrag = !!target?.closest(HEADER_SELECTOR);
+
+        if (isColumnDrag) {
+            selectColumn(position.column, evt.shiftKey);
+        } else {
+            select(position, evt.shiftKey);
+        }
     }
 
     function onPointerMove(evt: PointerEvent): void {
@@ -295,7 +327,13 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
 
         const position = resolvePosition(document.elementFromPoint(evt.clientX, evt.clientY));
 
-        if (position) {
+        if (!position) {
+            return;
+        }
+
+        if (isColumnDrag) {
+            selectColumn(position.column, true);
+        } else {
             select(position, true);
         }
     }
@@ -368,7 +406,7 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
     // Rows the table replaces leave the selection holding detached elements, which
     // would copy nothing and point aria-activedescendant at an id that is gone. Only
     // rows count: a cell rerendering its own text leaves the map intact.
-    useMutationObserver(container, mutations => {
+    useMutationObserver(grid, mutations => {
         if (!mutations.some(mutation => holdsRow(mutation.addedNodes) || holdsRow(mutation.removedNodes))) {
             return;
         }
@@ -401,7 +439,7 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
         }
 
         refresh();
-        select({column: 0, row: 0}, false);
+        select({column: 0, row: map.firstDataRow}, false);
     });
 
     useEventListener(grid, 'pointerdown', onPointerDown);
@@ -417,9 +455,37 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
         }
     });
 
+    // A rectangle taken from the body pastes as anonymous values, so the columns it
+    // covers hand over their headers too. Not when the selection holds them already,
+    // and not within a single row, which mirrors what a text selection copies.
+    function getSelectedHeaders(): HTMLElement[] {
+        if (!anchor || !focus) {
+            return [];
+        }
+
+        const rowStart = Math.min(anchor.row, focus.row);
+
+        if (rowStart < map.firstDataRow || rowStart === Math.max(anchor.row, focus.row)) {
+            return [];
+        }
+
+        const headers: HTMLElement[] = [];
+
+        for (let column = Math.min(anchor.column, focus.column); column <= Math.max(anchor.column, focus.column); column++) {
+            const header = map.at.get(toKey(0, column))?.element;
+
+            if (header?.matches(HEADER_SELECTOR) && !headers.includes(header)) {
+                headers.push(header);
+            }
+        }
+
+        return headers;
+    }
+
     return {
         activeCellId,
         clear,
+        getSelectedHeaders,
 
         getSelectedCells: () => new Set(painted.keys())
     };

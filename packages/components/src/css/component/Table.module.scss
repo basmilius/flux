@@ -191,9 +191,15 @@
     user-select: none;
 }
 
+// The sort button and the resize grip keep their own cursor, so only the header's
+// own surface offers the column.
+.table.isCellSelectable .tableHeader {
+    cursor: cell;
+}
+
 // Four inset shadows rather than a border, which would take the cells off the 3px
 // grid, and rather than an outline, which cannot draw a single side.
-.table.isCellSelectable .tableBody .tableCell[data-flux-selected] {
+.table.isCellSelectable .tableCell[data-flux-selected] {
     background: var(--primary-soft);
     box-shadow: inset 0 2px 0 0 var(--selection-edge-top, transparent),
                 inset -2px 0 0 0 var(--selection-edge-right, transparent),
@@ -204,29 +210,29 @@
 
 // The divider only loses its color where the outline covers it; the width stays,
 // and with it the layout.
-.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='top'] {
+.table.isCellSelectable .tableCell[data-flux-selected~='top'] {
     --selection-edge-top: var(--primary-solid);
 
     border-top-color: transparent;
 }
 
-.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='left'] {
+.table.isCellSelectable .tableCell[data-flux-selected~='left'] {
     --selection-edge-left: var(--primary-solid);
 
     border-left-color: transparent;
 }
 
-.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='right'] {
+.table.isCellSelectable .tableCell[data-flux-selected~='right'] {
     --selection-edge-right: var(--primary-solid);
 }
 
-.table.isCellSelectable .tableBody .tableCell[data-flux-selected~='bottom'] {
+.table.isCellSelectable .tableCell[data-flux-selected~='bottom'] {
     --selection-edge-bottom: var(--primary-solid);
 }
 
 // No focus ring of its own: the block outline appears the moment the table takes
 // focus, and a ring inside it would read as a thicker line.
-.table.isCellSelectable .tableBody .tableCell[data-flux-active] {
+.table.isCellSelectable .tableCell[data-flux-active] {
     background: var(--primary-soft-hover);
 }
 

@@ -4,6 +4,8 @@ import { CELL_SELECTOR, getColumnSpan, getRowSpan, HEADER_SELECTOR, INTERACTIVE_
 
 export type UseTableClipboardOptions = {
     getSelectedCells?(): ReadonlySet<HTMLElement>;
+
+    getSelectedHeaders?(): HTMLElement[];
 };
 
 export type UseTableClipboardReturn = {
@@ -114,10 +116,15 @@ function serializeRows(rows: HTMLElement[], isIncluded?: (cell: HTMLElement) => 
         .filter(row => row.cells.length > 0));
 }
 
-function serializeSelectedCells(baseElement: HTMLElement, cells: ReadonlySet<HTMLElement>): CopiedRow[] {
+function serializeSelectedCells(baseElement: HTMLElement, cells: ReadonlySet<HTMLElement>, headers: HTMLElement[]): CopiedRow[] {
     const rows = collectRows(baseElement).filter(row => Array.from(row.children).some(child => cells.has(child as HTMLElement)));
+    const headerRow = headers[0]?.parentElement;
 
-    return serializeRows(rows, cell => cells.has(cell));
+    if (headerRow) {
+        rows.unshift(headerRow as HTMLElement);
+    }
+
+    return serializeRows(rows, cell => cells.has(cell) || headers.includes(cell));
 }
 
 function withHeaderRow(baseElement: HTMLElement, rows: readonly HTMLElement[]): HTMLElement[] {
@@ -240,7 +247,7 @@ export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>, optio
         const cells = options?.getSelectedCells?.();
 
         if (cells?.size) {
-            const selected = serializeSelectedCells(baseElement, cells);
+            const selected = serializeSelectedCells(baseElement, cells, options?.getSelectedHeaders?.() ?? []);
 
             if (selected.length > 0) {
                 evt.preventDefault();
@@ -289,7 +296,7 @@ export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>, optio
         const cells = rows ? undefined : options?.getSelectedCells?.();
 
         if (cells?.size) {
-            return write(serializeSelectedCells(baseElement, cells));
+            return write(serializeSelectedCells(baseElement, cells, options?.getSelectedHeaders?.() ?? []));
         }
 
         return write(serializeRows(rows ? withHeaderRow(baseElement, rows) : collectRows(baseElement)));

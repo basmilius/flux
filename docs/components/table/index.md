@@ -117,10 +117,16 @@ spreadsheet behaves: drag a rectangle with the pointer, shift-click to extend it
 or walk it with the keyboard. The block is outlined as a whole, with the active
 cell held a shade darker inside it.
 
+The column headers are part of the grid, so clicking one selects that whole
+column, header included, and shift-clicking a second extends it to a range of
+columns. The sort button and the resize grip keep their own behavior.
+
 Copying a rectangle hands over exactly that rectangle, so it pastes into a
 spreadsheet in the shape it was selected. `Ctrl`/`Cmd` + `C` does it, and so does
 the table instance's `copy()` when called without arguments, which is what a copy
-button of your own would reach for.
+button of your own would reach for. A rectangle taken from the body brings the
+headers of the columns it covers along, unless it already holds them or stays
+within a single row.
 
 The table itself becomes the tab stop and names the active cell through
 `aria-activedescendant`, which keeps a table of a thousand cells to one focusable
@@ -136,6 +142,9 @@ element. It reports itself as a `grid` while the mode is on, and its cells as
 | `Ctrl`/`Cmd` + `A` | Select every cell |
 | `Ctrl`/`Cmd` + `C` | Copy the rectangle |
 | `Escape` | Clear the selection |
+
+`Ctrl`/`Cmd` + `A` and `Ctrl`/`Cmd` + `Home` reach the header row too, since it is
+row one of the grid. Tabbing in lands on the first data cell rather than a header.
 
 The selection is also cleared by clicking outside the table, and by the instance's
 `clearSelection()`. A copy button of your own placed outside the table still works:
