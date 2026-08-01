@@ -2,7 +2,7 @@
     <FluxTable
         ref="table"
         :aria-rowcount="total + 1"
-        :is-cell-selectable="isCellSelectable && !isRowInteractive"
+        :is-cell-selectable="hasCellSelection"
         :is-filled="limitedItems.length !== 0 && isFilled"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
@@ -163,7 +163,7 @@
             #empty>
             <div
                 :class="$style.tableCellBase"
-                role="cell"
+                :role="cellRole"
                 :style="{gridColumn: '1 / -1'}">
                 <slot name="empty">
                     <div :class="$style.tableEmpty">{{ translate('flux.noItems') }}</div>
@@ -346,6 +346,8 @@
 
     const hasRowClickListener = computed(() => !!instance?.vnode?.props?.onRowClick);
     const isRowInteractive = computed(() => (!!selectionMode && !unref(treeDisabled)) || unref(hasRowClickListener));
+    const hasCellSelection = computed(() => isCellSelectable && !unref(isRowInteractive));
+    const cellRole = computed(() => unref(hasCellSelection) ? 'gridcell' : 'cell');
 
     const limitedItems = computed(() => items.slice(0, perPage));
 
@@ -486,8 +488,6 @@
         unref(table)?.$el.scrollTo(0, 0);
     });
 
-    // Both claim the roving tabindex, Enter and the arrow keys, so cell selection
-    // stands down rather than half-working next to an interactive row.
     watchEffect(() => {
         if (isCellSelectable && unref(isRowInteractive)) {
             warn('FluxDataTable: is-cell-selectable is ignored while the rows are interactive. Remove selection-mode and the row-click listener, or drop is-cell-selectable.');
@@ -499,17 +499,13 @@
     }
 
     // Reads the rendered rows rather than the items: only the DOM knows what a
-    // column made of an item. A selection reaching beyond the current page is
-    // therefore copied as far as it is rendered.
+    // column made of an item, so a selection beyond the current page is copied as
+    // far as it is rendered.
     function copySelection(): Promise<boolean> {
         const tableRef = unref(table);
         const rows = (tableRef?.$el as HTMLElement | undefined)?.querySelectorAll<HTMLElement>('[role="row"][aria-selected="true"]');
 
-        if (!tableRef || !rows?.length) {
-            return Promise.resolve(false);
-        }
-
-        return tableRef.copy(Array.from(rows));
+        return rows?.length ? tableRef!.copy(Array.from(rows)) : Promise.resolve(false);
     }
 
     function getItemId(item: T): SelectionId | undefined {

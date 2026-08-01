@@ -1,6 +1,6 @@
 import { useEventListener } from '@basmilius/common';
 import { type Ref, unref } from 'vue';
-import { getColumnSpan } from './useTableColumnIndex';
+import { CELL_SELECTOR, getColumnSpan, getRowSpan, HEADER_SELECTOR, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
 
 export type UseTableClipboardOptions = {
     getSelectedCells?(): ReadonlySet<HTMLElement>;
@@ -12,16 +12,18 @@ export type UseTableClipboardReturn = {
 
 type CopiedCell = {
     readonly colspan: number;
-    readonly isFullWidth: boolean;
     readonly isHeader: boolean;
     readonly rowspan: number;
     readonly value: string;
 };
 
-const CELL_SELECTOR = '[role="cell"], [role="gridcell"], [role="columnheader"]';
+type CopiedRow = {
+    readonly cells: CopiedCell[];
+    readonly isFullWidth: boolean;
+};
+
+const ANY_CELL_SELECTOR = `${CELL_SELECTOR}, ${HEADER_SELECTOR}`;
 const EXCLUDED_SELECTOR = '[data-flux-copy="none"]';
-const HEADER_SELECTOR = '[role="columnheader"]';
-const ROW_SELECTOR = '[role="row"]';
 const VALUE_ATTRIBUTE = 'data-flux-copy-value';
 
 function isExcluded(element: Element): boolean {
@@ -39,12 +41,6 @@ function escapeHtml(value: string): string {
         .replace(/>/g, '&gt;');
 }
 
-function getRowSpan(element: Element): number {
-    const span = Number.parseInt(element.getAttribute('aria-rowspan') ?? '', 10);
-
-    return Number.isNaN(span) || span < 1 ? 1 : span;
-}
-
 function readValue(cell: HTMLElement): string {
     const value = cell.getAttribute(VALUE_ATTRIBUTE);
 
@@ -59,7 +55,15 @@ function readValue(cell: HTMLElement): string {
     }
 
     const walker = document.createTreeWalker(cell, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
-        acceptNode: node => node.nodeType === Node.ELEMENT_NODE && isExcluded(node as Element) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
+        acceptNode(node) {
+            if (node.nodeType !== Node.ELEMENT_NODE) {
+                return NodeFilter.FILTER_ACCEPT;
+            }
+
+            const element = node as HTMLElement;
+
+            return isExcluded(element) || element.style.display === 'none' ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+        }
     });
 
     const parts: string[] = [];
@@ -73,83 +77,99 @@ function readValue(cell: HTMLElement): string {
     return collapse(parts.join(''));
 }
 
-function serializeRow(row: HTMLElement, isIncluded?: (cell: HTMLElement) => boolean): CopiedCell[] {
-    const candidates = Array.from(row.children).filter(child => child.matches(CELL_SELECTOR) && !isExcluded(child)) as HTMLElement[];
-    const isFullWidth = candidates.length === 1;
+function serializeRow(row: HTMLElement, isIncluded?: (cell: HTMLElement) => boolean): CopiedRow {
+    const candidates = Array.from(row.children).filter(child => child.matches(ANY_CELL_SELECTOR) && !isExcluded(child)) as HTMLElement[];
 
-    return candidates
-        .filter(cell => !isIncluded || isIncluded(cell))
-        .map(cell => ({
-            colspan: getColumnSpan(cell),
-            isFullWidth,
-            isHeader: cell.matches(HEADER_SELECTOR),
-            rowspan: getRowSpan(cell),
-            value: readValue(cell)
-        }));
+    return {
+        cells: candidates
+            .filter(cell => !isIncluded || isIncluded(cell))
+            .map(cell => ({
+                colspan: getColumnSpan(cell),
+                isHeader: cell.matches(HEADER_SELECTOR),
+                rowspan: getRowSpan(cell),
+                value: readValue(cell)
+            })),
+        isFullWidth: candidates.length === 1
+    };
 }
 
-// A row of one cell spans the table: a group header, a section row, an expanded
-// row's detail. Its own colspan counts the columns that were left out, so it is
-// restated as the width that is actually being copied.
-function normalize(rows: CopiedCell[][]): CopiedCell[][] {
-    const widths = rows
-        .filter(cells => !isFullWidthRow(cells))
-        .map(cells => cells.reduce((total, cell) => total + cell.colspan, 0));
+// A full-width row's own colspan counts the columns that were left out, so it is
+// restated as the width actually being copied.
+function normalize(rows: CopiedRow[]): CopiedRow[] {
+    const width = Math.max(1, ...rows
+        .filter(row => !row.isFullWidth)
+        .map(row => row.cells.reduce((total, cell) => total + cell.colspan, 0)));
 
-    const width = Math.max(1, ...widths);
-
-    return rows.map(cells => isFullWidthRow(cells) ? [{...cells[0], colspan: width}] : cells);
+    return rows.map(row => row.isFullWidth ? {...row, cells: [{...row.cells[0], colspan: width}]} : row);
 }
 
-function isFullWidthRow(cells: CopiedCell[]): boolean {
-    return cells.length === 1 && cells[0].isFullWidth;
+function collectRows(baseElement: HTMLElement): HTMLElement[] {
+    return Array.from(baseElement.querySelectorAll<HTMLElement>(ROW_SELECTOR))
+        .filter(row => !isExcluded(row) && isVisibleRow(row));
 }
 
-function serializeRows(rows: HTMLElement[], isIncluded?: (cell: HTMLElement) => boolean): CopiedCell[][] {
+function serializeRows(rows: HTMLElement[], isIncluded?: (cell: HTMLElement) => boolean): CopiedRow[] {
     return normalize(rows
         .map(row => serializeRow(row, isIncluded))
-        .filter(cells => cells.length > 0));
+        .filter(row => row.cells.length > 0));
 }
 
-// A cell selection is already a rectangle, so it is copied as it stands: no header
-// row, and no rounding out of the rows it only partly covers.
-function serializeSelectedCells(baseElement: HTMLElement, cells: ReadonlySet<HTMLElement>): CopiedCell[][] {
+function serializeSelectedCells(baseElement: HTMLElement, cells: ReadonlySet<HTMLElement>): CopiedRow[] {
     const rows = collectRows(baseElement).filter(row => Array.from(row.children).some(child => cells.has(child as HTMLElement)));
 
     return serializeRows(rows, cell => cells.has(cell));
 }
 
-// A row is display: contents, which has no layout box, and checkVisibility() calls
-// anything without a box invisible. Only v-show hides a row, and that writes the
-// inline style this reads.
-function collectRows(baseElement: HTMLElement): HTMLElement[] {
-    return Array.from(baseElement.querySelectorAll<HTMLElement>(ROW_SELECTOR))
-        .filter(row => !isExcluded(row) && row.style.display !== 'none');
-}
-
-// Rows pasted without their column names land in a spreadsheet as anonymous
-// values, so whole rows are copied with the header row in front of them.
 function withHeaderRow(baseElement: HTMLElement, rows: readonly HTMLElement[]): HTMLElement[] {
-    if (rows.some(row => row.querySelector(HEADER_SELECTOR))) {
-        return Array.from(rows);
+    const visible = rows.filter(isVisibleRow);
+
+    if (visible.some(row => row.querySelector(HEADER_SELECTOR))) {
+        return visible;
     }
 
     const header = baseElement.querySelector<HTMLElement>(`${ROW_SELECTOR}:has(${HEADER_SELECTOR})`);
 
-    return header ? [header, ...rows] : Array.from(rows);
+    return header ? [header, ...visible] : visible;
 }
 
-function toText(rows: CopiedCell[][]): string {
+// Columns a rowspan above still occupies are filled with an empty value, so the
+// row after a spanning cell keeps its values under the right headers.
+function toText(rows: CopiedRow[]): string {
+    const carry: number[] = [];
+
     return rows
-        .map(cells => cells
-            .flatMap(cell => [cell.value, ...Array.from({length: cell.colspan - 1}, () => '')])
-            .join('\t'))
+        .map(({cells}) => {
+            const columns: string[] = [];
+            let index = 0;
+
+            const take = (): void => {
+                while (carry[index] > 0) {
+                    carry[index]--;
+                    columns[index] = '';
+                    index++;
+                }
+            };
+
+            for (const cell of cells) {
+                take();
+
+                for (let span = 0; span < cell.colspan; span++) {
+                    columns[index] = span === 0 ? cell.value : '';
+                    carry[index] = cell.rowspan - 1;
+                    index++;
+                }
+            }
+
+            take();
+
+            return columns.join('\t');
+        })
         .join('\n');
 }
 
-function toHtml(rows: CopiedCell[][]): string {
+function toHtml(rows: CopiedRow[]): string {
     const markup = rows
-        .map(cells => {
+        .map(({cells}) => {
             const columns = cells
                 .map(cell => {
                     const tag = cell.isHeader ? 'th' : 'td';
@@ -167,27 +187,15 @@ function toHtml(rows: CopiedCell[][]): string {
     return `<table>${markup}</table>`;
 }
 
-async function write(rows: CopiedCell[][]): Promise<boolean> {
-    if (rows.length === 0) {
+async function write(rows: CopiedRow[]): Promise<boolean> {
+    if (rows.length === 0 || !navigator.clipboard) {
         return false;
-    }
-
-    const text = toText(rows);
-
-    if (typeof ClipboardItem === 'undefined' || !navigator.clipboard?.write) {
-        if (!navigator.clipboard?.writeText) {
-            return false;
-        }
-
-        await navigator.clipboard.writeText(text);
-
-        return true;
     }
 
     await navigator.clipboard.write([
         new ClipboardItem({
             'text/html': new Blob([toHtml(rows)], {type: 'text/html'}),
-            'text/plain': new Blob([text], {type: 'text/plain'})
+            'text/plain': new Blob([toText(rows)], {type: 'text/plain'})
         })
     ]);
 
@@ -200,12 +208,28 @@ async function write(rows: CopiedCell[][]): Promise<boolean> {
  * receives a single column; both clipboard flavors are therefore written from the
  * table structure instead, tab separated and as real table markup.
  *
- * A cell states its own value with `data-flux-copy-value`, which is what lets a
- * formatted date or amount paste as the value behind it. Anything carrying
- * `data-flux-copy="none"` is left out: a whole row or cell when the attribute
- * sits on it, and only that subtree's text when it sits inside a cell.
+ * A cell states its own value with `data-flux-copy-value`. Anything carrying
+ * `data-flux-copy="none"` is left out: a whole row or cell when the attribute sits
+ * on it, and only that subtree's text when it sits inside a cell.
  */
 export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>, options?: UseTableClipboardOptions): UseTableClipboardReturn {
+    // A cell selection leaves the document selection empty, and a browser fires no
+    // copy event when nothing is selected, so the shortcut is handled here.
+    useEventListener(base, 'keydown', evt => {
+        const target = evt.target as Element | null;
+
+        if (!(evt.ctrlKey || evt.metaKey) || evt.key.toLowerCase() !== 'c' || target?.closest(INTERACTIVE_SELECTOR)) {
+            return;
+        }
+
+        if (!options?.getSelectedCells?.().size) {
+            return;
+        }
+
+        evt.preventDefault();
+        void copy();
+    });
+
     useEventListener(base, 'copy', evt => {
         const baseElement = unref(base);
 
@@ -240,38 +264,19 @@ export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>, optio
             return;
         }
 
-        // A drag ends halfway through its first and last row, which would copy those
-        // two rows short of the ones in between. Reaching a second row is therefore
-        // read as wanting those rows whole, column headers included; staying within
-        // one row keeps to the cells that were dragged over, and staying within one
-        // cell is an ordinary text copy that is left alone.
+        // A drag ends halfway through its first and last row, so reaching a second
+        // row is read as wanting those rows whole rather than as the cells it touched.
         const rows = touched.length > 1
             ? serializeRows(withHeaderRow(baseElement, touched))
             : normalize([serializeRow(touched[0], cell => range.intersectsNode(cell))]);
 
-        if (rows.length === 0 || (rows.length === 1 && rows[0].length < 2)) {
+        if (rows.length === 0 || (rows.length === 1 && rows[0].cells.length < 2)) {
             return;
         }
 
         evt.preventDefault();
         evt.clipboardData.setData('text/plain', toText(rows));
         evt.clipboardData.setData('text/html', toHtml(rows));
-    });
-
-    // A cell selection leaves the document selection empty, and a browser fires no
-    // copy event when there is nothing selected, so the shortcut is handled here.
-    // Preventing the default keeps the native copy from running twice.
-    useEventListener(base, 'keydown', evt => {
-        if (!(evt.ctrlKey || evt.metaKey) || evt.key.toLowerCase() !== 'c' || !navigator.clipboard) {
-            return;
-        }
-
-        if (!options?.getSelectedCells?.().size) {
-            return;
-        }
-
-        evt.preventDefault();
-        void copy();
     });
 
     async function copy(rows?: readonly HTMLElement[]): Promise<boolean> {
@@ -281,17 +286,13 @@ export function useTableClipboard(base: Readonly<Ref<HTMLElement | null>>, optio
             return false;
         }
 
-        // Without rows to copy, a cell selection is what the user pointed at and
-        // outranks the whole table this would otherwise hand over.
         const cells = rows ? undefined : options?.getSelectedCells?.();
 
         if (cells?.size) {
             return write(serializeSelectedCells(baseElement, cells));
         }
 
-        const elements = rows ? withHeaderRow(baseElement, rows) : collectRows(baseElement);
-
-        return write(serializeRows(elements));
+        return write(serializeRows(rows ? withHeaderRow(baseElement, rows) : collectRows(baseElement)));
     }
 
     return {copy};

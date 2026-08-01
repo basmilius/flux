@@ -11,7 +11,8 @@
                     $style.tableGroup,
                     isExpandable && $style.isHoverable
                 )"
-                :role="cellRole">
+                :role="cellRole"
+                :aria-colspan="columns.length || undefined">
                 <component
                     :is="isExpandable ? 'button' : 'div'"
                     :class="$style.tableGroupContent"
@@ -79,7 +80,7 @@
         after?(): VNode[];
     }>();
 
-    const {cellRole} = useTableInjection();
+    const {cellRole, columns} = useTableInjection();
     const translate = useTranslate();
 
     const hasRows = computed(() => 'default' in slots);

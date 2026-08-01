@@ -1,15 +1,37 @@
 import { computed, type ComputedRef, type Ref, unref } from 'vue';
 import type { FluxTableColumnDef } from '~flux/components/data';
 
+export const CELL_SELECTOR = '[role="cell"], [role="gridcell"]';
+export const HEADER_SELECTOR = '[role="columnheader"]';
+export const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role="button"]';
+export const ROW_SELECTOR = '[role="row"]';
+
 /**
  * Returns how many columns a cell occupies. `aria-colspan` is the single place
  * in the DOM that carries this, for assistive technology and for the column
  * bookkeeping alike.
  */
 export function getColumnSpan(element: Element): number {
-    const span = Number.parseInt(element.getAttribute('aria-colspan') ?? '', 10);
+    return readSpan(element, 'aria-colspan');
+}
+
+/**
+ * Returns how many rows a cell occupies.
+ */
+export function getRowSpan(element: Element): number {
+    return readSpan(element, 'aria-rowspan');
+}
+
+function readSpan(element: Element, attribute: string): number {
+    const span = Number.parseInt(element.getAttribute(attribute) ?? '', 10);
 
     return Number.isNaN(span) || span < 1 ? 1 : span;
+}
+
+// A row is display: contents, which has no layout box, and checkVisibility() calls
+// anything without a box invisible. Only v-show hides a row, and it writes this.
+export function isVisibleRow(row: HTMLElement): boolean {
+    return row.style.display !== 'none';
 }
 
 /**

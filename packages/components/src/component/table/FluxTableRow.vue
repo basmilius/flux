@@ -31,7 +31,7 @@
     import { clsx } from 'clsx';
     import { computed, onUnmounted, useTemplateRef, type VNode, watch } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
-    import { resolveColumnIndex } from '~flux/components/composable/private';
+    import { CELL_SELECTOR, HEADER_SELECTOR, INTERACTIVE_SELECTOR, resolveColumnIndex } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/Table.module.scss';
 
     const emit = defineEmits<{
@@ -51,8 +51,6 @@
     defineSlots<{
         default(): VNode[];
     }>();
-
-    const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role="button"]';
 
     const row = useTemplateRef('row');
 
@@ -100,7 +98,7 @@
             return;
         }
 
-        const cell = target?.closest('[role="cell"], [role="columnheader"]');
+        const cell = target?.closest(`${CELL_SELECTOR}, ${HEADER_SELECTOR}`);
 
         emit('rowClick', resolveColumnIndex(cell), event);
     }
@@ -123,7 +121,7 @@
         event.preventDefault();
 
         const current = event.currentTarget as HTMLElement;
-        const rows = Array.from(current.closest('[role="table"]')?.querySelectorAll<HTMLElement>('[role="row"][tabindex]') ?? []);
+        const rows = Array.from(current.closest('[role="table"], [role="grid"]')?.querySelectorAll<HTMLElement>('[role="row"][tabindex]') ?? []);
         const index = rows.indexOf(current);
 
         if (index === -1) {

@@ -1,7 +1,8 @@
-import { useEventListener } from '@basmilius/common';
+import { useEventListener, useMutationObserver } from '@basmilius/common';
+import { clamp } from '@basmilius/utils';
 import { isSSR } from '@flux-ui/internals';
-import { computed, type Ref, ref, unref, useId, watch } from 'vue';
-import { getColumnSpan } from './useTableColumnIndex';
+import { type Ref, ref, unref, useId, watch } from 'vue';
+import { CELL_SELECTOR, getColumnSpan, getRowSpan, INTERACTIVE_SELECTOR, isVisibleRow, ROW_SELECTOR } from './useTableColumnIndex';
 
 export type UseTableCellSelectionReturn = {
     readonly activeCellId: Readonly<Ref<string | undefined>>;
@@ -32,9 +33,6 @@ type Position = {
 };
 
 const ACTIVE_ATTRIBUTE = 'data-flux-active';
-const CELL_SELECTOR = '[role="cell"], [role="gridcell"]';
-const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role="button"]';
-const ROW_SELECTOR = '[role="row"]';
 const SELECTED_ATTRIBUTE = 'data-flux-selected';
 
 const EMPTY_GRID: Grid = {at: new Map(), columnCount: 0, positions: new Map(), rowCount: 0};
@@ -43,29 +41,12 @@ function toKey(row: number, column: number): string {
     return `${row}:${column}`;
 }
 
-function getRowSpan(element: Element): number {
-    const span = Number.parseInt(element.getAttribute('aria-rowspan') ?? '', 10);
-
-    return Number.isNaN(span) || span < 1 ? 1 : span;
-}
-
-// A row is display: contents, which has no layout box, and checkVisibility() calls
-// anything without a box invisible. Only v-show hides a row, and that writes the
-// inline style this reads.
-function isVisibleRow(row: HTMLElement): boolean {
-    return row.style.display !== 'none';
-}
-
-// Every column a cell covers maps back to that cell, so a spanning cell is reached
-// from any of its columns and a cell below a rowspan resolves the column it really
-// sits in rather than the one its sibling index suggests.
 function buildGrid(container: HTMLElement | null): Grid {
     if (!container) {
         return EMPTY_GRID;
     }
 
     const rows = Array.from(container.querySelectorAll<HTMLElement>(ROW_SELECTOR)).filter(isVisibleRow);
-
     const at = new Map<string, GridCell>();
     const positions = new Map<HTMLElement, Position>();
     let columnCount = 0;
@@ -119,47 +100,39 @@ function buildGrid(container: HTMLElement | null): Grid {
  * instead of patching every row through Vue.
  */
 export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, container: Readonly<Ref<HTMLElement | null>>, isEnabled: Readonly<Ref<boolean>>): UseTableCellSelectionReturn {
-    const anchor = ref<Position | null>(null);
-    const focus = ref<Position | null>(null);
-
     const activeCellId = ref<string | undefined>();
     const idPrefix = useId();
 
     let map = EMPTY_GRID;
+    let isMapStale = true;
+    let anchor: Position | null = null;
+    let focus: Position | null = null;
     let painted = new Map<HTMLElement, string>();
     let activeCell: HTMLElement | null = null;
     let isDragging = false;
     let idCounter = 0;
 
-    const range = computed(() => {
-        const from = unref(anchor);
-        const to = unref(focus);
-
-        if (!from || !to) {
-            return null;
+    function refresh(): void {
+        if (isMapStale) {
+            map = buildGrid(unref(container));
+            isMapStale = false;
         }
+    }
 
-        return {
-            columnEnd: Math.max(from.column, to.column),
-            columnStart: Math.min(from.column, to.column),
-            rowEnd: Math.max(from.row, to.row),
-            rowStart: Math.min(from.row, to.row)
-        };
-    });
-
-    // The value names the sides of the rectangle a cell sits on, so the outline is
-    // drawn around the block as a whole rather than around every cell in it. A cell
-    // that spans past an edge still holds that edge.
     function resolveCells(): Map<HTMLElement, string> {
-        const bounds = unref(range);
         const cells = new Map<HTMLElement, string>();
 
-        if (!bounds) {
+        if (!anchor || !focus) {
             return cells;
         }
 
-        for (let row = bounds.rowStart; row <= bounds.rowEnd; row++) {
-            for (let column = bounds.columnStart; column <= bounds.columnEnd; column++) {
+        const columnEnd = Math.max(anchor.column, focus.column);
+        const columnStart = Math.min(anchor.column, focus.column);
+        const rowEnd = Math.max(anchor.row, focus.row);
+        const rowStart = Math.min(anchor.row, focus.row);
+
+        for (let row = rowStart; row <= rowEnd; row++) {
+            for (let column = columnStart; column <= columnEnd; column++) {
                 const cell = map.at.get(toKey(row, column));
 
                 if (!cell || cells.has(cell.element)) {
@@ -168,19 +141,19 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
 
                 const edges: string[] = [];
 
-                if (cell.rowStart <= bounds.rowStart) {
+                if (cell.rowStart <= rowStart) {
                     edges.push('top');
                 }
 
-                if (cell.rowEnd > bounds.rowEnd) {
+                if (cell.rowEnd > rowEnd) {
                     edges.push('bottom');
                 }
 
-                if (cell.columnStart <= bounds.columnStart) {
+                if (cell.columnStart <= columnStart) {
                     edges.push('left');
                 }
 
-                if (cell.columnEnd > bounds.columnEnd) {
+                if (cell.columnEnd > columnEnd) {
                     edges.push('right');
                 }
 
@@ -232,23 +205,26 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
 
         cell.setAttribute(ACTIVE_ATTRIBUTE, '');
         activeCellId.value = cell.id;
-        cell.scrollIntoView({block: 'nearest', inline: 'nearest'});
+
+        if (!isDragging) {
+            cell.scrollIntoView({block: 'nearest', inline: 'nearest'});
+        }
     }
 
     function clear(): void {
-        anchor.value = null;
-        focus.value = null;
+        anchor = null;
+        focus = null;
 
         paint();
         markActive(null);
     }
 
     function select(position: Position, isExtending: boolean): void {
-        if (!isExtending || !unref(anchor)) {
-            anchor.value = position;
+        if (!isExtending || !anchor) {
+            anchor = position;
         }
 
-        focus.value = position;
+        focus = position;
 
         paint();
         markActive(position);
@@ -261,7 +237,7 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
     }
 
     function moveBy(rowDelta: number, columnDelta: number, isExtending: boolean): void {
-        const current = unref(focus) ?? unref(anchor);
+        const current = focus ?? anchor;
 
         if (!current) {
             select({column: 0, row: 0}, false);
@@ -269,8 +245,8 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
         }
 
         select({
-            column: Math.min(Math.max(current.column + columnDelta, 0), Math.max(map.columnCount - 1, 0)),
-            row: Math.min(Math.max(current.row + rowDelta, 0), Math.max(map.rowCount - 1, 0))
+            column: clamp(current.column + columnDelta, 0, Math.max(map.columnCount - 1, 0)),
+            row: clamp(current.row + rowDelta, 0, Math.max(map.rowCount - 1, 0))
         }, isExtending);
     }
 
@@ -289,7 +265,7 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
             return;
         }
 
-        map = buildGrid(unref(container));
+        refresh();
 
         const position = resolvePosition(target);
 
@@ -297,19 +273,18 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
             return;
         }
 
-        // The table is the tab stop, so the pointer must not hand focus to a cell,
-        // and must not start a text selection the cell rectangle would fight with.
-        evt.preventDefault();
+        // Before focusing: the focus handler claims the first cell for a table that
+        // is tabbed into, which this click is about to answer itself.
+        isDragging = true;
 
         const gridElement = unref(grid);
-
-        // Before focusing: the focus handler below claims the first cell for a table
-        // that is tabbed into, which this click is about to answer itself.
-        isDragging = true;
 
         gridElement?.focus();
         gridElement?.setPointerCapture?.(evt.pointerId);
 
+        // The table is the tab stop, so the pointer must not hand focus to a cell,
+        // and must not start a text selection the cell rectangle would fight with.
+        evt.preventDefault();
         select(position, evt.shiftKey);
     }
 
@@ -330,9 +305,19 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
             return;
         }
 
-        map = buildGrid(unref(container));
-
         const isModified = evt.ctrlKey || evt.metaKey;
+
+        if (evt.key === 'Escape') {
+            evt.preventDefault();
+            clear();
+            return;
+        }
+
+        if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(evt.key) && !(isModified && evt.key.toLowerCase() === 'a')) {
+            return;
+        }
+
+        refresh();
 
         switch (evt.key) {
             case 'ArrowUp':
@@ -367,37 +352,33 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
                 }
                 break;
 
-            case 'a':
-            case 'A':
-                if (!isModified) {
-                    return;
-                }
-
-                anchor.value = {column: 0, row: 0};
+            default:
+                anchor = {column: 0, row: 0};
                 selectLastCell(true);
                 break;
-
-            case 'Escape':
-                clear();
-                break;
-
-            default:
-                return;
         }
 
         evt.preventDefault();
     }
 
-    // Tabbing into the table has to land somewhere visible, and a grid says where it
-    // is through aria-activedescendant, which needs a cell to point at.
-    useEventListener(grid, 'focus', () => {
-        if (!unref(isEnabled) || isDragging || unref(focus)) {
+    function holdsRow(nodes: NodeList): boolean {
+        return Array.from(nodes).some(node => node instanceof HTMLElement && (node.matches(ROW_SELECTOR) || !!node.querySelector(ROW_SELECTOR)));
+    }
+
+    // Rows the table replaces leave the selection holding detached elements, which
+    // would copy nothing and point aria-activedescendant at an id that is gone. Only
+    // rows count: a cell rerendering its own text leaves the map intact.
+    useMutationObserver(container, mutations => {
+        if (!mutations.some(mutation => holdsRow(mutation.addedNodes) || holdsRow(mutation.removedNodes))) {
             return;
         }
 
-        map = buildGrid(unref(container));
-        select({column: 0, row: 0}, false);
-    });
+        isMapStale = true;
+
+        if (anchor) {
+            clear();
+        }
+    }, {childList: true, subtree: true});
 
     // On click rather than pointerdown, and without capture, so a copy button of the
     // consumer's own runs its handler first: it reads the selection synchronously,
@@ -405,17 +386,28 @@ export function useTableCellSelection(grid: Readonly<Ref<HTMLElement | null>>, c
     useEventListener(() => isSSR ? null : document, 'click', evt => {
         const gridElement = unref(grid);
 
-        if (!unref(isEnabled) || !unref(focus) || !gridElement || gridElement.contains(evt.target as Node)) {
+        if (!unref(isEnabled) || !focus || !gridElement || gridElement.contains(evt.target as Node)) {
             return;
         }
 
         clear();
     });
 
+    // Tabbing into the table has to land somewhere visible, and a grid says where it
+    // is through aria-activedescendant, which needs a cell to point at.
+    useEventListener(grid, 'focus', () => {
+        if (!unref(isEnabled) || isDragging || focus) {
+            return;
+        }
+
+        refresh();
+        select({column: 0, row: 0}, false);
+    });
+
     useEventListener(grid, 'pointerdown', onPointerDown);
     useEventListener(grid, 'pointermove', onPointerMove);
     useEventListener(grid, 'keydown', onKeyDown);
-    useEventListener(grid, 'lostpointercapture', () => {
+    useEventListener(grid, ['lostpointercapture', 'pointerup', 'pointercancel'], () => {
         isDragging = false;
     });
 
