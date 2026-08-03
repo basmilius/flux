@@ -33,6 +33,13 @@
             height: calc(40cqw / var(--aspect-ratio, 1));
         }
     }
+
+    &:has(.statisticsEmpty) {
+        .statisticsChartPaneContainer {
+            height: auto;
+            min-height: var(--min-height, 240px);
+        }
+    }
 }
 
 .statisticsChartPaneContainer {
