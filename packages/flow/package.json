@@ -52,7 +52,7 @@
         "clsx": "^2.1.1"
     },
     "peerDependencies": {
-        "@basmilius/utils": "^3.58.0",
+        "@basmilius/utils": "^3.59.0",
         "@flux-ui/components": "workspace:^",
         "@flux-ui/internals": "workspace:^",
         "luxon": "^3.7.2",
@@ -60,7 +60,7 @@
         "vue-i18n": "^11.4.8"
     },
     "devDependencies": {
-        "@basmilius/utils": "^3.58.0",
+        "@basmilius/utils": "^3.59.0",
         "@basmilius/vite-preset": "^3.58.0",
         "@types/node": "^26.1.2",
         "@vitejs/plugin-vue": "^6.0.8",
