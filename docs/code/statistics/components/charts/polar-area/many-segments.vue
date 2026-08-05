@@ -10,8 +10,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsPolarAreaChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
 
     const slices: FluxStatisticsChartPieSlice[] = [
         { label: 'NL', value: 42 },

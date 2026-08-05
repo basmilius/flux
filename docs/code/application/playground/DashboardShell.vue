@@ -414,7 +414,6 @@
             </template>
         </FluxApplicationContent>
 
-
         <template #side>
             <FluxApplicationSide v-model:is-visible="isSideVisible">
                 <FluxPaneHeader

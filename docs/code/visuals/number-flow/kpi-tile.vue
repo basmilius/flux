@@ -28,13 +28,13 @@
 
     let timer: number;
 
-    function tick(): void {
-        value.value += Math.floor(Math.random() * 900);
-    }
-
     onMounted(() => {
         timer = window.setInterval(tick, 2500);
     });
 
     onBeforeUnmount(() => window.clearInterval(timer));
+
+    function tick(): void {
+        value.value += Math.floor(Math.random() * 900);
+    }
 </script>

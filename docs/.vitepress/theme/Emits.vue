@@ -1,8 +1,10 @@
 <template>
     <h2 id="emits">Emits</h2>
 
-    <p v-for="({name, description, type}) of emits">
-        <code><strong>{{ name }}</strong>: [{{ (type ?? []).map(String).join(', ') }}]</code>
+    <p
+        v-for="({name, description, signature}) of emits"
+        :key="name">
+        <code><strong>{{ name }}</strong>: [{{ signature }}]</code>
         <template v-if="description">
             <br>
             {{ description }}
@@ -18,5 +20,8 @@
 
     const {frontmatter} = useData();
 
-    const emits = computed(() => unref(frontmatter).emits || []);
+    const emits = computed(() => (unref(frontmatter).emits || []).map(emit => ({
+        ...emit,
+        signature: (emit.type ?? []).map(String).join(', ')
+    })));
 </script>

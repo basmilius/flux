@@ -67,6 +67,13 @@
     }>();
 
     const tabBarRef = useTemplateRef<HTMLElement>('tabBar');
+    const isEndArrowVisible = ref(false);
+    const isStartArrowVisible = ref(false);
+    const activeItemX = ref(0);
+    const activeItemWidth = ref(0);
+
+    const items = new Map<Element, Ref<boolean>>();
+    const itemUnwatchers = new Map<Element, () => void>();
 
     useEventListener(tabBarRef, 'scroll', () => checkScroll(), {passive: true});
     useMutationObserver(tabBarRef, () => {
@@ -77,14 +84,6 @@
         checkScroll();
         updateHighlight();
     });
-
-    const isEndArrowVisible = ref(false);
-    const isStartArrowVisible = ref(false);
-    const activeItemX = ref(0);
-    const activeItemWidth = ref(0);
-
-    const items = new Map<Element, Ref<boolean>>();
-    const itemUnwatchers = new Map<Element, () => void>();
 
     onMounted(() => checkScroll());
 

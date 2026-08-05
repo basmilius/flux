@@ -52,8 +52,9 @@
         readonly options: FluxFormSelectEntry[];
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const createdOptions = ref<FluxFormSelectOption[]>([]);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const allOptions = computed<FluxFormSelectEntry[]>(() => {
         const seen = new Set<string | number | null>();

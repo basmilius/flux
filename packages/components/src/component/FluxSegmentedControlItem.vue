@@ -43,12 +43,12 @@
         default(): any;
     }>();
 
-    const sizeClasses = {
+    const SIZE_CLASSES = {
         small: $style.isSmall,
         medium: $style.isMedium,
         large: $style.isLarge
     };
-    const iconSizes = {
+    const ICON_SIZES = {
         small: 14,
         medium: 16,
         large: 18
@@ -61,10 +61,10 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
 
     const isActive = computed(() => control.modelValue.value === value);
-    const iconSize = computed(() => iconSizes[unref(control.size)]);
+    const iconSize = computed(() => ICON_SIZES[unref(control.size)]);
     const itemClass = computed(() => clsx(
         $style.segmentedControlItem,
-        sizeClasses[unref(control.size)],
+        SIZE_CLASSES[unref(control.size)],
         isActive.value && $style.isActive
     ));
 

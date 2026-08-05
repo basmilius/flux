@@ -34,5 +34,6 @@
     }>();
 
     const slots = useSlots();
+
     const forwardedSlots = computed(() => SLOTS.filter(name => name in slots));
 </script>

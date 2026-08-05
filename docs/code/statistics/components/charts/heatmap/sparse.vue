@@ -15,8 +15,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsHeatmapChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
 
     const cohorts = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
     const months = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6'];

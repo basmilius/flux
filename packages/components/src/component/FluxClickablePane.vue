@@ -42,12 +42,6 @@
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
 
-    const CLASS_MAP = {
-        default: $style.paneDefault,
-        flat: $style.paneFlat,
-        well: $style.paneWell
-    } as const;
-
     const emit = defineEmits<{
         click: [MouseEvent];
     }>();
@@ -74,6 +68,12 @@
         default(): VNode[];
         loader(): VNode[];
     }>();
+
+    const CLASS_MAP = {
+        default: $style.paneDefault,
+        flat: $style.paneFlat,
+        well: $style.paneWell
+    } as const;
 
     const disabled = useDisabled(toRef(() => componentDisabled));
 

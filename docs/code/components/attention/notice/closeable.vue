@@ -18,10 +18,10 @@
 
     let timeout: ReturnType<typeof setTimeout>;
 
+    onBeforeUnmount(() => clearTimeout(timeout));
+
     function onClose(): void {
         isVisible.value = false;
         timeout = setTimeout(() => isVisible.value = true, 3000);
     }
-
-    onBeforeUnmount(() => clearTimeout(timeout));
 </script>

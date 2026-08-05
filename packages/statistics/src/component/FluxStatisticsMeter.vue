@@ -71,9 +71,6 @@
     import { resolveChartColor } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Meter.module.scss';
 
-    const BLOCK_WIDTH = 6;
-    const BLOCK_GAP = 3;
-
     const {
         color,
         value,
@@ -89,6 +86,9 @@
         readonly value: number;
         readonly variant?: 'bar' | 'blocks';
     }>();
+
+    const BLOCK_WIDTH = 6;
+    const BLOCK_GAP = 3;
 
     const blocksRef = useTemplateRef('blocks');
     const trackWidth = ref(0);

@@ -229,10 +229,7 @@
         down: {minute: SNAP_MINUTES}
     } as const;
 
-    // Items registry — items registreren zichzelf via inject.
     const items = shallowRef<FluxCalendarItemData[]>([]);
-
-    // Drag-state.
     const dragState = ref<{ readonly id: string | number; readonly fromDate: DateTime } | null>(null);
     const grabbedId = ref<string | number | null>(null);
     const monthFocusedDate = ref<DateTime | null>(null);
@@ -242,6 +239,27 @@
 
     const translate = useTranslate();
     const {md, lg, xl} = useBreakpoints();
+
+    // Top-level destructure for template auto-unwrap.
+    const {
+        isTransitioningToPast: monthIsTransitioningToPast,
+        viewDate: monthViewDate,
+        viewMonth: monthViewMonth,
+        viewYear: monthViewYear,
+        dates: monthDates,
+        days: monthDays,
+        setViewDate: setMonthViewDateRaw,
+        nextMonth: nextMonthRaw,
+        previousMonth: previousMonthRaw
+    } = useCalendar(initialDate, {weekDayLength: 'long'});
+
+    const {months} = useCalendarMonthSwitcher(monthViewDate, 'short');
+
+    const {
+        years,
+        next: nextYears,
+        previous: previousYears
+    } = useCalendarYearSwitcher(monthViewDate);
 
     const effectiveHourRange = computed<readonly [number, number]>(() => {
         const [from, to] = hourRange;
@@ -287,27 +305,6 @@
         return 1;
     });
 
-    // Top-level destructure for template auto-unwrap.
-    const {
-        isTransitioningToPast: monthIsTransitioningToPast,
-        viewDate: monthViewDate,
-        viewMonth: monthViewMonth,
-        viewYear: monthViewYear,
-        dates: monthDates,
-        days: monthDays,
-        setViewDate: setMonthViewDateRaw,
-        nextMonth: nextMonthRaw,
-        previousMonth: previousMonthRaw
-    } = useCalendar(initialDate, {weekDayLength: 'long'});
-
-    const {months} = useCalendarMonthSwitcher(monthViewDate, 'short');
-
-    const {
-        years,
-        next: nextYears,
-        previous: previousYears
-    } = useCalendarYearSwitcher(monthViewDate);
-
     const {
         isTransitioningToPast: timeGridIsTransitioningToPast,
         viewDate: timeGridViewDate,
@@ -318,20 +315,7 @@
         previous: previousTimeGrid
     } = useCalendarTimeGrid(initialDate, timeGridDayCount);
 
-    function restoreItemFocus(id: string | number): void {
-        requestAnimationFrame(() => {
-            const elm = itemElementsById.get(id);
-
-            if (elm instanceof HTMLElement) {
-                elm.focus();
-            }
-        });
-    }
-
-    // Range label voor time-grid views.
     const rangeLabel = computed<string>(() => unref(timeGridRangeLabel));
-
-    // Date-picker model voor flyout.
     const datePickerValue = computed<DateTime | null>(() => unref(timeGridViewDate));
 
     provide(FluxCalendarInjectionKey, {
@@ -415,6 +399,41 @@
         }
     });
 
+    // Cancel keyboard-grab when view changes mid-grab.
+    watch(resolvedView, () => {
+        if (unref(grabbedId) !== null) {
+            cancelKeyboardGrab();
+        }
+    });
+
+    watch([
+        () => unref(resolvedView),
+        () => unref(monthViewDate),
+        () => unref(timeGridViewDates)
+    ], () => {
+        if (unref(resolvedView) === 'month') {
+            const dates = unref(monthDates);
+            emit('navigate', unref(monthViewDate), dates[0], dates[dates.length - 1]);
+        } else {
+            const dates = unref(timeGridViewDates);
+            emit('navigate', unref(timeGridViewDate), dates[0], dates[dates.length - 1]);
+        }
+    }, {immediate: true});
+
+    watch(() => initialDate, (d) => {
+        setMonthViewDateRaw(d);
+        setTimeGridViewDate(d);
+    });
+
+    onMounted(() => {
+        document.addEventListener('dragend', onDocumentDragEnd);
+    });
+
+    onBeforeUnmount(() => {
+        document.removeEventListener('dragend', onDocumentDragEnd);
+        cancelNavHoverTimer();
+    });
+
     function onDatePicked(value: DateTime | DateTime[] | null): void {
         if (!value || Array.isArray(value)) {
             return;
@@ -463,7 +482,6 @@
         }
     }
 
-    // Drop handlers naar reschedule-event.
     function onMonthCellDrop(toDate: DateTime): void {
         const drag = unref(dragState);
 
@@ -507,7 +525,6 @@
         emit('resize', payload);
     }
 
-    // Keyboard-grab routing.
     function findItemDate(id: string | number): DateTime | null {
         return items.value.find(i => i.id === id)?.date ?? null;
     }
@@ -577,14 +594,6 @@
         defaultKeyboardGrabAnnounce(translate('flux.releasedAnnounce'));
     }
 
-    // Cancel keyboard-grab when view changes mid-grab.
-    watch(resolvedView, () => {
-        if (unref(grabbedId) !== null) {
-            cancelKeyboardGrab();
-        }
-    });
-
-    // Nav-hover (auto-advance during drag).
     function onNavDragEnter(direction: 'previous' | 'next'): void {
         if (!unref(dragState)) {
             return;
@@ -648,32 +657,13 @@
         emit('dragEnd', {id: drag.id});
     }
 
-    // Navigate-event aggregation.
-    watch([
-        () => unref(resolvedView),
-        () => unref(monthViewDate),
-        () => unref(timeGridViewDates)
-    ], () => {
-        if (unref(resolvedView) === 'month') {
-            const dates = unref(monthDates);
-            emit('navigate', unref(monthViewDate), dates[0], dates[dates.length - 1]);
-        } else {
-            const dates = unref(timeGridViewDates);
-            emit('navigate', unref(timeGridViewDate), dates[0], dates[dates.length - 1]);
-        }
-    }, {immediate: true});
+    function restoreItemFocus(id: string | number): void {
+        requestAnimationFrame(() => {
+            const elm = itemElementsById.get(id);
 
-    watch(() => initialDate, (d) => {
-        setMonthViewDateRaw(d);
-        setTimeGridViewDate(d);
-    });
-
-    onMounted(() => {
-        document.addEventListener('dragend', onDocumentDragEnd);
-    });
-
-    onBeforeUnmount(() => {
-        document.removeEventListener('dragend', onDocumentDragEnd);
-        cancelNavHoverTimer();
-    });
+            if (elm instanceof HTMLElement) {
+                elm.focus();
+            }
+        });
+    }
 </script>

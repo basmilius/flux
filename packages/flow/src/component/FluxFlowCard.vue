@@ -39,8 +39,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from '@flux-ui/components';
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed } from 'vue';
     import FluxFlowIcon from './FluxFlowIcon.vue';

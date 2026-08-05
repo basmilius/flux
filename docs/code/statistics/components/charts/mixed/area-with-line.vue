@@ -16,8 +16,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsMixedChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartMixedSeries[] = [
         { name: 'Open pipeline', type: 'area', data: [42, 58, 72, 95, 114, 138] },

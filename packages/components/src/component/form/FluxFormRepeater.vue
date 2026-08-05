@@ -142,30 +142,6 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
     const translate = useTranslate();
 
-    const keyByRow = new WeakMap<object, string>();
-    const positionalKeys: string[] = [];
-    let keyCounter = 0;
-
-    const rows = computed(() => modelValue.value.map((row, index) => ({
-        key: keyOf(row, index),
-        row
-    })));
-
-    const rowNoun = computed(() => rowLabel ?? translate('flux.repeaterRowLabel'));
-    const canAddRow = computed(() => canAdd && !disabled.value && (max === undefined || modelValue.value.length < max));
-    const canRemoveRow = computed(() => canRemove && !disabled.value && modelValue.value.length > (min ?? 0));
-
-    const activeDropIndex = computed(() => {
-        const from = dragIndex.value;
-        const to = dropIndex.value;
-
-        if (from === null || to === null || to === from || to === from + 1) {
-            return null;
-        }
-
-        return to;
-    });
-
     const {handleKeyDown, release} = useKeyboardGrab<number>({
         isDraggable: computed(() => isReorderable && !disabled.value),
         itemId: activeKey,
@@ -207,6 +183,30 @@
         },
         announce() {
         }
+    });
+
+    const keyByRow = new WeakMap<object, string>();
+    const positionalKeys: string[] = [];
+    let keyCounter = 0;
+
+    const rows = computed(() => modelValue.value.map((row, index) => ({
+        key: keyOf(row, index),
+        row
+    })));
+
+    const rowNoun = computed(() => rowLabel ?? translate('flux.repeaterRowLabel'));
+    const canAddRow = computed(() => canAdd && !disabled.value && (max === undefined || modelValue.value.length < max));
+    const canRemoveRow = computed(() => canRemove && !disabled.value && modelValue.value.length > (min ?? 0));
+
+    const activeDropIndex = computed(() => {
+        const from = dragIndex.value;
+        const to = dropIndex.value;
+
+        if (from === null || to === null || to === from || to === from + 1) {
+            return null;
+        }
+
+        return to;
     });
 
     watch(() => isReorderable && !disabled.value, isEnabled => {

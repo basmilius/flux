@@ -43,5 +43,5 @@
 <script
     setup
     lang="ts">
-    import { FluxAvatar, FluxFlyout, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPersona, FluxSecondaryButton, FluxSeparator, FluxSpacer } from '@flux-ui/components';
+    import { FluxAvatar, FluxFlyout, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader, FluxPersona, FluxSecondaryButton, FluxSpacer } from '@flux-ui/components';
 </script>

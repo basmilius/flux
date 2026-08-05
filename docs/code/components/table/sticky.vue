@@ -7,7 +7,8 @@
                 <FluxTableRow>
                     <FluxTableHeader
                         is-shrinking
-                        v-for="header in 3">
+                        v-for="header in 3"
+                        :key="header">
                         Header {{ header }}
                     </FluxTableHeader>
                 </FluxTableRow>

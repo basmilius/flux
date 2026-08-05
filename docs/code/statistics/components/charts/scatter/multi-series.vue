@@ -14,8 +14,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsScatterChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartScatterSeries[] = [
         { name: 'New', data: [{ x: 10, y: 14 }, { x: 20, y: 22 }, { x: 30, y: 18 }, { x: 40, y: 26 }, { x: 50, y: 33 }] },

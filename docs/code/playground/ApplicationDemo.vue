@@ -364,13 +364,12 @@
     }[];
 
     const tabs = ['Overview', 'Activity', 'Automations'];
+    const navigation = [...primaryNavigation, ...workspaceNavigation, ...automationNavigation, ...footerNavigation];
 
     const activePage = ref('dashboard');
     const activeTab = ref(tabs[0]);
     const activeWorkspace = ref('northwind');
     const search = ref('');
-
-    const navigation = [...primaryNavigation, ...workspaceNavigation, ...automationNavigation, ...footerNavigation];
 
     const activeNavigationItem = computed(() => navigation.find(item => item.id === activePage.value) ?? primaryNavigation[0]);
 

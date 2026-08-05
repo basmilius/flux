@@ -22,6 +22,5 @@
 
     const min = ref(DateTime.fromSQL('1970-01-01'));
     const max = ref(DateTime.now());
-
     const value = ref(DateTime.fromSQL('1996-03-13'));
 </script>

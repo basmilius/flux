@@ -43,7 +43,6 @@
     const field = inject(FluxFormFieldInjectionKey, null);
     const disabled = useDisabled(toRef(() => componentDisabled));
 
-
     provide(FluxFormCheckboxGroupInjectionKey, {
         modelValue,
         disabled,

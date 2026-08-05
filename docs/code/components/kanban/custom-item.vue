@@ -39,9 +39,9 @@
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue';
-    import { FluxBadge, FluxKanban, FluxKanbanItem, FluxKanbanColumn } from '@flux-ui/components';
+    import { FluxBadge, FluxKanban, FluxKanbanColumn, FluxKanbanItem } from '@flux-ui/components';
     import type { FluxColor, FluxKanbanMoveEvent } from '@flux-ui/types';
+    import { ref } from 'vue';
 
     const columns = [
         {id: 'backlog', label: 'Backlog'},

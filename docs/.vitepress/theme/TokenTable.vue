@@ -55,17 +55,8 @@
     };
 
     const SCHEMES: Scheme[] = ['light', 'dark'];
-
     const INTENT_ROLES = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'muted', 'soft', 'soft-hover', 'border', 'text'];
     const INTENTS = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
-
-    function colors(...names: string[]): Token[] {
-        return names.map(name => ({name, kind: 'color'}));
-    }
-
-    function shadows(...names: string[]): Token[] {
-        return names.map(name => ({name, kind: 'shadow'}));
-    }
 
     const GROUPS: { title: string; description?: string; tokens: Token[] }[] = [
         {
@@ -117,12 +108,6 @@
     const resolved = reactive<Record<string, string>>({});
     const probes: { element: HTMLElement; key: string; kind: Kind }[] = [];
 
-    function register(element: unknown, token: Token, scheme: Scheme): void {
-        if (element instanceof HTMLElement) {
-            probes.push({element, key: `${scheme}:${token.name}`, kind: token.kind});
-        }
-    }
-
     // A custom property holding a `light-dark()` reads back verbatim through
     // getPropertyValue, so the resolved color has to come off a real property.
     onMounted(() => {
@@ -132,6 +117,20 @@
             resolved[key] = kind === 'shadow' ? style.boxShadow : style.backgroundColor;
         }
     });
+
+    function colors(...names: string[]): Token[] {
+        return names.map(name => ({name, kind: 'color'}));
+    }
+
+    function shadows(...names: string[]): Token[] {
+        return names.map(name => ({name, kind: 'shadow'}));
+    }
+
+    function register(element: unknown, token: Token, scheme: Scheme): void {
+        if (element instanceof HTMLElement) {
+            probes.push({element, key: `${scheme}:${token.name}`, kind: token.kind});
+        }
+    }
 </script>
 
 <style

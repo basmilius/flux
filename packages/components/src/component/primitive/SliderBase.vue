@@ -47,11 +47,11 @@
         readonly step: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const rootRef = useTemplateRef('root');
-
     const isDragging = ref(false);
     const pointerId = ref<number | null>(null);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const {
         scale: overdragScale,
@@ -65,6 +65,13 @@
         '--slider-overdrag-scale': unref(overdragScale),
         '--slider-overdrag-origin': unref(overdragOrigin)
     }));
+
+    onUnmounted(() => {
+        disposeOverdrag();
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointercancel', onPointerUp);
+        document.removeEventListener('pointerup', onPointerUp);
+    });
 
     function onPointerDown(evt: PointerEvent): void {
         if (unref(disabled) || evt.button !== 0) {
@@ -126,11 +133,4 @@
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     }
-
-    onUnmounted(() => {
-        disposeOverdrag();
-        document.removeEventListener('pointermove', onPointerMove);
-        document.removeEventListener('pointercancel', onPointerUp);
-        document.removeEventListener('pointerup', onPointerUp);
-    });
 </script>

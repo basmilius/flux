@@ -57,6 +57,7 @@
     }>();
 
     const inputRef = useTemplateRef<HTMLTextAreaElement>('input');
+
     const disabled = useDisabled(toRef(() => componentDisabled));
     const {id, describedBy} = useFormFieldInjection();
 

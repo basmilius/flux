@@ -132,8 +132,6 @@
         result(props: { readonly value: string | null }): VNode[];
     }>();
 
-    const translate = useTranslate();
-
     const SIGNATURE_LIMIT = 60;
     const VALUE_LIMIT = 24;
 
@@ -148,6 +146,8 @@
         success: 'flux.ai.toolSucceeded',
         error: 'flux.ai.toolFailed'
     });
+
+    const translate = useTranslate();
 
     const copied = ref<FluxAiToolCallSection | null>(null);
     const isResultExpanded = ref(false);

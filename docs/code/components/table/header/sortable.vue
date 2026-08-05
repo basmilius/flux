@@ -6,6 +6,7 @@
                     <FluxTableHeader
                         :sort="sort"
                         v-for="header in 3"
+                        :key="header"
                         :is-sortable="header === 2"
                         @sort="updateSorting">
                         Header {{ header }}
@@ -15,7 +16,8 @@
 
             <FluxTableRow>
                 <FluxTableCell
-                    v-for="cell in 3">
+                    v-for="cell in 3"
+                    :key="cell">
                     Cell 1&times;{{ cell }}
                 </FluxTableCell>
             </FluxTableRow>

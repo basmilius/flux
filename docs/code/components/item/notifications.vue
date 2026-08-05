@@ -31,8 +31,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { FluxAction, FluxBoxedIcon, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxPane } from '@flux-ui/components';
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
 
     const notifications: { title: string; time: string; icon: FluxIconName; color: FluxColor }[] = [
         {title: 'Jane Doe started following you', time: '2 minutes ago', icon: 'user-plus', color: 'info'},

@@ -9,7 +9,9 @@
 
         <FluxMenu style="width: 220px">
             <FluxMenuGroup>
-                <template v-for="filter of FILTERS">
+                <template
+                    v-for="filter of FILTERS"
+                    :key="filter">
                     <FluxMenuItem
                         is-persistent
                         is-selectable

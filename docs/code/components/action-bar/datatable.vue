@@ -69,8 +69,8 @@
 <script
     setup
     lang="ts">
-    import { ref, computed } from 'vue';
     import { FluxActionBar, FluxBadge, FluxBadgeStack, FluxDataTable, FluxFormInput, FluxPane, FluxPaneBody, FluxPaneHeader, FluxSecondaryButton, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { computed, ref } from 'vue';
 
     const searchQuery = ref('');
     const items = computed(() => Array(5).fill(null).map((_, index) => ({

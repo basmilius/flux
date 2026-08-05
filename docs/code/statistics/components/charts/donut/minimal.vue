@@ -10,8 +10,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsDonutChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
 
     const slices: FluxStatisticsChartPieSlice[] = [
         { label: 'Used', value: 78, color: 'primary' },

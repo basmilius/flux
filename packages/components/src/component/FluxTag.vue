@@ -87,15 +87,15 @@
         readonly to?: FluxTo;
     }>();
 
-    const translate = useTranslate();
-
-    const iconSizes = {
+    const ICON_SIZES = {
         small: 12,
         medium: 16,
         large: 18
     } as const;
 
-    const iconSize = computed(() => iconSizes[size]);
+    const translate = useTranslate();
+
+    const iconSize = computed(() => ICON_SIZES[size]);
 
     function onDeleteClick(): void {
         emit('delete');

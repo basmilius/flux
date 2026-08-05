@@ -79,9 +79,19 @@
     import { FluxFilter, FluxFilterDate, FluxFilterDateRange, FluxFilterOption, FluxFilterOptionAsync, FluxFilterOptions, FluxFilterOptionsAsync, FluxFilterRange, FluxPane, FluxSeparator } from '@flux-ui/components';
     import type { FluxFilterOptionRow, FluxFilterState } from '@flux-ui/types';
     import { DateTime } from 'luxon';
+    import { inBrowser } from 'vitepress';
     import { ref } from 'vue';
     import dataset from '../../../assets/select-dataset.json' with { type: 'json' };
-    import { inBrowser } from 'vitepress';
+
+    const filterState = ref<FluxFilterState>({
+        option1: 'b',
+        option2: ['a', 'c'],
+        option3: DateTime.now(),
+        option4: [DateTime.now(), DateTime.now().plus({day: 14})],
+        option5: [250, 500],
+        option6: '73c83353-de92-8110-9bce-c2a9e8c0de64',
+        option7: ['73c83353-de92-8110-9bce-c2a9e8c0de64', '92f99357-7fe5-71eb-74e2-55e057607e16']
+    });
 
     async function fetchOptions(values: string[]): Promise<FluxFilterOptionRow[]> {
         await new Promise(resolve => setTimeout(resolve, 300));
@@ -100,16 +110,6 @@
 
         return dataset.filter(o => o.label.toLowerCase().includes(searchQuery.toLowerCase()));
     }
-
-    const filterState = ref<FluxFilterState>({
-        option1: 'b',
-        option2: ['a', 'c'],
-        option3: DateTime.now(),
-        option4: [DateTime.now(), DateTime.now().plus({day: 14})],
-        option5: [250, 500],
-        option6: '73c83353-de92-8110-9bce-c2a9e8c0de64',
-        option7: ['73c83353-de92-8110-9bce-c2a9e8c0de64', '92f99357-7fe5-71eb-74e2-55e057607e16']
-    });
 
     function rangeFormatter(value: number): string {
         const formatter = new Intl.NumberFormat(inBrowser ? navigator.language : 'en', {

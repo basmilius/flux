@@ -18,9 +18,6 @@
     import { FluxFormField, FluxFormTreeViewSelect, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const selectedValue = ref<number | null>(null);
-
-    // Parent nodes have `selectable: false`; only leaves can be selected.
     const options = [
         {
             id: 1,
@@ -51,4 +48,6 @@
             ]
         }
     ];
+
+    const selectedValue = ref<number | null>(null);
 </script>

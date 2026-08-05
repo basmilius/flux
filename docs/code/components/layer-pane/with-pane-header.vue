@@ -28,8 +28,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxColor } from '@flux-ui/types';
     import { FluxBadge, FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxLayerPane, FluxPane, FluxPaneHeader } from '@flux-ui/components';
+    import type { FluxColor } from '@flux-ui/types';
 
     const metrics: { label: string; description: string; value: string; color: FluxColor }[] = [
         {label: 'Revenue', description: 'Total revenue this period', value: '+12%', color: 'success'},

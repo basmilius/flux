@@ -32,8 +32,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { FluxBoxedIcon, FluxClickablePane, FluxIcon, FluxItem, FluxItemContent, FluxItemMedia } from '@flux-ui/components';
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
 
     const projects: { name: string; description: string; icon: FluxIconName; color: FluxColor }[] = [
         {name: 'Aurora', description: 'Design system', icon: 'palette', color: 'primary'},

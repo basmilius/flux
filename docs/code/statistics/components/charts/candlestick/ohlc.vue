@@ -10,8 +10,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartCandlestickPoint, FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
     import { FluxStatisticsCandlestickChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartCandlestickPoint, FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 

@@ -8,5 +8,5 @@
 <script
     lang="ts"
     setup>
-    import { FluxFormFieldAddition, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxFormFieldAddition } from '@flux-ui/components';
 </script>

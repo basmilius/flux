@@ -251,17 +251,21 @@
 
     const selectedIds = computed(() => {
         const value = unref(modelValue);
+
         if (Array.isArray(value)) {
             return new Set(value);
         }
+
         return new Set<string | number>(value != null ? [value] : []);
     });
 
     const selectedOptions = computed(() => {
         const ids = unref(selectedIds);
+
         if (ids.size === 0) {
             return [];
         }
+
         return flattenAll(options).filter(node => ids.has(node.id));
     });
 
@@ -269,9 +273,11 @@
 
     const visibleNodes = computed((): FlatNode[] => {
         const query = unref(searchQuery).toLowerCase().trim();
+
         if (query) {
             return flattenSearch(options, query);
         }
+
         return flattenVisible(options, 0, unref(expandedIds));
     });
 
@@ -380,9 +386,11 @@
             if (!unref(isMultiple)) {
                 return;
             }
+
             if (unref(searchQuery).length > 0 || unref(selectedIds).size === 0) {
                 return;
             }
+
             const selectedList = [...unref(selectedIds)];
             deselect(selectedList[selectedList.length - 1]);
             return;

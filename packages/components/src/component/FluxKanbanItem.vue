@@ -47,6 +47,7 @@
     }>();
 
     const root = useTemplateRef('root');
+
     const kanban = useKanbanInjection();
     const swimlane = useKanbanSwimlaneInjection();
     const disabledState = useDisabled(toRef(() => disabled));

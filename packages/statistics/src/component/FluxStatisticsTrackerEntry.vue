@@ -59,15 +59,6 @@
     import { FluxStatisticsTrackerInjectionKey } from '~flux/statistics/composable';
     import $style from '~flux/statistics/css/Tracker.module.scss';
 
-    const COLOR_MAP: Record<FluxColor, string> = {
-        gray: $style.trackerEntryGray,
-        primary: $style.trackerEntryPrimary,
-        danger: $style.trackerEntryDanger,
-        info: $style.trackerEntryInfo,
-        success: $style.trackerEntrySuccess,
-        warning: $style.trackerEntryWarning
-    };
-
     const {
         color = 'gray'
     } = defineProps<{
@@ -83,6 +74,15 @@
         end?(): VNode[];
         start?(): VNode[];
     }>();
+
+    const COLOR_MAP: Record<FluxColor, string> = {
+        gray: $style.trackerEntryGray,
+        primary: $style.trackerEntryPrimary,
+        danger: $style.trackerEntryDanger,
+        info: $style.trackerEntryInfo,
+        success: $style.trackerEntrySuccess,
+        warning: $style.trackerEntryWarning
+    };
 
     const tracker = inject(FluxStatisticsTrackerInjectionKey, null);
     const markerRef = useTemplateRef<HTMLElement>('marker');

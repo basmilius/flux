@@ -32,7 +32,7 @@
 <script
     lang="ts"
     setup>
-    import { type FluxColor } from '@flux-ui/types';
+    import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, onUnmounted, toRef, useTemplateRef, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';

@@ -34,9 +34,9 @@
 <script
     setup
     lang="ts">
+    import { FluxBadge, FluxBoxedIcon, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxPane, FluxToggle } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { reactive } from 'vue';
-    import { FluxBadge, FluxBoxedIcon, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxPane, FluxToggle } from '@flux-ui/components';
 
     const connected = reactive<Record<string, boolean>>({
         github: true,

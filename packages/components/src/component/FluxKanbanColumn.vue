@@ -111,6 +111,7 @@
     const root = useTemplateRef('root');
     const header = useTemplateRef('header');
     const body = useTemplateRef('body');
+
     const kanban = useKanbanInjection();
     const layout = useKanbanLayoutInjection();
     const swimlane = useKanbanSwimlaneInjection();

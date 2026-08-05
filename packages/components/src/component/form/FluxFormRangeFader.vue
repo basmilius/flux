@@ -269,12 +269,6 @@
     const lowerState = computed(() => faderBarStateClass(isDodging(unref(lowerBarCenter)), unref(isDraggingLower), unref(focusVisibleLower)));
     const upperState = computed(() => faderBarStateClass(isDodging(unref(upperBarCenter)), unref(isDraggingUpper), unref(focusVisibleUpper)));
 
-    function tickStyle(tick: { readonly percent: number; readonly visibility: number }): CSSProperties {
-        return direction === 'vertical'
-            ? {bottom: `${tick.percent}%`, opacity: tick.visibility}
-            : {left: `${tick.percent}%`, opacity: tick.visibility};
-    }
-
     const ticks = computed(() => {
         if (!unref(showMarks) || step <= 0 || !unref(isRangeValid)) {
             return [];
@@ -344,6 +338,12 @@
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     });
+
+    function tickStyle(tick: { readonly percent: number; readonly visibility: number }): CSSProperties {
+        return direction === 'vertical'
+            ? {bottom: `${tick.percent}%`, opacity: tick.visibility}
+            : {left: `${tick.percent}%`, opacity: tick.visibility};
+    }
 
     function nudge(which: 'lower' | 'upper', delta: number): void {
         if (unref(disabled) || isReadonly || !unref(isRangeValid)) {

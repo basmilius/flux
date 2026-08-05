@@ -16,7 +16,7 @@
     lang="ts"
     setup>
     import { FluxVisualGridPattern } from '@flux-ui/visuals';
-    import { onMounted, ref, unref } from 'vue';
+    import { onMounted, ref, unref, useTemplateRef } from 'vue';
     import FluxView from './FluxView.vue';
 
     defineProps<{
@@ -24,7 +24,7 @@
     }>();
 
     const minHeight = ref(0);
-    const previewRef = ref<HTMLDivElement>();
+    const previewRef = useTemplateRef<HTMLDivElement>('previewRef');
 
     onMounted(() => resize());
 

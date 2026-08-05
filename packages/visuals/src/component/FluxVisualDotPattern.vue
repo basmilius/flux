@@ -74,10 +74,11 @@
         readonly glow?: boolean;
     }>();
 
-    const id = useId();
-    const glowId = `${id}-glow`;
     const rootRef = useTemplateRef<SVGSVGElement>('root');
     const active = ref(false);
+
+    const id = useId();
+    const glowId = `${id}-glow`;
 
     // The pattern svg has pointer-events: none, so the cursor is tracked on the
     // parent scroll/overflow container instead. The position is written straight

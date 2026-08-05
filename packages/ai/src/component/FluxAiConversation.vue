@@ -60,13 +60,6 @@
     import { FluxAiConversationInjectionKey } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiConversation.module.scss';
 
-    const BOTTOM_THRESHOLD = 24;
-
-    type ConversationTurn = {
-        readonly day: string | null;
-        readonly vnode: VNode;
-    };
-
     const {
         isGrouped,
         isSticky = true,
@@ -83,6 +76,13 @@
         default(): VNode[];
         empty(): VNode[];
     }>();
+
+    const BOTTOM_THRESHOLD = 24;
+
+    type ConversationTurn = {
+        readonly day: string | null;
+        readonly vnode: VNode;
+    };
 
     const translate = useTranslate();
 

@@ -21,9 +21,9 @@
 <script
     lang="ts"
     setup>
-    import { ref } from 'vue';
-    import { FluxKanban, FluxKanbanItem, FluxKanbanColumn } from '@flux-ui/components';
+    import { FluxKanban, FluxKanbanColumn, FluxKanbanItem } from '@flux-ui/components';
     import type { FluxKanbanMoveEvent } from '@flux-ui/types';
+    import { ref } from 'vue';
 
     const columns = [
         {id: 'todo', label: 'To do'},

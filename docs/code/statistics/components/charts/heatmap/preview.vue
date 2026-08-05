@@ -17,8 +17,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsHeatmapChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
 
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     const weeks = Array.from({ length: 12 }, (_, i) => `W${i + 1}`);

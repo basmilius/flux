@@ -59,13 +59,8 @@
     }>();
 
     const {
-        dates,
-        days,
-        viewDate,
-        draggable,
         items,
-        hasActiveDrag,
-        focusedDate
+        hasActiveDrag
     } = defineProps<{
         readonly dates: DateTime[];
         readonly days: string[];

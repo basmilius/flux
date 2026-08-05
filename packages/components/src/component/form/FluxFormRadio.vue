@@ -81,12 +81,11 @@
     const disabled = useDisabled(toRef(() => componentDisabled || unref(group.disabled)));
 
     const isBareControl = computed(() => itemControl?.isControl.value ?? false);
-
-    itemControl?.register(id);
-
     const isChecked = computed(() => unref(group.modelValue) === value);
     const isReadonly = computed(() => unref(group.isReadonly));
     const error = computed(() => unref(group.error));
+
+    itemControl?.register(id);
 
     function onChange(): void {
         if (unref(isReadonly) || unref(disabled)) {

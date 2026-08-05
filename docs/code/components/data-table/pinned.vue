@@ -67,8 +67,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxDataTable, FluxPane, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
+    import { FluxDataTable, FluxPane, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { computed, ref } from 'vue';
 
     const selected = ref<number[]>([]);

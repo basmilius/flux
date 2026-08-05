@@ -13,8 +13,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsRadarChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartRadarSeries[] = [
         { name: 'This quarter', values: [82, 65, 73, 91, 70, 88] },

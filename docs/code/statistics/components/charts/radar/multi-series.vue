@@ -16,8 +16,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsRadarChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartRadarSeries[] = [
         { name: 'Alice', values: [90, 80, 70, 95, 85, 78] },

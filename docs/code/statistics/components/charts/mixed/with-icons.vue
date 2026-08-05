@@ -16,8 +16,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsLegend, FluxStatisticsMixedChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartMixedSeries[] = [
         { name: 'Spend', type: 'bar', icon: 'money-bill', color: 'primary', data: [2400, 2800, 3100, 3600, 4100, 4500, 5100, 5800] },

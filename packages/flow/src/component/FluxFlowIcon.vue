@@ -17,8 +17,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { FluxBoxedIcon, FluxSpinner } from '@flux-ui/components';
+    import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import $style from '~flux/flow/css/component/FlowIcon.module.scss';
 
     defineProps<{

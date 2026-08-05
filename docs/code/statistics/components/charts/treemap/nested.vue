@@ -10,8 +10,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartTreemapNode } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsTreemapChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartTreemapNode } from '@flux-ui/types';
 
     const nodes: FluxStatisticsChartTreemapNode[] = [
         {

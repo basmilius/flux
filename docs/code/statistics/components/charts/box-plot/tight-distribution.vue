@@ -12,8 +12,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartBoxPlotSeries } from '@flux-ui/types';
     import { FluxStatisticsBoxPlotChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartBoxPlotSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartBoxPlotSeries[] = [{
         name: 'Latency',

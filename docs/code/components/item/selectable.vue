@@ -30,8 +30,8 @@
 <script
     setup
     lang="ts">
-    import { reactive } from 'vue';
     import { FluxAvatar, FluxFormCheckbox, FluxItem, FluxItemContent, FluxItemMedia, FluxItemStack, FluxPane } from '@flux-ui/components';
+    import { reactive } from 'vue';
 
     const selected = reactive<Record<string, boolean>>({
         bas: true,

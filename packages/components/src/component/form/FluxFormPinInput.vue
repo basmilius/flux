@@ -61,16 +61,16 @@
         readonly maxLength?: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
-    const {id, describedBy} = useFormFieldInjection();
-    const translate = useTranslate();
-
     const fieldRefs = useTemplateRef<HTMLInputElement[]>('fields');
 
     // The fields render from this buffer instead of from the model, so a cleared middle digit
     // stays a gap instead of shifting the trailing digits to the left (which would corrupt the
     // entered code). The model itself is a gapless string and cannot represent that gap.
     const digits = ref<string[]>([]);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
+    const {id, describedBy} = useFormFieldInjection();
+    const translate = useTranslate();
 
     const firstEmptyIndex = computed(() => {
         for (let i = 0; i < maxLength; i++) {

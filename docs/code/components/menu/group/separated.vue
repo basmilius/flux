@@ -12,6 +12,7 @@
             <FluxMenuGroup>
                 <FluxMenuItem
                     v-for="i of 3"
+                    :key="i"
                     :is-highlighted="i === 1"
                     icon-leading="grid-2"
                     label="Menu item"/>
@@ -21,7 +22,8 @@
 
             <FluxMenuGroup>
                 <FluxMenuItem
-                    v-for="_ of 2"
+                    v-for="i of 2"
+                    :key="i"
                     icon-leading="grid-2"
                     label="Menu item"/>
             </FluxMenuGroup>

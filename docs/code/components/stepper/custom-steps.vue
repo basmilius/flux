@@ -55,8 +55,9 @@
     import { FluxFlex, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPrimaryButton, FluxSecondaryButton, FluxSpacer, FluxStepper, FluxStepperStep } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const step = ref(0);
     const titles = ['Profile', 'Workspace', 'Done'];
+
+    const step = ref(0);
 </script>
 
 <style

@@ -10,8 +10,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartCandlestickPoint, FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
     import { FluxStatisticsCandlestickChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartCandlestickPoint, FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
 
     const data: FluxStatisticsChartCandlestickPoint[] = Array.from({ length: 16 }, (_, i) => {
         const open = 80 + Math.round(Math.random() * 30);

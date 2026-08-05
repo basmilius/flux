@@ -34,9 +34,6 @@
     import { useTranslate } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/ReadMore.module.scss';
 
-    const DURATION = 300;
-    const EASING = 'cubic-bezier(0.55, 0, 0.1, 1)';
-
     const isExpanded = defineModel<boolean>('isExpanded', {
         default: false
     });
@@ -61,15 +58,18 @@
         }): VNode[];
     }>();
 
-    const contentRef = useTemplateRef<HTMLElement>('content');
-    const contentId = useId();
-    const translate = useTranslate();
+    const DURATION = 300;
+    const EASING = 'cubic-bezier(0.55, 0, 0.1, 1)';
 
+    const contentRef = useTemplateRef<HTMLElement>('content');
     const isClamped = ref(!unref(isExpanded));
     const isOverflowing = ref(false);
 
     let animation: Animation | null = null;
     let sequence = 0;
+
+    const contentId = useId();
+    const translate = useTranslate();
 
     const hasToggle = computed(() => unref(isOverflowing) || unref(isExpanded));
 

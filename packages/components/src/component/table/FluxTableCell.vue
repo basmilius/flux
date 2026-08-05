@@ -63,9 +63,9 @@
         pinnedOffsets
     } = useTableInjection();
 
-    const isRaw = computed(() => 'content' in slots);
-
     const columnIndex = useTableColumnIndex(cell, columns);
+
+    const isRaw = computed(() => 'content' in slots);
     const columnSpan = computed(() => Math.max(colspan ?? 1, 1));
 
     // Spanning cells cover multiple columns, so their column's definition

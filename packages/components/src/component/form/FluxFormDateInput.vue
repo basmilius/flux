@@ -62,9 +62,9 @@
         readonly min?: DateTime;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const flyoutRef = useTemplateRef('flyout');
 
+    const disabled = useDisabled(toRef(() => componentDisabled));
     const localValue = useDateFlyout(modelValue, flyoutRef, {
         compareKey: value => value?.toISODate()
     });

@@ -25,8 +25,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxComment, FluxFlex } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
+    import { FluxComment, FluxFlex } from '@flux-ui/components';
     import { DateTime } from 'luxon';
     import { onMounted, shallowRef } from 'vue';
 

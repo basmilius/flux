@@ -17,9 +17,9 @@
     setup
     lang="ts">
     import { violet100, violet300, violet500, violet700 } from '@flux-ui/internals';
-    import type { EChartsOption } from 'echarts/core';
-    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsHeatmapChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
+    import type { EChartsOption } from 'echarts/core';
 
     const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 

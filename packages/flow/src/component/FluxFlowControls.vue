@@ -87,12 +87,14 @@
         readonly zoomOutLabel?: string;
     }>();
 
-    const translate = useTranslate();
-
     // The levels the flyout offers, from the widest view down. A flow that caps
     // its own zoom keeps only the ones it can actually reach.
     const ZOOM_PRESETS = [2, 1.5, 1, 0.75, 0.5];
 
+    const isFullscreen = shallowRef(false);
+    const isFullscreenAvailable = shallowRef(false);
+
+    const translate = useTranslate();
     const controller = useFlowInjection();
 
     // A static flow has nothing to zoom, and a dead row of buttons is worse than
@@ -100,8 +102,6 @@
     const isStatic = controller.isStatic;
 
     const clip = controller.clipElement;
-    const isFullscreen = shallowRef(false);
-    const isFullscreenAvailable = shallowRef(false);
 
     const fullscreenToggleLabel = computed(() => isFullscreen.value
         ? exitFullscreenLabel ?? translate('flux.flow.exitFullscreen')

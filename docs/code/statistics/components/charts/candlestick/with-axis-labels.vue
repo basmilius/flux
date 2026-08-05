@@ -14,8 +14,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
     import { FluxStatisticsCandlestickChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartCandlestickSeries[] = [{
         name: 'Price',

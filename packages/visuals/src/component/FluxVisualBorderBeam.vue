@@ -73,11 +73,11 @@
     };
 
     const wrapperRef = useTemplateRef('wrapper');
-    const inView = useInView(wrapperRef, {initial: true, rootMargin: '256px'});
-
     const isActive = ref(active);
     const isFading = ref(false);
     const glowScale = ref<{ x: number; y: number; } | null>(null);
+
+    const inView = useInView(wrapperRef, {initial: true, rootMargin: '256px'});
 
     const isPulse = computed(() => variant === 'pulse-inner' || variant === 'pulse-outside');
     const isStatic = computed(() => staticColors || colorVariant === 'mono');

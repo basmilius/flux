@@ -56,6 +56,12 @@
     import { withBase } from 'vitepress';
     import { computed, ref, useTemplateRef } from 'vue';
 
+    const {path} = defineProps<{
+        readonly height: number;
+        readonly path: string;
+        readonly title: string;
+    }>();
+
     const MIN_WIDTH = 321;
     const STEP = 30;
 
@@ -66,12 +72,6 @@
         {label: '1280', value: 1280},
         {label: 'Full', value: 'full'}
     ];
-
-    const {path} = defineProps<{
-        readonly height: number;
-        readonly path: string;
-        readonly title: string;
-    }>();
 
     let dragStartWidth = 0;
 

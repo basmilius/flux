@@ -51,9 +51,9 @@
         readonly total: number;
     }>();
 
-    const translate = useTranslate();
-
     const limit = ref(perPage);
+
+    const translate = useTranslate();
 
     const limitOptions = computed(() => limits.map<FluxFormSelectOption>(n => ({
         label: translate('flux.showN', {n}),

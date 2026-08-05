@@ -17,8 +17,6 @@
     import { FluxFormField, FluxFormTreeViewSelect, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const selectedValue = ref<number | null>(null);
-
     // A color can be a FluxColor name or any CSS color string, and is set per option.
     const options = [
         {
@@ -50,4 +48,6 @@
             ]
         }
     ];
+
+    const selectedValue = ref<number | null>(null);
 </script>

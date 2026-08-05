@@ -19,11 +19,11 @@
     import type { FluxFormSelectValue } from '@flux-ui/types';
     import { ref } from 'vue';
 
-    const value = ref<FluxFormSelectValue>(null);
-
     const options = [
         {label: 'Design', value: 'design'},
         {label: 'Engineering', value: 'engineering'},
         {label: 'Marketing', value: 'marketing'}
     ];
+
+    const value = ref<FluxFormSelectValue>(null);
 </script>

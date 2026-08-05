@@ -40,8 +40,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxIconName } from '@flux-ui/types';
     import { FluxIcon, FluxItem, FluxItemContent, FluxItemMedia, FluxItemStack, FluxPane, FluxPaneFooter, FluxPaneHeader, FluxSecondaryButton, FluxSheet, FluxSpacer } from '@flux-ui/components';
+    import type { FluxIconName } from '@flux-ui/types';
     import { ref } from 'vue';
 
     const targets: { icon: FluxIconName; label: string }[] = [

@@ -10,8 +10,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartBubblePoint, FluxStatisticsChartBubbleSeries } from '@flux-ui/types';
     import { FluxStatisticsBubbleChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartBubblePoint, FluxStatisticsChartBubbleSeries } from '@flux-ui/types';
 
     const data: FluxStatisticsChartBubblePoint[] = Array.from({ length: 20 }, () => ({
         x: Math.round(Math.random() * 100),

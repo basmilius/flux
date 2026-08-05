@@ -91,11 +91,6 @@
     import FluxSeparator from '../FluxSeparator.vue';
     import $style from '~flux/components/css/component/Table.module.scss';
 
-    const MIN_RESIZE_WIDTH = 48;
-    const RESIZE_STEP = 12;
-    const RESIZE_STEP_LARGE = 48;
-    const RESIZE_THRESHOLD = 3;
-
     const emit = defineEmits<{
         resize: [number | null];
         sort: ['ascending' | 'descending' | null];
@@ -130,6 +125,11 @@
     defineSlots<{
         default(): VNode[];
     }>();
+
+    const MIN_RESIZE_WIDTH = 48;
+    const RESIZE_STEP = 12;
+    const RESIZE_STEP_LARGE = 48;
+    const RESIZE_THRESHOLD = 3;
 
     const header = useTemplateRef('header');
     const resizeHandle = useTemplateRef<HTMLButtonElement>('resizeHandle');
@@ -266,6 +266,9 @@
         resizedWidth.value = null;
     });
 
+    const unregisterColumn = registerColumn(header, columnDef);
+    onUnmounted(unregisterColumn);
+
     function clampWidth(value: number): number {
         return Math.round(clamp(value, minWidth ?? MIN_RESIZE_WIDTH, maxWidth ?? Number.POSITIVE_INFINITY));
     }
@@ -294,7 +297,4 @@
         resizedWidth.value = clampWidth(current + (evt.key === 'ArrowLeft' ? -step : step));
         emit('resize', unref(resizedWidth));
     }
-
-    const unregisterColumn = registerColumn(header, columnDef);
-    onUnmounted(unregisterColumn);
 </script>

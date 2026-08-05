@@ -18,8 +18,6 @@
     import { FluxFormField, FluxFormSelect, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const selectedValue = ref(2);
-
     const options = [
         { label: 'Belgium', value: 1 },
         { label: 'Germany', value: 2 },
@@ -28,4 +26,6 @@
         { label: 'Spain', value: 5 },
         { label: 'United Kingdom', value: 6 }
     ];
+
+    const selectedValue = ref(2);
 </script>

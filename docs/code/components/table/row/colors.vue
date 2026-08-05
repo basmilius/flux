@@ -15,8 +15,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxColor } from '@flux-ui/types';
     import { FluxPane, FluxTable, FluxTableCell, FluxTableRow } from '@flux-ui/components';
+    import type { FluxColor } from '@flux-ui/types';
 
     const colors: FluxColor[] = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
 </script>

@@ -85,6 +85,7 @@
 
     const bodyId = useId();
     const instance = getCurrentInstance();
+
     const route = computed<RouteLike | undefined>(() => (instance?.proxy as RouteAwareInstance | null)?.$route);
 
     watch(route, currentRoute => {

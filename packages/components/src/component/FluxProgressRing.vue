@@ -85,6 +85,12 @@
         }): VNode[];
     }>();
 
+    const formatter = useNumberFormat({
+        style: 'percent',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+
     const center = computed(() => size / 2);
     const radius = computed(() => Math.max(0, (size - thickness) / 2));
 
@@ -109,12 +115,5 @@
     });
 
     const dashOffset = computed(() => 100 - unref(position) * 100);
-
-    const formatter = useNumberFormat({
-        style: 'percent',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    });
-
     const progress = computed(() => unref(formatter).format(unref(position)));
 </script>

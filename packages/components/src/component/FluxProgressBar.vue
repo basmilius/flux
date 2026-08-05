@@ -73,6 +73,12 @@
         readonly value?: number;
     }>();
 
+    const formatter = useNumberFormat({
+        style: 'percent',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+
     const ariaValueNow = computed(() => {
         const current = value ?? min;
 
@@ -91,12 +97,6 @@
         }
 
         return clamp((current - min) / (max - min), 0, 1);
-    });
-
-    const formatter = useNumberFormat({
-        style: 'percent',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
     });
 
     const progress = computed(() => unref(formatter).format(unref(position) ?? 0));

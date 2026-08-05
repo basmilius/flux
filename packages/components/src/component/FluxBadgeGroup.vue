@@ -79,13 +79,13 @@
         end?(): VNode[];
     }>();
 
-    const iconSizes = {
+    const ICON_SIZES = {
         small: 12,
         medium: 16,
         large: 18
     } as const;
 
-    const iconSize = computed(() => iconSizes[size]);
+    const iconSize = computed(() => ICON_SIZES[size]);
 
     function renderBadges(nodes: VNode[] | undefined): VNode[] {
         return flattenVNodeTree(nodes ?? [])

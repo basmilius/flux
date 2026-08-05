@@ -21,8 +21,8 @@
 <script
     setup
     lang="ts">
-    import { reactive } from 'vue';
     import { FluxItem, FluxItemActions, FluxItemContent, FluxItemStack, FluxPane, FluxToggle } from '@flux-ui/components';
+    import { reactive } from 'vue';
 
     const enabled = reactive<Record<string, boolean>>({
         marketing: true,

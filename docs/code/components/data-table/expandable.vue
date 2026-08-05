@@ -59,11 +59,11 @@
     import { FluxDataTable, FluxDescriptionItem, FluxDescriptionList, FluxPane, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const expanded = ref<number[]>([1]);
-
     const dataSet = [
         {id: 1, reference: '#2024-0001', customer: 'Acme Inc.', total: '€ 1,240.00', items: 3, shipping: 'Standard'},
         {id: 2, reference: '#2024-0002', customer: 'Globex', total: '€ 320.00', items: 1, shipping: 'Express'},
         {id: 3, reference: '#2024-0003', customer: 'Initech', total: '€ 78.50', items: 2, shipping: 'Standard'}
     ];
+
+    const expanded = ref<number[]>([1]);
 </script>

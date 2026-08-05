@@ -12,9 +12,9 @@
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
-    import type { FluxStatisticsChartBarSeries } from '@flux-ui/types';
     import { FluxStatisticsBarChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartBarSeries } from '@flux-ui/types';
+    import type { EChartsOption } from 'echarts/core';
 
     const countries = ['Netherlands', 'Germany', 'Belgium', 'France', 'United Kingdom', 'Spain'];
 

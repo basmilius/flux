@@ -3,7 +3,8 @@
         <FluxTable>
             <FluxTableRow>
                 <FluxTableCell
-                    v-for="cell in 6">
+                    v-for="cell in 6"
+                    :key="cell">
                     1&times;{{ cell }}
                 </FluxTableCell>
             </FluxTableRow>

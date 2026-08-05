@@ -483,6 +483,7 @@
     ];
 
     const SHORTCUTS = ROWS.map(row => `Shift + ${row.key} cycles ${row.title.toLowerCase()}`).join(', ');
+    const tooltip = `${SHORTCUTS}.`;
 
     const isOpen = ref(false);
     const selected = reactive<Record<string, string>>({gray: 'flux', primary: 'flux'});
@@ -520,7 +521,6 @@
     const hasFailure = computed(() => CHECKS.some(check => (ratios[check.id] ?? TARGET) < TARGET));
 
     const active = computed(() => ROWS.map(row => activeScale(row).label).join(' / '));
-    const tooltip = `${SHORTCUTS}.`;
 
     // Post flush, so the ramp is repainted with the new stops before the readout
     // measures the tokens built on top of them.

@@ -219,12 +219,6 @@
     });
     const barState = computed(() => faderBarStateClass(isDodging(unref(barCenter)), unref(isDragging), unref(focusVisible)));
 
-    function tickStyle(tick: { readonly percent: number; readonly visibility: number }): CSSProperties {
-        return direction === 'vertical'
-            ? {bottom: `${tick.percent}%`, opacity: tick.visibility}
-            : {left: `${tick.percent}%`, opacity: tick.visibility};
-    }
-
     const ticks = computed(() => {
         if (!unref(showMarks) || step <= 0 || !unref(isRangeValid)) {
             return [];
@@ -283,6 +277,12 @@
         document.removeEventListener('pointercancel', onPointerUp);
         document.removeEventListener('pointerup', onPointerUp);
     });
+
+    function tickStyle(tick: { readonly percent: number; readonly visibility: number }): CSSProperties {
+        return direction === 'vertical'
+            ? {bottom: `${tick.percent}%`, opacity: tick.visibility}
+            : {left: `${tick.percent}%`, opacity: tick.visibility};
+    }
 
     function setFromFraction(fraction: number): void {
         if (unref(disabled) || isReadonly || !unref(isRangeValid)) {

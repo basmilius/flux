@@ -19,7 +19,7 @@
 <script
     setup
     lang="ts">
-    import { FluxDropZone, FluxPane, FluxPaneBody, FluxPlaceholder, FluxSecondaryButton } from '@flux-ui/components';
+    import { FluxDropZone, FluxPane, FluxPaneBody, FluxPlaceholder } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const uploadedFile = ref<File|null>(null);

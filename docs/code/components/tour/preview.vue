@@ -49,10 +49,9 @@
     setup
     lang="ts">
     import { FluxPrimaryButton, FluxSecondaryButton, FluxTour, FluxTourItem } from '@flux-ui/components';
-    import { ref } from 'vue';
+    import { ref, useTemplateRef } from 'vue';
 
-    const root = ref<HTMLElement>();
-
+    const root = useTemplateRef('root');
     const active = ref(false);
     const step = ref(0);
 

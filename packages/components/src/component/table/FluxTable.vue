@@ -203,6 +203,51 @@
             .join(' ');
     });
 
+    watchEffect(() => {
+        const baseEl = unref(base);
+
+        if (!baseEl) {
+            return;
+        }
+
+        if (isScrolledStart.value) {
+            baseEl.setAttribute('data-scrolled-start', '');
+        } else {
+            baseEl.removeAttribute('data-scrolled-start');
+        }
+
+        if (isScrollableEnd.value) {
+            baseEl.setAttribute('data-scrollable-end', '');
+        } else {
+            baseEl.removeAttribute('data-scrollable-end');
+        }
+    });
+
+    watchEffect(() => {
+        const loaderEl = unref(loaderRef);
+
+        if (!loaderEl) {
+            return;
+        }
+
+        const {style} = loaderEl;
+
+        style.transform = `translate(${x.value}px, ${y.value}px)`;
+        style.top = `${headHeight.value}px`;
+        style.bottom = `${footHeight.value}px`;
+        style.borderTopLeftRadius = headHeight.value > 0 ? '0' : '';
+        style.borderTopRightRadius = headHeight.value > 0 ? '0' : '';
+        style.borderBottomLeftRadius = footHeight.value > 0 ? '0' : '';
+        style.borderBottomRightRadius = footHeight.value > 0 ? '0' : '';
+    });
+
+    // The columns registered during setup only reach the DOM with the next
+    // template patch, which lands after ancestors' mounted hooks. Write the
+    // template immediately so mounted-time measurements see the real layout.
+    onMounted(() => {
+        unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
+    });
+
     // The filler and empty rows are their own 1fr row tracks, so the layout
     // engine hands them the remaining height synchronously instead of a
     // measurement pass doing so a frame later. Slot presence is not reactive,
@@ -400,44 +445,6 @@
         nudgeSubgridRows(resolvedTemplate);
     });
 
-    watchEffect(() => {
-        const baseEl = unref(base);
-
-        if (!baseEl) {
-            return;
-        }
-
-        if (isScrolledStart.value) {
-            baseEl.setAttribute('data-scrolled-start', '');
-        } else {
-            baseEl.removeAttribute('data-scrolled-start');
-        }
-
-        if (isScrollableEnd.value) {
-            baseEl.setAttribute('data-scrollable-end', '');
-        } else {
-            baseEl.removeAttribute('data-scrollable-end');
-        }
-    });
-
-    watchEffect(() => {
-        const loaderEl = unref(loaderRef);
-
-        if (!loaderEl) {
-            return;
-        }
-
-        const {style} = loaderEl;
-
-        style.transform = `translate(${x.value}px, ${y.value}px)`;
-        style.top = `${headHeight.value}px`;
-        style.bottom = `${footHeight.value}px`;
-        style.borderTopLeftRadius = headHeight.value > 0 ? '0' : '';
-        style.borderTopRightRadius = headHeight.value > 0 ? '0' : '';
-        style.borderBottomLeftRadius = footHeight.value > 0 ? '0' : '';
-        style.borderBottomRightRadius = footHeight.value > 0 ? '0' : '';
-    });
-
     watch(sortedColumns, () => measure());
 
     watch([base, headRef, bodyRef, footRef], ([baseEl, head, bodyEl, foot], _, onCleanup) => {
@@ -467,13 +474,6 @@
     }, {immediate: true});
 
     onScopeDispose(subscribeToRootFontSize(measure));
-
-    // The columns registered during setup only reach the DOM with the next
-    // template patch, which lands after ancestors' mounted hooks. Write the
-    // template immediately so mounted-time measurements see the real layout.
-    onMounted(() => {
-        unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
-    });
 
     provide(FluxTableInjectionKey, {
         activeRow,

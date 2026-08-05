@@ -13,9 +13,9 @@
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
-    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsRadarChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartRadarIndicator, FluxStatisticsChartRadarSeries } from '@flux-ui/types';
+    import type { EChartsOption } from 'echarts/core';
 
     const series: FluxStatisticsChartRadarSeries[] = [
         { name: 'Coverage', values: [75, 90, 60, 80, 70, 85] }

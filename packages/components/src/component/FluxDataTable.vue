@@ -206,8 +206,6 @@
         readonly items?: T[];
     };
 
-    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'pagination', 'expandable', 'group', 'empty', 'loading', 'selection'];
-
     const emit = defineEmits<{
         limit: [number];
         navigate: [number];
@@ -328,6 +326,8 @@
             readonly isSelected: boolean;
         }) => VNode;
     }>();
+
+    const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'pagination', 'expandable', 'group', 'empty', 'loading', 'selection'];
 
     const instance = getCurrentInstance();
     const table = useTemplateRef('table');

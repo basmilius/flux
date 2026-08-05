@@ -2,7 +2,9 @@
     <FluxPane style="width: 300px">
         <FluxMenu>
             <FluxMenuGroup>
-                <template v-for="i of 3">
+                <template
+                    v-for="i of 3"
+                    :key="i">
                     <FluxMenuItem
                         :is-selected="selected === i"
                         is-selectable

@@ -91,7 +91,6 @@
     // The stylesheet turns it into the x of the line dropping to the node's children.
     const lineAreaStyle = computed(() => ({'--tree-marker-column': node.lineGuides.length + (node.depth > 0 ? 1 : 0)}) as CSSProperties);
 
-    // Per-node color wins over the per-depth levelColors fallback; falsy means the neutral gray default.
     const colorValue = computed(() => node.color ?? levelColors?.[node.depth]);
     const isFluxColor = computed(() => FLUX_COLORS.includes(colorValue.value as FluxColor));
     const markerColorClass = computed(() => {

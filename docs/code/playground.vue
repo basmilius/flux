@@ -2569,7 +2569,7 @@ const article = FluxProse;</code></pre>
     import { FluxAction, FluxActionBar, FluxActionPane, FluxActionStack, FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbFlyout, FluxBreadcrumbItem, FluxButtonGroup, FluxButtonStack, FluxCalendar, FluxCalendarItem, FluxChip, FluxClickablePane, FluxClickablePaneHeader, FluxColorPicker, FluxColorSelect, FluxCommandPalette, FluxComment, FluxContextMenu, FluxDataTable, FluxDatePicker, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDisabled, FluxDivider, FluxDropZone, FluxExpandable, FluxExpandableGroup, FluxFilterBar, FluxFilterDate, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFlex, FluxFlyout, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormCheckboxTile, FluxFormColumn, FluxFormCombobox, FluxFormDateInput, FluxFormFader, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormNumberInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRadioTile, FluxFormRangeSlider, FluxFormRating, FluxFormSelect, FluxFormSlider, FluxFormTagsInput, FluxFormTextArea, FluxFormTreeViewSelect, FluxGallery, FluxIcon, FluxInfo, FluxInfoStack, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxLayerPane, FluxLink, FluxMasonry, FluxMenu, FluxMenuCollapsible, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuOptions, FluxMenuPane, FluxMenuSubHeader, FluxMenuTitle, FluxNotice, FluxNoticeStack, FluxOverlay, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneGroup, FluxPaneHeader, FluxPaneMedia, FluxPersona, FluxPlaceholder, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxPublishButton, FluxQuantitySelector, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSheet, FluxSkeleton, FluxSlideOver, FluxSnackbar, FluxSpacer, FluxSpinner, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableGroup, FluxTableHeader, FluxTableRow, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTicks, FluxTimeline, FluxTimelineItem, FluxToggle, FluxToolbar, FluxToolbarGroup, FluxTooltip, FluxTreeView, showAlert, showConfirm, showPrompt, showSnackbar } from '@flux-ui/components';
     import type { FluxColor, FluxCommandSource, FluxFilterState, FluxFormSelectOption, FluxIconName, FluxTreeViewOption } from '@flux-ui/types';
     import { DateTime } from 'luxon';
-    import { computed, reactive, ref } from 'vue';
+    import { computed, reactive, ref, useTemplateRef } from 'vue';
     import ApplicationDemo from './playground/ApplicationDemo.vue';
     import PaletteSwitcher from './playground/PaletteSwitcher.vue';
     import Patterns from './playground/Patterns.vue';
@@ -2616,32 +2616,6 @@ const article = FluxProse;</code></pre>
         {color: 'warning', icon: 'hourglass-clock', title: 'Warning', message: 'This will keep working for now, but it will not forever.'}
     ];
 
-    const step = ref(0);
-    const tab = ref(0);
-    const pillTab = ref(0);
-    const wellTab = ref(0);
-    const toggle = ref(true);
-    const toggleIcon = ref(false);
-    const view = ref('grid');
-    const inlineValue = ref('Project Apollo');
-    const isPublished = ref(false);
-    const isOverlayOpen = ref(false);
-    const isSlideOverOpen = ref(false);
-    const openedSheet = ref<OpenedSheet>(null);
-    const sheetPosition = ref<SheetPosition>('bottom');
-    const brightness = ref(60);
-    const menuFilter = ref('');
-    const menuOption = ref('Second option');
-    const menuView = ref('grid');
-    const search = ref('');
-    const sort = ref<'ascending' | 'descending' | null>('ascending');
-    const selectedDeployment = ref(3);
-    const selectedInvoices = ref<number[]>([2]);
-    const invoicePage = ref(1);
-    const commandPalette = ref<InstanceType<typeof FluxCommandPalette>>();
-    const startDate = ref<DateTime | null>(DateTime.now());
-    const pickedDate = ref<DateTime | DateTime[] | null>(DateTime.now());
-
     const menuOptions = ['First option', 'Second option', 'Third option'];
 
     const menuCommands: { readonly icon: FluxIconName; readonly label: string; }[] = [
@@ -2652,46 +2626,6 @@ const article = FluxProse;</code></pre>
         {icon: 'users', label: 'Invite members'},
         {icon: 'gear', label: 'Settings'}
     ];
-
-    const form = reactive({
-        accent: '#4f46e5',
-        addons: ['backups'] as string[],
-        brightness: 65,
-        budget: 1250 as number | null,
-        category: 3 as number | null,
-        city: 'ams' as string | number | null,
-        color: '#4f46e5',
-        country: 'nl' as string | number | null,
-        device: 'laptop',
-        email: 'ada@example.com',
-        indeterminate: null as boolean | null,
-        name: 'Ada Lovelace',
-        notes: 'A short note that stays well under the counter limit.',
-        notifications: ['email'] as string[],
-        pin: '1234',
-        plan: 'team',
-        priceRange: [20, 80] as [number, number],
-        quantity: 3,
-        rating: 3.5 as number | null,
-        search: '',
-        tags: ['design', 'tokens'] as string[],
-        teams: ['design'] as (string | number | null)[],
-        volume: 40,
-        website: 'flux-ui.dev'
-    });
-
-    const filterState = ref<FluxFilterState>({
-        amount: null,
-        issued: null,
-        owner: null,
-        status: null
-    });
-
-    const expandedGroups = reactive<Record<string, boolean>>({
-        Design: true,
-        Engineering: true,
-        Support: false
-    });
 
     const countries: FluxFormSelectOption[] = [
         {label: 'Belgium', value: 'be'},
@@ -2865,6 +2799,72 @@ const article = FluxProse;</code></pre>
             ]
         }
     ];
+
+    const step = ref(0);
+    const tab = ref(0);
+    const pillTab = ref(0);
+    const wellTab = ref(0);
+    const toggle = ref(true);
+    const toggleIcon = ref(false);
+    const view = ref('grid');
+    const inlineValue = ref('Project Apollo');
+    const isPublished = ref(false);
+    const isOverlayOpen = ref(false);
+    const isSlideOverOpen = ref(false);
+    const openedSheet = ref<OpenedSheet>(null);
+    const sheetPosition = ref<SheetPosition>('bottom');
+    const brightness = ref(60);
+    const menuFilter = ref('');
+    const menuOption = ref('Second option');
+    const menuView = ref('grid');
+    const search = ref('');
+    const sort = ref<'ascending' | 'descending' | null>('ascending');
+    const selectedDeployment = ref(3);
+    const selectedInvoices = ref<number[]>([2]);
+    const invoicePage = ref(1);
+    const commandPalette = useTemplateRef<InstanceType<typeof FluxCommandPalette>>('commandPalette');
+    const startDate = ref<DateTime | null>(DateTime.now());
+    const pickedDate = ref<DateTime | DateTime[] | null>(DateTime.now());
+
+    const form = reactive({
+        accent: '#4f46e5',
+        addons: ['backups'] as string[],
+        brightness: 65,
+        budget: 1250 as number | null,
+        category: 3 as number | null,
+        city: 'ams' as string | number | null,
+        color: '#4f46e5',
+        country: 'nl' as string | number | null,
+        device: 'laptop',
+        email: 'ada@example.com',
+        indeterminate: null as boolean | null,
+        name: 'Ada Lovelace',
+        notes: 'A short note that stays well under the counter limit.',
+        notifications: ['email'] as string[],
+        pin: '1234',
+        plan: 'team',
+        priceRange: [20, 80] as [number, number],
+        quantity: 3,
+        rating: 3.5 as number | null,
+        search: '',
+        tags: ['design', 'tokens'] as string[],
+        teams: ['design'] as (string | number | null)[],
+        volume: 40,
+        website: 'flux-ui.dev'
+    });
+
+    const filterState = ref<FluxFilterState>({
+        amount: null,
+        issued: null,
+        owner: null,
+        status: null
+    });
+
+    const expandedGroups = reactive<Record<string, boolean>>({
+        Design: true,
+        Engineering: true,
+        Support: false
+    });
 
     const filteredMenuCommands = computed(() => menuCommands.filter(command => command.label.toLowerCase().includes(menuFilter.value.toLowerCase())));
     const failedCount = computed(() => deployments.filter(deployment => deployment.status === 'Failed').length);

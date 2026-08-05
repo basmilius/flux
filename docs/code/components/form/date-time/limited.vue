@@ -22,6 +22,5 @@
 
     const min = ref(DateTime.now().startOf('day'));
     const max = ref(DateTime.now().plus({days: 7}).endOf('day'));
-
     const value = ref(DateTime.now());
 </script>

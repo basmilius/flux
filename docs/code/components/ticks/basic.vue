@@ -1,5 +1,5 @@
 <template>
-    <div class="ticks-example">
+    <div :class="$style.ticksExample">
         <FluxTicks style="width: 90%"
             :lower="0"
             :upper="100"/>
@@ -12,10 +12,8 @@
     import { FluxTicks } from '@flux-ui/components';
 </script>
 
-<style
-    scoped
-    lang="css">
-    .ticks-example {
+<style module>
+    .ticksExample {
         height: 25px;
         display: flex;
         align-items: center;

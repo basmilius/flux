@@ -234,9 +234,9 @@
 
         return searchInput?.querySelector<HTMLElement>('input') ?? unwrapElement(anchorRef);
     });
+    const rawOptions = computed(() => options.map(group => group[1]).flat());
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const activeDescendant = computed(() => unref(highlightedId) !== undefined ? optionId(unref(highlightedId)) : '');
-    const rawOptions = computed(() => options.map(group => group[1]).flat());
     const trimmedSearch = computed(() => unref(modelSearch).trim());
     const canCreate = computed(() => {
         if (!isCreatable || trimmedSearch.value === '') {

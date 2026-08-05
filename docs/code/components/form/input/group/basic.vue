@@ -20,8 +20,6 @@
     import { FluxFormInput, FluxFormInputGroup, FluxPane, FluxPaneBody, FluxSecondaryButton } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const username = ref('');
-
     const usernames = [
         "NeoFlux",
         "FluxRider",
@@ -34,6 +32,8 @@
         "FluxDrift",
         "ArcaneFlux"
     ];
+
+    const username = ref('');
 
     function getRandomUsername(): void {
         username.value = usernames[Math.floor(Math.random() * usernames.length)];

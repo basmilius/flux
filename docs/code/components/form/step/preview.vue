@@ -52,12 +52,12 @@
     import { FluxForm, FluxFormField, FluxFormInput, FluxFormRadioGroup, FluxFormRadioTile, FluxFormSelect, FluxFormStep, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const method = ref('subscription');
-    const agent = ref('claude-code');
-
     const agents = [
         {label: 'Claude Code', value: 'claude-code'},
         {label: 'Codex CLI', value: 'codex-cli'},
         {label: 'Custom agent', value: 'custom'}
     ];
+
+    const method = ref('subscription');
+    const agent = ref('claude-code');
 </script>

@@ -46,8 +46,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxColor } from '@flux-ui/types';
     import { FluxDataTable, FluxPane, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import type { FluxColor } from '@flux-ui/types';
 
     type Invoice = {
         readonly id: number;

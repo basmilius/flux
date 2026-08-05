@@ -1,19 +1,23 @@
 <template>
     <h2 id="props">Props</h2>
 
-    <p v-for="({name, description, type, optional, default: defaultValue}) of props">
+    <p
+        v-for="({name, description, type, union, optional, default: defaultValue}) of props"
+        :key="name">
         <template v-if="typeof type === 'string'">
             <code><strong>{{ name }}</strong>{{ optional ? '?' : '' }}: {{ type }}</code>
         </template>
 
         <template v-else-if="Array.isArray(type)">
-            <code><strong>{{ name }}</strong>{{ optional ? '?' : '' }}: {{ type.map(String).join(' | ') }}</code>
+            <code><strong>{{ name }}</strong>{{ optional ? '?' : '' }}: {{ union }}</code>
         </template>
 
         <template v-else>
             <code>
                 <strong>{{ name }}</strong>{{ optional ? '?' : '' }}: {<br>
-                    <template v-for="(value, key) in type">
+                    <template
+                        v-for="(value, key) in type"
+                        :key="key">
                         &nbsp;&nbsp;&nbsp;&nbsp;readonly {{ key }}: {{ value }};<br>
                     </template>
                 }
@@ -40,5 +44,8 @@
 
     const {frontmatter} = useData();
 
-    const props = computed(() => unref(frontmatter).props || []);
+    const props = computed(() => (unref(frontmatter).props || []).map(prop => ({
+        ...prop,
+        union: Array.isArray(prop.type) ? prop.type.map(String).join(' | ') : ''
+    })));
 </script>

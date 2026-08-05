@@ -20,8 +20,6 @@
     import { FluxFormField, FluxFormTreeViewSelect, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const selectedValues = ref<number[]>([]);
-
     // The root is a grouping level, so it is opened by default and only the boards can be picked.
     const options = [
         {
@@ -55,4 +53,6 @@
             ]
         }
     ];
+
+    const selectedValues = ref<number[]>([]);
 </script>

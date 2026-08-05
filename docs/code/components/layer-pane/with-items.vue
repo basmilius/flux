@@ -41,8 +41,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxColor } from '@flux-ui/types';
     import { FluxAvatar, FluxBadge, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxLayerPane, FluxPane, FluxPaneHeader, FluxSecondaryButton } from '@flux-ui/components';
+    import type { FluxColor } from '@flux-ui/types';
 
     const members: { name: string; role: string; status: string; color: FluxColor }[] = [
         {name: 'Bas Milius', role: 'Engineer', status: 'Active', color: 'success'},

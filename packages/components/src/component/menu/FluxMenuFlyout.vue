@@ -99,11 +99,11 @@
     // submenu item with the opener item instead of dropping it lower.
     const MENU_CHROME_TOP = 10;
 
-    const translate = useTranslate();
-    const popupId = useId();
-
     const triggerRef = useTemplateRef<ComponentPublicInstance>('trigger');
     const popupRef = useTemplateRef<ComponentPublicInstance>('popup');
+
+    const translate = useTranslate();
+    const popupId = useId();
 
     const popupAnchor = {
         $el: {

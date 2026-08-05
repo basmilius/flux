@@ -12,8 +12,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsMixedChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartMixedSeries[] = [
         {

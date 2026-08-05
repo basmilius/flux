@@ -55,8 +55,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxPaneHeader, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
+    import { FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxPaneHeader, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { computed, ref } from 'vue';
 
     const selected = ref<number[]>([]);

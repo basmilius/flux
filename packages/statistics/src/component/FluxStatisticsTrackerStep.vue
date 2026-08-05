@@ -31,12 +31,6 @@
     import { FluxStatisticsTrackerGroupInjectionKey } from '~flux/statistics/composable';
     import $style from '~flux/statistics/css/Tracker.module.scss';
 
-    const STATE_MAP = {
-        active: $style.trackerStepActive,
-        done: $style.trackerStepDone,
-        pending: $style.trackerStep
-    } as const;
-
     const {
         state = 'pending'
     } = defineProps<{
@@ -48,6 +42,12 @@
         default?(): VNode[];
         end?(): VNode[];
     }>();
+
+    const STATE_MAP = {
+        active: $style.trackerStepActive,
+        done: $style.trackerStepDone,
+        pending: $style.trackerStep
+    } as const;
 
     const group = inject(FluxStatisticsTrackerGroupInjectionKey, null);
     const markerRef = useTemplateRef<HTMLElement>('marker');

@@ -11,7 +11,7 @@
 <script
     setup
     lang="ts">
-    import { FluxFormSlider, FluxPane, FluxPaneBody } from '@flux-ui/components';
+    import { FluxFormSlider } from '@flux-ui/components';
     import { ref } from 'vue';
 
     const value = ref(25);

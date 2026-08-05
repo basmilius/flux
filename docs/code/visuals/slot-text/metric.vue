@@ -28,14 +28,14 @@
 
     let timer: number;
 
-    function tick(): void {
-        count.value += Math.floor(Math.random() * 25) - 8;
-        value.value = count.value.toLocaleString('en-US');
-    }
-
     onMounted(() => {
         timer = window.setInterval(tick, 2000);
     });
 
     onBeforeUnmount(() => window.clearInterval(timer));
+
+    function tick(): void {
+        count.value += Math.floor(Math.random() * 25) - 8;
+        value.value = count.value.toLocaleString('en-US');
+    }
 </script>

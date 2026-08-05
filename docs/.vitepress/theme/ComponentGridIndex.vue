@@ -2,6 +2,7 @@
     <ComponentGrid>
         <ComponentGridItem
             v-for="component in components"
+            :key="component.text"
             :image-url="component.image"
             :title="component.text"
             :url="component.link"/>
@@ -12,9 +13,9 @@
     lang="ts"
     setup>
     import { computed } from 'vue';
+    import navigation, { type SidebarItem } from '../component-navigation';
     import ComponentGrid from './ComponentGrid.vue';
     import ComponentGridItem from './ComponentGridItem.vue';
-    import navigation, { type SidebarItem } from '../component-navigation';
 
     type Card = {
         readonly text: string;
@@ -25,6 +26,9 @@
     const {category} = defineProps<{
         readonly category?: string;
     }>();
+
+    const components = computed(() => collect(navigation, !category)
+        .toSorted((a, b) => a.text.localeCompare(b.text)));
 
     function collect(items: SidebarItem[], matched: boolean, parent?: SidebarItem): Card[] {
         const cards: Card[] = [];
@@ -48,7 +52,4 @@
 
         return cards;
     }
-
-    const components = computed(() => collect(navigation, !category)
-        .toSorted((a, b) => a.text.localeCompare(b.text)));
 </script>

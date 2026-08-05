@@ -39,6 +39,6 @@
         readonly upper: number;
     }>();
 
-    const smallTicks = computed(() => generateStepTicks(lower, upper, 50, true).filter(s => !ticks.value.includes(s)));
     const ticks = computed(() => generateStepTicks(lower, upper, 5));
+    const smallTicks = computed(() => generateStepTicks(lower, upper, 50, true).filter(s => !ticks.value.includes(s)));
 </script>

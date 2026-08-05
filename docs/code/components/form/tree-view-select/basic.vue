@@ -18,8 +18,6 @@
     import { FluxFormField, FluxFormTreeViewSelect, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const selectedValue = ref<number | null>(null);
-
     const options = [
         {
             id: 1,
@@ -62,4 +60,6 @@
             ]
         }
     ];
+
+    const selectedValue = ref<number | null>(null);
 </script>

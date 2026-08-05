@@ -17,9 +17,9 @@
     setup
     lang="ts">
     import { amber500, orange500, red500 } from '@flux-ui/internals';
-    import type { EChartsOption } from 'echarts/core';
-    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsHeatmapChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
+    import type { EChartsOption } from 'echarts/core';
 
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);

@@ -57,14 +57,14 @@
     import { FluxDataTable, FluxPane, FluxPaneHeader, FluxSecondaryButton, FluxSkeleton, FluxTableCell, FluxTableHeader, FluxTableRow } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const isLoading = ref(false);
-
     const people = [
         {id: 1, name: 'Ada Lovelace', role: 'Lead', commits: 1287},
         {id: 2, name: 'Alan Turing', role: 'Engineer', commits: 942},
         {id: 3, name: 'Grace Hopper', role: 'Engineer', commits: 1530},
         {id: 4, name: 'Margaret Hamilton', role: 'Engineer', commits: 2041}
     ];
+
+    const isLoading = ref(false);
 
     function refresh(): void {
         isLoading.value = true;

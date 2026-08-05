@@ -44,8 +44,6 @@
     import { FluxDataTable, FluxPane, FluxPaneHeader, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { computed, ref } from 'vue';
 
-    const selected = ref<number | null>(null);
-
     const people = [
         {id: 1, name: 'Ada Lovelace', email: 'ada@example.com', role: 'Lead'},
         {id: 2, name: 'Alan Turing', email: 'alan@example.com', role: 'Engineer'},
@@ -53,6 +51,8 @@
         {id: 4, name: 'Katherine Johnson', email: 'katherine@example.com', role: 'Manager'},
         {id: 5, name: 'Margaret Hamilton', email: 'margaret@example.com', role: 'Engineer'}
     ];
+
+    const selected = ref<number | null>(null);
 
     const selectedPerson = computed(() => people.find(person => person.id === selected.value) ?? null);
 </script>

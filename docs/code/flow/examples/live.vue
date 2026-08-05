@@ -52,13 +52,13 @@
     const elapsed = ref(0);
     const running = ref(false);
 
+    let frame = 0;
+
     const handoff = computed(() => clamp(elapsed.value));
     const build = computed(() => clamp(elapsed.value - 1));
     const release = computed(() => clamp(elapsed.value - 2));
     const building = computed(() => elapsed.value > 1 && elapsed.value < 2);
     const done = computed(() => elapsed.value >= STAGES);
-
-    let frame = 0;
 
     onBeforeUnmount(() => cancelAnimationFrame(frame));
 

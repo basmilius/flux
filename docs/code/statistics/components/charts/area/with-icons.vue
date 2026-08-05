@@ -14,8 +14,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartAreaSeries } from '@flux-ui/types';
     import { FluxStatisticsAreaChart, FluxStatisticsChartPane, FluxStatisticsLegend } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartAreaSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartAreaSeries[] = [
         {

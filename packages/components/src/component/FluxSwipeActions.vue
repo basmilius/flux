@@ -52,15 +52,6 @@
 
     export type FluxSwipeActionsSide = 'start' | 'end';
 
-    const ARM_HYSTERESIS = 6;
-    const DRAG_THRESHOLD = 9;
-    const FLICK_VELOCITY = .5;
-    const MAX_ACTIONS = 3;
-
-    const ROUNDING_TRAVEL = 12;
-
-    const OVERDRAG = {max: 36, range: 120} as const;
-
     const openSide = defineModel<FluxSwipeActionsSide | null>('open', {
         default: null
     });
@@ -79,6 +70,13 @@
         start?(): VNode[];
     }>();
 
+    const ARM_HYSTERESIS = 6;
+    const DRAG_THRESHOLD = 9;
+    const FLICK_VELOCITY = .5;
+    const MAX_ACTIONS = 3;
+    const ROUNDING_TRAVEL = 12;
+    const OVERDRAG = {max: 36, range: 120} as const;
+
     const endRef = useTemplateRef<HTMLElement>('end');
     const rowRef = useTemplateRef<HTMLElement>('row');
     const startRef = useTemplateRef<HTMLElement>('start');
@@ -91,6 +89,7 @@
     const rowSize = ref(0);
     const area = ref<Record<FluxSwipeActionsSide, number>>({start: 0, end: 0});
     const hasPrimary = ref<Record<FluxSwipeActionsSide, boolean>>({start: false, end: false});
+    const armedSide = ref<FluxSwipeActionsSide | null>(null);
 
     let pendingFullSwipe: symbol | null = null;
     let stopSettleWatch: (() => void) | null = null;
@@ -131,8 +130,6 @@
             '--swipe-open-end': side === 'end' ? openness : 0
         };
     });
-
-    const armedSide = ref<FluxSwipeActionsSide | null>(null);
 
     provide(FluxDisabledInjectionKey, disabled);
 

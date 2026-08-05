@@ -24,8 +24,6 @@
     import type { FluxTreeViewOption } from '@flux-ui/types';
     import { ref } from 'vue';
 
-    const lastEvent = ref<{ type: string; id: string | number; label: string } | null>(null);
-
     const options: FluxTreeViewOption[] = [
         {
             id: 1,
@@ -45,6 +43,8 @@
             ]
         }
     ];
+
+    const lastEvent = ref<{ type: string; id: string | number; label: string } | null>(null);
 
     function onItemClick(option: FluxTreeViewOption): void {
         lastEvent.value = {type: 'click', id: option.id, label: option.label};

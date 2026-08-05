@@ -255,7 +255,6 @@
     provide(routerViewLocationKey, router.currentRoute);
 
     const routeName = computed(() => String(router.currentRoute.value.name ?? 'overview'));
-
     const page = computed(() => PAGES[routeName.value as keyof typeof PAGES] ?? PAGES.overview);
 
     router.replace('/lanes/rtm-ham/rates');

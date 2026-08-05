@@ -112,6 +112,8 @@
         [{name: 'Revenue', data: [51200, 46800, 58300, 54100, 66700, 61400, 73900, 68200, 81600, 76300, 89400, 83100]}]
     ];
 
+    const sparkline = [{name: 'New customers', data: [38, 42, 47, 44, 52, 58, 55, 64, 71, 68, 76, 82]}];
+
     const isFirstLoading = ref(true);
     const isReloading = ref(false);
     const firstSeries = ref<FluxStatisticsChartAreaSeries[]>([]);
@@ -120,8 +122,6 @@
     let handle: number | null = null;
 
     const reloadSeries = computed(() => reloadSets[reloadIndex.value]);
-
-    const sparkline = [{name: 'New customers', data: [38, 42, 47, 44, 52, 58, 55, 64, 71, 68, 76, 82]}];
 
     onBeforeUnmount(() => stop());
 

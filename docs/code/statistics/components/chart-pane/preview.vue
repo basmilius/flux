@@ -16,8 +16,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsDonutChart, FluxStatisticsLegend } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
 
     const slices: FluxStatisticsChartPieSlice[] = [
         { label: 'Electronics', value: 32, color: 'primary' },

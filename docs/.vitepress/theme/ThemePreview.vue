@@ -17,9 +17,9 @@
 <script
     lang="ts"
     setup>
-    const SCHEMES = ['light', 'dark'] as const;
-
     defineSlots<{ default(): any }>();
+
+    const SCHEMES = ['light', 'dark'] as const;
 </script>
 
 <style

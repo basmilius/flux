@@ -18,6 +18,7 @@
                     mode="select">
                     <FluxMenuItem
                         v-for="i of 5"
+                        :key="i"
                         :label="`Menu item ${i}`"/>
                 </FluxMenuOptions>
             </FluxMenu>

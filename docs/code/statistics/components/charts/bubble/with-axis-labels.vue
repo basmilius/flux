@@ -14,8 +14,8 @@
 <script
     setup
     lang="ts">
-    import type { FluxStatisticsChartBubbleSeries } from '@flux-ui/types';
     import { FluxStatisticsBubbleChart, FluxStatisticsChartPane } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartBubbleSeries } from '@flux-ui/types';
 
     const series: FluxStatisticsChartBubbleSeries[] = [
         {

@@ -45,9 +45,9 @@
     }>();
 
     const inputRef = useTemplateRef('input');
-    const translate = useTranslate();
-
     const value = ref('');
+
+    const translate = useTranslate();
 
     const hasValue = computed(() => unref(value).trim().length > 0);
 

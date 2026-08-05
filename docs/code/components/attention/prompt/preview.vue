@@ -13,7 +13,6 @@
                 <FluxFormField label="Name">
                     <FluxFormInput
                         v-model="name"
-                        ref="input"
                         placeholder="E.g. John Doe"/>
                 </FluxFormField>
             </FluxPaneBody>

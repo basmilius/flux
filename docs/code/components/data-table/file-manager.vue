@@ -45,8 +45,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxFlex, FluxPane, FluxTableActions, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
+    import { FluxAction, FluxBoxedIcon, FluxDataTable, FluxFlex, FluxPane, FluxTableActions, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
     import { computed } from 'vue';
 
     // Seeded per data set: these docs are prerendered and the faker instance is shared

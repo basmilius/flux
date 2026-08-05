@@ -26,8 +26,8 @@
 <script
     lang="ts"
     setup>
-    import { FluxPane, FluxSecondaryButton, FluxTable, FluxTableActions, FluxTableCell, FluxTableRow, showSnackbar } from '@flux-ui/components';
     import { faker } from '@faker-js/faker';
+    import { FluxPane, FluxSecondaryButton, FluxTable, FluxTableActions, FluxTableCell, FluxTableRow, showSnackbar } from '@flux-ui/components';
     import { computed } from 'vue';
 
     type Person = {

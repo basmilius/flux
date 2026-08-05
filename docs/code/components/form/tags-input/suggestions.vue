@@ -11,8 +11,6 @@
     import { FluxFormTagsInput } from '@flux-ui/components';
     import { ref } from 'vue';
 
-    const tags = ref(['Vue']);
-
     const suggestions = [
         {label: 'TypeScript', value: 'typescript'},
         {label: 'JavaScript', value: 'javascript'},
@@ -21,4 +19,6 @@
         {label: 'Vue', value: 'vue'},
         {label: 'React', value: 'react'}
     ];
+
+    const tags = ref(['Vue']);
 </script>

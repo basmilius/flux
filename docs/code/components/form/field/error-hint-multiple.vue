@@ -8,12 +8,14 @@
                     <template #addition>
                         <FluxFormFieldAddition
                             v-for="hint in hints"
+                            :key="hint"
                             icon="circle-info"
                             mode="hint"
                             :message="hint"/>
 
                         <FluxFormFieldAddition
                             v-for="error in errors"
+                            :key="error"
                             icon="circle-exclamation"
                             mode="error"
                             :message="error"/>

@@ -39,8 +39,8 @@
 <script
     lang="ts"
     setup>
-    import type { FluxIconName } from '@flux-ui/types';
     import { FluxFormInput, FluxMenu, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuPane, FluxMenuSubHeader, FluxPane } from '@flux-ui/components';
+    import type { FluxIconName } from '@flux-ui/types';
     import { computed, ref } from 'vue';
 
     const actions: { readonly icon: FluxIconName; readonly label: string; }[] = [
@@ -53,5 +53,6 @@
     ];
 
     const query = ref('');
+
     const filtered = computed(() => actions.filter(action => action.label.toLowerCase().includes(query.value.toLowerCase())));
 </script>

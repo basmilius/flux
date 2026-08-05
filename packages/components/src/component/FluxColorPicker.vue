@@ -309,7 +309,6 @@
     }
 
     function expandHex(hex: string): string {
-        // Expand shorthand (#rgb / #rgba) to full form (#rrggbb / #rrggbbaa).
         if (hex.length === 4 || hex.length === 5) {
             return '#' + hex.slice(1).split('').map(char => char + char).join('');
         }

@@ -23,11 +23,11 @@
     lang="ts">
     import { FluxFlex, FluxPane, FluxPaneBody, useBreakpoints } from '@flux-ui/components';
 
-    const {md} = useBreakpoints();
-
     const cards = [
         {title: 'Starter', description: 'For individuals.'},
         {title: 'Pro', description: 'For growing teams.'},
         {title: 'Enterprise', description: 'For large organizations.'}
     ];
+
+    const {md} = useBreakpoints();
 </script>

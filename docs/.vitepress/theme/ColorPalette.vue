@@ -2,6 +2,7 @@
     <div :class="$style.colorPalette">
         <FluxTooltip
             v-for="i of [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]"
+            :key="i"
             :content="`${label} ${i}`">
             <div
                 :class="$style.colorPaletteShade"

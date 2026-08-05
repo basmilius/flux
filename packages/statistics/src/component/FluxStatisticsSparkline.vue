@@ -21,8 +21,6 @@
     import { buildSparklineOptions, deepResolveCssVars, type SparklineSeriesItem, useCssVarVersion } from '~flux/statistics/util';
     import $style from '~flux/statistics/css/Sparkline.module.scss';
 
-    const FLUX_COLORS: FluxColor[] = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
-
     const {
         color,
         options = {},
@@ -35,7 +33,11 @@
         readonly variant?: 'line' | 'bar' | 'area';
     }>();
 
+    const FLUX_COLORS: FluxColor[] = ['gray', 'primary', 'danger', 'info', 'success', 'warning'];
+
     const chart = useTemplateRef('chart');
+
+    const themeVersion = useCssVarVersion();
 
     const resolvedColor = computed(() => {
         if (!color) {
@@ -48,8 +50,6 @@
 
         return color;
     });
-
-    const themeVersion = useCssVarVersion();
 
     const mergedOptions = computed<EChartsOption>(() => {
         themeVersion.value;

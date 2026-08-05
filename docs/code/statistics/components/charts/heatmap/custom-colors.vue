@@ -17,9 +17,9 @@
     setup
     lang="ts">
     import { amber500, green500, red500 } from '@flux-ui/internals';
-    import type { EChartsOption } from 'echarts/core';
-    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsHeatmapChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartHeatmapPoint, FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
+    import type { EChartsOption } from 'echarts/core';
 
     const servers = ['Server A', 'Server B', 'Server C', 'Server D'];
     const slots = Array.from({ length: 10 }, (_, i) => `T${i + 1}`);

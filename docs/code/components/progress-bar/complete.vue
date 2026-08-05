@@ -12,11 +12,14 @@
     setup
     lang="ts">
     import { FluxPane, FluxPaneBody, FluxProgressBar } from '@flux-ui/components';
-    import { ref, unref, onMounted, onUnmounted } from 'vue';
+    import { onMounted, onUnmounted, ref, unref } from 'vue';
 
     const timer = ref<NodeJS.Timeout>();
     const status = ref('Preparing...');
     const value = ref(0);
+
+    onMounted(async () => await playbook());
+    onUnmounted(() => clearTimeout(unref(timer)));
 
     async function playbook(): Promise<void> {
         status.value = 'Preparing...';
@@ -51,7 +54,4 @@
     async function wait(ms: number): Promise<void> {
         await new Promise(resolve => timer.value = setTimeout(resolve, ms));
     }
-
-    onMounted(async () => await playbook());
-    onUnmounted(() => clearTimeout(unref(timer)));
 </script>

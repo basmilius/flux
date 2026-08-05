@@ -15,14 +15,14 @@
 
     let timer: number;
 
-    function tick(): void {
-        time.value = new Date().toLocaleTimeString('en-US', {hour12: false});
-    }
-
     onMounted(() => {
         tick();
         timer = window.setInterval(tick, 1000);
     });
 
     onBeforeUnmount(() => window.clearInterval(timer));
+
+    function tick(): void {
+        time.value = new Date().toLocaleTimeString('en-US', {hour12: false});
+    }
 </script>

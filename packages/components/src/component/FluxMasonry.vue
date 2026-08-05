@@ -25,16 +25,6 @@
     import FluxDynamicView from './FluxDynamicView.vue';
     import $style from '~flux/components/css/component/Masonry.module.scss';
 
-    const BREAKPOINTS = {
-        xs: 0,
-        sm: 640,
-        md: 768,
-        lg: 1024,
-        xl: 1280
-    } as const;
-
-    type Breakpoint = keyof typeof BREAKPOINTS;
-
     const {
         columns = 3,
         gap = 15
@@ -53,6 +43,16 @@
     const slots = defineSlots<{
         default(): VNode[];
     }>();
+
+    const BREAKPOINTS = {
+        xs: 0,
+        sm: 640,
+        md: 768,
+        lg: 1024,
+        xl: 1280
+    } as const;
+
+    type Breakpoint = keyof typeof BREAKPOINTS;
 
     const masonryRef = useTemplateRef('masonry');
 

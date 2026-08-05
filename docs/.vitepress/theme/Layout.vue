@@ -1,11 +1,17 @@
+<template>
+    <FluxRoot>
+        <Layout/>
+    </FluxRoot>
+</template>
+
 <script
     lang="ts"
     setup>
     import { FluxRoot } from '@flux-ui/components';
     import { isSSR } from '@flux-ui/internals';
     import { useData } from 'vitepress';
-    import { watch } from 'vue';
     import Layout from 'vitepress/dist/client/theme-default/Layout.vue';
+    import { watch } from 'vue';
 
     const data = useData();
 
@@ -21,9 +27,3 @@
         }
     }, {immediate: true});
 </script>
-
-<template>
-    <FluxRoot>
-        <Layout/>
-    </FluxRoot>
-</template>

@@ -33,11 +33,11 @@
     import { useAdaptiveGroupInjection } from '~flux/components/composable';
     import $style from '~flux/components/css/component/AdaptiveSlot.module.scss';
 
-    const props = withDefaults(defineProps<{
+    const {
+        priority = 1
+    } = defineProps<{
         readonly priority?: number;
-    }>(), {
-        priority: 1
-    });
+    }>();
 
     defineSlots<{
         default(): any;
@@ -55,9 +55,8 @@
     const desiredDefaultWidth = ref(0);
     const desiredFallbackWidth = ref(0);
 
-    const priorityRef = toRef(props, 'priority');
+    const priorityRef = toRef(() => priority);
 
-    // Keep both desired widths in sync with the hidden measurers.
     watch([defaultMeasurerRef, fallbackMeasurerRef], ([def, fb], _, onCleanup) => {
         if (!def) {
             return;

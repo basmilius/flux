@@ -155,7 +155,6 @@
 
     const {
         viewDates,
-        draggable,
         items,
         hasActiveDrag,
         hourRange,
@@ -237,6 +236,12 @@
         }
 
         return map;
+    });
+
+    onBeforeUnmount(() => {
+        document.removeEventListener('mousemove', onResizeMove);
+        document.removeEventListener('mouseup', onResizeEnd);
+        clearDropTargetCache();
     });
 
     function isToday(d: DateTime): boolean {
@@ -577,7 +582,6 @@
                 duration: clampedDuration
             };
         } else {
-            // top edge: move start backwards (negative delta = earlier start)
             const originalStartMin = state.originalDate.hour * 60 + state.originalDate.minute;
             const originalEndMin = originalStartMin + state.originalDuration;
             let newStartMin = originalStartMin + snappedDelta;
@@ -619,10 +623,4 @@
             toDuration: preview.duration
         });
     }
-
-    onBeforeUnmount(() => {
-        document.removeEventListener('mousemove', onResizeMove);
-        document.removeEventListener('mouseup', onResizeEnd);
-        clearDropTargetCache();
-    });
 </script>

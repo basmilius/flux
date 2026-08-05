@@ -57,8 +57,6 @@
         Operations: 'folder'
     };
 
-    const collapsedGroups = ref<string[]>([]);
-
     const dataSet = [
         {id: 1, team: 'Engineering', name: 'Ada Lovelace', email: 'ada@example.com', role: 'Lead'},
         {id: 2, team: 'Engineering', name: 'Alan Turing', email: 'alan@example.com', role: 'Engineer'},
@@ -66,4 +64,6 @@
         {id: 4, team: 'Operations', name: 'Katherine Johnson', email: 'katherine@example.com', role: 'Manager'},
         {id: 5, team: 'Operations', name: 'Margaret Hamilton', email: 'margaret@example.com', role: 'Engineer'}
     ];
+
+    const collapsedGroups = ref<string[]>([]);
 </script>

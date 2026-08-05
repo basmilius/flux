@@ -19,7 +19,8 @@
 
             <FluxTableRow>
                 <FluxTableCell
-                    v-for="cell in 3">
+                    v-for="cell in 3"
+                    :key="cell">
                     Cell 1&times;{{ cell }}
                 </FluxTableCell>
             </FluxTableRow>

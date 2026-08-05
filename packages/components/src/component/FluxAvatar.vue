@@ -76,15 +76,6 @@
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Avatar.module.scss';
 
-    const STATUS_CLASS_MAP = {
-        gray: $style.avatarStatusGray,
-        primary: $style.avatarStatusPrimary,
-        danger: $style.avatarStatusDanger,
-        info: $style.avatarStatusInfo,
-        success: $style.avatarStatusSuccess,
-        warning: $style.avatarStatusWarning
-    } as const;
-
     defineEmits<FluxButtonEmits>();
 
     const {
@@ -113,9 +104,16 @@
         readonly to?: FluxTo;
     }>();
 
-    const hasError = ref(false);
+    const STATUS_CLASS_MAP = {
+        gray: $style.avatarStatusGray,
+        primary: $style.avatarStatusPrimary,
+        danger: $style.avatarStatusDanger,
+        info: $style.avatarStatusInfo,
+        success: $style.avatarStatusSuccess,
+        warning: $style.avatarStatusWarning
+    } as const;
 
-    watch(() => src, () => hasError.value = false);
+    const hasError = ref(false);
 
     const color = computed(() => fallbackColors[unref(colorSeed) % fallbackColors.length]);
     const colorSeed = computed(() => {
@@ -133,4 +131,6 @@
 
         return seed;
     });
+
+    watch(() => src, () => hasError.value = false);
 </script>

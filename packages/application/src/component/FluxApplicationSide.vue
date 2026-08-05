@@ -21,17 +21,17 @@
     import { useTranslate } from '../composable/private';
     import $style from '~flux/application/css/component/ApplicationSide.module.scss';
 
-    defineProps<{
-        readonly closeLabel?: string;
-    }>();
-
-    const translate = useTranslate();
-
     const isVisible = defineModel<boolean>('isVisible', {
         default: true
     });
 
+    defineProps<{
+        readonly closeLabel?: string;
+    }>();
+
     defineSlots<{
         default(): VNode;
     }>();
+
+    const translate = useTranslate();
 </script>

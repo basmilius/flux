@@ -153,6 +153,9 @@
         readonly rangeMode?: 'range' | 'week' | 'month';
     }>();
 
+    const selection = ref<[DateTime | null, DateTime | null]>([null, null]);
+    const viewMode = ref<'date' | 'month' | 'year'>('date');
+
     const id = useId();
     const translate = useTranslate();
 
@@ -179,9 +182,6 @@
         next: nextYears,
         previous: previousYears
     } = useCalendarYearSwitcher(viewDate);
-
-    const selection = ref<[DateTime | null, DateTime | null]>([null, null]);
-    const viewMode = ref<'date' | 'month' | 'year'>('date');
 
     const maxDate = computed(() => (max ?? DateTime.now().endOf('year').plus({year: 100})).startOf('day'));
     const minDate = computed(() => (min ?? DateTime.now().startOf('year').minus({year: 100})).startOf('day'));

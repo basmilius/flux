@@ -1,9 +1,12 @@
 <template>
     <FluxPane>
         <FluxTable>
-            <FluxTableRow v-for="row in 2">
+            <FluxTableRow
+                v-for="row in 2"
+                :key="row">
                 <FluxTableCell
-                    v-for="cell in 6">
+                    v-for="cell in 6"
+                    :key="cell">
                     {{ row }}&times;{{ cell }}
                 </FluxTableCell>
             </FluxTableRow>

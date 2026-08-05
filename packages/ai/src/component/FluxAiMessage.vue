@@ -63,12 +63,6 @@
     import { FluxAiConversationInjectionKey } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiMessage.module.scss';
 
-    const ROLE_LABEL = {
-        assistant: 'flux.ai.roleAssistant',
-        system: 'flux.ai.roleSystem',
-        user: 'flux.ai.roleUser'
-    } as const;
-
     const {
         author,
         avatarFallbackInitials,
@@ -92,6 +86,12 @@
         default(): VNode[];
         footer(): VNode[];
     }>();
+
+    const ROLE_LABEL = {
+        assistant: 'flux.ai.roleAssistant',
+        system: 'flux.ai.roleSystem',
+        user: 'flux.ai.roleUser'
+    } as const;
 
     const translate = useTranslate();
 

@@ -55,6 +55,7 @@
     }>();
 
     const variantRef = inject(FluxStatisticsLegendVariantInjectionKey, null);
+
     const variant = computed(() => variantRef?.value ?? 'detailed');
 
     const colorValue = computed(() => resolveChartColor(color));

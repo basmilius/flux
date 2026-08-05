@@ -27,11 +27,6 @@
         readonly data: FluxCalendarItemData;
     }>();
 
-    const dragContext = useCalendarInjection();
-    const root = useTemplateRef<HTMLButtonElement>('root');
-
-    const canDrag = computed(() => dragContext?.isDraggable.value === true);
-
     const RenderItemContent = defineComponent({
         props: {
             render: {
@@ -41,6 +36,12 @@
         },
         setup: (props) => () => (props.render as () => unknown)()
     });
+
+    const root = useTemplateRef<HTMLButtonElement>('root');
+
+    const dragContext = useCalendarInjection();
+
+    const canDrag = computed(() => dragContext?.isDraggable.value === true);
 
     const {
         isGrabbed,

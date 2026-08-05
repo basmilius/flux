@@ -32,14 +32,6 @@
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Pane.module.scss';
 
-    const CLASS_MAP = {
-        default: $style.paneDefault,
-        flat: $style.paneFlat,
-        well: $style.paneWell
-    } as const;
-
-    const HEADER_SELECTOR = `:scope > .${$style.paneHeader.trim().split(/\s+/).join('.')}`;
-
     const {
         variant = 'default'
     } = defineProps<{
@@ -52,6 +44,14 @@
         default(): VNode[];
         loader(): VNode[];
     }>();
+
+    const CLASS_MAP = {
+        default: $style.paneDefault,
+        flat: $style.paneFlat,
+        well: $style.paneWell
+    } as const;
+
+    const HEADER_SELECTOR = `:scope > .${$style.paneHeader.trim().split(/\s+/).join('.')}`;
 
     const paneRef = useTemplateRef<HTMLElement>('pane');
     const headerRef = shallowRef<HTMLElement | null>(null);

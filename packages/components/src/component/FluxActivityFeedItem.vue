@@ -55,15 +55,6 @@
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/ActivityFeed.module.scss';
 
-    const COLOR_CLASS = {
-        gray: $style.activityFeedItemGray,
-        primary: $style.activityFeedItemPrimary,
-        danger: $style.activityFeedItemDanger,
-        info: $style.activityFeedItemInfo,
-        success: $style.activityFeedItemSuccess,
-        warning: $style.activityFeedItemWarning
-    } as const;
-
     const {
         color = 'gray'
     } = defineProps<{
@@ -82,8 +73,18 @@
         details(): VNode[];
     }>();
 
+    const COLOR_CLASS = {
+        gray: $style.activityFeedItemGray,
+        primary: $style.activityFeedItemPrimary,
+        danger: $style.activityFeedItemDanger,
+        info: $style.activityFeedItemInfo,
+        success: $style.activityFeedItemSuccess,
+        warning: $style.activityFeedItemWarning
+    } as const;
+
     const timeline = inject(FluxTimelineInjectionKey, null);
     const markerRef = useTemplateRef<HTMLElement>('marker');
+
     const markerElementRef = computed(() => unwrapElement(markerRef));
 
     const cleanup = timeline?.registerMarker(markerElementRef);

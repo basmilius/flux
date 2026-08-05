@@ -74,12 +74,12 @@
     import type { FluxColor, FluxFormInputBaseProps, FluxFormSelectOption } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, ref, toRef, useId, useTemplateRef } from 'vue';
+    import { Anchor, AnchorPopup } from '~flux/components/component/primitive';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import { FluxFadeTransition } from '~flux/components/transition';
-    import { Anchor, AnchorPopup } from '~flux/components/component/primitive';
+    import FluxTag from '../FluxTag.vue';
     import FluxMenu from '../menu/FluxMenu.vue';
     import FluxMenuItem from '../menu/FluxMenuItem.vue';
-    import FluxTag from '../FluxTag.vue';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const emit = defineEmits<{

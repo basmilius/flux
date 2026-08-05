@@ -14,16 +14,9 @@
 <script
     lang="ts"
     setup>
-    import type { FluxCommandSource } from '@flux-ui/types';
     import { FluxCommandPalette, FluxSecondaryButton, showSnackbar } from '@flux-ui/components';
-    import { ref } from 'vue';
-
-    const commandPalette = ref<InstanceType<typeof FluxCommandPalette>>();
-
-    const activate = (label: string) => showSnackbar({
-        icon: 'circle-check',
-        message: `Activated: ${label}`
-    });
+    import type { FluxCommandSource } from '@flux-ui/types';
+    import { useTemplateRef } from 'vue';
 
     const sources: FluxCommandSource[] = [
         {
@@ -46,4 +39,13 @@
             ]
         }
     ];
+
+    const commandPalette = useTemplateRef<InstanceType<typeof FluxCommandPalette>>('commandPalette');
+
+    function activate(label: string): void {
+        showSnackbar({
+            icon: 'circle-check',
+            message: `Activated: ${label}`
+        });
+    }
 </script>

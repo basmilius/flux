@@ -53,10 +53,9 @@
         min = 0,
         step = 1
     } = defineProps<Pick<FluxFormInputBaseProps, 'disabled' | 'error' | 'isLoading' | 'isReadonly' | 'name'> & {
-        formatter?(value: number, decimals?: number): string;
-
         readonly ariaLabel?: string;
         readonly direction?: FluxDirection;
+        readonly formatter?: (value: number, decimals?: number) => string;
         readonly isTicksVisible?: boolean;
         readonly isTooltipDisabled?: boolean;
         readonly max?: number;
@@ -64,11 +63,11 @@
         readonly step?: number;
     }>();
 
-    const disabled = useDisabled(toRef(() => componentDisabled));
     const thumbRef = useTemplateRef('thumb');
-
     const isDragging = ref(false);
     const tooltipId = ref<number | null>(null);
+
+    const disabled = useDisabled(toRef(() => componentDisabled));
 
     const span = computed(() => max - min);
     const isRangeValid = computed(() => unref(span) > 0);
@@ -77,6 +76,13 @@
     const percentage = computed(() => unref(isRangeValid) ? (unref(modelValue) - min) / unref(span) : 0);
 
     const tooltipContent = computed(() => formatter(modelValue.value, unref(decimals)));
+
+    onUnmounted(() => {
+        if (tooltipId.value) {
+            removeTooltip(tooltipId.value);
+            tooltipId.value = null;
+        }
+    });
 
     function snap(value: number): number {
         const stepped = step > 0 ? roundStep(value, step) : value;
@@ -129,11 +135,4 @@
 
         modelValue.value = snap(unref(modelValue) + step);
     }
-
-    onUnmounted(() => {
-        if (tooltipId.value) {
-            removeTooltip(tooltipId.value);
-            tooltipId.value = null;
-        }
-    });
 </script>

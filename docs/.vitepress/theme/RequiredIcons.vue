@@ -4,6 +4,7 @@
     <div :class="$style.requiredIcons">
         <div
             v-for="icon of icons"
+            :key="icon"
             :class="$style.requiredIcon">
             <FluxIcon
                 :name="icon"

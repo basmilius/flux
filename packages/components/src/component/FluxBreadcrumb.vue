@@ -66,9 +66,6 @@
     import FluxDynamicView from './FluxDynamicView.vue';
     import $style from '~flux/components/css/component/Breadcrumb.module.scss';
 
-    // Gap between list items, mirrors `.breadcrumbList { gap }` in the stylesheet.
-    const GAP = 3;
-
     const {
         ariaLabel = 'Breadcrumb',
         collapse = 'none',
@@ -85,6 +82,9 @@
         default(): VNode[];
     }>();
 
+    // Gap between list items, mirrors `.breadcrumbList { gap }` in the stylesheet.
+    const GAP = 3;
+
     provide(FluxBreadcrumbSeparatorInjectionKey, toRef(() => separator));
 
     const listRef = useTemplateRef('list');
@@ -93,28 +93,6 @@
 
     const hasCollapse = ref(false);
     const tailStart = ref(0);
-
-    // Re-read the slot on every access rather than memoising: a route-driven trail
-    // swaps its items reactively and a cached VNode list would go stale.
-    function collectItems(): VNode[] {
-        return flattenVNodeTree(slots.default?.() ?? []);
-    }
-
-    function startCount(): number {
-        return collapse === 'middle' ? 1 : 0;
-    }
-
-    function visibleStartItems(): VNode[] {
-        return hasCollapse.value ? collectItems().slice(0, startCount()) : collectItems();
-    }
-
-    function collapsedItems(): VNode[] {
-        return hasCollapse.value ? collectItems().slice(startCount(), tailStart.value) : [];
-    }
-
-    function visibleEndItems(): VNode[] {
-        return hasCollapse.value ? collectItems().slice(tailStart.value) : [];
-    }
 
     const reflow = animationFrameDebounce(() => {
         if (collapse === 'none') {
@@ -201,4 +179,26 @@
     // A changed trail (added/removed/reordered items) re-renders the hidden measurer
     // without necessarily resizing it, so re-run the fit after every update too.
     onUpdated(reflow);
+
+    // Re-read the slot on every access rather than memoising: a route-driven trail
+    // swaps its items reactively and a cached VNode list would go stale.
+    function collectItems(): VNode[] {
+        return flattenVNodeTree(slots.default?.() ?? []);
+    }
+
+    function startCount(): number {
+        return collapse === 'middle' ? 1 : 0;
+    }
+
+    function visibleStartItems(): VNode[] {
+        return hasCollapse.value ? collectItems().slice(0, startCount()) : collectItems();
+    }
+
+    function collapsedItems(): VNode[] {
+        return hasCollapse.value ? collectItems().slice(startCount(), tailStart.value) : [];
+    }
+
+    function visibleEndItems(): VNode[] {
+        return hasCollapse.value ? collectItems().slice(tailStart.value) : [];
+    }
 </script>

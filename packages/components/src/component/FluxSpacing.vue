@@ -1,11 +1,15 @@
 <template>
-    <div :style="{flex: `0 0 ${spacings[size]}px`}"/>
+    <div :style="{flex: `0 0 ${SPACINGS[size]}px`}"/>
 </template>
 
 <script
     lang="ts"
     setup>
-    const spacings = [
+    defineProps<{
+        readonly size: Enumerate<typeof SPACINGS['length']>;
+    }>();
+
+    const SPACINGS = [
         0,
         3,
         6,
@@ -29,8 +33,4 @@
     type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N
         ? Acc[number]
         : Enumerate<N, [...Acc, Acc['length']]>;
-
-    defineProps<{
-        readonly size: Enumerate<typeof spacings['length']>;
-    }>();
 </script>

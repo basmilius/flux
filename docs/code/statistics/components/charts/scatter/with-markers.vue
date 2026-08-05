@@ -12,9 +12,9 @@
 <script
     setup
     lang="ts">
-    import type { EChartsOption } from 'echarts/core';
-    import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
     import { FluxStatisticsChartPane, FluxStatisticsScatterChart } from '@flux-ui/statistics';
+    import type { FluxStatisticsChartScatterSeries } from '@flux-ui/types';
+    import type { EChartsOption } from 'echarts/core';
 
     const series: FluxStatisticsChartScatterSeries[] = [{
         name: 'Samples',
