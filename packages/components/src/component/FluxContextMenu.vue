@@ -30,7 +30,7 @@
     lang="ts"
     setup>
     import { useEventListener } from '@basmilius/common';
-    import { isSSR, useFocusTrap } from '@flux-ui/internals';
+    import { useFocusTrap } from '@flux-ui/internals';
     import { type ComponentPublicInstance, computed, onUnmounted, provide, reactive, ref, toRef, useTemplateRef, type VNode } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
     import { useDisabled } from '~flux/components/composable';
@@ -100,6 +100,26 @@
     });
 
     const dismissTarget = computed(() => isOpen.value ? window : null);
+
+    useEventListener(dismissTarget, 'pointerdown', (evt: PointerEvent) => {
+        if (!isInsideMenu(evt.target as Node | null)) {
+            close();
+        }
+    }, {capture: true});
+
+    useEventListener(dismissTarget, 'keydown', (evt: KeyboardEvent) => {
+        if (evt.key === 'Escape') {
+            close();
+        }
+    });
+
+    // Scroll closes the menu, except when scrolling inside the menu itself (the popup has its own
+    // overflow), so a long list can be scrolled without dismissing the menu.
+    useEventListener(dismissTarget, 'scroll', (evt: Event) => {
+        if (!isInsideMenu(evt.target as Node | null)) {
+            close();
+        }
+    }, {capture: true, passive: true});
 
     onUnmounted(cancelLongPress);
 
@@ -181,27 +201,5 @@
         const root = (popupRef.value?.$el ?? null) as HTMLElement | null;
 
         return (!!root && !!target && root.contains(target)) || menuFlyout.isInsidePopups(target);
-    }
-
-    if (!isSSR) {
-        useEventListener(dismissTarget, 'pointerdown', (evt: PointerEvent) => {
-            if (!isInsideMenu(evt.target as Node | null)) {
-                close();
-            }
-        }, {capture: true});
-
-        useEventListener(dismissTarget, 'keydown', (evt: KeyboardEvent) => {
-            if (evt.key === 'Escape') {
-                close();
-            }
-        });
-
-        // Scroll closes the menu, except when scrolling inside the menu itself (the popup has its own
-        // overflow), so a long list can be scrolled without dismissing the menu.
-        useEventListener(dismissTarget, 'scroll', (evt: Event) => {
-            if (!isInsideMenu(evt.target as Node | null)) {
-                close();
-            }
-        }, {capture: true, passive: true});
     }
 </script>

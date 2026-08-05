@@ -99,7 +99,7 @@
     setup>
     import { useEventListener } from '@basmilius/common';
     import { isHtmlElement } from '@basmilius/utils';
-    import { flattenVNodeTree, isSSR, useFocusTrap } from '@flux-ui/internals';
+    import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, Fragment, h, nextTick, ref, useId, useTemplateRef, type VNode, watch } from 'vue';
     import { AnchorPopup, VNodeRenderer } from '~flux/components/component/primitive';
@@ -325,20 +325,18 @@
         }
     }
 
-    if (!isSSR) {
-        function onRemeasure(): void {
-            if (active.value && targetRect.value) {
-                const resolved = resolveTarget();
-                targetRect.value = resolved ? resolved.getBoundingClientRect() : null;
-            }
+    function onRemeasure(): void {
+        if (active.value && targetRect.value) {
+            const resolved = resolveTarget();
+            targetRect.value = resolved ? resolved.getBoundingClientRect() : null;
         }
-
-        useEventListener(ref(window), 'resize', onRemeasure);
-        useEventListener(ref(window), 'scroll', onRemeasure, {capture: true, passive: true});
-        useEventListener(ref(window), 'keydown', (evt: KeyboardEvent) => {
-            if (active.value && evt.key === 'Escape') {
-                skip();
-            }
-        });
     }
+
+    useEventListener(() => window, 'resize', onRemeasure);
+    useEventListener(() => window, 'scroll', onRemeasure, {capture: true, passive: true});
+    useEventListener(() => window, 'keydown', (evt: KeyboardEvent) => {
+        if (active.value && evt.key === 'Escape') {
+            skip();
+        }
+    });
 </script>

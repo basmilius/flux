@@ -35,7 +35,7 @@
     setup>
     import { useEventListener } from '@basmilius/common';
     import { isHtmlElement } from '@basmilius/utils';
-    import { getFocusableElements, isSSR } from '@flux-ui/internals';
+    import { getFocusableElements } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, useId, useTemplateRef, type VNode, watch } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
@@ -94,6 +94,18 @@
     let isPointerInside = false;
     let openerElement: HTMLElement | null = null;
     let describedElement: HTMLElement | null = null;
+
+    useEventListener(dismissTarget, 'keydown', (evt: KeyboardEvent) => {
+        if (evt.key !== 'Escape') {
+            return;
+        }
+
+        if (isInsideCard(document.activeElement)) {
+            openerElement?.focus();
+        }
+
+        close();
+    });
 
     watch(disabled, value => value && close());
 
@@ -221,20 +233,6 @@
         }
 
         closeTimer = window.setTimeout(close, closeDelay);
-    }
-
-    if (!isSSR) {
-        useEventListener(dismissTarget, 'keydown', (evt: KeyboardEvent) => {
-            if (evt.key !== 'Escape') {
-                return;
-            }
-
-            if (isInsideCard(document.activeElement)) {
-                openerElement?.focus();
-            }
-
-            close();
-        });
     }
 
     defineExpose({

@@ -42,7 +42,7 @@
     lang="ts"
     setup>
     import { unwrapElement, useEventListener, useHotKey } from '@basmilius/common';
-    import { isSSR, useFocusTrap } from '@flux-ui/internals';
+    import { useFocusTrap } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { onUnmounted, provide, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
@@ -99,7 +99,7 @@
     const paneMarginX = ref(0);
     const paneMarginY = ref(0);
 
-    !isSSR && useEventListener(ref(window), 'resize', () => unref(isOpen) && reposition());
+    useEventListener(() => window, 'resize', () => unref(isOpen) && reposition());
     useFocusTrap(paneRef);
 
     useHotKey('esc', () => close(), {
