@@ -22,6 +22,8 @@
 
 .tableLoader {
     composes: basePaneLoader from './base/Pane.module.scss';
+
+    user-select: none;
 }
 
 .tableHead,
@@ -156,31 +158,82 @@
 
 // Hover keys off :has(:hover): a display: contents row has no box of its own, its cells do.
 // A bare media query rather than mixin.hover, which nests &:hover onto a single selector
-// while this needs several unrelated ones under one condition.
+// while this needs several unrelated ones under one condition. Row hover stands down
+// under cell selection: it outranks the selection colors and reads as noise per cell.
 @media (hover: hover) {
-    .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.tableGroup):not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.tableGroup):not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow:has(:hover) > .tableGroup.isHoverable,
-    .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableGroup.isHoverable {
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow:has(:hover) > .tableCell:not(.tableGroup):not(.hasRowspan),
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.tableGroup):not(.hasRowspan),
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow:has(:hover) > .tableGroup.isHoverable,
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow:has(:focus-visible) > .tableGroup.isHoverable {
         background: var(--surface-hover);
     }
 
-    .table.isHoverable .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow.isColored:has(:focus-visible) > .tableCell:not(.hasRowspan) {
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow.isColored:has(:hover) > .tableCell:not(.hasRowspan),
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow.isColored:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         background: var(--table-row-fill-hover);
     }
 
-    .table.isHoverable .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow.isSelected:has(:hover) > .tableCell:not(.hasRowspan),
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow.isSelected:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         --table-row-stroke: var(--primary-soft-hover);
 
         background: var(--primary-soft);
     }
 
-    .table.isHoverable .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
-    .table.isHoverable .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow:has(:hover) > .tableCell:not(.hasRowspan),
+    .table.isHoverable:not(.isCellSelectable) .tableBody .tableRow:has(:focus-visible) > .tableCell:not(.hasRowspan) {
         border-top-color: var(--table-row-stroke, var(--surface-stroke-muted));
     }
+}
+
+.table.isCellSelectable .tableBase {
+    outline: 0;
+    user-select: none;
+}
+
+// The sort button and the resize grip keep their own cursor, so only the header's
+// own surface offers the column.
+.table.isCellSelectable .tableHeader {
+    cursor: cell;
+}
+
+// Four inset shadows rather than a border, which would take the cells off the 3px
+// grid, and rather than an outline, which cannot draw a single side.
+.table.isCellSelectable .tableCell[data-flux-selected] {
+    background: var(--primary-soft);
+    box-shadow: inset 0 2px 0 0 var(--selection-edge-top, transparent),
+                inset -2px 0 0 0 var(--selection-edge-right, transparent),
+                inset 0 -2px 0 0 var(--selection-edge-bottom, transparent),
+                inset 2px 0 0 0 var(--selection-edge-left, transparent);
+    color: var(--primary-text);
+}
+
+// The divider only loses its color where the outline covers it; the width stays,
+// and with it the layout.
+.table.isCellSelectable .tableCell[data-flux-selected~='top'] {
+    --selection-edge-top: var(--primary-solid);
+
+    border-top-color: transparent;
+}
+
+.table.isCellSelectable .tableCell[data-flux-selected~='left'] {
+    --selection-edge-left: var(--primary-solid);
+
+    border-left-color: transparent;
+}
+
+.table.isCellSelectable .tableCell[data-flux-selected~='right'] {
+    --selection-edge-right: var(--primary-solid);
+}
+
+.table.isCellSelectable .tableCell[data-flux-selected~='bottom'] {
+    --selection-edge-bottom: var(--primary-solid);
+}
+
+// No focus ring of its own: the block outline appears the moment the table takes
+// focus, and a ring inside it would read as a thicker line.
+.table.isCellSelectable .tableCell[data-flux-active] {
+    background: var(--primary-soft-hover);
 }
 
 .tableFoot .tableCell {
@@ -223,10 +276,12 @@
 
 .tableActions {
     margin: -4px 0 -4px -3px;
+    user-select: none;
 }
 
 .tableCellSelection {
     white-space: nowrap;
+    user-select: none;
 }
 
 .tableCell.isNoWrap {
@@ -275,6 +330,7 @@
 .tableFill {
     pointer-events: none;
     border-top: 1px solid var(--surface-stroke-muted);
+    user-select: none;
 
     .tableCell {
         padding: 0;
@@ -375,6 +431,7 @@
 .tableGroupChevron {
     color: var(--foreground-secondary);
     transition: rotate .2s var(--swift-out);
+    user-select: none;
 }
 
 .tableGroupChevron.isExpanded {
@@ -438,6 +495,7 @@
     color: var(--foreground-secondary);
     cursor: pointer;
     outline: 0;
+    user-select: none;
 
     @include mixin.hover {
         background: var(--surface-active);
@@ -517,6 +575,7 @@
 
 .tableCellExpand {
     white-space: nowrap;
+    user-select: none;
 }
 
 .tableExpandToggle :global(svg) {
@@ -575,6 +634,7 @@
     border-radius: 50%;
     color: var(--tree-marker-foreground);
     translate: 0 -50%;
+    user-select: none;
     z-index: 1;
 }
 
