@@ -121,7 +121,7 @@ Listen to `resize` to persist the width and bind it back through `width`; a widt
 :::
 
 ::: info Column formatting
-`align`, `is-numeric` and `no-wrap` on the header apply to every cell in the column, so there is no need to repeat them per cell. A cell's own `align` overrides the header's; `is-numeric` and `no-wrap` can only be turned on per cell, not off. Spanning cells (`colspan`) never inherit column formatting.
+`align`, `vertical-align`, `is-numeric` and `no-wrap` on the header apply to every cell in the column, so there is no need to repeat them per cell. A cell's own `align` or `vertical-align` overrides the header's; `is-numeric` and `no-wrap` can only be turned on per cell, not off. Spanning cells (`colspan`) never inherit column formatting.
 :::
 
 <FrontmatterDocs/>
