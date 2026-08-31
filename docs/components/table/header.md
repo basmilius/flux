@@ -67,6 +67,11 @@ props:
         type: [ '"ascending"', '"descending"' ]
         optional: true
 
+    -   name: vertical-align
+        description: Vertical alignment of the header content, and of every cell in the column that does not set its own `vertical-align`. Cells fill the height of their row, so this decides where their content sits when a row is taller than one line.
+        type: [ '"start"', '"center"', '"end"' ]
+        optional: true
+
     -   name: width
         description: Fixed column width in pixels. Takes precedence over `is-shrinking`, `min-width` and `max-width`.
         type: number
@@ -125,6 +130,10 @@ Listen to `resize` to persist the width and bind it back through `width`; a widt
 
 ::: example Basic || A basic table header.
 example=../../code/components/table/header/basic.vue
+:::
+
+::: example Vertical align || The description makes each row taller than one line. `vertical-align` on a header decides where the content of every cell in that column sits; the cells themselves set nothing.
+example=../../code/components/table/header/vertical-align.vue
 :::
 
 ::: example Shrinking || A table header that shrinks to fit its cell group.

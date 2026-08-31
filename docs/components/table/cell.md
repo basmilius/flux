@@ -43,6 +43,11 @@ props:
         type: number
         optional: true
 
+    -   name: vertical-align
+        description: Vertical alignment of the cell content within the row. The cell always fills the height of its row, so this decides where the content sits when another cell in the row is taller. When unset, the cell inherits the `vertical-align` of its column's header.
+        type: [ '"start"', '"center"', '"end"' ]
+        optional: true
+
 slots:
     -   name: default
         description: The slot for the cell content.
@@ -64,7 +69,7 @@ This component is best used within a [Row](../table/row).
 :::
 
 ::: info Column formatting
-`align`, `is-numeric` and `no-wrap` set on the column's [Header](./header) apply to every cell in that column. A cell's own `align` overrides the inherited value. Spanning cells (`colspan`) never inherit column formatting, and cells in the rows below a `rowspan` may resolve the wrong column, so set their formatting explicitly when it matters.
+`align`, `vertical-align`, `is-numeric` and `no-wrap` set on the column's [Header](./header) apply to every cell in that column. A cell's own `align` or `vertical-align` overrides the inherited value. Spanning cells (`colspan`) never inherit column formatting, and cells in the rows below a `rowspan` may resolve the wrong column, so set their formatting explicitly when it matters.
 :::
 
 <FrontmatterDocs/>
@@ -77,6 +82,10 @@ example=../../code/components/table/cell/basic.vue
 
 ::: example Column || A column table cell.
 example=../../code/components/table/cell/column.vue
+:::
+
+::: example Vertical align || Long notes make the row taller than its neighbours. The version and notes columns keep their content at the top, the status column is centered through its header, and the author cell aligns itself to the bottom.
+example=../../code/components/table/cell/vertical-align.vue
 :::
 
 ::: example Custom || A table cell with a custom design.
