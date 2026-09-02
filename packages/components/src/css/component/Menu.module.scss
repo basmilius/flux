@@ -285,6 +285,7 @@
     height: 24px;
     width: 24px;
     border-radius: 3px;
+    max-width: none;
 }
 
 .menuItem :local(.avatar) {
