@@ -213,6 +213,11 @@
     pointer-events: auto;
 }
 
+.applicationMenuAccountFlyout :local(.flyoutPane) {
+    max-width: calc(100dvw - 24px);
+    width: calc(var(--application-menu-width) - 24px);
+}
+
 .applicationMenuAccount :local(.menuItemLabel) {
     font-weight: 600;
 }

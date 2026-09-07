@@ -21,6 +21,11 @@ props:
         type: string
         optional: true
 
+    -   name: is-switcher-aside
+        description: Opens the switcher flyout beside the menu instead of above the account item, on large screens. A collapsed menu already opens it beside the menu.
+        type: boolean
+        optional: true
+
 slots:
     -   name: avatar
         description: A custom avatar rendered before the label, replacing the image.
