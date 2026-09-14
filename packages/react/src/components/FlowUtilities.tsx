@@ -1,8 +1,9 @@
 import { createContext } from 'react';
 import type { Context, MutableRefObject } from 'react';
+import type { FluxFlowPath, FluxFlowPosition } from '@flux-ui/types/flow';
 import type { FluxColor, FluxIconName } from '../types';
 
-export type FluxFlowPosition = { readonly x: number; readonly y: number };
+export type { FluxFlowPath, FluxFlowPosition } from '@flux-ui/types/flow';
 export type FluxFlowSize = { readonly width: number; readonly height: number };
 export type FluxFlowViewport = { readonly x: number; readonly y: number; readonly zoom: number };
 export type FluxFlowBounds = { readonly minX: number; readonly minY: number; readonly maxX: number; readonly maxY: number };
@@ -198,7 +199,6 @@ export function autoSides(sourcePosition: FluxFlowPosition, sourceSize: FluxFlow
     return vertical ? (dy >= 0 ? ['bottom', 'top'] : ['top', 'bottom']) : dx >= 0 ? ['right', 'left'] : ['left', 'right'];
 }
 
-export type FluxFlowPath = { readonly path: string; readonly points: readonly FluxFlowPosition[]; readonly labelX: number; readonly labelY: number; readonly fromDirection: readonly [number, number]; readonly toDirection: readonly [number, number] };
 export function sideNormal(side: FluxFlowSide): readonly [number, number] {
     return side === 'top' ? [0, -1] : side === 'bottom' ? [0, 1] : side === 'left' ? [-1, 0] : [1, 0];
 }

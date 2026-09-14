@@ -18,6 +18,7 @@
     "exports": {
         ".": "./src/index.ts",
         "./application": "./src/application.ts",
+        "./flow": "./src/flow.ts",
         "./notify": "./src/notify.ts",
         "./react": "./src/react.ts",
         "./translate": "./src/translate.ts"

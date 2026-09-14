@@ -1,5 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+afterEach(() => vi.unstubAllGlobals());
 
 const { chart, init } = vi.hoisted(() => ({
     chart: { dispatchAction: vi.fn(), dispose: vi.fn(), resize: vi.fn(), setOption: vi.fn() },
@@ -112,6 +114,5 @@ describe('statistics components', () => {
             </FluxStatisticsTracker>
         );
         await waitFor(() => expect(observe.mock.calls.length).toBeGreaterThanOrEqual(3));
-        vi.unstubAllGlobals();
     });
 });
