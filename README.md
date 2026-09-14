@@ -1,6 +1,6 @@
 # Flux UI
 
-Source repository for **Flux UI** — an opinionated component library for [Vue 3](https://vuejs.org).
+Source repository for **Flux UI** — an opinionated component library for [Vue 3](https://vuejs.org) and React.
 
 Documentation, live examples, and the component API reference live at [flux-ui.dev](https://flux-ui.dev).
 
@@ -8,13 +8,17 @@ Documentation, live examples, and the component API reference live at [flux-ui.d
 
 This is a [Bun workspaces](https://bun.com/docs/install/workspaces) monorepo. All packages are published under the `@flux-ui` scope.
 
-| Package                                          | Description                                      |
-|--------------------------------------------------|--------------------------------------------------|
-| [`@flux-ui/components`](packages/components)     | Main component library.                          |
-| [`@flux-ui/types`](packages/types)               | Public TypeScript types (no build step).         |
-| [`@flux-ui/internals`](packages/internals)       | Shared composables, utilities, and directives.   |
-| [`@flux-ui/statistics`](packages/statistics)     | Chart components built on Apache ECharts.        |
-| [`@flux-ui/application`](packages/application)   | Application shell components.                    |
+| Package                                        | Description                                    |
+| ---------------------------------------------- | ---------------------------------------------- |
+| [`@flux-ui/components`](packages/components)   | Main component library.                        |
+| [`@flux-ui/types`](packages/types)             | Public TypeScript types (no build step).       |
+| [`@flux-ui/internals`](packages/internals)     | Shared composables, utilities, and directives. |
+| [`@flux-ui/statistics`](packages/statistics)   | Chart components built on Apache ECharts.      |
+| [`@flux-ui/application`](packages/application) | Application shell components.                  |
+| [`@flux-ui/ai`](packages/ai)                   | AI conversation and streaming components.      |
+| [`@flux-ui/flow`](packages/flow)               | Node and edge editor components.               |
+| [`@flux-ui/visuals`](packages/visuals)         | Visual annotation and effect components.       |
+| [`@flux-ui/react`](packages/react)             | Native React component library.                |
 
 ## ⭐️ Prerequisites
 

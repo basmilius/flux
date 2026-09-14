@@ -1,0 +1,72 @@
+{
+    "name": "@flux-ui/react",
+    "description": "React components for Flux UI.",
+    "version": "0.0.0",
+    "type": "module",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://flux-ui.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TimoBlinqx/flux-react.git",
+        "directory": "packages/react"
+    },
+    "keywords": [
+        "react",
+        "component library",
+        "design system",
+        "flux",
+        "ui"
+    ],
+    "scripts": {
+        "audit:exports": "node scripts/audit-exports.mjs",
+        "build": "tsc --noEmit && vite build && tsc --emitDeclarationOnly",
+        "build:showcase": "vite build --config demo/vite.config.ts",
+        "dev": "vite build --watch --mode development",
+        "showcase": "bun run build && vite --config demo/vite.config.ts",
+        "test": "vitest run --config vitest.config.ts"
+    },
+    "engines": {
+        "node": ">=23"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./style.css": "./dist/index.css"
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "peerDependencies": {
+        "react": ">=18.3",
+        "react-dom": ">=18.3"
+    },
+    "dependencies": {
+        "clsx": "^2.1.1",
+        "echarts": "^6.1.0",
+        "luxon": "^3.7.2",
+        "marked": "^18.0.7"
+    },
+    "devDependencies": {
+        "@basmilius/vite-preset": "^3.58.0",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.0",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@types/luxon": "^3.7.2",
+        "@vitejs/plugin-react": "^5.1.4",
+        "jsdom": "^29.0.0",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "sass-embedded": "^1.100.0",
+        "typescript": "6.0.3",
+        "vite": "^8.2.0",
+        "vitest": "^4.1.0"
+    }
+}

@@ -16,6 +16,7 @@ permissions:
 
 jobs:
     publish:
+        if: github.repository == 'basmilius/flux'
         runs-on: ubuntu-latest
         name: 🚀 Build and preview
         steps:
@@ -45,6 +46,8 @@ jobs:
                     bun --cwd packages/statistics build
                     bun --cwd packages/flow build
                     bun --cwd packages/ai build
+                    bun --cwd packages/react build
+                    bun --cwd packages/react build:showcase
                     node scripts/transform-dts.mjs
                     bun --cwd docs build
                 env:

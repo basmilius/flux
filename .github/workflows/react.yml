@@ -1,0 +1,42 @@
+name: React package
+
+on:
+    push:
+        branches: [main, develop, feat/react-components]
+        paths:
+            - 'packages/react/**'
+            - 'packages/components/src/css/**'
+            - 'bun.lock'
+            - '.github/workflows/react.yml'
+    pull_request:
+        paths:
+            - 'packages/react/**'
+            - 'packages/components/src/css/**'
+            - 'bun.lock'
+            - '.github/workflows/react.yml'
+
+permissions:
+    contents: read
+
+jobs:
+    test:
+        name: Build and test React
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v6
+
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v2
+
+            - name: Install React dependencies
+              run: bun install --filter @flux-ui/react --frozen-lockfile
+
+            - name: Test
+              run: bun run --cwd packages/react test
+
+            - name: Build
+              run: bun run --cwd packages/react build
+
+            - name: Build website showcase
+              run: bun run --cwd packages/react build:showcase
