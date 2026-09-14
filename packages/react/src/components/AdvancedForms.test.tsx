@@ -35,6 +35,17 @@ describe('advanced form controls', () => {
         expect(onValueChange).toHaveBeenCalledWith('1234');
     });
 
+    it('preserves later pin positions while editing an earlier digit', () => {
+        const onValueChange = vi.fn();
+        render(<FluxFormPinInput aria-label="PIN" defaultValue="1234" maxLength={4} onValueChange={onValueChange} />);
+        const second = screen.getByRole('textbox', {name: 'Digit 2 of 4'});
+        fireEvent.change(second, {target: {value: ''}});
+        fireEvent.change(second, {target: {value: '9'}});
+        expect(onValueChange).toHaveBeenLastCalledWith('1934');
+        expect(screen.getByRole('textbox', {name: 'Digit 3 of 4'})).toHaveValue('3');
+        expect(screen.getByRole('textbox', {name: 'Digit 4 of 4'})).toHaveValue('4');
+    });
+
     it('supports rating keyboard changes', () => {
         const onValueChange = vi.fn();
         render(<FluxFormRating defaultValue={2} onValueChange={onValueChange} />);

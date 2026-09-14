@@ -1,30 +1,21 @@
 import {clsx} from 'clsx';
-import type {AnchorHTMLAttributes, ButtonHTMLAttributes, HTMLAttributes, KeyboardEvent, MouseEvent, MouseEventHandler, ReactNode} from 'react';
-import {forwardRef} from 'react';
-import type {FluxExtendedSize, FluxIconName, FluxPressableType, FluxTo} from '../types';
+import {type AnchorHTMLAttributes, type ButtonHTMLAttributes, forwardRef, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type MouseEventHandler, type ReactNode} from 'react';
+import type {FluxButtonProps, FluxPressableProps} from '@flux-ui/types/react';
+import type {FluxIconName} from '../types';
 import {resolveTo} from '../types';
 import {FluxIcon} from './Icon';
 import {FluxSpinner} from './Feedback';
-import buttonStyles from '../../../components/src/css/component/Button.module.scss';
-import baseButtonStyles from '../../../components/src/css/component/base/Button.module.scss';
+import buttonStyles from '~flux/components/css/component/Button.module.scss';
+import baseButtonStyles from '~flux/components/css/component/base/Button.module.scss';
 
-export interface FluxPressableProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
-    buttonType?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-    componentType?: FluxPressableType;
-    disabled?: boolean;
-    href?: string;
-    onClick?: MouseEventHandler<HTMLElement>;
-    rel?: string;
-    target?: string;
-    to?: FluxTo;
-}
+export type {FluxButtonProps, FluxPressableProps} from '@flux-ui/types/react';
 
 function isDangerousUrl(href: string | undefined): boolean {
     return href !== undefined && /^\s*(javascript|data|vbscript):/i.test(href);
 }
 
 export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(function FluxPressable(
-    {buttonType = 'button', children, componentType = 'none', disabled, href, onClick, onKeyDown, rel, tabIndex, target, to, ...props},
+    {buttonType = 'button', children, componentType = 'none', disabled, href, onClick, onKeyDown, rel, role, tabIndex, target, to, ...props},
     ref
 ) {
     const resolvedHref = componentType === 'route' ? resolveTo(to) : href;
@@ -46,6 +37,7 @@ export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(functio
             ref={ref as React.Ref<HTMLAnchorElement>}
             href={blocked ? undefined : resolvedHref}
             rel={resolvedRel}
+            role={role}
             target={target}
             tabIndex={disabled || blocked ? -1 : tabIndex}
             aria-disabled={disabled || blocked || undefined}
@@ -58,6 +50,7 @@ export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(functio
             {...props as ButtonHTMLAttributes<HTMLButtonElement>}
             ref={ref as React.Ref<HTMLButtonElement>}
             type={buttonType}
+            role={role}
             disabled={disabled}
             tabIndex={tabIndex}
             onClick={handleClick as MouseEventHandler<HTMLButtonElement>}
@@ -70,32 +63,18 @@ export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(functio
         event.preventDefault();
         event.currentTarget.click();
     };
+    const interactive = role === undefined || role === 'button' || Boolean(onClick);
 
     return <div
         {...props as HTMLAttributes<HTMLDivElement>}
         ref={ref as React.Ref<HTMLDivElement>}
-        role="button"
-        tabIndex={disabled ? -1 : tabIndex ?? 0}
+        role={role ?? 'button'}
+        tabIndex={disabled ? -1 : interactive ? tabIndex ?? 0 : tabIndex}
         aria-disabled={disabled || undefined}
         onClick={handleClick as MouseEventHandler<HTMLDivElement>}
-        onKeyDown={handleKeyDown}
+        onKeyDown={interactive ? handleKeyDown : onKeyDown as React.KeyboardEventHandler<HTMLDivElement>}
     >{children}</div>;
 });
-
-export interface FluxButtonProps extends Omit<FluxPressableProps, 'buttonType' | 'children' | 'componentType' | 'type'> {
-    after?: ReactNode;
-    before?: ReactNode;
-    children?: ReactNode;
-    iconLeading?: FluxIconName | ReactNode;
-    iconTrailing?: FluxIconName | ReactNode;
-    isActive?: boolean;
-    isFilled?: boolean;
-    isLoading?: boolean;
-    isSubmit?: boolean;
-    label?: ReactNode;
-    size?: FluxExtendedSize;
-    type?: FluxPressableType;
-}
 
 type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'primaryLink' | 'secondaryLink';
 

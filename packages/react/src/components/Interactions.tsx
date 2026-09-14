@@ -1,26 +1,26 @@
-import { clsx } from "clsx";
-import { Children, cloneElement, forwardRef, isValidElement, useEffect, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import type { ButtonHTMLAttributes, CSSProperties, ElementType, HTMLAttributes, KeyboardEvent, PointerEvent, ReactElement, ReactNode } from "react";
-import type { FluxColor, FluxDirection, FluxFocalPointObject, FluxIconName, FluxStyle } from "../types";
-import { FluxButton, FluxPrimaryButton, FluxSecondaryButton } from "./Actions";
-import { FluxPane, FluxPaneBody, FluxPaneFooter } from "./Display";
-import { useFluxDisabled } from "./DisplayExtended";
-import { FluxSpinner } from "./Feedback";
-import { FluxFormInput, FluxFormTextArea } from "./Forms";
-import { FluxIcon } from "./Icon";
-import { FluxSpacer } from "./Layout";
-import { FluxFlyout } from "./Overlays";
-import commandStyles from "../../../components/src/css/component/CommandPalette.module.scss";
-import contextStyles from "../../../components/src/css/component/ContextMenu.module.scss";
-import focalStyles from "../../../components/src/css/component/FocalPoint.module.scss";
-import hoverStyles from "../../../components/src/css/component/HoverCard.module.scss";
-import inlineStyles from "../../../components/src/css/component/InlineEdit.module.scss";
-import buttonStyles from "../../../components/src/css/component/Button.module.scss";
-import speedStyles from "../../../components/src/css/component/SpeedDial.module.scss";
-import splitStyles from "../../../components/src/css/component/SplitView.module.scss";
-import swipeStyles from "../../../components/src/css/component/SwipeActions.module.scss";
-import tourStyles from "../../../components/src/css/component/Tour.module.scss";
+import { clsx } from 'clsx';
+import { Children, cloneElement, forwardRef, isValidElement, useEffect, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import type { ButtonHTMLAttributes, CSSProperties, ElementType, HTMLAttributes, KeyboardEvent, PointerEvent, ReactElement, ReactNode } from 'react';
+import type { FluxColor, FluxDirection, FluxFocalPointObject, FluxIconName, FluxStyle } from '../types';
+import { FluxButton, FluxPrimaryButton, FluxSecondaryButton } from './Actions';
+import { FluxPane, FluxPaneBody, FluxPaneFooter } from './Display';
+import { useFluxDisabled } from './DisplayExtended';
+import { FluxSpinner } from './Feedback';
+import { FluxFormInput, FluxFormTextArea } from './Forms';
+import { FluxIcon } from './Icon';
+import { FluxSpacer } from './Layout';
+import { FluxFlyout } from './Overlays';
+import commandStyles from '../../../components/src/css/component/CommandPalette.module.scss';
+import contextStyles from '../../../components/src/css/component/ContextMenu.module.scss';
+import focalStyles from '../../../components/src/css/component/FocalPoint.module.scss';
+import hoverStyles from '../../../components/src/css/component/HoverCard.module.scss';
+import inlineStyles from '../../../components/src/css/component/InlineEdit.module.scss';
+import buttonStyles from '../../../components/src/css/component/Button.module.scss';
+import speedStyles from '../../../components/src/css/component/SpeedDial.module.scss';
+import splitStyles from '../../../components/src/css/component/SplitView.module.scss';
+import swipeStyles from '../../../components/src/css/component/SwipeActions.module.scss';
+import tourStyles from '../../../components/src/css/component/Tour.module.scss';
 
 export interface FluxCommandSubAction {
     icon?: FluxIconName;
@@ -57,7 +57,7 @@ export function FluxCommandPaletteGroup({ className, icon, label, ...props }: HT
         </div>
     );
 }
-export function FluxCommandPaletteItem({ className, command, hasSubActions, icon, id: _sourceId, isHighlighted, label, onActivate, onHighlight, optionId, subLabel, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "id"> & { command?: string; hasSubActions?: boolean; icon?: FluxIconName; id?: string | number; isHighlighted?: boolean; label: string; onActivate?: () => void; onHighlight?: () => void; optionId?: string; subLabel?: string }) {
+export function FluxCommandPaletteItem({ className, command, hasSubActions, icon, id: _sourceId, isHighlighted, label, onActivate, onHighlight, optionId, subLabel, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'id'> & { command?: string; hasSubActions?: boolean; icon?: FluxIconName; id?: string | number; isHighlighted?: boolean; label: string; onActivate?: () => void; onHighlight?: () => void; optionId?: string; subLabel?: string }) {
     return (
         <div {...props} id={optionId} className={clsx(isHighlighted ? commandStyles.commandPaletteItemHighlighted : commandStyles.commandPaletteItem, className)} role="option" aria-selected={Boolean(isHighlighted)} onClick={onActivate} onMouseDown={(event) => event.preventDefault()} onMouseEnter={onHighlight}>
             {icon && (
@@ -75,11 +75,11 @@ export function FluxCommandPaletteItem({ className, command, hasSubActions, icon
     );
 }
 
-export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { defaultOpen?: boolean; hasKeyboardShortcut?: boolean; onOpenChange?: (open: boolean) => void; onSelect?: (item: FluxCommandSourceItem) => void; open?: boolean; placeholder?: string; sources: FluxCommandSource[] }>(function FluxCommandPalette({ defaultOpen, hasKeyboardShortcut, onOpenChange, onSelect, open: openProp, placeholder = "Search", sources }, ref) {
+export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { defaultOpen?: boolean; hasKeyboardShortcut?: boolean; onOpenChange?: (open: boolean) => void; onSelect?: (item: FluxCommandSourceItem) => void; open?: boolean; placeholder?: string; sources: FluxCommandSource[] }>(function FluxCommandPalette({ defaultOpen, hasKeyboardShortcut, onOpenChange, onSelect, open: openProp, placeholder = 'Search', sources }, ref) {
     const controlled = openProp !== undefined,
         [inner, setInner] = useState(Boolean(defaultOpen)),
         open = controlled ? openProp : inner,
-        [query, setQuery] = useState(""),
+        [query, setQuery] = useState(''),
         [tab, setTab] = useState<string | null>(null),
         [highlighted, setHighlighted] = useState(0),
         [subTarget, setSubTarget] = useState<FluxCommandSourceItem | null>(null),
@@ -92,7 +92,7 @@ export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { default
         if (!controlled) setInner(next);
         onOpenChange?.(next);
         if (!next) {
-            setQuery("");
+            setQuery('');
             setTab(null);
             setSubTarget(null);
             setHighlighted(0);
@@ -102,13 +102,13 @@ export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { default
     useEffect(() => {
         if (!hasKeyboardShortcut) return;
         const key = (event: globalThis.KeyboardEvent) => {
-            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
                 event.preventDefault();
                 change(!open);
             }
         };
-        window.addEventListener("keydown", key);
-        return () => window.removeEventListener("keydown", key);
+        window.addEventListener('keydown', key);
+        return () => window.removeEventListener('keydown', key);
     }, [hasKeyboardShortcut, open]);
     useEffect(() => {
         if (open) requestAnimationFrame(() => input.current?.focus());
@@ -117,7 +117,7 @@ export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { default
         if (!query) return setRemote({});
         let active = true;
         setLoading(true);
-        Promise.all(sources.map(async (source) => [source.key, source.fetchSearch ? await source.fetchSearch(query) : source.items.filter((item) => `${item.label} ${item.subLabel ?? ""}`.toLowerCase().includes(query.toLowerCase()))] as const))
+        Promise.all(sources.map(async (source) => [source.key, source.fetchSearch ? await source.fetchSearch(query) : source.items.filter((item) => `${item.label} ${item.subLabel ?? ''}`.toLowerCase().includes(query.toLowerCase()))] as const))
             .then((entries) => {
                 if (active) setRemote(Object.fromEntries(entries));
             })
@@ -141,7 +141,7 @@ export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { default
                 change(false);
             }
         };
-    if (!open || typeof document === "undefined") return null;
+    if (!open || typeof document === 'undefined') return null;
     return createPortal(
         <>
             <div className={commandStyles.commandPaletteBackdrop} onClick={() => change(false)} />
@@ -153,16 +153,16 @@ export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { default
                 aria-label="Search"
                 tabIndex={-1}
                 onKeyDown={(event) => {
-                    if (event.key === "Escape") {
+                    if (event.key === 'Escape') {
                         if (subTarget) setSubTarget(null);
                         else change(false);
-                    } else if (event.key === "ArrowDown") {
+                    } else if (event.key === 'ArrowDown') {
                         event.preventDefault();
                         setHighlighted((index) => (index + 1) % Math.max(1, items.length));
-                    } else if (event.key === "ArrowUp") {
+                    } else if (event.key === 'ArrowUp') {
                         event.preventDefault();
                         setHighlighted((index) => (index - 1 + Math.max(1, items.length)) % Math.max(1, items.length));
-                    } else if (event.key === "Enter" && items[highlighted]) {
+                    } else if (event.key === 'Enter' && items[highlighted]) {
                         event.preventDefault();
                         activate(items[highlighted]);
                     }
@@ -247,14 +247,14 @@ export function FluxContextMenu({ children, className, disabled, isPersistent, l
         const pointer = (event: globalThis.PointerEvent) => {
                 if (!popup.current?.contains(event.target as Node)) close();
             },
-            key = (event: globalThis.KeyboardEvent) => event.key === "Escape" && close();
-        window.addEventListener("pointerdown", pointer, true);
-        window.addEventListener("keydown", key);
-        window.addEventListener("scroll", close, true);
+            key = (event: globalThis.KeyboardEvent) => event.key === 'Escape' && close();
+        window.addEventListener('pointerdown', pointer, true);
+        window.addEventListener('keydown', key);
+        window.addEventListener('scroll', close, true);
         return () => {
-            window.removeEventListener("pointerdown", pointer, true);
-            window.removeEventListener("keydown", key);
-            window.removeEventListener("scroll", close, true);
+            window.removeEventListener('pointerdown', pointer, true);
+            window.removeEventListener('keydown', key);
+            window.removeEventListener('scroll', close, true);
         };
     }, [point]);
     return (
@@ -271,9 +271,9 @@ export function FluxContextMenu({ children, className, disabled, isPersistent, l
         >
             {children}
             {point &&
-                typeof document !== "undefined" &&
+                typeof document !== 'undefined' &&
                 createPortal(
-                    <div ref={popup} className={contextStyles.contextMenuPopup} role="menu" aria-label={label} style={{ position: "fixed", left: point.x, top: point.y, zIndex: 12000 }} onClick={() => !isPersistent && close()}>
+                    <div ref={popup} className={contextStyles.contextMenuPopup} role="menu" aria-label={label} style={{ position: 'fixed', left: point.x, top: point.y, zIndex: 12000 }} onClick={() => !isPersistent && close()}>
                         {menu({ close })}
                     </div>,
                     document.body,
@@ -282,7 +282,7 @@ export function FluxContextMenu({ children, className, disabled, isPersistent, l
     );
 }
 
-export function FluxHoverCard({ children, closeDelay = 150, direction = "vertical", disabled, label, margin = 9, onClose, onOpen, openDelay = 500, opener }: { children: (state: { close(): void }) => ReactNode; closeDelay?: number; direction?: FluxDirection; disabled?: boolean; label?: string; margin?: number; onClose?: () => void; onOpen?: () => void; openDelay?: number; opener: (state: { close(): void; isOpen: boolean; open(): void }) => ReactNode }) {
+export function FluxHoverCard({ children, closeDelay = 150, direction = 'vertical', disabled, label, margin = 9, onClose, onOpen, openDelay = 500, opener }: { children: (state: { close(): void }) => ReactNode; closeDelay?: number; direction?: FluxDirection; disabled?: boolean; label?: string; margin?: number; onClose?: () => void; onOpen?: () => void; openDelay?: number; opener: (state: { close(): void; isOpen: boolean; open(): void }) => ReactNode }) {
     const [open, setOpen] = useState(false),
         anchor = useRef<HTMLSpanElement>(null),
         timer = useRef<ReturnType<typeof setTimeout> | null>(null),
@@ -298,7 +298,7 @@ export function FluxHoverCard({ children, closeDelay = 150, direction = "vertica
             onOpen?.();
             requestAnimationFrame(() => {
                 const box = anchor.current?.getBoundingClientRect();
-                if (box) setPosition({ x: direction === "horizontal" ? box.right + margin : box.left, y: direction === "vertical" ? box.bottom + margin : box.top });
+                if (box) setPosition({ x: direction === 'horizontal' ? box.right + margin : box.left, y: direction === 'vertical' ? box.bottom + margin : box.top });
             });
         },
         hide = () => {
@@ -316,12 +316,12 @@ export function FluxHoverCard({ children, closeDelay = 150, direction = "vertica
         };
     useEffect(() => () => clear(), []);
     return (
-        <span ref={anchor} className={hoverStyles.hoverCard} onFocus={show} onBlur={delayedHide} onPointerEnter={(event) => event.pointerType !== "touch" && delayedShow()} onPointerLeave={(event) => event.pointerType !== "touch" && delayedHide()}>
+        <span ref={anchor} className={hoverStyles.hoverCard} onFocus={show} onBlur={delayedHide} onPointerEnter={(event) => event.pointerType !== 'touch' && delayedShow()} onPointerLeave={(event) => event.pointerType !== 'touch' && delayedHide()}>
             {opener({ close: hide, isOpen: open, open: show })}
             {open &&
-                typeof document !== "undefined" &&
+                typeof document !== 'undefined' &&
                 createPortal(
-                    <div className={hoverStyles.hoverCardPopup} role={label ? "group" : undefined} aria-label={label} style={{ position: "fixed", left: position.x, top: position.y, zIndex: 12000 }} onPointerEnter={clear} onPointerLeave={delayedHide}>
+                    <div className={hoverStyles.hoverCardPopup} role={label ? 'group' : undefined} aria-label={label} style={{ position: 'fixed', left: position.x, top: position.y, zIndex: 12000 }} onPointerEnter={clear} onPointerLeave={delayedHide}>
                         {children({ close: hide })}
                     </div>,
                     document.body,
@@ -330,7 +330,7 @@ export function FluxHoverCard({ children, closeDelay = 150, direction = "vertica
     );
 }
 
-export function FluxInlineEdit({ actions, children, defaultValue = "", disabled, error, isReadonly, multiline, onCancel, onEdit, onSave, onValueChange, placeholder, saveOnBlur = true, value }: { actions?: (state: { cancel(): void; save(): void }) => ReactNode; children?: (state: { edit(): void; value: string }) => ReactNode; defaultValue?: string; disabled?: boolean; error?: string | null; isReadonly?: boolean; multiline?: boolean; onCancel?: () => void; onEdit?: () => void; onSave?: (value: string) => void; onValueChange?: (value: string) => void; placeholder?: string; saveOnBlur?: boolean; value?: string }) {
+export function FluxInlineEdit({ actions, children, defaultValue = '', disabled, error, isReadonly, multiline, onCancel, onEdit, onSave, onValueChange, placeholder, saveOnBlur = true, value }: { actions?: (state: { cancel(): void; save(): void }) => ReactNode; children?: (state: { edit(): void; value: string }) => ReactNode; defaultValue?: string; disabled?: boolean; error?: string | null; isReadonly?: boolean; multiline?: boolean; onCancel?: () => void; onEdit?: () => void; onSave?: (value: string) => void; onValueChange?: (value: string) => void; placeholder?: string; saveOnBlur?: boolean; value?: string }) {
     const controlled = value !== undefined,
         [inner, setInner] = useState(defaultValue),
         current = controlled ? value : inner;
@@ -348,7 +348,7 @@ export function FluxInlineEdit({ actions, children, defaultValue = "", disabled,
     };
     const close = () => {
         setEditing(false);
-        requestAnimationFrame(() => root.current?.querySelector<HTMLElement>("[role=button]")?.focus());
+        requestAnimationFrame(() => root.current?.querySelector<HTMLElement>('[role=button]')?.focus());
     };
     const save = () => {
         if (!controlled) setInner(draft);
@@ -361,10 +361,10 @@ export function FluxInlineEdit({ actions, children, defaultValue = "", disabled,
         close();
     };
     const key = (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        if (event.key === "Escape") {
+        if (event.key === 'Escape') {
             event.preventDefault();
             cancel();
-        } else if (event.key === "Enter" && (!multiline || event.ctrlKey || event.metaKey)) {
+        } else if (event.key === 'Enter' && (!multiline || event.ctrlKey || event.metaKey)) {
             event.preventDefault();
             save();
         }
@@ -396,7 +396,7 @@ export function FluxInlineEdit({ actions, children, defaultValue = "", disabled,
                             error={error ?? undefined}
                             placeholder={placeholder}
                             value={draft}
-                            onValueChange={(next) => setDraft(String(next ?? ""))}
+                            onValueChange={(next) => setDraft(String(next ?? ''))}
                             onKeyDown={key}
                             onBlur={() =>
                                 saveOnBlur &&
@@ -418,11 +418,11 @@ export function FluxInlineEdit({ actions, children, defaultValue = "", disabled,
             ) : (
                 <div
                     className={clsx(inlineStyles.inlineEditDisplay, interactive && inlineStyles.isInteractive, !current && inlineStyles.isPlaceholder)}
-                    role={interactive ? "button" : undefined}
+                    role={interactive ? 'button' : undefined}
                     tabIndex={interactive ? 0 : undefined}
                     onClick={edit}
                     onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
+                        if (event.key === 'Enter' || event.key === ' ') {
                             event.preventDefault();
                             edit();
                         }
@@ -451,8 +451,8 @@ export function FluxPublishButton({ className, isDone, isLoading, ...props }: Re
     );
 }
 
-export type FluxSpeedDialDirection = "up" | "down" | "start" | "end";
-export function FluxSpeedDial({ children, className, defaultOpen, direction = "up", icon = "plus", iconOpen = "xmark", label, onOpenChange, open: openProp, opener, position = "end" }: { children?: ReactNode; className?: string; defaultOpen?: boolean; direction?: FluxSpeedDialDirection; icon?: FluxIconName; iconOpen?: FluxIconName; label: string; onOpenChange?: (open: boolean) => void; open?: boolean; opener?: (state: { cssClass: string; isOpen: boolean; toggle(): void }) => ReactNode; position?: "start" | "end" }) {
+export type FluxSpeedDialDirection = 'up' | 'down' | 'start' | 'end';
+export function FluxSpeedDial({ children, className, defaultOpen, direction = 'up', icon = 'plus', iconOpen = 'xmark', label, onOpenChange, open: openProp, opener, position = 'end' }: { children?: ReactNode; className?: string; defaultOpen?: boolean; direction?: FluxSpeedDialDirection; icon?: FluxIconName; iconOpen?: FluxIconName; label: string; onOpenChange?: (open: boolean) => void; open?: boolean; opener?: (state: { cssClass: string; isOpen: boolean; toggle(): void }) => ReactNode; position?: 'start' | 'end' }) {
     const controlled = openProp !== undefined,
         [inner, setInner] = useState(Boolean(defaultOpen)),
         open = controlled ? openProp : inner,
@@ -467,16 +467,16 @@ export function FluxSpeedDial({ children, className, defaultOpen, direction = "u
         const outside = (event: MouseEvent) => {
             if (!root.current?.contains(event.target as Node)) change(false);
         };
-        document.addEventListener("mousedown", outside);
-        return () => document.removeEventListener("mousedown", outside);
+        document.addEventListener('mousedown', outside);
+        return () => document.removeEventListener('mousedown', outside);
     }, [open]);
     const toggle = () => change(!open);
     return (
         <div
             ref={root}
-            className={clsx(speedStyles.speedDial, position === "start" ? speedStyles.isCornerStart : speedStyles.isCornerEnd, speedStyles[`is${direction.charAt(0).toUpperCase() + direction.slice(1)}`], open && speedStyles.isOpen, className)}
+            className={clsx(speedStyles.speedDial, position === 'start' ? speedStyles.isCornerStart : speedStyles.isCornerEnd, speedStyles[`is${direction.charAt(0).toUpperCase() + direction.slice(1)}`], open && speedStyles.isOpen, className)}
             onKeyDown={(event) => {
-                if (event.key === "Escape") {
+                if (event.key === 'Escape') {
                     event.preventDefault();
                     change(false);
                 }
@@ -500,7 +500,7 @@ export function FluxSpeedDialAction({ className, icon, label, ...props }: Button
     );
 }
 
-export function FluxSplitButton({ button, buttonIcon = "ellipsis-h", disabled, flyout, flyoutDirection, flyoutIsAutoWidth, flyoutMargin, flyoutWidth }: { button: (state: { close(): void; open(): void; toggle(): void }) => ReactNode; buttonIcon?: FluxIconName; disabled?: boolean; flyout: (state: { close(): void }) => ReactNode; flyoutDirection?: FluxDirection; flyoutIsAutoWidth?: boolean; flyoutMargin?: number; flyoutWidth?: number | string }) {
+export function FluxSplitButton({ button, buttonIcon = 'ellipsis-h', disabled, flyout, flyoutDirection, flyoutIsAutoWidth, flyoutMargin, flyoutWidth }: { button: (state: { close(): void; open(): void; toggle(): void }) => ReactNode; buttonIcon?: FluxIconName; disabled?: boolean; flyout: (state: { close(): void }) => ReactNode; flyoutDirection?: FluxDirection; flyoutIsAutoWidth?: boolean; flyoutMargin?: number; flyoutWidth?: number | string }) {
     return (
         <FluxFlyout
             direction={flyoutDirection}
@@ -528,7 +528,7 @@ export interface FluxSplitViewPaneProps extends HTMLAttributes<HTMLDivElement> {
 export function FluxSplitViewPane({ className, defaultSize: _default, isResizable: _resize, maxSize: _max, minSize: _min, ...props }: FluxSplitViewPaneProps) {
     return <div {...props} className={clsx(splitStyles.splitViewPane, className)} />;
 }
-export function FluxSplitView({ as: Component = "div", children, className, direction = "horizontal", rememberKey, ...props }: HTMLAttributes<HTMLElement> & { as?: ElementType; direction?: FluxDirection; rememberKey?: string }) {
+export function FluxSplitView({ as: Component = 'div', children, className, direction = 'horizontal', rememberKey, ...props }: HTMLAttributes<HTMLElement> & { as?: ElementType; direction?: FluxDirection; rememberKey?: string }) {
     const panes = Children.toArray(children).filter(isValidElement) as ReactElement<FluxSplitViewPaneProps>[],
         initial = () => {
             if (rememberKey) {
@@ -538,7 +538,7 @@ export function FluxSplitView({ as: Component = "div", children, className, dire
                 } catch {}
             }
             const auto = 100 / Math.max(1, panes.length);
-            return panes.map((pane) => (typeof pane.props.defaultSize === "number" ? pane.props.defaultSize : auto));
+            return panes.map((pane) => (typeof pane.props.defaultSize === 'number' ? pane.props.defaultSize : auto));
         },
         [sizes, setSizes] = useState(initial),
         [dragging, setDragging] = useState(false),
@@ -557,43 +557,43 @@ export function FluxSplitView({ as: Component = "div", children, className, dire
         });
     };
     return (
-        <Component {...props} ref={root} className={clsx(direction === "horizontal" ? splitStyles.splitViewHorizontal : splitStyles.splitViewVertical, dragging && splitStyles.splitViewDragging, className)} style={direction === "horizontal" ? { gridTemplateColumns: panes.flatMap((_, i) => (i < panes.length - 1 ? [`${sizes[i]}fr`, "auto"] : [`${sizes[i]}fr`])).join(" ") } : { gridTemplateRows: panes.flatMap((_, i) => (i < panes.length - 1 ? [`${sizes[i]}fr`, "auto"] : [`${sizes[i]}fr`])).join(" ") }}>
+        <Component {...props} ref={root} className={clsx(direction === 'horizontal' ? splitStyles.splitViewHorizontal : splitStyles.splitViewVertical, dragging && splitStyles.splitViewDragging, className)} style={direction === 'horizontal' ? { gridTemplateColumns: panes.flatMap((_, i) => (i < panes.length - 1 ? [`${sizes[i]}fr`, 'auto'] : [`${sizes[i]}fr`])).join(' ') } : { gridTemplateRows: panes.flatMap((_, i) => (i < panes.length - 1 ? [`${sizes[i]}fr`, 'auto'] : [`${sizes[i]}fr`])).join(' ') }}>
             {panes.flatMap((pane, index) => [
                 cloneElement(pane, { key: pane.key ?? `pane-${index}` }),
                 index < panes.length - 1 && (
                     <button
                         key={`handle-${index}`}
-                        className={direction === "horizontal" ? splitStyles.splitViewHandle : splitStyles.splitViewHandleVertical}
+                        className={direction === 'horizontal' ? splitStyles.splitViewHandle : splitStyles.splitViewHandleVertical}
                         type="button"
                         role="separator"
-                        aria-label={`Resize ${direction === "horizontal" ? "columns" : "rows"} ${index + 1} and ${index + 2}`}
-                        aria-orientation={direction === "horizontal" ? "vertical" : "horizontal"}
+                        aria-label={`Resize ${direction === 'horizontal' ? 'columns' : 'rows'} ${index + 1} and ${index + 2}`}
+                        aria-orientation={direction === 'horizontal' ? 'vertical' : 'horizontal'}
                         aria-valuemin={0}
                         aria-valuemax={100}
                         aria-valuenow={Math.round((sizes[index] / (sizes[index] + sizes[index + 1])) * 100)}
                         tabIndex={pane.props.isResizable === false || panes[index + 1].props.isResizable === false ? -1 : 0}
                         onKeyDown={(event) => {
-                            const delta = (event.shiftKey ? 10 : 2) * (event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1);
-                            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+                            const delta = (event.shiftKey ? 10 : 2) * (event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1);
+                            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
                                 event.preventDefault();
                                 update(index, delta);
                             }
                         }}
                         onPointerDown={(event) => {
-                            const start = direction === "horizontal" ? event.clientX : event.clientY;
+                            const start = direction === 'horizontal' ? event.clientX : event.clientY;
                             const startSizes = [...sizes];
                             setDragging(true);
                             const move = (moveEvent: globalThis.PointerEvent) => {
-                                    const size = direction === "horizontal" ? (root.current?.clientWidth ?? 1) : (root.current?.clientHeight ?? 1);
-                                    update(index, (((direction === "horizontal" ? moveEvent.clientX : moveEvent.clientY) - start) / size) * 100, startSizes);
+                                    const size = direction === 'horizontal' ? (root.current?.clientWidth ?? 1) : (root.current?.clientHeight ?? 1);
+                                    update(index, (((direction === 'horizontal' ? moveEvent.clientX : moveEvent.clientY) - start) / size) * 100, startSizes);
                                 },
                                 up = () => {
                                     setDragging(false);
-                                    window.removeEventListener("pointermove", move);
-                                    window.removeEventListener("pointerup", up);
+                                    window.removeEventListener('pointermove', move);
+                                    window.removeEventListener('pointerup', up);
                                 };
-                            window.addEventListener("pointermove", move);
-                            window.addEventListener("pointerup", up);
+                            window.addEventListener('pointermove', move);
+                            window.addEventListener('pointerup', up);
                         }}
                     />
                 ),
@@ -602,11 +602,11 @@ export function FluxSplitView({ as: Component = "div", children, className, dire
     );
 }
 
-export type FluxSwipeActionsSide = "start" | "end";
-export function FluxSwipeAction({ className, color = "gray", icon, isPrimary, label, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { color?: FluxColor; icon: FluxIconName; isPrimary?: boolean; label?: string }) {
+export type FluxSwipeActionsSide = 'start' | 'end';
+export function FluxSwipeAction({ className, color = 'gray', icon, isPrimary, label, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { color?: FluxColor; icon: FluxIconName; isPrimary?: boolean; label?: string }) {
     const disabled = useFluxDisabled(props.disabled);
     return (
-        <button {...props} className={clsx(swipeStyles[`swipeAction${color.charAt(0).toUpperCase() + color.slice(1)}`], !label && swipeStyles.isIconOnly, isPrimary && swipeStyles.isPrimary, className)} data-flux-swipe-action="" data-flux-swipe-primary={isPrimary ? "" : undefined} type="button" disabled={disabled}>
+        <button {...props} className={clsx(swipeStyles[`swipeAction${color.charAt(0).toUpperCase() + color.slice(1)}`], !label && swipeStyles.isIconOnly, isPrimary && swipeStyles.isPrimary, className)} data-flux-swipe-action="" data-flux-swipe-primary={isPrimary ? '' : undefined} type="button" disabled={disabled}>
             <FluxIcon name={icon} size={18} />
             {label && <span className={swipeStyles.swipeActionLabel}>{label}</span>}
         </button>
@@ -618,14 +618,15 @@ export function FluxSwipeActions({ children, className, defaultOpen = null, disa
         open = controlled ? openProp : inner,
         [drag, setDrag] = useState<number | null>(null),
         origin = useRef(0),
+        startOffset = useRef(0),
         scopedDisabled = useFluxDisabled(disabled),
         change = (side: FluxSwipeActionsSide | null) => {
             if (!controlled) setInner(side);
             onOpenChange?.(side);
         },
-        offset = drag ?? (open === "start" ? 96 : open === "end" ? -96 : 0);
+        offset = drag ?? (open === 'start' ? 96 : open === 'end' ? -96 : 0);
     return (
-        <div {...props} className={clsx(swipeStyles.swipeActions, className)} style={{ "--swipe-offset": `${offset}px`, "--swipe-open-start": offset > 0 ? 1 : 0, "--swipe-open-end": offset < 0 ? 1 : 0 } as FluxStyle}>
+        <div {...props} className={clsx(swipeStyles.swipeActions, className)} style={{ '--swipe-offset': `${offset}px`, '--swipe-open-start': offset > 0 ? 1 : 0, '--swipe-open-end': offset < 0 ? 1 : 0 } as FluxStyle}>
             <div
                 className={swipeStyles.swipeActionsRow}
                 tabIndex={-1}
@@ -633,27 +634,28 @@ export function FluxSwipeActions({ children, className, defaultOpen = null, disa
                 onPointerDown={(event) => {
                     if (scopedDisabled) return;
                     origin.current = event.clientX;
+                    startOffset.current = offset;
                     setDrag(offset);
-                    event.currentTarget.setPointerCapture(event.pointerId);
+                    event.currentTarget.setPointerCapture?.(event.pointerId);
                 }}
                 onPointerMove={(event) => {
-                    if (drag !== null) setDrag(offset + event.clientX - origin.current);
+                    if (drag !== null) setDrag(startOffset.current + event.clientX - origin.current);
                 }}
                 onPointerUp={() => {
                     if (drag === null) return;
-                    change(Math.abs(drag) > 96 * threshold ? (drag > 0 ? "start" : "end") : null);
+                    change(Math.abs(drag) > 96 * threshold ? (drag > 0 ? 'start' : 'end') : null);
                     setDrag(null);
                 }}
             >
                 {children}
             </div>
             {start && (
-                <div className={clsx(swipeStyles.swipeActionsGroup, swipeStyles.isStart)} role="group" aria-label="Leading actions" onFocus={() => change("start")} onClick={() => change(null)}>
+                <div className={clsx(swipeStyles.swipeActionsGroup, swipeStyles.isStart)} role="group" aria-label="Leading actions" onFocus={() => change('start')} onClick={() => change(null)}>
                     {start}
                 </div>
             )}
             {end && (
-                <div className={clsx(swipeStyles.swipeActionsGroup, swipeStyles.isEnd)} role="group" aria-label="Trailing actions" onFocus={() => change("end")} onClick={() => change(null)}>
+                <div className={clsx(swipeStyles.swipeActionsGroup, swipeStyles.isEnd)} role="group" aria-label="Trailing actions" onFocus={() => change('end')} onClick={() => change(null)}>
                     {end}
                 </div>
             )}
@@ -661,7 +663,7 @@ export function FluxSwipeActions({ children, className, defaultOpen = null, disa
     );
 }
 
-export type FluxTourPosition = "top" | "top-left" | "top-right" | "left" | "left-top" | "left-bottom" | "right" | "right-top" | "right-bottom" | "bottom" | "bottom-left" | "bottom-right";
+export type FluxTourPosition = 'top' | 'top-left' | 'top-right' | 'left' | 'left-top' | 'left-bottom' | 'right' | 'right-top' | 'right-bottom' | 'bottom' | 'bottom-left' | 'bottom-right';
 export interface FluxTourItemProps {
     children?: ReactNode;
     position?: FluxTourPosition;
@@ -669,7 +671,7 @@ export interface FluxTourItemProps {
     title?: string;
 }
 export function FluxTourItem(_props: FluxTourItemProps) {
-    return <span aria-hidden="true" style={{ display: "none" }} />;
+    return <span aria-hidden="true" style={{ display: 'none' }} />;
 }
 export function FluxTour({ active, children, defaultActive = false, defaultStep = 0, maskPadding = 8, onActiveChange, onFinish, onNext, onPrev, onSkip, onStepChange, root, step: stepProp }: { active?: boolean; children?: ReactNode; defaultActive?: boolean; defaultStep?: number; maskPadding?: number; onActiveChange?: (active: boolean) => void; onFinish?: () => void; onNext?: (step: number) => void; onPrev?: (step: number) => void; onSkip?: () => void; onStepChange?: (step: number) => void; root?: string | HTMLElement | (() => HTMLElement | null); step?: number }) {
     const items = Children.toArray(children).filter(isValidElement) as ReactElement<FluxTourItemProps>[],
@@ -692,23 +694,23 @@ export function FluxTour({ active, children, defaultActive = false, defaultStep 
         };
     useLayoutEffect(() => {
         if (!isActive || !item) return setRect(null);
-        const scope = typeof root === "string" ? document.querySelector(root) : typeof root === "function" ? root() : (root ?? document),
-            target = typeof item.props.target === "function" ? item.props.target() : scope?.querySelector<HTMLElement>(item.props.target);
-        target?.scrollIntoView?.({ block: "center", inline: "center" });
+        const scope = typeof root === 'string' ? document.querySelector(root) : typeof root === 'function' ? root() : (root ?? document),
+            target = typeof item.props.target === 'function' ? item.props.target() : scope?.querySelector<HTMLElement>(item.props.target);
+        target?.scrollIntoView?.({ block: 'center', inline: 'center' });
         setRect(target?.getBoundingClientRect() ?? null);
     }, [isActive, item, root, step]);
     useEffect(() => {
         if (!isActive) return;
         const key = (event: globalThis.KeyboardEvent) => {
-            if (event.key === "Escape") {
+            if (event.key === 'Escape') {
                 setActive(false);
                 onSkip?.();
             }
         };
-        window.addEventListener("keydown", key);
-        return () => window.removeEventListener("keydown", key);
+        window.addEventListener('keydown', key);
+        return () => window.removeEventListener('keydown', key);
     }, [isActive]);
-    if (!isActive || !item || !rect || typeof document === "undefined") return null;
+    if (!isActive || !item || !rect || typeof document === 'undefined') return null;
     const next = () => {
             if (step < items.length - 1) {
                 setStep(step + 1);
@@ -730,8 +732,8 @@ export function FluxTour({ active, children, defaultActive = false, defaultStep 
         };
     return createPortal(
         <div className={tourStyles.tour}>
-            <div className={tourStyles.tourSpotlight} style={{ "--x": `${rect.x - maskPadding}px`, "--y": `${rect.y - maskPadding}px`, "--w": `${rect.width + maskPadding * 2}px`, "--h": `${rect.height + maskPadding * 2}px` } as FluxStyle} />
-            <div className={tourStyles.tourPopover} role="dialog" aria-modal="true" aria-labelledby={item.props.title ? titleId : undefined} style={{ position: "fixed", left: rect.left, top: rect.bottom + maskPadding, zIndex: 13000 }}>
+            <div className={tourStyles.tourSpotlight} style={{ '--x': `${rect.x - maskPadding}px`, '--y': `${rect.y - maskPadding}px`, '--w': `${rect.width + maskPadding * 2}px`, '--h': `${rect.height + maskPadding * 2}px` } as FluxStyle} />
+            <div className={tourStyles.tourPopover} role="dialog" aria-modal="true" aria-labelledby={item.props.title ? titleId : undefined} style={{ position: 'fixed', left: rect.left, top: rect.bottom + maskPadding, zIndex: 13000 }}>
                 <FluxPane className={tourStyles.tourPane}>
                     <div className={tourStyles.tourBodyViewport}>
                         <div className={tourStyles.tourBody}>
@@ -752,7 +754,7 @@ export function FluxTour({ active, children, defaultActive = false, defaultStep 
                             Skip
                         </button>
                         {step > 0 && <FluxSecondaryButton aria-label="Previous" iconLeading="angle-left" size="small" onClick={prev} />}
-                        <FluxPrimaryButton aria-label={step < items.length - 1 ? "Next" : "Done"} iconLeading={step < items.length - 1 ? "angle-right" : "check"} size="small" onClick={next} />
+                        <FluxPrimaryButton aria-label={step < items.length - 1 ? 'Next' : 'Done'} iconLeading={step < items.length - 1 ? 'angle-right' : 'check'} size="small" onClick={next} />
                     </div>
                 </FluxPane>
             </div>
@@ -777,7 +779,7 @@ export function FluxFocalPointEditor({ defaultValue = [50, 50], footer, footerBe
             set([Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100)), Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100))]);
         };
     return (
-        <FluxPane style={{ "--aspect-ratio": 1 } as FluxStyle}>
+        <FluxPane style={{ '--aspect-ratio': 1 } as FluxStyle}>
             <FluxPaneBody>
                 {preview ? (
                     <div className={focalStyles.focalPointPreview}>
@@ -800,12 +802,12 @@ export function FluxFocalPointEditor({ defaultValue = [50, 50], footer, footerBe
                         onKeyDown={(event) => {
                             const amount = event.shiftKey ? 10 : 1;
                             let [x, y] = current;
-                            if (event.key === "ArrowLeft") x -= amount;
-                            else if (event.key === "ArrowRight") x += amount;
-                            else if (event.key === "ArrowUp") y -= amount;
-                            else if (event.key === "ArrowDown") y += amount;
-                            else if (event.key === "Home") x = y = 0;
-                            else if (event.key === "End") x = y = 100;
+                            if (event.key === 'ArrowLeft') x -= amount;
+                            else if (event.key === 'ArrowRight') x += amount;
+                            else if (event.key === 'ArrowUp') y -= amount;
+                            else if (event.key === 'ArrowDown') y += amount;
+                            else if (event.key === 'Home') x = y = 0;
+                            else if (event.key === 'End') x = y = 100;
                             else return;
                             event.preventDefault();
                             set([Math.max(0, Math.min(100, x)), Math.max(0, Math.min(100, y))]);
@@ -818,7 +820,7 @@ export function FluxFocalPointEditor({ defaultValue = [50, 50], footer, footerBe
             </FluxPaneBody>
             <FluxPaneFooter>
                 {footerBefore}
-                <FluxSecondaryButton label={preview ? "Close preview" : "Preview"} onClick={() => setPreview((value) => !value)} />
+                <FluxSecondaryButton label={preview ? 'Close preview' : 'Preview'} onClick={() => setPreview((value) => !value)} />
                 <FluxSpacer />
                 {footer}
             </FluxPaneFooter>

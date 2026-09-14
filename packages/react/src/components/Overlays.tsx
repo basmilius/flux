@@ -46,17 +46,19 @@ function DialogPortal({children, className, isCloseable, label, onClose, open, .
 }
 
 function useDialogLifecycle(open: boolean, ref: React.RefObject<HTMLElement | null>, onClose?: () => void, closeable?: boolean) {
+    const onCloseRef = useRef(onClose);
+    onCloseRef.current = onClose;
     useEffect(() => {
         if (!open) return;
         const previous = document.activeElement as HTMLElement | null;
         requestAnimationFrame(() => firstFocusable(ref.current)?.focus() ?? ref.current?.focus());
         const keydown = (event: globalThis.KeyboardEvent) => {
-            if (event.key === 'Escape' && closeable) {event.preventDefault(); onClose?.();}
+            if (event.key === 'Escape' && closeable) {event.preventDefault(); onCloseRef.current?.();}
             if (event.key === 'Tab') trapTab(event, ref.current);
         };
         document.addEventListener('keydown', keydown);
         return () => {document.removeEventListener('keydown', keydown); previous?.focus();};
-    }, [closeable, onClose, open, ref]);
+    }, [closeable, open, ref]);
 }
 
 export interface FluxFlyoutProps {

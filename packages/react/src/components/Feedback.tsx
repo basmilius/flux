@@ -107,7 +107,7 @@ export interface FluxProgressRingProps extends Omit<HTMLAttributes<HTMLDivElemen
     value?: number;
 }
 
-export function FluxProgressRing({children, className, color = 'primary', isIndeterminate = false, label, max = 1, min = 0, size = 60, thickness = 6, value, ...props}: FluxProgressRingProps) {
+export function FluxProgressRing({children, className, color = 'primary', isIndeterminate = false, label, max = 1, min = 0, size = 60, style, thickness = 6, value, ...props}: FluxProgressRingProps) {
     const current = clamp(value ?? min, min, max);
     const position = isIndeterminate ? 0 : max <= min ? (current >= max ? 1 : 0) : clamp((current - min) / (max - min), 0, 1);
     const progress = new Intl.NumberFormat(undefined, {style: 'percent', maximumFractionDigits: 0}).format(position);
@@ -118,7 +118,7 @@ export function FluxProgressRing({children, className, color = 'primary', isInde
         <div
             {...props}
             className={clsx(ringStyles.progressRing, ringColorClasses[color], className)}
-            style={{height: `${size}px`, width: `${size}px`}}
+            style={{...style, height: `${size}px`, width: `${size}px`}}
             role={label ? 'progressbar' : undefined}
             aria-label={label}
             aria-valuenow={label && !isIndeterminate ? current : undefined}

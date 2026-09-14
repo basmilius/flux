@@ -23,8 +23,58 @@ function capital(value:string){return value.charAt(0).toUpperCase()+value.slice(
 interface AdaptiveChild {defaultNode:ReactNode;fallback:ReactNode;priority:number;setVisible(value:boolean):void;widthDefault:number;widthFallback:number}
 interface AdaptiveContextValue {register(id:string, child:AdaptiveChild):void;unregister(id:string):void;reflow():void}
 const AdaptiveContext=createContext<AdaptiveContextValue|null>(null);
-export function FluxAdaptiveGroup({children,className,gap=9,style,...props}:HTMLAttributes<HTMLDivElement>&{gap?:number}){const root=useRef<HTMLDivElement>(null),items=useRef(new Map<string,AdaptiveChild>()),[,render]=useState(0);const reflow=useCallback(()=>{const available=root.current?.clientWidth??Infinity,entries=Array.from(items.current.values()),visible=new Set(entries);const total=()=>Array.from(visible).reduce((sum,item)=>sum+(item.widthDefault||0),0)+Math.max(0,visible.size-1)*gap;for(const item of [...entries].sort((a,b)=>a.priority-b.priority)){if(total()<=available)break;visible.delete(item);}entries.forEach(item=>item.setVisible(visible.has(item)));},[gap]);const context=useMemo(()=>({register(id:string,child:AdaptiveChild){items.current.set(id,child);render(v=>v+1);queueMicrotask(reflow);},unregister(id:string){items.current.delete(id);queueMicrotask(reflow);},reflow}),[reflow]);useLayoutEffect(()=>{if(typeof ResizeObserver==='undefined'||!root.current)return;const observer=new ResizeObserver(reflow);observer.observe(root.current);return()=>observer.disconnect();},[reflow]);return <AdaptiveContext.Provider value={context}><div {...props} ref={root} className={clsx(adaptiveStyles.adaptiveGroup,className)} style={{...style,'--gap':`${gap}px`} as FluxStyle}>{children}</div></AdaptiveContext.Provider>;}
-export function FluxAdaptiveSlot({children,className,fallback,priority=1,...props}:HTMLAttributes<HTMLDivElement>&{fallback?:ReactNode;priority?:number}){const group=useContext(AdaptiveContext),id=useId(),[visible,setVisible]=useState(true),defaultMeasure=useRef<HTMLDivElement>(null),fallbackMeasure=useRef<HTMLDivElement>(null),root=useRef<HTMLDivElement>(null);useLayoutEffect(()=>{const update=()=>{const child={defaultNode:children,fallback,priority,setVisible,widthDefault:defaultMeasure.current?.offsetWidth??0,widthFallback:fallbackMeasure.current?.offsetWidth??0};if(group)group.register(id,child);else if(root.current)setVisible(child.widthDefault<=root.current.clientWidth);};update();if(typeof ResizeObserver==='undefined')return()=>group?.unregister(id);const observer=new ResizeObserver(update);if(defaultMeasure.current)observer.observe(defaultMeasure.current);if(fallbackMeasure.current)observer.observe(fallbackMeasure.current);if(root.current)observer.observe(root.current);return()=>{observer.disconnect();group?.unregister(id);};},[children,fallback,group,id,priority]);return <><div {...props} ref={root} className={clsx(adaptiveStyles.adaptiveSlot,className)} style={group?{...props.style,flexShrink:0}:props.style}>{visible?children:fallback}</div><div ref={defaultMeasure} className={adaptiveStyles.adaptiveSlotMeasurer} aria-hidden="true">{children}</div><div ref={fallbackMeasure} className={adaptiveStyles.adaptiveSlotMeasurer} aria-hidden="true">{fallback}</div></>;}
+export function FluxAdaptiveGroup({children, className, gap = 9, style, ...props}: HTMLAttributes<HTMLDivElement> & {gap?: number}) {
+    const root = useRef<HTMLDivElement>(null), items = useRef(new Map<string, AdaptiveChild>()), [, render] = useState(0);
+    const reflow = useCallback(() => {
+        const available = root.current?.clientWidth ?? Infinity, entries = Array.from(items.current.values()), visible = new Set(entries);
+        const total = () => Array.from(visible).reduce((sum, item) => sum + (item.widthDefault || 0), 0) + Math.max(0, visible.size - 1) * gap;
+        for (const item of [...entries].sort((a, b) => a.priority - b.priority)) {
+            if (total() <= available) break;
+            visible.delete(item);
+        }
+        entries.forEach(item => item.setVisible(visible.has(item)));
+    }, [gap]);
+    const context = useMemo(() => ({
+        register(id: string, child: AdaptiveChild) {
+            items.current.set(id, child);
+            render(value => value + 1);
+            queueMicrotask(reflow);
+        },
+        unregister(id: string) {
+            items.current.delete(id);
+            queueMicrotask(reflow);
+        },
+        reflow
+    }), [reflow]);
+    useLayoutEffect(() => {
+        if (typeof ResizeObserver === 'undefined' || !root.current) return;
+        const observer = new ResizeObserver(reflow);
+        observer.observe(root.current);
+        return () => observer.disconnect();
+    }, [reflow]);
+    return <AdaptiveContext.Provider value={context}><div {...props} ref={root} className={clsx(adaptiveStyles.adaptiveGroup, className)} style={{...style, '--gap': `${gap}px`} as FluxStyle}>{children}</div></AdaptiveContext.Provider>;
+}
+export function FluxAdaptiveSlot({children, className, fallback, priority = 1, ...props}: HTMLAttributes<HTMLDivElement> & {fallback?: ReactNode; priority?: number}) {
+    const group = useContext(AdaptiveContext), id = useId(), [visible, setVisible] = useState(true), defaultMeasure = useRef<HTMLDivElement>(null), fallbackMeasure = useRef<HTMLDivElement>(null), root = useRef<HTMLDivElement>(null);
+    useLayoutEffect(() => {
+        const update = () => {
+            const child = {defaultNode: children, fallback, priority, setVisible, widthDefault: defaultMeasure.current?.offsetWidth ?? 0, widthFallback: fallbackMeasure.current?.offsetWidth ?? 0};
+            if (group) group.register(id, child);
+            else if (root.current) setVisible(child.widthDefault <= root.current.clientWidth);
+        };
+        update();
+        if (typeof ResizeObserver === 'undefined') return () => group?.unregister(id);
+        const observer = new ResizeObserver(update);
+        if (defaultMeasure.current) observer.observe(defaultMeasure.current);
+        if (fallbackMeasure.current) observer.observe(fallbackMeasure.current);
+        if (root.current) observer.observe(root.current);
+        return () => {
+            observer.disconnect();
+            group?.unregister(id);
+        };
+    }, [children, fallback, group, id, priority]);
+    return <><div {...props} ref={root} className={clsx(adaptiveStyles.adaptiveSlot, className)} style={group ? {...props.style, flexShrink: 0} : props.style}>{visible ? children : fallback}</div><div ref={defaultMeasure} className={adaptiveStyles.adaptiveSlotMeasurer} aria-hidden="true">{children}</div><div ref={fallbackMeasure} className={adaptiveStyles.adaptiveSlotMeasurer} aria-hidden="true">{fallback}</div></>;
+}
 
 export function FluxBackToTop({children,label='Back to top',offset=300,position='end',target}: {children?:(state:{cssClass:string;scrollToTop():void})=>ReactNode;label?:string;offset?:number;position?:'start'|'end';target?:HTMLElement|null}){const[visible,setVisible]=useState(false);useEffect(()=>{const source=target??window;const read=()=>setVisible((target?.scrollTop??window.scrollY)>offset);read();source.addEventListener('scroll',read,{passive:true});return()=>source.removeEventListener('scroll',read);},[offset,target]);const cssClass=clsx(backStyles.backToTop,position==='start'?backStyles.isStart:backStyles.isEnd);const scrollToTop=()=>{(target??document.scrollingElement)?.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});const focus=target??document.body;if(!focus.hasAttribute('tabindex')){focus.setAttribute('tabindex','-1');focus.addEventListener('blur',()=>focus.removeAttribute('tabindex'),{once:true});}focus.focus({preventScroll:true});};if(!visible)return null;return children?children({cssClass,scrollToTop}):<FluxTooltip content={label}><FluxSecondaryButton className={cssClass} iconLeading="arrow-up" aria-label={label} onClick={scrollToTop}/></FluxTooltip>;}
 

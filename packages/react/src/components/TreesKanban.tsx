@@ -1,16 +1,16 @@
-import { clsx } from "clsx";
-import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
-import type { DragEvent, HTMLAttributes, KeyboardEvent, ReactNode } from "react";
-import type { FluxColor, FluxIconName, FluxStyle } from "../types";
-import { FluxBadge, FluxTag } from "./Display";
-import { FluxSpinner } from "./Feedback";
-import { FluxFormSelect } from "./SelectionForms";
-import { FluxIcon } from "./Icon";
-import kanbanStyles from "../../../components/src/css/component/Kanban.module.scss";
-import treeStyles from "../../../components/src/css/component/TreeView.module.scss";
-import treeSelectStyles from "../../../components/src/css/component/TreeViewSelect.module.scss";
-import treeNodeStyles from "../../../components/src/css/component/primitive/TreeNode.module.scss";
-import formStyles from "../../../components/src/css/component/Form.module.scss";
+import { clsx } from 'clsx';
+import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
+import type { DragEvent, HTMLAttributes, KeyboardEvent, ReactNode } from 'react';
+import type { FluxColor, FluxIconName, FluxStyle } from '../types';
+import { FluxBadge, FluxTag } from './Display';
+import { FluxSpinner } from './Feedback';
+import { FluxFormSelect } from './SelectionForms';
+import { FluxIcon } from './Icon';
+import kanbanStyles from '~flux/components/css/component/Kanban.module.scss';
+import treeStyles from '~flux/components/css/component/TreeView.module.scss';
+import treeSelectStyles from '~flux/components/css/component/TreeViewSelect.module.scss';
+import treeNodeStyles from '~flux/components/css/component/primitive/TreeNode.module.scss';
+import formStyles from '~flux/components/css/component/Form.module.scss';
 
 export interface FluxTreeViewOption {
     children?: FluxTreeViewOption[];
@@ -48,23 +48,23 @@ function expansionKey(options: FluxTreeViewOption[], depth: number) {
     const entries: string[] = [];
     const visit = (nodes: FluxTreeViewOption[]) => nodes.forEach(node => {entries.push(`${typeof node.id}:${String(node.id)}:${node.children?.length ?? 0}`); if (node.children) visit(node.children);});
     visit(options);
-    return `${depth}|${entries.join("|")}`;
+    return `${depth}|${entries.join('|')}`;
 }
 function TreeNode({ expanded, levelColors, node, onExpand, trailing }: { expanded: boolean; levelColors?: Array<FluxColor | string>; node: FluxTreeFlatNode; onExpand(): void; trailing?: ReactNode }) {
     const color = node.color ?? levelColors?.[node.depth];
-    const known = color !== undefined && ["gray", "primary", "danger", "info", "success", "warning"].includes(color);
+    const known = color !== undefined && ['gray', 'primary', 'danger', 'info', 'success', 'warning'].includes(color);
     const colorClass = color === undefined ? undefined : known ? treeNodeStyles[`treeNodeMarker${color[0].toUpperCase()}${color.slice(1)}`] : treeNodeStyles.treeNodeMarkerCustom;
     return (
         <>
-            <div className={clsx(treeNodeStyles.treeNodeLineArea, expanded && node.hasChildren && treeNodeStyles.hasDropLine)} style={{ "--tree-marker-column": node.lineGuides.length + (node.depth > 0 ? 1 : 0) } as FluxStyle}>
+            <div className={clsx(treeNodeStyles.treeNodeLineArea, expanded && node.hasChildren && treeNodeStyles.hasDropLine)} style={{ '--tree-marker-column': node.lineGuides.length + (node.depth > 0 ? 1 : 0) } as FluxStyle}>
                 {node.lineGuides.map((showLine, index) => <span key={index} className={clsx(treeNodeStyles.treeIndent, showLine && treeNodeStyles.hasLine)} />)}
                 {node.depth > 0 && <span className={clsx(treeNodeStyles.treeConnector, node.isLast && treeNodeStyles.isLast)} />}
                 {node.hasChildren ? (
                     <button
                         type="button"
                         className={clsx(treeNodeStyles.treeNodeMarker, treeNodeStyles.isToggle, expanded && treeNodeStyles.isExpanded, colorClass)}
-                        style={{ "--tree-marker-color": !known ? color : undefined } as FluxStyle}
-                        aria-label={expanded ? "Collapse" : "Expand"}
+                        style={{ '--tree-marker-color': !known ? color : undefined } as FluxStyle}
+                        aria-label={expanded ? 'Collapse' : 'Expand'}
                         aria-expanded={expanded}
                         tabIndex={-1}
                         onClick={(event) => {
@@ -75,7 +75,7 @@ function TreeNode({ expanded, levelColors, node, onExpand, trailing }: { expande
                         <FluxIcon name="angle-right" size={14} />
                     </button>
                 ) : (
-                    <span className={clsx(treeNodeStyles.treeNodeMarker, colorClass)} style={{ "--tree-marker-color": !known ? color : undefined } as FluxStyle} />
+                    <span className={clsx(treeNodeStyles.treeNodeMarker, colorClass)} style={{ '--tree-marker-color': !known ? color : undefined } as FluxStyle} />
                 )}
             </div>
             {node.icon && <FluxIcon className={treeNodeStyles.treeNodeIcon} name={node.icon} />}
@@ -85,7 +85,7 @@ function TreeNode({ expanded, levelColors, node, onExpand, trailing }: { expande
     );
 }
 
-export function FluxTreeView({ className, expandedDepth = 1, levelColors, onClick, onDoubleClick, options, trailing, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "onClick" | "onDoubleClick"> & { expandedDepth?: number; levelColors?: Array<FluxColor | string>; onClick?: (option: FluxTreeViewOption) => void; onDoubleClick?: (option: FluxTreeViewOption) => void; options: FluxTreeViewOption[]; trailing?: (node: FluxTreeFlatNode) => ReactNode }) {
+export function FluxTreeView({ className, expandedDepth = 1, levelColors, onClick, onDoubleClick, options, trailing, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'onClick' | 'onDoubleClick'> & { expandedDepth?: number; levelColors?: Array<FluxColor | string>; onClick?: (option: FluxTreeViewOption) => void; onDoubleClick?: (option: FluxTreeViewOption) => void; options: FluxTreeViewOption[]; trailing?: (node: FluxTreeFlatNode) => ReactNode }) {
     const treeId = useId();
     const [expanded, setExpanded] = useState(() => seededExpansion(options, expandedDepth));
     const seedKey = expansionKey(options, expandedDepth);
@@ -111,18 +111,18 @@ export function FluxTreeView({ className, expandedDepth = 1, levelColors, onClic
     const keyDown = (event: KeyboardEvent<HTMLDivElement>) => {
         let next = highlighted;
         if (!visible.length) return;
-        if (event.key === "ArrowDown") next = highlighted < 0 ? 0 : Math.min(visible.length - 1, highlighted + 1);
-        else if (event.key === "ArrowUp") next = highlighted < 0 ? visible.length - 1 : Math.max(0, highlighted - 1);
-        else if (event.key === "Home") next = 0;
-        else if (event.key === "End") next = visible.length - 1;
-        else if (event.key === "ArrowRight") {
+        if (event.key === 'ArrowDown') next = highlighted < 0 ? 0 : Math.min(visible.length - 1, highlighted + 1);
+        else if (event.key === 'ArrowUp') next = highlighted < 0 ? visible.length - 1 : Math.max(0, highlighted - 1);
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = visible.length - 1;
+        else if (event.key === 'ArrowRight') {
             const node = visible[highlighted];
             if (node?.hasChildren) {
                 if (!expanded.has(node.id)) toggle(node.id);
                 else if (visible[highlighted + 1]?.depth > node.depth) next = highlighted + 1;
             }
         }
-        else if (event.key === "ArrowLeft") {
+        else if (event.key === 'ArrowLeft') {
             const node = visible[highlighted];
             if (node?.hasChildren && expanded.has(node.id)) toggle(node.id);
             else if (node?.depth > 0) {
@@ -131,7 +131,7 @@ export function FluxTreeView({ className, expandedDepth = 1, levelColors, onClic
                 }
             }
         }
-        else if (event.key === "Enter" || event.key === " ") {
+        else if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             select(highlighted);
             return;
@@ -158,7 +158,7 @@ export function FluxTreeView({ className, expandedDepth = 1, levelColors, onClic
                     aria-selected={index === highlighted}
                     aria-expanded={node.hasChildren ? expanded.has(node.id) : undefined}
                     aria-disabled={node.disabled || undefined}
-                    aria-owns={node.hasChildren && expanded.has(node.id) ? node.children?.map(child => `${treeId}-node-${child.id}`).join(" ") : undefined}
+                    aria-owns={node.hasChildren && expanded.has(node.id) ? node.children?.map(child => `${treeId}-node-${child.id}`).join(' ') : undefined}
                     onClick={() => select(index)}
                     onDoubleClick={() => {
                         if (node.disabled) return;
@@ -185,7 +185,7 @@ export function FluxFormTreeViewSelect({ className, defaultValue, disabled, expa
     const current = controlled ? value : inner;
     const selected = new Set(Array.isArray(current) ? current : current == null ? [] : [current]);
     const [open, setOpen] = useState(false),
-        [search, setSearch] = useState(""),
+        [search, setSearch] = useState(''),
         [expanded, setExpanded] = useState(() => seededExpansion(options, expandedDepth)),
         [highlighted, setHighlighted] = useState(0);
     const seedKey = expansionKey(options, expandedDepth);
@@ -222,17 +222,17 @@ export function FluxFormTreeViewSelect({ className, defaultValue, disabled, expa
         if (disabled || isReadonly) return;
         const fromSearch = event.target instanceof HTMLInputElement;
         if (!open) {
-            if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {event.preventDefault(); setOpen(true); setHighlighted(enabledIndexes[0] ?? 0);}
+            if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {event.preventDefault(); setOpen(true); setHighlighted(enabledIndexes[0] ?? 0);}
             return;
         }
-        if (event.key === "Escape") {event.preventDefault(); setOpen(false); event.currentTarget.focus(); return;}
-        if (event.key === "ArrowDown" || event.key === "ArrowUp" || event.key === "Home" || event.key === "End") {
+        if (event.key === 'Escape') {event.preventDefault(); setOpen(false); event.currentTarget.focus(); return;}
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Home' || event.key === 'End') {
             event.preventDefault();
             const position = enabledIndexes.indexOf(activeIndex);
-            if (event.key === "Home") setHighlighted(enabledIndexes[0] ?? 0);
-            else if (event.key === "End") setHighlighted(enabledIndexes.at(-1) ?? 0);
-            else setHighlighted(enabledIndexes[Math.max(0, Math.min(enabledIndexes.length - 1, position + (event.key === "ArrowDown" ? 1 : -1)))] ?? 0);
-        } else if (event.key === "Enter" || (event.key === " " && !fromSearch)) {
+            if (event.key === 'Home') setHighlighted(enabledIndexes[0] ?? 0);
+            else if (event.key === 'End') setHighlighted(enabledIndexes.at(-1) ?? 0);
+            else setHighlighted(enabledIndexes[Math.max(0, Math.min(enabledIndexes.length - 1, position + (event.key === 'ArrowDown' ? 1 : -1)))] ?? 0);
+        } else if (event.key === 'Enter' || (event.key === ' ' && !fromSearch)) {
             event.preventDefault();
             const node = visible[activeIndex];
             if (node) select(node);
@@ -242,14 +242,14 @@ export function FluxFormTreeViewSelect({ className, defaultValue, disabled, expa
         <div className={clsx(formStyles.formSelect, disabled && formStyles.isDisabled, open && formStyles.isFocused, className)} role="combobox" aria-expanded={open} aria-controls={`${selectId}-listbox`} aria-activedescendant={open && visible[activeIndex] ? `${selectId}-option-${visible[activeIndex].id}` : undefined} aria-disabled={disabled || undefined} aria-readonly={isReadonly || undefined} tabIndex={disabled ? -1 : 0} onKeyDown={keyDown} onClick={() => !disabled && !isReadonly && setOpen(!open)}>
             {isMultiple ? selectedNodes.map((node) => <FluxTag key={node.id} label={node.label} isDeletable onDelete={() => update([...selected].filter((id) => id !== node.id) as Array<string | number>)} />) : (selectedNodes[0]?.label ?? placeholder)}
             {isLoading ? <FluxSpinner className={formStyles.formSelectIcon} size={16} /> : <FluxIcon className={formStyles.formSelectIcon} name="angles-up-down" size={16} />}
-            {name && <input type="hidden" name={name} value={Array.isArray(current) ? current.map(String).join(",") : String(current ?? "")} />}
+            {name && <input type="hidden" name={name} value={Array.isArray(current) ? current.map(String).join(',') : String(current ?? '')} />}
             {open && (
                 <div className={formStyles.formSelectPopup} onClick={(event) => event.stopPropagation()}>
                     {isSearchable && <input className={formStyles.formSelectInput} type="search" aria-label="Search" value={search} autoFocus onChange={(event) => setSearch(event.target.value)} />}
                     <div id={`${selectId}-listbox`} className={treeSelectStyles.treeViewSelectList} role="listbox" aria-multiselectable={isMultiple || undefined}>
                         {visible.length === 0 && <div className={treeSelectStyles.treeViewSelectEmpty}>No items</div>}
                         {visible.map((node) => (
-                            <div id={`${selectId}-option-${node.id}`} key={node.id} className={clsx(treeSelectStyles.treeNode, node.selectable !== false && treeSelectStyles.isSelectable, node.selectable === false && node.hasChildren && treeSelectStyles.isExpandable, (node.disabled || locked(node)) && treeSelectStyles.isDisabled, visible[activeIndex]?.id === node.id && treeSelectStyles.isHighlighted)} role={node.selectable === false ? "presentation" : "option"} aria-selected={node.selectable === false ? undefined : selected.has(node.id) || locked(node)} aria-disabled={node.disabled || locked(node) || undefined} onMouseEnter={() => setHighlighted(visible.indexOf(node))} onClick={() => select(node)}>
+                            <div id={`${selectId}-option-${node.id}`} key={node.id} className={clsx(treeSelectStyles.treeNode, node.selectable !== false && treeSelectStyles.isSelectable, node.selectable === false && node.hasChildren && treeSelectStyles.isExpandable, (node.disabled || locked(node)) && treeSelectStyles.isDisabled, visible[activeIndex]?.id === node.id && treeSelectStyles.isHighlighted)} role={node.selectable === false ? 'presentation' : 'option'} aria-selected={node.selectable === false ? undefined : selected.has(node.id) || locked(node)} aria-disabled={node.disabled || locked(node) || undefined} onMouseEnter={() => setHighlighted(visible.indexOf(node))} onClick={() => select(node)}>
                                 <TreeNode
                                     node={node}
                                     expanded={expanded.has(node.id) || Boolean(search)}
@@ -261,7 +261,7 @@ export function FluxFormTreeViewSelect({ className, defaultValue, disabled, expa
                                             return next;
                                         })
                                     }
-                                    trailing={node.selectable === false ? undefined : <input className={treeSelectStyles.treeNodeControl} type={isMultiple ? "checkbox" : "radio"} readOnly tabIndex={-1} checked={selected.has(node.id) || locked(node)} aria-hidden="true" />}
+                                    trailing={node.selectable === false ? undefined : <input className={treeSelectStyles.treeNodeControl} type={isMultiple ? 'checkbox' : 'radio'} readOnly tabIndex={-1} checked={selected.has(node.id) || locked(node)} aria-hidden="true" />}
                                 />
                             </div>
                         ))}
@@ -273,23 +273,23 @@ export function FluxFormTreeViewSelect({ className, defaultValue, disabled, expa
 }
 
 function timeZoneOptions() {
-    const supported = (Intl as typeof Intl & { supportedValuesOf?: (key: "timeZone") => string[] }).supportedValuesOf?.("timeZone") ?? ["UTC"];
+    const supported = (Intl as typeof Intl & { supportedValuesOf?: (key: 'timeZone') => string[] }).supportedValuesOf?.('timeZone') ?? ['UTC'];
     const groups = new Map<string, Array<{ label: string; value: string }>>();
     for (const zone of supported) {
-        const group = zone.includes("/") ? zone.split("/")[0] : "Other";
-        let offset = "";
+        const group = zone.includes('/') ? zone.split('/')[0] : 'Other';
+        let offset = '';
         try {
-            offset = new Intl.DateTimeFormat(undefined, { timeZone: zone, timeZoneName: "longOffset" }).formatToParts().find((part) => part.type === "timeZoneName")?.value ?? "";
+            offset = new Intl.DateTimeFormat(undefined, { timeZone: zone, timeZoneName: 'longOffset' }).formatToParts().find((part) => part.type === 'timeZoneName')?.value ?? '';
         } catch {
             continue;
         }
         const options = groups.get(group) ?? [];
-        options.push({ label: `${zone.replaceAll("_", " ").replaceAll("/", " / ")} ${offset}`.trim(), value: zone });
+        options.push({ label: `${zone.replaceAll('_', ' ').replaceAll('/', ' / ')} ${offset}`.trim(), value: zone });
         groups.set(group, options);
     }
     return Array.from(groups, ([label, options]) => ({ label, options: options.sort((a, b) => a.label.localeCompare(b.label)) }));
 }
-export function FluxFormTimeZonePicker(props: Omit<React.ComponentProps<typeof FluxFormSelect>, "isSearchable" | "options">) {
+export function FluxFormTimeZonePicker(props: Omit<React.ComponentProps<typeof FluxFormSelect>, 'isSearchable' | 'options'>) {
     const options = useMemo(timeZoneOptions, []);
     return <FluxFormSelect {...props} isSearchable options={options} />;
 }
@@ -325,14 +325,14 @@ interface KanbanContextValue {
 }
 const KanbanContext = createContext<KanbanContextValue | null>(null);
 const SwimlaneContext = createContext<string | number | undefined>(undefined);
-export function FluxKanban({ canMove, children, className, disabled = false, onMove, onMoveColumn, reorderableColumns = false, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "onDrag" | "onDrop"> & { canMove?: (event: FluxKanbanMoveEvent) => boolean; disabled?: boolean; onMove?: (event: FluxKanbanMoveEvent) => void; onMoveColumn?: (event: FluxKanbanMoveColumnEvent) => void; reorderableColumns?: boolean }) {
+export function FluxKanban({ canMove, children, className, disabled = false, onMove, onMoveColumn, reorderableColumns = false, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDrop'> & { canMove?: (event: FluxKanbanMoveEvent) => boolean; disabled?: boolean; onMove?: (event: FluxKanbanMoveEvent) => void; onMoveColumn?: (event: FluxKanbanMoveColumnEvent) => void; reorderableColumns?: boolean }) {
     const [drag, setDrag] = useState<DragState | null>(null),
-        [message, setMessage] = useState("");
+        [message, setMessage] = useState('');
     const columnIds = useRef(new Map<string, string | number>());
     const itemIds = useRef(new Map<string, string | number>());
     const emitMove = (event: FluxKanbanMoveEvent) => {
         if (canMove?.(event) === false) {
-            setMessage("Move not allowed");
+            setMessage('Move not allowed');
             return;
         }
         onMove?.(event);
@@ -361,7 +361,7 @@ export function FluxKanban({ canMove, children, className, disabled = false, onM
             },
             setDrag,
         }),
-        [disabled, drag, onMove, onMoveColumn, reorderableColumns],
+        [canMove, disabled, drag, onMove, onMoveColumn, reorderableColumns],
     );
     return (
         <KanbanContext.Provider value={context}>
@@ -374,25 +374,25 @@ export function FluxKanban({ canMove, children, className, disabled = false, onM
         </KanbanContext.Provider>
     );
 }
-export function FluxKanbanColumn({ actions, children, className, columnId, count, disabled = false, empty, footer, icon, label, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "id"> & { actions?: ReactNode; columnId: string | number; count?: string | number; disabled?: boolean; empty?: ReactNode; footer?: ReactNode; icon?: FluxIconName; label: string }) {
+export function FluxKanbanColumn({ actions, children, className, columnId, count, disabled = false, empty, footer, icon, label, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'id'> & { actions?: ReactNode; columnId: string | number; count?: string | number; disabled?: boolean; empty?: ReactNode; footer?: ReactNode; icon?: FluxIconName; label: string }) {
     const board = useContext(KanbanContext),
         swimlaneId = useContext(SwimlaneContext),
         reorderable = Boolean(board?.reorderableColumns && !disabled && !board.disabled);
     useEffect(() => board?.registerColumn(columnId), [board, columnId]);
-    if (!board) throw new Error("FluxKanbanColumn must be inside FluxKanban");
+    if (!board) throw new Error('FluxKanbanColumn must be inside FluxKanban');
     const drop = (event: DragEvent<HTMLDivElement>) => {
         if (!board.drag || disabled || board.disabled) return;
         event.preventDefault();
-        const item = (event.target as HTMLElement).closest<HTMLElement>("[data-kanban-item]");
-        board.onMove?.({ ...board.drag, fromColumnId: board.drag.columnId, fromSwimlaneId: board.drag.swimlaneId, toColumnId: columnId, toSwimlaneId: swimlaneId, beforeItemId: item?.dataset.kanbanItemId });
+        const item = (event.target as HTMLElement).closest<HTMLElement>('[data-kanban-item]');
+        board.onMove?.({ ...board.drag, fromColumnId: board.drag.columnId, fromSwimlaneId: board.drag.swimlaneId, toColumnId: columnId, toSwimlaneId: swimlaneId, beforeItemId: item?.dataset.kanbanItemId ? board.resolveItem(item.dataset.kanbanItemId) : undefined });
         board.setDrag(null);
     };
     const columnDrag = (event: DragEvent<HTMLElement>) => {
         if (!reorderable) return;
-        event.dataTransfer.setData("application/x-flux-column", String(columnId));
+        event.dataTransfer.setData('application/x-flux-column', String(columnId));
     };
     const columnDrop = (event: DragEvent<HTMLElement>) => {
-        const id = event.dataTransfer.getData("application/x-flux-column");
+        const id = event.dataTransfer.getData('application/x-flux-column');
         if (!id || id === String(columnId)) return;
         event.preventDefault();
         board.onMoveColumn?.({ columnId: board.resolveColumn(id), beforeColumnId: columnId });
@@ -403,16 +403,16 @@ export function FluxKanbanColumn({ actions, children, className, columnId, count
                 className={kanbanStyles.kanbanColumnHeader}
                 draggable={reorderable}
                 tabIndex={reorderable ? 0 : undefined}
-                aria-roledescription={reorderable ? "Draggable column" : undefined}
+                aria-roledescription={reorderable ? 'Draggable column' : undefined}
                 onDragStart={columnDrag}
                 onDragOver={(event) => reorderable && event.preventDefault()}
                 onDrop={columnDrop}
                 onKeyDown={(event) => {
-                    if (!reorderable || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
-                    const columns = Array.from(event.currentTarget.closest('[aria-roledescription="Kanban board"]')?.querySelectorAll<HTMLElement>("[data-kanban-column]") ?? []);
+                    if (!reorderable || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+                    const columns = Array.from(event.currentTarget.closest('[aria-roledescription="Kanban board"]')?.querySelectorAll<HTMLElement>('[data-kanban-column]') ?? []);
                     const index = columns.findIndex((column) => column.dataset.kanbanColumn === String(columnId));
-                    const before = event.key === "ArrowLeft" ? columns[index - 1] : columns[index + 2];
-                    if (event.key === "ArrowLeft" ? index > 0 : index < columns.length - 1) {
+                    const before = event.key === 'ArrowLeft' ? columns[index - 1] : columns[index + 2];
+                    if (event.key === 'ArrowLeft' ? index > 0 : index < columns.length - 1) {
                         event.preventDefault();
                         board.onMoveColumn?.({ columnId, beforeColumnId: before?.dataset.kanbanColumn ? board.resolveColumn(before.dataset.kanbanColumn) : undefined });
                     }
@@ -439,12 +439,12 @@ export function FluxKanbanColumn({ actions, children, className, columnId, count
         </div>
     );
 }
-export function FluxKanbanItem({ children, className, columnId, disabled = false, itemId, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "id"> & { columnId: string | number; disabled?: boolean; itemId: string | number }) {
+export function FluxKanbanItem({ children, className, columnId, disabled = false, itemId, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'id'> & { columnId: string | number; disabled?: boolean; itemId: string | number }) {
     const board = useContext(KanbanContext),
         swimlaneId = useContext(SwimlaneContext),
         [grabbed, setGrabbed] = useState(false);
     useEffect(() => board?.registerItem(itemId), [board, itemId]);
-    if (!board) throw new Error("FluxKanbanItem must be inside FluxKanban");
+    if (!board) throw new Error('FluxKanbanItem must be inside FluxKanban');
     const inactive = disabled || board.disabled;
     const begin = (event: DragEvent<HTMLDivElement>) => {
         if (inactive) {
@@ -452,29 +452,29 @@ export function FluxKanbanItem({ children, className, columnId, disabled = false
             return;
         }
         board.setDrag({ itemId, columnId, swimlaneId });
-        event.dataTransfer.effectAllowed = "move";
-        event.dataTransfer.setData("text/plain", `item:${itemId}`);
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', `item:${itemId}`);
     };
     const key = (event: KeyboardEvent<HTMLDivElement>) => {
         if (inactive) return;
-        if (event.key === " " || event.key === "Enter") {
+        if (event.key === ' ' || event.key === 'Enter') {
             event.preventDefault();
             setGrabbed(!grabbed);
             return;
         }
-        if (!grabbed || !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
+        if (!grabbed || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
         event.preventDefault();
-        const columns = Array.from(event.currentTarget.closest('[aria-roledescription="Kanban board"]')?.querySelectorAll<HTMLElement>("[data-kanban-column]") ?? []);
+        const columns = Array.from(event.currentTarget.closest('[aria-roledescription="Kanban board"]')?.querySelectorAll<HTMLElement>('[data-kanban-column]') ?? []);
         const current = columns.findIndex((column) => column.dataset.kanbanColumn === String(columnId));
-        const target = event.key === "ArrowLeft" ? columns[current - 1] : event.key === "ArrowRight" ? columns[current + 1] : columns[current];
+        const target = event.key === 'ArrowLeft' ? columns[current - 1] : event.key === 'ArrowRight' ? columns[current + 1] : columns[current];
         if (!target) return;
-        if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-            const items = Array.from(target.querySelectorAll<HTMLElement>("[data-kanban-item]")), index = items.findIndex(element => element.dataset.kanbanItemId === String(itemId));
-            if (event.key === "ArrowUp" && index > 0) board.onMove?.({itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: columnId, toSwimlaneId: swimlaneId, beforeItemId: board.resolveItem(items[index - 1].dataset.kanbanItemId!)});
-            else if (event.key === "ArrowDown" && index >= 0 && index < items.length - 1) board.onMove?.({itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: columnId, toSwimlaneId: swimlaneId, beforeItemId: items[index + 2]?.dataset.kanbanItemId ? board.resolveItem(items[index + 2].dataset.kanbanItemId!) : undefined});
+        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            const items = Array.from(target.querySelectorAll<HTMLElement>('[data-kanban-item]')), index = items.findIndex(element => element.dataset.kanbanItemId === String(itemId));
+            if (event.key === 'ArrowUp' && index > 0) board.onMove?.({itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: columnId, toSwimlaneId: swimlaneId, beforeItemId: board.resolveItem(items[index - 1].dataset.kanbanItemId!)});
+            else if (event.key === 'ArrowDown' && index >= 0 && index < items.length - 1) board.onMove?.({itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: columnId, toSwimlaneId: swimlaneId, beforeItemId: items[index + 2]?.dataset.kanbanItemId ? board.resolveItem(items[index + 2].dataset.kanbanItemId!) : undefined});
             return;
         }
-        board.onMove?.({ itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: board.resolveColumn(target.dataset.kanbanColumn!), toSwimlaneId: target.closest<HTMLElement>("[data-kanban-swimlane]")?.dataset.kanbanSwimlane });
+        board.onMove?.({ itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: board.resolveColumn(target.dataset.kanbanColumn!), toSwimlaneId: target.closest<HTMLElement>('[data-kanban-swimlane]')?.dataset.kanbanSwimlane });
     };
     return (
         <div {...props} className={clsx(kanbanStyles.kanbanItem, board.drag?.itemId === itemId && kanbanStyles.isDragging, grabbed && kanbanStyles.isGrabbed, inactive && kanbanStyles.isDisabled, className)} data-kanban-item data-kanban-item-id={itemId} role="listitem" aria-roledescription="Kanban item" aria-disabled={inactive || undefined} draggable={!inactive} tabIndex={inactive ? -1 : 0} onDragStart={begin} onDragEnd={() => board.setDrag(null)} onKeyDown={key}>
@@ -482,7 +482,7 @@ export function FluxKanbanItem({ children, className, columnId, disabled = false
         </div>
     );
 }
-export function FluxKanbanSwimlane({ children, className, color = "gray", count, defaultCollapsed = false, isCollapsed, label, onCollapsedChange, swimlaneId }: Omit<HTMLAttributes<HTMLDivElement>, "color"> & { color?: FluxColor; count?: number; defaultCollapsed?: boolean; isCollapsed?: boolean; label: string; onCollapsedChange?: (collapsed: boolean) => void; swimlaneId?: string | number }) {
+export function FluxKanbanSwimlane({ children, className, color = 'gray', count, defaultCollapsed = false, isCollapsed, label, onCollapsedChange, swimlaneId }: Omit<HTMLAttributes<HTMLDivElement>, 'color'> & { color?: FluxColor; count?: number; defaultCollapsed?: boolean; isCollapsed?: boolean; label: string; onCollapsedChange?: (collapsed: boolean) => void; swimlaneId?: string | number }) {
     const fallbackId = useId(),
         controlled = isCollapsed !== undefined,
         [inner, setInner] = useState(defaultCollapsed),
@@ -495,10 +495,10 @@ export function FluxKanbanSwimlane({ children, className, color = "gray", count,
     const colorClass = kanbanStyles[`kanbanSwimlane${color[0].toUpperCase()}${color.slice(1)}`];
     return (
         <SwimlaneContext.Provider value={id}>
-            <div className={clsx(kanbanStyles.kanbanSwimlane, colorClass, collapsed && kanbanStyles.isCollapsed, className)} data-kanban-swimlane={id} data-kanban-swimlane-collapsed={collapsed ? "" : undefined} role="group" aria-roledescription="Kanban swimlane" aria-label={label}>
+            <div className={clsx(kanbanStyles.kanbanSwimlane, colorClass, collapsed && kanbanStyles.isCollapsed, className)} data-kanban-swimlane={id} data-kanban-swimlane-collapsed={collapsed ? '' : undefined} role="group" aria-roledescription="Kanban swimlane" aria-label={label}>
                 <header className={kanbanStyles.kanbanSwimlaneHeader}>
                     <div className={kanbanStyles.kanbanSwimlaneCaption}>
-                        <button className={kanbanStyles.kanbanSwimlaneToggle} type="button" aria-expanded={!collapsed} aria-label={collapsed ? "Expand group" : "Collapse group"} onClick={toggle}>
+                        <button className={kanbanStyles.kanbanSwimlaneToggle} type="button" aria-expanded={!collapsed} aria-label={collapsed ? 'Expand group' : 'Collapse group'} onClick={toggle}>
                             <FluxIcon className={clsx(kanbanStyles.kanbanSwimlaneChevron, !collapsed && kanbanStyles.isExpanded)} name="angle-right" size={16} />
                             <span className={kanbanStyles.kanbanSwimlaneLabel}>{label}</span>
                         </button>

@@ -50,7 +50,8 @@ export function FluxDisabled({children, disabled = true}: {children?: ReactNode;
 }
 
 export function useFluxDisabled(disabled?: boolean) {
-    return Boolean(disabled || useContext(DisabledContext));
+    const contextDisabled = useContext(DisabledContext);
+    return Boolean(disabled || contextDisabled);
 }
 
 export interface FluxClickablePaneProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {

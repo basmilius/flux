@@ -3,7 +3,7 @@ import {createRef} from 'react';
 import {describe, expect, it, vi} from 'vitest';
 import {
     FluxCommandPalette, type FluxCommandPaletteHandle, FluxContextMenu, FluxFocalPointEditor,
-    FluxInlineEdit, FluxSpeedDial, FluxSpeedDialAction, FluxSplitView, FluxSplitViewPane
+    FluxInlineEdit, FluxSpeedDial, FluxSpeedDialAction, FluxSplitView, FluxSplitViewPane, FluxSwipeActions
 } from './Interactions';
 
 describe('FluxCommandPalette', () => {
@@ -65,6 +65,15 @@ describe('compound interactions', () => {
         fireEvent.pointerMove(window, {clientX: 200});
         expect(separator).toHaveAttribute('aria-valuenow', '70');
         fireEvent.pointerUp(window);
+    });
+
+    it('applies swipe displacement from the pointer-down offset', () => {
+        const {container} = render(<FluxSwipeActions><span>Message</span></FluxSwipeActions>);
+        const row = container.querySelector('[tabindex="-1"]') as HTMLElement;
+        fireEvent.pointerDown(row, {clientX: 10, pointerId: 1});
+        fireEvent.pointerMove(row, {clientX: 30, pointerId: 1});
+        fireEvent.pointerMove(row, {clientX: 50, pointerId: 1});
+        expect(row).toHaveStyle({transform: 'translateX(40px)'});
     });
 
     it('moves the focal point with arrow keys', () => {

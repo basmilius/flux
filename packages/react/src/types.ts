@@ -1,36 +1,36 @@
-import type { CSSProperties, ElementType, HTMLAttributes, ReactNode } from "react";
-import type { DateTime } from "luxon";
+import type { CSSProperties, ElementType, HTMLAttributes, ReactNode } from 'react';
+import type { DateTime } from 'luxon';
 
-export type FluxColor = "gray" | "primary" | "danger" | "info" | "success" | "warning";
-export type FluxSize = "small" | "medium" | "large";
-export type FluxExtendedSize = FluxSize | "xl";
-export type FluxDirection = "horizontal" | "vertical";
-export type FluxAlign = "start" | "center" | "end" | "stretch" | "baseline";
-export type FluxAlignment = "start" | "center" | "end";
-export type FluxJustify = "start" | "center" | "end" | "between" | "around" | "evenly";
-export type FluxFlexWrap = "wrap" | "nowrap" | "wrap-reverse";
-export type FluxPressableType = "button" | "link" | "route" | "none";
-export type FluxSheetPosition = "bottom" | "left" | "right" | "top";
+export type FluxColor = 'gray' | 'primary' | 'danger' | 'info' | 'success' | 'warning';
+export type FluxSize = 'small' | 'medium' | 'large';
+export type FluxExtendedSize = FluxSize | 'xl';
+export type FluxDirection = 'horizontal' | 'vertical';
+export type FluxAlign = 'start' | 'center' | 'end' | 'stretch' | 'baseline';
+export type FluxAlignment = 'start' | 'center' | 'end';
+export type FluxJustify = 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
+export type FluxFlexWrap = 'wrap' | 'nowrap' | 'wrap-reverse';
+export type FluxPressableType = 'button' | 'link' | 'route' | 'none';
+export type FluxSheetPosition = 'bottom' | 'left' | 'right' | 'top';
 export type FluxTranslation = string;
 export type FluxTranslate = (key: FluxTranslation, params?: Record<string, string | number>) => string;
-export type FluxIconStyle = "solid" | "regular" | "light" | "thin" | "duotone" | "brands";
+export type FluxIconStyle = 'solid' | 'regular' | 'light' | 'thin' | 'duotone' | 'brands';
 export type FluxIconName = string;
-export type FluxInputMask = "bic" | "iban" | "vat";
-export type FluxInputType = "color" | "date" | "datetime-local" | "email" | "file" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week";
+export type FluxInputMask = 'bic' | 'iban' | 'vat';
+export type FluxInputType = 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week';
 export type FluxMaybePromise<T> = T | Promise<T>;
 export type FluxAutoCompleteType = string;
-export type FluxButtonSize = FluxSize | "xl";
+export type FluxButtonSize = FluxSize | 'xl';
 export type FluxButtonEmits = { click: [MouseEvent]; mouseenter: [MouseEvent]; mouseleave: [MouseEvent] };
 export type FluxButtonSlots = { default(): ReactNode; after(): ReactNode; before(): ReactNode; iconLeading(): ReactNode; iconTrailing(): ReactNode; label(): ReactNode };
 type CompatFilterValueSingle = DateTime | string | boolean | number | null;
 type CompatFilterValue = CompatFilterValueSingle | CompatFilterValueSingle[];
 export type FluxFilterBase = { getValueLabel(value: CompatFilterValue): Promise<string | null>; readonly icon?: FluxIconName; readonly label: string; readonly name: string; readonly disabled?: boolean };
 export type FluxFilterDefinition<TValue = CompatFilterValue> = { readonly type: string; readonly name: string; readonly label: string; readonly icon?: FluxIconName; readonly disabled?: boolean; readonly defaultValue?: TValue; getValueLabel(value: TValue): Promise<string | null>; onChange?(value: TValue): void; onClear?(): void };
-export type FluxFilterDateEntry = FluxFilterBase & { readonly type: "date" };
-export type FluxFilterDateRangeEntry = FluxFilterBase & { readonly type: "dateRange" };
-export type FluxFilterOptionEntry = FluxFilterBase & { readonly type: "option" };
-export type FluxFilterOptionsEntry = FluxFilterBase & { readonly type: "options" };
-export type FluxFilterRangeEntry = FluxFilterBase & { readonly type: "range" };
+export type FluxFilterDateEntry = FluxFilterBase & { readonly type: 'date' };
+export type FluxFilterDateRangeEntry = FluxFilterBase & { readonly type: 'dateRange' };
+export type FluxFilterOptionEntry = FluxFilterBase & { readonly type: 'option' };
+export type FluxFilterOptionsEntry = FluxFilterBase & { readonly type: 'options' };
+export type FluxFilterRangeEntry = FluxFilterBase & { readonly type: 'range' };
 export type FluxFilterItem = FluxFilterDateEntry | FluxFilterDateRangeEntry | FluxFilterOptionEntry | FluxFilterOptionsEntry | FluxFilterRangeEntry;
 export type FluxFilterSpec = { readonly icon?: FluxIconName; readonly label: string; readonly name: string; readonly disabled?: boolean; readonly defaultValue?: CompatFilterValue; onChange?(value: CompatFilterValue): void; onClear?(): void };
 export type FluxFilterDateSpec = FluxFilterSpec;
@@ -44,7 +44,7 @@ export type FluxFormInputBaseProps = { readonly autoFocus?: boolean; readonly di
 export type FluxFormSelectOptions = [unknown | null, unknown[]];
 export type FluxFormTreeViewSelectValueSingle = string | number | null;
 export type FluxKanbanSwimlaneMoveEvent = { readonly itemId: string | number; readonly fromColumnId: string | number; readonly toColumnId: string | number; readonly beforeItemId?: string | number; readonly fromSwimlaneId?: string | number; readonly toSwimlaneId?: string | number };
-export type FluxVisualHighlighterGroupProps = { readonly variant?: "highlight" | "box" | "circle" | "underline" | "strike-through" | "crossed-off" | "bracket"; readonly color?: string; readonly strokeWidth?: number; readonly animationDuration?: number; readonly iterations?: number; readonly padding?: number; readonly multiline?: boolean; readonly whenInView?: boolean };
+export type FluxVisualHighlighterGroupProps = { readonly variant?: 'highlight' | 'box' | 'circle' | 'underline' | 'strike-through' | 'crossed-off' | 'bracket'; readonly color?: string; readonly strokeWidth?: number; readonly animationDuration?: number; readonly iterations?: number; readonly padding?: number; readonly multiline?: boolean; readonly whenInView?: boolean };
 export type FluxStatisticsChangeData = { readonly color?: FluxColor; readonly icon?: FluxIconName; readonly value: string | number };
 export type FluxStatisticsChartColor = FluxColor | `#${string}` | `var(--${string})`;
 export interface FluxStatisticsPercentageBarItemObject {
@@ -68,7 +68,7 @@ export type FluxStatisticsChartLineSeries = FluxStatisticsChartCartesianSeries;
 export type FluxStatisticsChartAreaSeries = FluxStatisticsChartCartesianSeries;
 export type FluxStatisticsChartBarSeries = FluxStatisticsChartCartesianSeries;
 export interface FluxStatisticsChartMixedSeries extends FluxStatisticsChartCartesianSeries {
-    readonly type: "line" | "area" | "bar";
+    readonly type: 'line' | 'area' | 'bar';
 }
 export interface FluxStatisticsChartPieSlice {
     readonly label: string;
@@ -172,17 +172,17 @@ export interface FluxFocalPointObject {
 
 export type FluxStyle = CSSProperties & Record<`--${string}`, string | number | undefined>;
 
-export interface FluxBaseProps extends Omit<HTMLAttributes<HTMLElement>, "color"> {
+export interface FluxBaseProps extends Omit<HTMLAttributes<HTMLElement>, 'color'> {
     children?: ReactNode;
     className?: string;
 }
 
 export function resolveTo(to: FluxTo | undefined): string | undefined {
-    if (typeof to === "string" || to === undefined) {
+    if (typeof to === 'string' || to === undefined) {
         return to;
     }
 
-    return `${to.pathname ?? ""}${to.search ?? ""}${to.hash ?? ""}` || undefined;
+    return `${to.pathname ?? ''}${to.search ?? ''}${to.hash ?? ''}` || undefined;
 }
 
 export function toCssSize(value: number | string | undefined): string | undefined {
@@ -190,5 +190,5 @@ export function toCssSize(value: number | string | undefined): string | undefine
         return undefined;
     }
 
-    return typeof value === "number" ? `${value}px` : value;
+    return typeof value === 'number' ? `${value}px` : value;
 }

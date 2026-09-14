@@ -114,24 +114,23 @@ export function FluxTag(props: FluxLabelProps) {
     return <FluxLabel {...props} kind="tag" />;
 }
 
-function FluxLabel({className, color = 'gray', colored, deleteLabel = 'Delete', dot, icon, isDeletable, isKeyboardShortcut, isLoading, kind, label, onDelete, size = 'medium', type = 'none', ...props}: FluxLabelProps & {kind: 'badge' | 'tag'}) {
+function FluxLabel({className, color = 'gray', colored, deleteLabel = 'Delete', dot, href, icon, isDeletable, isKeyboardShortcut, isLoading, kind, label, onClick, onDelete, rel, size = 'medium', target, to, type = 'none', ...props}: FluxLabelProps & {kind: 'badge' | 'tag'}) {
     const styles = badgeStyles;
     const prefix = kind;
-    return <FluxPressable
-        {...props}
-        className={clsx(
+    const classes = clsx(
             styles[`${prefix}${capitalize(color)}`],
             kind === 'badge' && colored && styles.badgeColored,
             kind === 'tag' && isKeyboardShortcut && styles.tagKeyboardShortcut,
             size !== 'medium' && styles[`is${capitalize(size)}`],
             className
-        )}
-        componentType={type}
-    >
+        );
+    const content = <>
         {isLoading ? <FluxSpinner className={styles[`${prefix}Icon`]} size={iconSizes[size]} /> : dot ? <span className={styles[`${prefix}Dot`]} /> : icon ? <FluxIcon className={styles[`${prefix}Icon`]} size={iconSizes[size]} name={icon} /> : null}
         <span className={styles[`${prefix}Label`]}>{label}</span>
         {type === 'none' && isDeletable && <button className={styles[`${prefix}Close`]} type="button" aria-label={deleteLabel} onClick={event => {event.stopPropagation(); onDelete?.();}}><FluxIcon name="xmark" /></button>}
-    </FluxPressable>;
+    </>;
+    if (type === 'none' && !onClick) return <span {...props as HTMLAttributes<HTMLSpanElement>} className={classes}>{content}</span>;
+    return <FluxPressable {...props} className={classes} componentType={type} href={href} onClick={onClick} rel={rel} target={target} to={to}>{content}</FluxPressable>;
 }
 
 export function FluxBadgeStack(props: HTMLAttributes<HTMLDivElement>) {
@@ -159,7 +158,7 @@ export interface FluxAvatarProps extends Omit<HTMLAttributes<HTMLElement>, 'colo
     type?: FluxPressableType;
 }
 
-export function FluxAvatar({alt, className, fallback = 'colorized', fallbackIcon = 'user', fallbackInitials, isLoading, size, src, status, statusIcon, style, type = 'none', ...props}: FluxAvatarProps) {
+export function FluxAvatar({alt, className, fallback = 'colorized', fallbackIcon = 'user', fallbackInitials, isLoading, onClick, size, src, status, statusIcon, style, type = 'none', ...props}: FluxAvatarProps) {
     const [hasError, setHasError] = useState(false);
     useEffect(() => setHasError(false), [src]);
     const color = useMemo(() => {
@@ -174,8 +173,9 @@ export function FluxAvatar({alt, className, fallback = 'colorized', fallbackIcon
         className={clsx(!status && avatarStyles.avatar, status && !statusIcon && avatarStyles.statusAvatar, status && statusIcon && avatarStyles.statusIconAvatar, type !== 'none' && avatarStyles.avatarClickable, className)}
         style={{...style, '--color': color, fontSize: size && `${size}px`} as FluxStyle}
         componentType={type}
-        role={type === 'none' ? 'img' : undefined}
+        role={type === 'none' && !onClick ? 'img' : undefined}
         aria-label={alt}
+        onClick={onClick}
     >
         {src && !hasError ? <img className={avatarStyles.avatarImage} alt={alt ?? ''} src={src} onError={() => setHasError(true)} /> : <div className={fallback === 'colorized' ? avatarStyles.avatarFallbackColorized : avatarStyles.avatarFallbackNeutral}>{fallbackInitials ? <span>{fallbackInitials}</span> : <FluxIcon name={fallbackIcon} />}</div>}
         {isLoading && <div className={avatarStyles.avatarLoading}><FluxSpinner /></div>}

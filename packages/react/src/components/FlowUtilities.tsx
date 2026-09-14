@@ -1,20 +1,20 @@
-import { createContext } from "react";
-import type { Context, MutableRefObject } from "react";
-import type { FluxColor, FluxIconName } from "../types";
+import { createContext } from 'react';
+import type { Context, MutableRefObject } from 'react';
+import type { FluxColor, FluxIconName } from '../types';
 
 export type FluxFlowPosition = { readonly x: number; readonly y: number };
 export type FluxFlowSize = { readonly width: number; readonly height: number };
 export type FluxFlowViewport = { readonly x: number; readonly y: number; readonly zoom: number };
 export type FluxFlowBounds = { readonly minX: number; readonly minY: number; readonly maxX: number; readonly maxY: number };
-export type FluxFlowSide = "top" | "right" | "bottom" | "left";
-export type FluxFlowPanelPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
-export type FluxFlowAlign = "start" | "center" | "end";
-export type FluxFlowConnectionType = "bezier" | "smoothstep" | "step" | "straight";
-export type FluxFlowLabelPlacement = "center" | "first-leg" | "last-leg";
-export type FluxFlowMarker = "arrow" | "bar" | "chevron" | "diamond" | "dot" | "square" | "none";
-export type FluxFlowMarkerFill = "outline" | "solid" | "stroke";
-export type FluxFlowDirection = "horizontal" | "vertical";
-export type FluxFlowEdgeLayer = "over" | "under";
+export type FluxFlowSide = 'top' | 'right' | 'bottom' | 'left';
+export type FluxFlowPanelPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+export type FluxFlowAlign = 'start' | 'center' | 'end';
+export type FluxFlowConnectionType = 'bezier' | 'smoothstep' | 'step' | 'straight';
+export type FluxFlowLabelPlacement = 'center' | 'first-leg' | 'last-leg';
+export type FluxFlowMarker = 'arrow' | 'bar' | 'chevron' | 'diamond' | 'dot' | 'square' | 'none';
+export type FluxFlowMarkerFill = 'outline' | 'solid' | 'stroke';
+export type FluxFlowDirection = 'horizontal' | 'vertical';
+export type FluxFlowEdgeLayer = 'over' | 'under';
 
 export interface FluxFlowPortRegistration {
     readonly id: string;
@@ -119,14 +119,14 @@ export interface FluxFlowController {
     setViewport(viewport: FluxFlowViewport): void;
 }
 
-export const FluxFlowEdgeLayerInjectionKey: Context<FluxFlowEdgeLayer> = createContext<FluxFlowEdgeLayer>("under");
+export const FluxFlowEdgeLayerInjectionKey: Context<FluxFlowEdgeLayer> = createContext<FluxFlowEdgeLayer>('under');
 export const english = {
-    "flux.flow.exitFullscreen": "Exit fullscreen",
-    "flux.flow.fitView": "Fit view",
-    "flux.flow.fullscreen": "Fullscreen",
-    "flux.flow.zoom": "Zoom",
-    "flux.flow.zoomIn": "Zoom in",
-    "flux.flow.zoomOut": "Zoom out",
+    'flux.flow.exitFullscreen': 'Exit fullscreen',
+    'flux.flow.fitView': 'Fit view',
+    'flux.flow.fullscreen': 'Fullscreen',
+    'flux.flow.zoom': 'Zoom',
+    'flux.flow.zoomIn': 'Zoom in',
+    'flux.flow.zoomOut': 'Zoom out'
 } as const;
 export type FluxFlowTranslation = keyof typeof english;
 export type FluxFlowTranslate = (key: FluxFlowTranslation, params?: Record<string, string | number>) => string;
@@ -151,36 +151,36 @@ export function boundsOfNodes(nodes: Iterable<FluxFlowNodeRecord>): FluxFlowBoun
 
 export function alignOffset(extent: number, align: FluxFlowAlign, inset: number): number {
     const value = Math.min(inset, extent / 2);
-    return align === "start" ? value : align === "end" ? extent - value : extent / 2;
+    return align === 'start' ? value : align === 'end' ? extent - value : extent / 2;
 }
 export function isVerticalSide(side: FluxFlowSide): boolean {
-    return side === "top" || side === "bottom";
+    return side === 'top' || side === 'bottom';
 }
-export function anchorPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide, align: FluxFlowAlign = "center", anchor: FluxFlowPosition | null = null): FluxFlowPosition {
-    return isVerticalSide(side) ? { x: position.x + alignOffset(size.width, align, anchor?.x ?? FALLBACK_INSET), y: side === "top" ? position.y : position.y + size.height } : { x: side === "left" ? position.x : position.x + size.width, y: position.y + alignOffset(size.height, align, anchor?.y ?? FALLBACK_INSET) };
+export function anchorPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide, align: FluxFlowAlign = 'center', anchor: FluxFlowPosition | null = null): FluxFlowPosition {
+    return isVerticalSide(side) ? { x: position.x + alignOffset(size.width, align, anchor?.x ?? FALLBACK_INSET), y: side === 'top' ? position.y : position.y + size.height } : { x: side === 'left' ? position.x : position.x + size.width, y: position.y + alignOffset(size.height, align, anchor?.y ?? FALLBACK_INSET) };
 }
 export function selfLoopPoints(position: FluxFlowPosition, size: FluxFlowSize, fromSide: FluxFlowSide, toSide: FluxFlowSide): readonly [FluxFlowPosition, FluxFlowPosition] {
     if (fromSide !== toSide) return [anchorPoint(position, size, fromSide), anchorPoint(position, size, toSide)];
     if (isVerticalSide(fromSide)) {
-        const y = fromSide === "top" ? position.y : position.y + size.height;
+        const y = fromSide === 'top' ? position.y : position.y + size.height;
         return [
             { x: position.x + (size.width * 3) / 4, y },
-            { x: position.x + size.width / 4, y },
+            { x: position.x + size.width / 4, y }
         ];
     }
-    const x = fromSide === "left" ? position.x : position.x + size.width;
+    const x = fromSide === 'left' ? position.x : position.x + size.width;
     return [
         { x, y: position.y + (size.height * 3) / 4 },
-        { x, y: position.y + size.height / 4 },
+        { x, y: position.y + size.height / 4 }
     ];
 }
 export function nearestSide(size: FluxFlowSize, offset: FluxFlowPosition): FluxFlowSide {
     return (
         [
-            ["left", offset.x],
-            ["right", size.width - offset.x],
-            ["top", offset.y],
-            ["bottom", size.height - offset.y],
+            ['left', offset.x],
+            ['right', size.width - offset.x],
+            ['top', offset.y],
+            ['bottom', size.height - offset.y]
         ] as const
     ).reduce((nearest, item) => (item[1] < nearest[1] ? item : nearest))[0];
 }
@@ -189,18 +189,18 @@ export function portSide(port: FluxFlowPortRecord, size: FluxFlowSize): FluxFlow
 }
 export function portPoint(position: FluxFlowPosition, size: FluxFlowSize, side: FluxFlowSide, offset: FluxFlowPosition): FluxFlowPosition {
     const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-    return isVerticalSide(side) ? { x: position.x + clamp(offset.x, 0, size.width), y: side === "top" ? position.y : position.y + size.height } : { x: side === "left" ? position.x : position.x + size.width, y: position.y + clamp(offset.y, 0, size.height) };
+    return isVerticalSide(side) ? { x: position.x + clamp(offset.x, 0, size.width), y: side === 'top' ? position.y : position.y + size.height } : { x: side === 'left' ? position.x : position.x + size.width, y: position.y + clamp(offset.y, 0, size.height) };
 }
 export function autoSides(sourcePosition: FluxFlowPosition, sourceSize: FluxFlowSize, targetPosition: FluxFlowPosition, targetSize: FluxFlowSize, axis?: FluxFlowDirection): readonly [FluxFlowSide, FluxFlowSide] {
     const dx = targetPosition.x + targetSize.width / 2 - (sourcePosition.x + sourceSize.width / 2),
         dy = targetPosition.y + targetSize.height / 2 - (sourcePosition.y + sourceSize.height / 2),
-        vertical = axis ? axis === "vertical" : Math.abs(dy) >= Math.abs(dx);
-    return vertical ? (dy >= 0 ? ["bottom", "top"] : ["top", "bottom"]) : dx >= 0 ? ["right", "left"] : ["left", "right"];
+        vertical = axis ? axis === 'vertical' : Math.abs(dy) >= Math.abs(dx);
+    return vertical ? (dy >= 0 ? ['bottom', 'top'] : ['top', 'bottom']) : dx >= 0 ? ['right', 'left'] : ['left', 'right'];
 }
 
 export type FluxFlowPath = { readonly path: string; readonly labelX: number; readonly labelY: number; readonly fromDirection: readonly [number, number]; readonly toDirection: readonly [number, number] };
 export function sideNormal(side: FluxFlowSide): readonly [number, number] {
-    return side === "top" ? [0, -1] : side === "bottom" ? [0, 1] : side === "left" ? [-1, 0] : [1, 0];
+    return side === 'top' ? [0, -1] : side === 'bottom' ? [0, 1] : side === 'left' ? [-1, 0] : [1, 0];
 }
 export function offsetPoint(point: FluxFlowPosition, side: FluxFlowSide, offset: number): FluxFlowPosition {
     const [x, y] = sideNormal(side);
@@ -211,22 +211,22 @@ export function markerPath(marker: FluxFlowMarker, point: FluxFlowPosition, dire
         [px, py] = [ny, nx],
         along = (distance: number) => ({ x: point.x + nx * distance, y: point.y + ny * distance }),
         across = (from: FluxFlowPosition, distance: number) => ({ x: from.x + px * distance, y: from.y + py * distance });
-    if (marker === "none") return "";
-    if (marker === "chevron") {
+    if (marker === 'none') return '';
+    if (marker === 'chevron') {
         const back = along(6);
         return `M ${across(back, 6).x} ${across(back, 6).y} L ${point.x} ${point.y} L ${across(back, -6).x} ${across(back, -6).y}`;
     }
-    if (marker === "arrow") {
+    if (marker === 'arrow') {
         const back = along(10);
         return `M ${point.x} ${point.y} L ${across(back, 5).x} ${across(back, 5).y} L ${across(back, -5).x} ${across(back, -5).y} Z`;
     }
-    if (marker === "bar") return `M ${across(point, 6).x} ${across(point, 6).y} L ${across(point, -6).x} ${across(point, -6).y}`;
-    if (marker === "diamond") {
+    if (marker === 'bar') return `M ${across(point, 6).x} ${across(point, 6).y} L ${across(point, -6).x} ${across(point, -6).y}`;
+    if (marker === 'diamond') {
         const near = along(6),
             far = along(-6);
         return `M ${near.x} ${near.y} L ${across(point, 6).x} ${across(point, 6).y} L ${far.x} ${far.y} L ${across(point, -6).x} ${across(point, -6).y} Z`;
     }
-    if (marker === "square") {
+    if (marker === 'square') {
         const near = along(5),
             far = along(-5);
         return `M ${across(near, 5).x} ${across(near, 5).y} L ${across(near, -5).x} ${across(near, -5).y} L ${across(far, -5).x} ${across(far, -5).y} L ${across(far, 5).x} ${across(far, 5).y} Z`;
@@ -250,11 +250,11 @@ function pointAtHalfLength(points: readonly FluxFlowPosition[]): FluxFlowPositio
     return points.at(-1) ?? { x: 0, y: 0 };
 }
 export function labelPoint(points: readonly FluxFlowPosition[], placement: FluxFlowLabelPlacement, stub: number): FluxFlowPosition {
-    if (placement === "center") return pointAtHalfLength(points);
+    if (placement === 'center') return pointAtHalfLength(points);
     const straight = points.every((point) => Math.abs(point.x - points[0].x) < 0.5) || points.every((point) => Math.abs(point.y - points[0].y) < 0.5);
     if (straight) return pointAtHalfLength(points);
     const legs = points.slice(1).map((_, index) => index + 1);
-    if (placement === "last-leg") legs.reverse();
+    if (placement === 'last-leg') legs.reverse();
     for (const index of legs) {
         const from = points[index - 1],
             to = points[index];
@@ -271,7 +271,7 @@ function dedupe(points: readonly FluxFlowPosition[]): FluxFlowPosition[] {
 }
 export function roundedPath(rawPoints: readonly FluxFlowPosition[], radius: number): string {
     const points = dedupe(rawPoints);
-    if (points.length < 2) return "";
+    if (points.length < 2) return '';
     let path = `M ${points[0].x} ${points[0].y}`;
     for (let index = 1; index < points.length - 1; index++) {
         const previous = points[index - 1],
@@ -287,12 +287,12 @@ export function roundedPath(rawPoints: readonly FluxFlowPosition[], radius: numb
     const last = points.at(-1)!;
     return `${path} L ${last.x} ${last.y}`;
 }
-export function getStraightPath(source: FluxFlowPosition, target: FluxFlowPosition, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = "center"): FluxFlowPath {
+export function getStraightPath(source: FluxFlowPosition, target: FluxFlowPosition, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center'): FluxFlowPath {
     const points = [source, ...waypoints, target],
         label = labelPoint(points, placement, 0);
-    return { path: points.map((point, index) => `${index ? "L" : "M"} ${point.x} ${point.y}`).join(" "), labelX: label.x, labelY: label.y, fromDirection: unitVector(source, points[1]), toDirection: unitVector(target, points.at(-2)!) };
+    return { path: points.map((point, index) => `${index ? 'L' : 'M'} ${point.x} ${point.y}`).join(' '), labelX: label.x, labelY: label.y, fromDirection: unitVector(source, points[1]), toDirection: unitVector(target, points.at(-2)!) };
 }
-export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = "center", curvature = 0.25): FluxFlowPath {
+export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', curvature = 0.25): FluxFlowPath {
     if (waypoints.length) {
         const points = [source, ...waypoints, target],
             label = labelPoint(points, placement, 0);
@@ -305,7 +305,7 @@ export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide
         c2 = { x: target.x + tnx * offset, y: target.y + tny * offset };
     return { path: `M ${source.x} ${source.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${target.x} ${target.y}`, labelX: 0.125 * source.x + 0.375 * c1.x + 0.375 * c2.x + 0.125 * target.x, labelY: 0.125 * source.y + 0.375 * c1.y + 0.375 * c2.y + 0.125 * target.y, fromDirection: sideNormal(sourceSide), toDirection: sideNormal(targetSide) };
 }
-export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = "center", radius = 15, offset = 15): FluxFlowPath {
+export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', radius = 15, offset = 15): FluxFlowPath {
     const sourceStub = offsetPoint(source, sourceSide, offset),
         targetStub = offsetPoint(target, targetSide, offset),
         points: FluxFlowPosition[] = [source, sourceStub];
@@ -321,7 +321,7 @@ export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlow
     const label = labelPoint(points, placement, offset);
     return { path: roundedPath(points, radius), labelX: label.x, labelY: label.y, fromDirection: sideNormal(sourceSide), toDirection: sideNormal(targetSide) };
 }
-export function getStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = "center", offset = 15): FluxFlowPath {
+export function getStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', offset = 15): FluxFlowPath {
     return getSmoothStepPath(source, sourceSide, target, targetSide, waypoints, placement, 0, offset);
 }
 export function getSelfLoopPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, bounds: FluxFlowBounds, reach = SELF_LOOP_REACH, radius = 15): FluxFlowPath & { readonly points: readonly FluxFlowPosition[] } {
@@ -351,7 +351,7 @@ export function collectObstacles(nodes: Iterable<FluxFlowNodeRecord>, fromId: st
         .filter((node) => node.id !== fromId && node.id !== toId)
         .map((node) => ({ minX: node.position.x - margin, minY: node.position.y - margin, maxX: node.position.x + node.size.width + margin, maxY: node.position.y + node.size.height + margin }));
 }
-export function routeAvoid(from: FluxFlowPosition, fromSide: FluxFlowSide, to: FluxFlowPosition, toSide: FluxFlowSide, obstacles: readonly FluxFlowBounds[], placement: FluxFlowLabelPlacement = "center", offset = 15, radius = 15): FluxFlowPath {
+export function routeAvoid(from: FluxFlowPosition, fromSide: FluxFlowSide, to: FluxFlowPosition, toSide: FluxFlowSide, obstacles: readonly FluxFlowBounds[], placement: FluxFlowLabelPlacement = 'center', offset = 15, radius = 15): FluxFlowPath {
     const source = offsetPoint(from, fromSide, offset),
         target = offsetPoint(to, toSide, offset),
         vertical = isVerticalSide(fromSide),
@@ -401,8 +401,8 @@ export interface FluxFlowLayoutOptions {
 }
 
 export function useFlowLayout(nodes: readonly FluxFlowLayoutNode[], edges: readonly FluxFlowLayoutEdge[], options: FluxFlowLayoutOptions = {}): FluxFlowLayoutResult {
-    const { x = 0, y = 0, direction = "vertical", layerGap = 60, nodeGap = 45, nodeWidth = 300, nodeHeight = 90 } = options,
-        vertical = direction === "vertical",
+    const { x = 0, y = 0, direction = 'vertical', layerGap = 60, nodeGap = 45, nodeWidth = 300, nodeHeight = 90 } = options,
+        vertical = direction === 'vertical',
         order = nodes.map((node) => node.id),
         known = new Set(order),
         links = edges.filter((edge) => edge.from !== edge.to && known.has(edge.from) && known.has(edge.to)),
@@ -453,8 +453,8 @@ export function useFlowLayout(nodes: readonly FluxFlowLayoutNode[], edges: reado
         });
         main += Math.max(0, ...items.map(along)) + layerGap;
     });
-    const [fromSide, toSide]: readonly [FluxFlowSide, FluxFlowSide] = vertical ? ["bottom", "top"] : ["right", "left"],
-        back: FluxFlowSide = vertical ? "right" : "bottom";
+    const [fromSide, toSide]: readonly [FluxFlowSide, FluxFlowSide] = vertical ? ['bottom', 'top'] : ['right', 'left'],
+        back: FluxFlowSide = vertical ? 'right' : 'bottom';
     return { positions, connections: links.map((edge) => ({ from: edge.from, to: edge.to, fromSide: cut.has(edge) ? back : fromSide, toSide: cut.has(edge) ? back : toSide })) };
 }
 
@@ -503,7 +503,7 @@ export function useFlowTrunkLayout(nodes: readonly FluxFlowLayoutNode[], edges: 
         outgoing.get(id)!.forEach((child) => {
             if (!onSpine.has(child) && !placed.has(child)) {
                 if (opening) {
-                    branch = cursor + size.height / 2 - alignOffset(sizes.get(child)!.height, "start", FALLBACK_INSET);
+                    branch = cursor + size.height / 2 - alignOffset(sizes.get(child)!.height, 'start', FALLBACK_INSET);
                     opening = false;
                 }
                 branch = walk(child, 1, branch);
@@ -518,9 +518,9 @@ export function useFlowTrunkLayout(nodes: readonly FluxFlowLayoutNode[], edges: 
             cursor += sizes.get(node.id)!.height + nodeGap;
         }
     });
-    return { positions, connections: links.map((edge) => ({ from: edge.from, to: edge.to, fromSide: onSpine.has(edge.from) && !onSpine.has(edge.to) ? "right" : "bottom", toSide: onSpine.has(edge.from) && onSpine.has(edge.to) ? "top" : (depths.get(edge.to) ?? 0) > (depths.get(edge.from) ?? 0) ? "left" : "top" })) };
+    return { positions, connections: links.map((edge) => ({ from: edge.from, to: edge.to, fromSide: onSpine.has(edge.from) && !onSpine.has(edge.to) ? 'right' : 'bottom', toSide: onSpine.has(edge.from) && onSpine.has(edge.to) ? 'top' : (depths.get(edge.to) ?? 0) > (depths.get(edge.from) ?? 0) ? 'left' : 'top' })) };
 }
 
-export function flowColor(value?: FluxColor | string, fallback = "var(--gray-solid)"): string {
-    return value ? (String(value).startsWith("#") || String(value).startsWith("rgb") || String(value).startsWith("var(") ? String(value) : `var(--${value}-solid)`) : fallback;
+export function flowColor(value?: FluxColor | string, fallback = 'var(--gray-solid)'): string {
+    return value ? (String(value).startsWith('#') || String(value).startsWith('rgb') || String(value).startsWith('var(') ? String(value) : `var(--${value}-solid)`) : fallback;
 }

@@ -1,5 +1,5 @@
 import {clsx} from 'clsx';
-import {createContext, forwardRef, useContext, useId, useMemo, useRef, useState} from 'react';
+import {createContext, forwardRef, useContext, useEffect, useId, useMemo, useRef, useState} from 'react';
 import type {ChangeEvent, CSSProperties, FieldsetHTMLAttributes, HTMLAttributes, InputHTMLAttributes, KeyboardEvent, ReactNode} from 'react';
 import type {FluxColor, FluxDirection, FluxIconName, FluxStyle} from '../types';
 import {FluxTag} from './Display';
@@ -48,11 +48,22 @@ function snap(value: number, min: number, step: number) {if (step <= 0) return v
 
 export interface FluxFormPinInputProps extends Omit<FieldsetHTMLAttributes<HTMLFieldSetElement>, 'defaultValue' | 'onChange' | 'value'> {autoComplete?: string; defaultValue?: string; isPrivate?: boolean; isReadonly?: boolean; maxLength?: number; onValueChange?: (value: string) => void; value?: string}
 export function FluxFormPinInput({autoComplete = 'one-time-code', className, defaultValue = '', disabled, isPrivate, isReadonly, maxLength = 6, onValueChange, style, value, ...props}: FluxFormPinInputProps) {
-    const field = useFluxFormField(), scopedDisabled = useFluxDisabled(disabled), [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
-    const refs = useRef<Array<HTMLInputElement | null>>([]), digits = Array.from({length: maxLength}, (_, index) => current[index] ?? '');
-    const update = (index: number, raw: string) => {const digit = raw.replace(/\D/g, '').slice(-1), next = [...digits]; next[index] = digit; setCurrent(next.join('')); if (digit) refs.current[index + 1]?.focus();};
+    const field = useFluxFormField(), scopedDisabled = useFluxDisabled(disabled), refs = useRef<Array<HTMLInputElement | null>>([]), lastEmitted = useRef<string | undefined>(undefined);
+    const split = (current: string) => Array.from({length: maxLength}, (_, index) => current[index] ?? '');
+    const [digits, setDigits] = useState(() => split(value ?? defaultValue));
+    useEffect(() => {
+        if (value !== undefined && value !== lastEmitted.current) setDigits(split(value));
+        else setDigits(current => Array.from({length: maxLength}, (_, index) => current[index] ?? ''));
+    }, [maxLength, value]);
+    const commit = (next: string[]) => {
+        setDigits(next);
+        const emitted = next.join('');
+        lastEmitted.current = emitted;
+        onValueChange?.(emitted);
+    };
+    const update = (index: number, raw: string) => {const digit = raw.replace(/\D/g, '').slice(-1), next = [...digits]; next[index] = digit; commit(next); if (digit) refs.current[index + 1]?.focus();};
     return <fieldset {...props} className={clsx(scopedDisabled ? formStyles.formPinInputDisabled : formStyles.formPinInputEnabled, className)} style={{...style, '--max-length': maxLength} as FluxStyle} aria-describedby={props['aria-describedby'] ?? field?.describedBy} aria-disabled={scopedDisabled || undefined} aria-label={props['aria-label']}>
-        {digits.map((digit, index) => <input key={index} ref={element => {refs.current[index] = element;}} className={formStyles.formPinInputField} maxLength={1} aria-label={`Digit ${index + 1} of ${maxLength}`} autoComplete={index === 0 ? autoComplete : undefined} autoFocus={index === 0 && props.autoFocus} disabled={scopedDisabled} readOnly={isReadonly} tabIndex={index === Math.max(0, digits.findIndex(value => !value)) ? 0 : -1} type={isPrivate ? 'password' : 'text'} inputMode="numeric" value={digit} onFocus={event => event.currentTarget.select()} onChange={event => update(index, event.currentTarget.value)} onKeyDown={event => {if (event.key === 'Backspace' && !digit) refs.current[index - 1]?.focus(); else if (event.key === 'ArrowLeft') refs.current[index - 1]?.select(); else if (event.key === 'ArrowRight') refs.current[index + 1]?.select(); else if (event.key.length === 1 && !/\d/.test(event.key)) event.preventDefault();}} onPaste={event => {const pasted = event.clipboardData.getData('text').replace(/\D/g, '').slice(0, maxLength); if (pasted) {event.preventDefault(); setCurrent(pasted); refs.current[Math.min(pasted.length, maxLength) - 1]?.focus();}}} />)}
+        {digits.map((digit, index) => <input key={index} ref={element => {refs.current[index] = element;}} className={formStyles.formPinInputField} maxLength={1} aria-label={`Digit ${index + 1} of ${maxLength}`} autoComplete={index === 0 ? autoComplete : undefined} autoFocus={index === 0 && props.autoFocus} disabled={scopedDisabled} readOnly={isReadonly} tabIndex={index === Math.max(0, digits.findIndex(value => !value)) ? 0 : -1} type={isPrivate ? 'password' : 'text'} inputMode="numeric" value={digit} onFocus={event => event.currentTarget.select()} onChange={event => update(index, event.currentTarget.value)} onKeyDown={event => {if (event.key === 'Backspace' && !digit) refs.current[index - 1]?.focus(); else if (event.key === 'ArrowLeft') refs.current[index - 1]?.select(); else if (event.key === 'ArrowRight') refs.current[index + 1]?.select(); else if (event.key.length === 1 && !/\d/.test(event.key)) event.preventDefault();}} onPaste={event => {const pasted = event.clipboardData.getData('text').replace(/\D/g, '').slice(0, maxLength); if (pasted) {event.preventDefault(); commit(split(pasted)); refs.current[Math.min(pasted.length, maxLength) - 1]?.focus();}}} />)}
     </fieldset>;
 }
 

@@ -1,31 +1,31 @@
-import { clsx } from "clsx";
-import { Lexer } from "marked";
-import type { Links, Token, Tokens } from "marked";
-import { Children, createContext, forwardRef, Fragment, isValidElement, useContext, useEffect, useId, useImperativeHandle, useMemo, useRef, useState } from "react";
-import type { ElementType, FormEvent, HTMLAttributes, KeyboardEvent, ReactElement, ReactNode } from "react";
-import type { FluxColor, FluxIconName, FluxStyle } from "../types";
-import { FluxPrimaryButton, FluxSecondaryButton } from "./Actions";
-import { FluxActionStack } from "./Composition";
-import { FluxAvatar, FluxBadge } from "./Display";
-import { FluxBoxedIcon } from "./DisplayExtended";
-import { FluxExpandable } from "./Disclosure";
-import { FluxProgressBar, FluxSpinner } from "./Feedback";
-import { FluxHoverCard } from "./Interactions";
-import { FluxProse } from "./Layout";
-import { FluxMenu } from "./Menus";
-import { FluxFlyout } from "./Overlays";
-import { FluxIcon } from "./Icon";
-import citationStyles from "../../../ai/src/css/component/AiCitation.module.scss";
-import codeStyles from "../../../ai/src/css/component/AiCodeBlock.module.scss";
-import conversationStyles from "../../../ai/src/css/component/AiConversation.module.scss";
-import messageStyles from "../../../ai/src/css/component/AiMessage.module.scss";
-import modelStyles from "../../../ai/src/css/component/AiModelSelect.module.scss";
-import promptStyles from "../../../ai/src/css/component/AiPromptInput.module.scss";
-import reasoningStyles from "../../../ai/src/css/component/AiReasoning.module.scss";
-import streamingStyles from "../../../ai/src/css/component/AiStreamingText.module.scss";
-import suggestionStyles from "../../../ai/src/css/component/AiSuggestions.module.scss";
-import toolStyles from "../../../ai/src/css/component/AiToolCall.module.scss";
-import usageStyles from "../../../ai/src/css/component/AiUsage.module.scss";
+import { clsx } from 'clsx';
+import { Lexer } from 'marked';
+import type { Links, Token, Tokens } from 'marked';
+import { Children, createContext, forwardRef, Fragment, isValidElement, useContext, useEffect, useId, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import type { ElementType, FormEvent, HTMLAttributes, KeyboardEvent, ReactElement, ReactNode } from 'react';
+import type { FluxColor, FluxIconName, FluxStyle } from '../types';
+import { FluxPrimaryButton, FluxSecondaryButton } from './Actions';
+import { FluxActionStack } from './Composition';
+import { FluxAvatar, FluxBadge } from './Display';
+import { FluxBoxedIcon } from './DisplayExtended';
+import { FluxExpandable } from './Disclosure';
+import { FluxProgressBar, FluxSpinner } from './Feedback';
+import { FluxHoverCard } from './Interactions';
+import { FluxProse } from './Layout';
+import { FluxMenu } from './Menus';
+import { FluxFlyout } from './Overlays';
+import { FluxIcon } from './Icon';
+import citationStyles from '../../../ai/src/css/component/AiCitation.module.scss';
+import codeStyles from '../../../ai/src/css/component/AiCodeBlock.module.scss';
+import conversationStyles from '../../../ai/src/css/component/AiConversation.module.scss';
+import messageStyles from '../../../ai/src/css/component/AiMessage.module.scss';
+import modelStyles from '../../../ai/src/css/component/AiModelSelect.module.scss';
+import promptStyles from '../../../ai/src/css/component/AiPromptInput.module.scss';
+import reasoningStyles from '../../../ai/src/css/component/AiReasoning.module.scss';
+import streamingStyles from '../../../ai/src/css/component/AiStreamingText.module.scss';
+import suggestionStyles from '../../../ai/src/css/component/AiSuggestions.module.scss';
+import toolStyles from '../../../ai/src/css/component/AiToolCall.module.scss';
+import usageStyles from '../../../ai/src/css/component/AiUsage.module.scss';
 
 export interface FluxAiStreamingConfig {
     fadeDuration: number;
@@ -60,16 +60,16 @@ export function lexMarkdown(source: string, links: Links = Object.create(null)):
 }
 export function findBlockBoundary(source: string) {
     let boundary = 0,
-        fence = "",
+        fence = '',
         index = 0,
         insideList = false,
         previousBlank = true;
     while (index < source.length) {
-        const end = source.indexOf("\n", index),
+        const end = source.indexOf('\n', index),
             line = source.slice(index, end === -1 ? source.length : end),
             blank = line.trim().length === 0;
         if (fence) {
-            if (line.trimStart().startsWith(fence)) fence = "";
+            if (line.trimStart().startsWith(fence)) fence = '';
             previousBlank = false;
         } else {
             if (previousBlank && !blank && !/^[ \t]/.test(line)) {
@@ -78,7 +78,7 @@ export function findBlockBoundary(source: string) {
                 insideList = marker;
             }
             const opening = /^ {0,3}(`{3,}|~{3,})/.exec(line);
-            fence = opening?.[1] ?? "";
+            fence = opening?.[1] ?? '';
             previousBlank = blank;
         }
         if (end === -1) break;
@@ -88,29 +88,29 @@ export function findBlockBoundary(source: string) {
 }
 export function repairStreamingTail(source: string) {
     if (!source || hasOpenFence(source)) return source;
-    const start = source.lastIndexOf("\n") + 1,
+    const start = source.lastIndexOf('\n') + 1,
         line = source.slice(start);
     if (/^(?: {4}|\t)/.test(line)) return source;
     let value = line;
-    const bracket = value.lastIndexOf("[");
-    if (bracket >= 0 && value.indexOf("]", bracket) < 0) value = value.slice(0, value[bracket - 1] === "!" ? bracket - 1 : bracket);
+    const bracket = value.lastIndexOf('[');
+    if (bracket >= 0 && value.indexOf(']', bracket) < 0) value = value.slice(0, value[bracket - 1] === '!' ? bracket - 1 : bracket);
     else {
-        const link = value.lastIndexOf("](");
-        if (link >= 0 && value.indexOf(")", link) < 0) value = value.slice(0, value.lastIndexOf("[", link));
+        const link = value.lastIndexOf('](');
+        if (link >= 0 && value.indexOf(')', link) < 0) value = value.slice(0, value.lastIndexOf('[', link));
     }
-    for (const delimiter of ["`", "**", "__", "~~", "*", "_"]) {
-        const escaped = value.replaceAll(`\\${delimiter}`, "");
+    for (const delimiter of ['`', '**', '__', '~~', '*', '_']) {
+        const escaped = value.replaceAll(`\\${delimiter}`, '');
         const count = escaped.split(delimiter).length - 1;
         if (count % 2) value += delimiter;
     }
     return source.slice(0, start) + value;
 }
 function hasOpenFence(source: string) {
-    let fence = "";
-    for (const line of source.split("\n")) {
+    let fence = '';
+    for (const line of source.split('\n')) {
         if (fence) {
-            if (line.trimStart().startsWith(fence)) fence = "";
-        } else fence = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1] ?? "";
+            if (line.trimStart().startsWith(fence)) fence = '';
+        } else fence = /^ {0,3}(`{3}|~{3})/.exec(line)?.[1] ?? '';
     }
     return Boolean(fence);
 }
@@ -143,34 +143,34 @@ export function renderText(text: string, fade: WordFade): ReactNode[] {
 function inline(tokens: Token[], context: MarkdownContext): ReactNode[] {
     return tokens.flatMap((token, key): ReactNode[] => {
         switch (token.type) {
-            case "br":
+            case 'br':
                 return [<br key={key} />];
-            case "codespan":
+            case 'codespan':
                 return [<code key={key}>{(token as Tokens.Codespan).text}</code>];
-            case "del":
+            case 'del':
                 return [<del key={key}>{inline((token as Tokens.Del).tokens, context)}</del>];
-            case "em":
+            case 'em':
                 return [<em key={key}>{inline((token as Tokens.Em).tokens, context)}</em>];
-            case "strong":
+            case 'strong':
                 return [<strong key={key}>{inline((token as Tokens.Strong).tokens, context)}</strong>];
-            case "link": {
+            case 'link': {
                 const link = token as Tokens.Link,
                     href = safeUrl(link.href);
                 if (!href) return inline(link.tokens, context);
                 return [
-                    <a key={key} href={href} rel={externalUrl.test(href) ? "noopener noreferrer nofollow" : undefined} target={externalUrl.test(href) ? "_blank" : undefined}>
+                    <a key={key} href={href} rel={externalUrl.test(href) ? 'noopener noreferrer nofollow' : undefined} target={externalUrl.test(href) ? '_blank' : undefined}>
                         {inline(link.tokens, context)}
                     </a>,
                 ];
             }
-            case "image": {
+            case 'image': {
                 const image = token as Tokens.Image,
                     src = safeUrl(image.href, true);
                 return src ? [<img key={key} src={src} alt={image.text} loading="lazy" referrerPolicy="no-referrer" />] : [image.text];
             }
-            case "html":
+            case 'html':
                 return renderText((token as Tokens.Tag).text, context);
-            case "text": {
+            case 'text': {
                 const text = token as Tokens.Text;
                 return text.tokens ? inline(text.tokens, context) : renderText(text.text, context);
             }
@@ -183,35 +183,35 @@ function blocks(tokens: Token[], context: MarkdownContext, offset = 0): ReactNod
     return tokens.flatMap((token, index): ReactNode[] => {
         const key = offset + index;
         switch (token.type) {
-            case "blockquote":
+            case 'blockquote':
                 return [<blockquote key={key}>{blocks((token as Tokens.Blockquote).tokens, context)}</blockquote>];
-            case "code": {
+            case 'code': {
                 const code = token as Tokens.Code;
                 return [<span key={key}>{context.renderCode({ code: code.text, language: code.lang?.trim().split(/\s+/)[0] })}</span>];
             }
-            case "heading": {
+            case 'heading': {
                 const heading = token as Tokens.Heading,
                     Tag = `h${Math.min(6, Math.max(1, heading.depth))}` as ElementType;
                 return [<Tag key={key}>{inline(heading.tokens, context)}</Tag>];
             }
-            case "hr":
+            case 'hr':
                 return [<hr key={key} />];
-            case "html":
+            case 'html':
                 return [<p key={key}>{renderText((token as Tokens.HTML).text, context)}</p>];
-            case "list": {
+            case 'list': {
                 const list = token as Tokens.List,
-                    Tag = list.ordered ? "ol" : "ul";
+                    Tag = list.ordered ? 'ol' : 'ul';
                 return [
-                    <Tag key={key} start={list.ordered && list.start !== 1 && list.start !== "" ? Number(list.start) : undefined}>
+                    <Tag key={key} start={list.ordered && list.start !== 1 && list.start !== '' ? Number(list.start) : undefined}>
                         {list.items.map((item, itemIndex) => (
                             <li key={itemIndex}>{blocks(item.tokens, context)}</li>
                         ))}
                     </Tag>,
                 ];
             }
-            case "paragraph":
+            case 'paragraph':
                 return [<p key={key}>{inline((token as Tokens.Paragraph).tokens, context)}</p>];
-            case "table": {
+            case 'table': {
                 const table = token as Tokens.Table;
                 return [
                     <table key={key}>
@@ -238,7 +238,7 @@ function blocks(tokens: Token[], context: MarkdownContext, offset = 0): ReactNod
                     </table>,
                 ];
             }
-            case "text": {
+            case 'text': {
                 const text = token as Tokens.Text;
                 return [<p key={key}>{text.tokens ? inline(text.tokens, context) : renderText(text.text, context)}</p>];
             }
@@ -261,7 +261,7 @@ export interface UseStreamingMarkdownReturn {
 }
 export function useStreamingMarkdown({ content, fadeClass, isStreaming, renderCode }: UseStreamingMarkdownOptions): UseStreamingMarkdownReturn {
     const nodes = useMemo(() => {
-        const source = isStreaming ? repairStreamingTail(content.replace(/\r\n?/g, "\n")) : content;
+        const source = isStreaming ? repairStreamingTail(content.replace(/\r\n?/g, '\n')) : content;
         return renderMarkdown(lexMarkdown(source).tokens, { fadeClass: isStreaming ? (fadeClass ?? null) : null, renderCode, wordIndex: 0 });
     }, [content, fadeClass, isStreaming, renderCode]);
     return { nodes };
@@ -269,7 +269,7 @@ export function useStreamingMarkdown({ content, fadeClass, isStreaming, renderCo
 
 export function FluxAiCitation({ children, excerpt, index, title, url }: { children?: (state: { close(): void }) => ReactNode; excerpt?: string; index: number; title?: string; url?: string }) {
     const id = useId(),
-        description = [title, excerpt].filter(Boolean).join(". "),
+        description = [title, excerpt].filter(Boolean).join('. '),
         label = `Source ${index}`;
     return (
         <FluxHoverCard
@@ -320,7 +320,7 @@ export function FluxAiCodeBlock({ code, language }: MarkdownCodeProps) {
     return (
         <div className={codeStyles.codeBlock}>
             <div className={codeStyles.codeBlockHeader}>
-                <span className={codeStyles.codeBlockLanguage}>{language ?? "Code"}</span>
+                <span className={codeStyles.codeBlockLanguage}>{language ?? 'Code'}</span>
                 <button
                     className={codeStyles.codeBlockCopy}
                     type="button"
@@ -332,8 +332,8 @@ export function FluxAiCodeBlock({ code, language }: MarkdownCodeProps) {
                         }
                     }}
                 >
-                    <FluxIcon name={copied ? "check" : "copy"} size={15} />
-                    <span aria-live="polite">{copied ? "Copied" : "Copy code"}</span>
+                    <FluxIcon name={copied ? 'check' : 'copy'} size={15} />
+                    <span aria-live="polite">{copied ? 'Copied' : 'Copy code'}</span>
                 </button>
             </div>
             <pre className={codeStyles.codeBlockContent}>
@@ -349,13 +349,13 @@ export const FluxAiConversationInjectionKey = createContext<FluxAiConversationIn
 export interface FluxAiConversationHandle {
     scrollToBottom(): void;
 }
-export const FluxAiConversation = forwardRef<FluxAiConversationHandle, HTMLAttributes<HTMLDivElement> & { empty?: ReactNode; isGrouped?: boolean; isSticky?: boolean; jumpToLatestLabel?: string; label?: string }>(function FluxAiConversation({ children, className, empty, isGrouped, isSticky = true, jumpToLatestLabel = "Jump to latest", label = "Conversation", ...props }, forwardedRef) {
+export const FluxAiConversation = forwardRef<FluxAiConversationHandle, HTMLAttributes<HTMLDivElement> & { empty?: ReactNode; isGrouped?: boolean; isSticky?: boolean; jumpToLatestLabel?: string; label?: string }>(function FluxAiConversation({ children, className, empty, isGrouped, isSticky = true, jumpToLatestLabel = 'Jump to latest', label = 'Conversation', ...props }, forwardedRef) {
     const scroller = useRef<HTMLDivElement>(null),
         [atBottom, setAtBottom] = useState(true);
     const scrollToBottom = () => {
         const element = scroller.current;
         if (!element) return;
-        if (typeof element.scrollTo === "function") element.scrollTo({ top: element.scrollHeight, behavior: "smooth" });
+        if (typeof element.scrollTo === 'function') element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
         else element.scrollTop = element.scrollHeight;
     };
     useImperativeHandle(forwardedRef, () => ({ scrollToBottom }));
@@ -406,13 +406,13 @@ export const FluxAiConversation = forwardRef<FluxAiConversationHandle, HTMLAttri
         </FluxAiConversationInjectionKey.Provider>
     );
 });
-export function FluxAiMessage({ actions, author, avatarFallbackInitials, avatarSrc, children, className, dateTime, day: _day, footer, icon, isStreaming, role, when, ...props }: Omit<HTMLAttributes<HTMLElement>, "role"> & { actions?: ReactNode; author?: string; avatarFallbackInitials?: string; avatarSrc?: string; dateTime?: string; day?: string; footer?: ReactNode; icon?: FluxIconName; isStreaming?: boolean; role: "assistant" | "system" | "user"; when?: string }) {
+export function FluxAiMessage({ actions, author, avatarFallbackInitials, avatarSrc, children, className, dateTime, day: _day, footer, icon, isStreaming, role, when, ...props }: Omit<HTMLAttributes<HTMLElement>, 'role'> & { actions?: ReactNode; author?: string; avatarFallbackInitials?: string; avatarSrc?: string; dateTime?: string; day?: string; footer?: ReactNode; icon?: FluxIconName; isStreaming?: boolean; role: 'assistant' | 'system' | 'user'; when?: string }) {
     const inConversation = useContext(FluxAiConversationInjectionKey),
-        Tag = inConversation ? "li" : "article",
-        authorLabel = author ?? { assistant: "Assistant", system: "System", user: "You" }[role],
+        Tag = inConversation ? 'li' : 'article',
+        authorLabel = author ?? { assistant: 'Assistant', system: 'System', user: 'You' }[role],
         marker = avatarSrc || avatarFallbackInitials ? <FluxAvatar className={messageStyles.messageMarker} fallbackInitials={avatarFallbackInitials} size={30} src={avatarSrc} aria-hidden="true" /> : icon ? <FluxBoxedIcon className={messageStyles.messageMarker} name={icon} rounded size={30} aria-hidden="true" /> : null;
     return (
-        <Tag {...props} className={clsx(messageStyles.message, role === "system" && messageStyles.isSystem, role === "user" && messageStyles.isUser, marker && messageStyles.hasMarker, isStreaming && messageStyles.isStreaming, className)} aria-busy={isStreaming || undefined}>
+        <Tag {...props} className={clsx(messageStyles.message, role === 'system' && messageStyles.isSystem, role === 'user' && messageStyles.isUser, marker && messageStyles.hasMarker, isStreaming && messageStyles.isStreaming, className)} aria-busy={isStreaming || undefined}>
             {marker}
             <div className={messageStyles.messageHeader}>
                 <span className={messageStyles.messageAuthor}>{authorLabel}</span>
@@ -441,7 +441,7 @@ export function FluxAiModelSelect({ defaultValue, disabled, models, onValueChang
         current = controlled ? value : inner,
         selected = models.find((model) => model.id === current);
     return (
-        <FluxFlyout label="Model" width={321} opener={({ isOpen, toggle }) => <FluxSecondaryButton disabled={disabled} iconTrailing="angles-up-down" label={selected?.name ?? "Select model"} aria-haspopup="menu" aria-expanded={isOpen} onClick={toggle} after={selected?.badge && <FluxBadge label={selected.badge} size="small" />} />}>
+        <FluxFlyout label="Model" width={321} opener={({ isOpen, toggle }) => <FluxSecondaryButton disabled={disabled} iconTrailing="angles-up-down" label={selected?.name ?? 'Select model'} aria-haspopup="menu" aria-expanded={isOpen} onClick={toggle} after={selected?.badge && <FluxBadge label={selected.badge} size="small" />} />}>
             {({ close }) => (
                 <FluxMenu>
                     {models.map((model) => (
@@ -477,7 +477,7 @@ export interface FluxAiPromptInputHandle {
     blur(): void;
     focus(): void;
 }
-export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: string; actions?: ReactNode; attachments?: File[]; children?: ReactNode; defaultValue?: string; disabled?: boolean; isStreaming?: boolean; maxRows?: number; onAttachmentsChange?: (files: File[]) => void; onStop?: () => void; onSubmit?: (value: string) => void; onValueChange?: (value: string) => void; placeholder?: string; value?: string }>(function FluxAiPromptInput({ accept, actions, attachments, children, defaultValue = "", disabled, isStreaming, maxRows = 10, onAttachmentsChange, onStop, onSubmit, onValueChange, placeholder = "Message AI…", value }, forwardedRef) {
+export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: string; actions?: ReactNode; attachments?: File[]; children?: ReactNode; defaultValue?: string; disabled?: boolean; isStreaming?: boolean; maxRows?: number; onAttachmentsChange?: (files: File[]) => void; onStop?: () => void; onSubmit?: (value: string) => void; onValueChange?: (value: string) => void; placeholder?: string; value?: string }>(function FluxAiPromptInput({ accept, actions, attachments, children, defaultValue = '', disabled, isStreaming, maxRows = 10, onAttachmentsChange, onStop, onSubmit, onValueChange, placeholder = 'Message AI…', value }, forwardedRef) {
     const controlled = value !== undefined,
         [inner, setInner] = useState(defaultValue),
         current = controlled ? value : inner,
@@ -516,11 +516,11 @@ export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: 
                 disabled={disabled}
                 placeholder={placeholder}
                 value={current}
-                style={{ "--max-rows": maxRows } as FluxStyle}
+                style={{ '--max-rows': maxRows } as FluxStyle}
                 aria-label="Prompt message"
                 onChange={(event) => update(event.target.value)}
                 onKeyDown={(event) => {
-                    if (event.key === "Enter" && !event.shiftKey && !event.altKey && !event.ctrlKey && !event.metaKey && !event.nativeEvent.isComposing && current.trim()) {
+                    if (event.key === 'Enter' && !event.shiftKey && !event.altKey && !event.ctrlKey && !event.metaKey && !event.nativeEvent.isComposing && current.trim()) {
                         event.preventDefault();
                         submit();
                     }
@@ -542,8 +542,8 @@ export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: 
     );
 });
 function reasoningLabel(streaming?: boolean, duration?: number) {
-    if (streaming) return "Thinking";
-    if (duration === undefined) return "Reasoning";
+    if (streaming) return 'Thinking';
+    if (duration === undefined) return 'Reasoning';
     const seconds = Math.max(0, Math.round(duration));
     return seconds < 60 ? `Thought for ${seconds} seconds` : `Thought for ${Math.floor(seconds / 60)}m ${seconds % 60}s`;
 }
@@ -553,7 +553,7 @@ export function FluxAiReasoning({ children, className, content, defaultExpanded,
         <FluxExpandable
             expandableId={expandableId}
             className={clsx(reasoningStyles.reasoning, isStreaming && reasoningStyles.isStreaming, className)}
-            style={{ "--ai-fade-duration": `${aiConfig.streaming.fadeDuration}ms` } as FluxStyle}
+            style={{ '--ai-fade-duration': `${aiConfig.streaming.fadeDuration}ms` } as FluxStyle}
             defaultOpened={defaultExpanded}
             isOpened={isExpanded}
             onToggle={onExpandedChange}
@@ -574,7 +574,7 @@ export function FluxAiStreamingText({ code, content, hasMarkdown = true, isStrea
     const renderCode = (props: MarkdownCodeProps) => code?.(props) ?? <FluxAiCodeBlock {...props} />,
         result = useStreamingMarkdown({ content, fadeClass: aiConfig.streaming.hasFade ? streamingStyles.streamingTextWord : null, isStreaming, renderCode });
     return (
-        <FluxProse className={streamingStyles.streamingText} style={{ "--ai-fade-duration": `${aiConfig.streaming.fadeDuration}ms` } as FluxStyle}>
+        <FluxProse className={streamingStyles.streamingText} style={{ '--ai-fade-duration': `${aiConfig.streaming.fadeDuration}ms` } as FluxStyle}>
             {hasMarkdown ? result.nodes : <p className={streamingStyles.streamingTextPlain}>{renderText(content, { fadeClass: isStreaming && aiConfig.streaming.hasFade ? streamingStyles.streamingTextWord : null, wordIndex: 0 })}</p>}
         </FluxProse>
     );
@@ -598,33 +598,33 @@ export function FluxAiSuggestions({ disabled, onSelect, suggestions }: { disable
         </ul>
     );
 }
-export type FluxAiToolCallStatus = "running" | "success" | "error";
+export type FluxAiToolCallStatus = 'running' | 'success' | 'error';
 function formatJson(value: string | Record<string, unknown>) {
     try {
-        return JSON.stringify(typeof value === "string" ? JSON.parse(value) : value, null, 4);
+        return JSON.stringify(typeof value === 'string' ? JSON.parse(value) : value, null, 4);
     } catch {
-        return typeof value === "string" ? value : String(value);
+        return typeof value === 'string' ? value : String(value);
     }
 }
 function signature(value?: string | Record<string, unknown>) {
-    if (value === undefined) return "";
+    if (value === undefined) return '';
     let parsed: Record<string, unknown>;
     try {
-        parsed = typeof value === "string" ? JSON.parse(value) : value;
+        parsed = typeof value === 'string' ? JSON.parse(value) : value;
     } catch {
-        return "";
+        return '';
     }
     const summary = Object.entries(parsed)
-        .map(([key, item]) => `${key}: ${typeof item === "string" ? JSON.stringify(item.length > 24 ? `${item.slice(0, 24)}...` : item) : Array.isArray(item) ? `[${item.length}]` : item && typeof item === "object" ? "{...}" : String(item)}`)
-        .join(", ");
+        .map(([key, item]) => `${key}: ${typeof item === 'string' ? JSON.stringify(item.length > 24 ? `${item.slice(0, 24)}...` : item) : Array.isArray(item) ? `[${item.length}]` : item && typeof item === 'object' ? '{...}' : String(item)}`)
+        .join(', ');
     return summary.length > 60 ? `${summary.slice(0, 60)}...` : summary;
 }
-export function FluxAiToolCall({ arguments: args, argumentsContent, defaultExpanded, duration, isExpanded, name, onExpandedChange, result, resultContent, status = "success" }: { arguments?: string | Record<string, unknown>; argumentsContent?: (value: string | null) => ReactNode; defaultExpanded?: boolean; duration?: number; isExpanded?: boolean; name: string; onExpandedChange?: (expanded: boolean) => void; result?: string; resultContent?: (value: string | null) => ReactNode; status?: FluxAiToolCallStatus }) {
+export function FluxAiToolCall({ arguments: args, argumentsContent, defaultExpanded, duration, isExpanded, name, onExpandedChange, result, resultContent, status = 'success' }: { arguments?: string | Record<string, unknown>; argumentsContent?: (value: string | null) => ReactNode; defaultExpanded?: boolean; duration?: number; isExpanded?: boolean; name: string; onExpandedChange?: (expanded: boolean) => void; result?: string; resultContent?: (value: string | null) => ReactNode; status?: FluxAiToolCallStatus }) {
     const expandableId = useId();
     const formatted = args === undefined ? null : formatJson(args),
         [full, setFull] = useState(false),
         visible = result && !full && result.length > aiConfig.toolCall.resultLimit ? `${result.slice(0, aiConfig.toolCall.resultLimit)}...` : result,
-        statusLabel = { running: "Running", success: "Succeeded", error: "Failed" }[status];
+        statusLabel = { running: 'Running', success: 'Succeeded', error: 'Failed' }[status];
     const section = (label: string, value: string | null, content?: (value: string | null) => ReactNode) =>
         value !== null || content ? (
             <section className={toolStyles.aiToolCallSection}>
@@ -654,17 +654,17 @@ export function FluxAiToolCall({ arguments: args, argumentsContent, defaultExpan
                         {name}
                         <span className={toolStyles.aiToolCallSignature}>({signature(args)})</span>
                     </span>
-                    <span className={clsx(toolStyles.aiToolCallStatus, status === "success" && toolStyles.isHidden)}>{statusLabel}</span>
+                    <span className={clsx(toolStyles.aiToolCallStatus, status === 'success' && toolStyles.isHidden)}>{statusLabel}</span>
                     {duration !== undefined && <span className={toolStyles.aiToolCallDuration}>{duration.toFixed(duration < 10 ? 1 : 0)}s</span>}
                 </button>
             )}
             body={
                 <div className={toolStyles.aiToolCallBody}>
-                    {section("Arguments", formatted, argumentsContent)}
-                    {section("Result", visible ?? null, resultContent)}
+                    {section('Arguments', formatted, argumentsContent)}
+                    {section('Result', visible ?? null, resultContent)}
                     {result && result.length > aiConfig.toolCall.resultLimit && (
                         <button className={toolStyles.aiToolCallMore} type="button" onClick={() => setFull((value) => !value)}>
-                            {full ? "Show less" : "Show full result"}
+                            {full ? 'Show less' : 'Show full result'}
                         </button>
                     )}
                 </div>
@@ -676,8 +676,8 @@ export function FluxAiUsage({ cost, inputTokens, isCompact, limit, outputTokens 
     const format = new Intl.NumberFormat(),
         total = (inputTokens ?? 0) + (outputTokens ?? 0),
         ratio = limit ? total / limit : 0,
-        state = ratio >= 1 ? "reached" : ratio >= 0.9 ? "near" : null,
-        color: FluxColor = state === "reached" ? "danger" : state === "near" ? "warning" : "primary";
+        state = ratio >= 1 ? 'reached' : ratio >= 0.9 ? 'near' : null,
+        color: FluxColor = state === 'reached' ? 'danger' : state === 'near' ? 'warning' : 'primary';
     return (
         <div className={clsx(usageStyles.usage, isCompact && usageStyles.isCompact)} role="group" aria-label="Usage">
             {(inputTokens !== undefined || outputTokens !== undefined || cost) && (
@@ -709,8 +709,8 @@ export function FluxAiUsage({ cost, inputTokens, isCompact, limit, outputTokens 
                         {format.format(total)} of {format.format(limit)} tokens used
                     </p>
                     {state && (
-                        <p className={clsx(usageStyles.usageLimitNotice, state === "reached" && usageStyles.isReached)}>
-                            <FluxIcon name="triangle-exclamation" size={14} /> {state === "reached" ? "Token limit reached" : "Token limit nearly reached"}
+                        <p className={clsx(usageStyles.usageLimitNotice, state === 'reached' && usageStyles.isReached)}>
+                            <FluxIcon name="triangle-exclamation" size={14} /> {state === 'reached' ? 'Token limit reached' : 'Token limit nearly reached'}
                         </p>
                     )}
                 </div>

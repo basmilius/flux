@@ -1,30 +1,30 @@
-import { useState } from "react";
-import { FluxAiConversation, FluxAiMessage, FluxAiStreamingText, FluxBadge, FluxFormCheckbox, FluxFormField, FluxFormInput, FluxFormRating, FluxNotice, FluxPrimaryButton, FluxProgressBar, FluxRoot, FluxSecondaryButton, FluxStatisticsChange, FluxStatisticsKpi, FluxStatisticsPercentageBar, showConfirm, showSnackbar } from "../dist/index.js";
+import { useState } from 'react';
+import { FluxAiConversation, FluxAiMessage, FluxAiStreamingText, FluxBadge, FluxFormCheckbox, FluxFormField, FluxFormInput, FluxFormRating, FluxNotice, FluxPrimaryButton, FluxProgressBar, FluxRoot, FluxSecondaryButton, FluxStatisticsChange, FluxStatisticsKpi, FluxStatisticsPercentageBar, showConfirm, showSnackbar } from '../dist/index.js';
 
 const packages = [
-    ["Core", "208 components", "Forms, navigation, overlays, tables and utilities"],
-    ["Application", "15 components", "Shell, menus, status pages and route contexts"],
-    ["AI", "11 components", "Conversation, Markdown, tools and token usage"],
-    ["Flow", "21 components", "Nodes, edges, viewport, routing and layout"],
-    ["Statistics", "39 components", "ECharts, KPIs, trackers and converters"],
-    ["Visuals", "16 components", "Highlights, effects, patterns and animation"],
+    ['Core', '208 components', 'Forms, navigation, overlays, tables and utilities'],
+    ['Application', '15 components', 'Shell, menus, status pages and route contexts'],
+    ['AI', '11 components', 'Conversation, Markdown, tools and token usage'],
+    ['Flow', '21 components', 'Nodes, edges, viewport, routing and layout'],
+    ['Statistics', '39 components', 'ECharts, KPIs, trackers and converters'],
+    ['Visuals', '16 components', 'Highlights, effects, patterns and animation']
 ] as const;
 
 export function Demo() {
-    const [name, setName] = useState("Timo");
+    const [name, setName] = useState('Timo');
     const [enabled, setEnabled] = useState(true);
     const [rating, setRating] = useState(4);
 
     async function runDialog() {
         const accepted = await showConfirm({
-            title: "Native React dialog",
-            message: "This dialog is driven by the shared Flux store and rendered by FluxRoot.",
+            title: 'Native React dialog',
+            message: 'This dialog is driven by the shared Flux store and rendered by FluxRoot.'
         });
         void showSnackbar({
-            color: accepted ? "success" : "gray",
+            color: accepted ? 'success' : 'gray',
             duration: 3000,
             isCloseable: true,
-            message: accepted ? "React interaction confirmed" : "Dialog cancelled",
+            message: accepted ? 'React interaction confirmed' : 'Dialog cancelled'
         });
     }
 
@@ -68,7 +68,7 @@ export function Demo() {
                                 <b>850</b> upstream exports covered
                             </span>
                             <span>
-                                <b>81</b> tests passing
+                                <b>113</b> tests passing
                             </span>
                             <span>
                                 <b>0</b> Vue runtime imports
@@ -107,13 +107,13 @@ export function Demo() {
                     <div className="package-grid">
                         {packages.map(([title, count, description], index) => (
                             <article className="package-card" key={title}>
-                                <span className={`package-number tone-${index + 1}`}>{String(index + 1).padStart(2, "0")}</span>
+                                <span className={`package-number tone-${index + 1}`}>{String(index + 1).padStart(2, '0')}</span>
                                 <div>
                                     <h3>{title}</h3>
                                     <strong>{count}</strong>
                                     <p>{description}</p>
                                 </div>
-                                <FluxBadge color={index % 3 === 0 ? "primary" : index % 3 === 1 ? "info" : "success"} label="Ported" />
+                                <FluxBadge color={index % 3 === 0 ? 'primary' : index % 3 === 1 ? 'info' : 'success'} label="Ported" />
                             </article>
                         ))}
                     </div>
@@ -135,7 +135,7 @@ export function Demo() {
                                 <FluxBadge color="success" label="Interactive" />
                             </div>
                             <FluxFormField label="Display name" hint="Controlled with React state">
-                                <FluxFormInput value={name} onValueChange={(value) => setName(String(value ?? ""))} />
+                                <FluxFormInput value={name} onValueChange={(value) => setName(String(value ?? ''))} />
                             </FluxFormField>
                             <FluxFormCheckbox checked={enabled} label="Enable notifications" subLabel="Uses onCheckedChange" onCheckedChange={setEnabled} />
                             <FluxFormField label="Port quality">
@@ -143,7 +143,7 @@ export function Demo() {
                             </FluxFormField>
                             <FluxProgressBar max={5} value={rating} status={`${rating} of 5`} />
                             <div className="inline-actions">
-                                <FluxPrimaryButton label={`Save ${name || "profile"}`} onClick={() => enabled && void showSnackbar({ color: "success", duration: 3000, isCloseable: true, message: `${name || "Profile"} saved` })} />
+                                <FluxPrimaryButton label={`Save ${name || 'profile'}`} onClick={() => enabled && void showSnackbar({ color: 'success', duration: 3000, isCloseable: true, message: `${name || 'Profile'} saved` })} />
                                 <FluxSecondaryButton label="Open dialog" onClick={() => void runDialog()} />
                             </div>
                         </article>
@@ -154,8 +154,8 @@ export function Demo() {
                                 <FluxBadge color="info" label="ECharts ready" />
                             </div>
                             <div className="kpi-row">
-                                <FluxStatisticsKpi title="API parity" value="100%" change={{ color: "success", value: "+850" }} />
-                                <FluxStatisticsKpi title="Tests" value="81" change={{ color: "success", value: "Passing" }} />
+                                <FluxStatisticsKpi title="API parity" value="100%" change={{ color: 'success', value: '+850' }} />
+                                <FluxStatisticsKpi title="Tests" value="113" change={{ color: 'success', value: 'Passing' }} />
                             </div>
                             <div className="distribution-title">
                                 <span>Port distribution</span>
@@ -163,10 +163,10 @@ export function Demo() {
                             </div>
                             <FluxStatisticsPercentageBar
                                 items={[
-                                    { label: "Core", value: 55, color: "primary" },
-                                    { label: "Statistics", value: 18, color: "info" },
-                                    { label: "Flow", value: 12, color: "success" },
-                                    { label: "Other", value: 15, color: "warning" },
+                                    { label: 'Core', value: 55, color: 'primary' },
+                                    { label: 'Statistics', value: 18, color: 'info' },
+                                    { label: 'Flow', value: 12, color: 'success' },
+                                    { label: 'Other', value: 15, color: 'warning' },
                                 ]}
                             />
                         </article>
@@ -181,7 +181,7 @@ export function Demo() {
                                     How was Flux ported?
                                 </FluxAiMessage>
                                 <FluxAiMessage role="assistant" author="Flux React" when="Now">
-                                    <FluxAiStreamingText content={"The **Vue packages remain unchanged** while native React components reuse the same design tokens and Sass modules. Public APIs are checked automatically."} />
+                                    <FluxAiStreamingText content={'The **Vue packages remain unchanged** while native React components reuse the same design tokens and Sass modules. Public APIs are checked automatically.'} />
                                 </FluxAiMessage>
                             </FluxAiConversation>
                         </article>

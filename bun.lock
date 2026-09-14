@@ -187,6 +187,7 @@
       "name": "@flux-ui/react",
       "version": "0.0.0",
       "dependencies": {
+        "@flux-ui/types": "workspace:^",
         "clsx": "^2.1.1",
         "echarts": "^6.1.0",
         "luxon": "^3.7.2",
@@ -252,11 +253,13 @@
       "devDependencies": {
         "@fortawesome/fontawesome-common-types": "^7.3.1",
         "@types/luxon": "^3.7.2",
+        "@types/react": "^19.2.14",
         "luxon": "^3.7.2",
       },
       "peerDependencies": {
         "@fortawesome/fontawesome-common-types": "^7.3.1",
         "luxon": "^3.7.2",
+        "react": ">=18.3",
       },
     },
     "packages/visuals": {

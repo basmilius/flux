@@ -16,6 +16,8 @@ export type {
     FluxTo
 } from './common';
 
+export type {TranslateFunction, TranslateParams} from './translate';
+
 export type {
     FluxButtonEmits,
     FluxButtonProps,

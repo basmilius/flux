@@ -34,17 +34,20 @@ export function FluxActionBar({actionsAfterSearch, actionsBeforeSearch, actionsE
     return <div {...props} className={clsx(actionStyles.actionBar, className)}>{primary}{actionsStart}{before && after && <span style={{flexGrow: 1}} />}{actionsBeforeSearch}{search}{actionsAfterSearch}{actionsEnd}</div>;
 }
 
-export interface FluxChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface FluxChipCommonProps {
+    className?: string;
     iconLeading?: FluxIconName;
     iconTrailing?: FluxIconName;
-    isSelectable?: boolean;
-    isSelected?: boolean;
     label: ReactNode;
 }
+export type FluxChipProps = FluxChipCommonProps & (
+    | ({isSelectable: true; isSelected?: boolean} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof FluxChipCommonProps>)
+    | ({isSelectable?: false; isSelected?: never} & Omit<HTMLAttributes<HTMLDivElement>, keyof FluxChipCommonProps>)
+);
 
 export function FluxChip({className, iconLeading, iconTrailing, isSelectable, isSelected, label, ...props}: FluxChipProps) {
     const content = <>{isSelectable ? <FluxIcon name={isSelected ? 'check' : iconLeading ?? 'plus'} size={16} /> : iconLeading && <FluxIcon name={iconLeading} size={16} />}<span>{label}</span>{iconTrailing && <FluxIcon name={iconTrailing} size={16} />}</>;
-    return isSelectable ? <button {...props} className={clsx(chipStyles.chip, chipStyles.isSelectable, isSelected && chipStyles.isSelected, className)} type="button" aria-pressed={Boolean(isSelected)}>{content}</button> : <div className={clsx(chipStyles.chip, className)}>{content}</div>;
+    return isSelectable ? <button {...props as ButtonHTMLAttributes<HTMLButtonElement>} className={clsx(chipStyles.chip, chipStyles.isSelectable, isSelected && chipStyles.isSelected, className)} type="button" aria-pressed={Boolean(isSelected)}>{content}</button> : <div {...props as HTMLAttributes<HTMLDivElement>} className={clsx(chipStyles.chip, className)}>{content}</div>;
 }
 
 export function FluxItem({className, htmlFor, isControl, ...props}: HTMLAttributes<HTMLDivElement> & {htmlFor?: string; isControl?: boolean}) {

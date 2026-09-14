@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import {describe, expect, it, vi} from 'vitest';
-import {FluxMenu, FluxMenuCheckbox, FluxMenuItem} from './Menus';
+import {FluxMenu, FluxMenuCheckbox, FluxMenuItem, FluxMenuOptions} from './Menus';
 
 describe('React menus', () => {
     it('supports roving arrow-key focus', () => {
@@ -15,5 +15,13 @@ describe('React menus', () => {
         render(<FluxMenu><FluxMenuCheckbox checked={false} label="Enabled" onCheckedChange={change} /></FluxMenu>);
         fireEvent.click(screen.getByRole('menuitemcheckbox', {name: 'Enabled'}));
         expect(change).toHaveBeenCalledWith(true);
+    });
+
+    it('keeps child click handlers when composing menu options', () => {
+        const click = vi.fn(), change = vi.fn();
+        render(<FluxMenu><FluxMenuOptions value={-1} onValueChange={change}><FluxMenuItem key="item" label="Item" onClick={click} /></FluxMenuOptions></FluxMenu>);
+        fireEvent.click(screen.getByRole('menuitem', {name: 'Item'}));
+        expect(click).toHaveBeenCalledOnce();
+        expect(change).toHaveBeenCalledWith('item');
     });
 });

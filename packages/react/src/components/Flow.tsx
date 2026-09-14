@@ -1,32 +1,32 @@
-import { clsx } from "clsx";
-import { Children, createContext, forwardRef, Fragment, isValidElement, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import type { CSSProperties, HTMLAttributes, KeyboardEvent, PointerEvent, ReactElement, ReactNode, WheelEvent } from "react";
-import { createPortal } from "react-dom";
-import type { FluxColor, FluxIconName, FluxStyle } from "../types";
-import { FluxButtonGroup, FluxButtonStack, FluxSecondaryButton } from "./Actions";
-import { FluxBoxedIcon } from "./DisplayExtended";
-import { FluxBadge, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from "./Display";
-import { FluxSpinner } from "./Feedback";
-import { FluxIcon } from "./Icon";
-import { LABELLED_GAP, FluxFlowEdgeLayerInjectionKey, anchorPoint, autoSides, boundsOfNodes, collectObstacles, flowColor, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, portPoint, portSide, routeAvoid, selfLoopPoints, useFlowLayout, useFlowTrunkLayout } from "./FlowUtilities";
-import type { FluxFlowAlign, FluxFlowBounds, FluxFlowConnectionType, FluxFlowController, FluxFlowDirection, FluxFlowEdgeRecord, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeContext, FluxFlowNodeRecord, FluxFlowPanelPosition, FluxFlowPlacementContext, FluxFlowPortRegistration, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowViewport } from "./FlowUtilities";
-import flowStyles from "../../../flow/src/css/component/Flow.module.scss";
-import cardStyles from "../../../flow/src/css/component/FlowCard.module.scss";
-import connectionStyles from "../../../flow/src/css/component/FlowConnection.module.scss";
-import controlsStyles from "../../../flow/src/css/component/FlowControls.module.scss";
-import gateStyles from "../../../flow/src/css/component/FlowGate.module.scss";
-import groupStyles from "../../../flow/src/css/component/FlowGroup.module.scss";
-import iconStyles from "../../../flow/src/css/component/FlowIcon.module.scss";
-import junctionStyles from "../../../flow/src/css/component/FlowJunction.module.scss";
-import laneStyles from "../../../flow/src/css/component/FlowLane.module.scss";
-import minimapStyles from "../../../flow/src/css/component/FlowMinimap.module.scss";
-import nodeStyles from "../../../flow/src/css/component/FlowNode.module.scss";
-import noteStyles from "../../../flow/src/css/component/FlowNote.module.scss";
-import panelStyles from "../../../flow/src/css/component/FlowPanel.module.scss";
-import pillStyles from "../../../flow/src/css/component/FlowPill.module.scss";
-import portStyles from "../../../flow/src/css/component/FlowPort.module.scss";
-import stepStyles from "../../../flow/src/css/component/FlowStep.module.scss";
-import terminalStyles from "../../../flow/src/css/component/FlowTerminal.module.scss";
+import { clsx } from 'clsx';
+import { Children, createContext, forwardRef, Fragment, isValidElement, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import type { CSSProperties, HTMLAttributes, KeyboardEvent, PointerEvent, ReactElement, ReactNode, WheelEvent } from 'react';
+import { createPortal } from 'react-dom';
+import type { FluxColor, FluxIconName, FluxStyle } from '../types';
+import { FluxButtonGroup, FluxButtonStack, FluxSecondaryButton } from './Actions';
+import { FluxBoxedIcon } from './DisplayExtended';
+import { FluxBadge, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from './Display';
+import { FluxSpinner } from './Feedback';
+import { FluxIcon } from './Icon';
+import { LABELLED_GAP, FluxFlowEdgeLayerInjectionKey, anchorPoint, autoSides, boundsOfNodes, collectObstacles, flowColor, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, portPoint, portSide, routeAvoid, selfLoopPoints, useFlowLayout, useFlowTrunkLayout } from './FlowUtilities';
+import type { FluxFlowAlign, FluxFlowBounds, FluxFlowConnectionType, FluxFlowController, FluxFlowDirection, FluxFlowEdgeRecord, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeContext, FluxFlowNodeRecord, FluxFlowPanelPosition, FluxFlowPlacementContext, FluxFlowPlacementLink, FluxFlowPortRegistration, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowViewport } from './FlowUtilities';
+import flowStyles from '../../../flow/src/css/component/Flow.module.scss';
+import cardStyles from '../../../flow/src/css/component/FlowCard.module.scss';
+import connectionStyles from '../../../flow/src/css/component/FlowConnection.module.scss';
+import controlsStyles from '../../../flow/src/css/component/FlowControls.module.scss';
+import gateStyles from '../../../flow/src/css/component/FlowGate.module.scss';
+import groupStyles from '../../../flow/src/css/component/FlowGroup.module.scss';
+import iconStyles from '../../../flow/src/css/component/FlowIcon.module.scss';
+import junctionStyles from '../../../flow/src/css/component/FlowJunction.module.scss';
+import laneStyles from '../../../flow/src/css/component/FlowLane.module.scss';
+import minimapStyles from '../../../flow/src/css/component/FlowMinimap.module.scss';
+import nodeStyles from '../../../flow/src/css/component/FlowNode.module.scss';
+import noteStyles from '../../../flow/src/css/component/FlowNote.module.scss';
+import panelStyles from '../../../flow/src/css/component/FlowPanel.module.scss';
+import pillStyles from '../../../flow/src/css/component/FlowPill.module.scss';
+import portStyles from '../../../flow/src/css/component/FlowPort.module.scss';
+import stepStyles from '../../../flow/src/css/component/FlowStep.module.scss';
+import terminalStyles from '../../../flow/src/css/component/FlowTerminal.module.scss';
 
 interface InternalController extends FluxFlowController {
     subscribe(listener: () => void): () => void;
@@ -226,7 +226,7 @@ function createFlowController(initial: ControllerOptions): InternalController {
             viewport = { ...next, zoom: clampZoom(next.zoom) };
             options.onViewportChange?.(viewport);
             emit();
-        },
+        }
     };
     return controller;
 }
@@ -237,13 +237,13 @@ const FlowContext = createContext<InternalController | null>(null),
 
 export function useFlowInjection(): FluxFlowController {
     const controller = useContext(FlowContext);
-    if (!controller) throw new Error("Flow components must be used within a <FluxFlow>.");
+    if (!controller) throw new Error('Flow components must be used within a <FluxFlow>.');
     useSyncExternalStore(controller.subscribe, controller.getVersion, controller.getVersion);
     return controller;
 }
 function useInternalFlow(): InternalController {
     const controller = useContext(FlowContext);
-    if (!controller) throw new Error("Flow components must be used within a <FluxFlow>.");
+    if (!controller) throw new Error('Flow components must be used within a <FluxFlow>.');
     useSyncExternalStore(controller.subscribe, controller.getVersion, controller.getVersion);
     return controller;
 }
@@ -257,10 +257,10 @@ export interface FluxFlowHandle {
     zoomTo(zoom: number): void;
     resetZoom(): void;
 }
-export interface FluxFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-    align?: "start" | "center";
+export interface FluxFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+    align?: 'start' | 'center';
     axis?: FluxFlowDirection;
-    background?: "dots" | "grid" | "none";
+    background?: 'dots' | 'grid' | 'none';
     interactive?: boolean;
     start?: string;
     padding?: number;
@@ -272,7 +272,7 @@ export interface FluxFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, "onC
     defaultViewport?: FluxFlowViewport;
     onViewportChange?: (viewport: FluxFlowViewport) => void;
 }
-export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxFlow({ align = "center", axis, background = "none", children, className, defaultViewport, gridSize = 24, interactive = false, maxZoom = 2, minZoom = 0.4, onViewportChange, padding = 0, start, style, viewport, zoomStep = 0.2, ...props }, ref) {
+export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxFlow({ align = 'center', axis, background = 'none', children, className, defaultViewport, gridSize = 24, interactive = false, maxZoom = 2, minZoom = 0.4, onViewportChange, padding = 0, start, style, viewport, zoomStep = 0.2, ...props }, ref) {
     const [controller] = useState(() => createFlowController({ axis, interactive, minZoom, maxZoom, zoomStep, padding, onViewportChange })),
         clip = useRef<HTMLDivElement>(null),
         backdrop = useRef<HTMLDivElement>(null),
@@ -305,18 +305,18 @@ export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxF
     }, [interactive, start]);
     const handle = useMemo<FluxFlowHandle>(() => ({ controller, fitView: controller.fitView, centerView: controller.centerView, zoomIn: controller.zoomIn, zoomOut: controller.zoomOut, zoomTo: controller.zoomTo, resetZoom: controller.resetZoom }), [controller]);
     useLayoutEffect(() => {
-        if (typeof ref === "function") ref(handle);
+        if (typeof ref === 'function') ref(handle);
         else if (ref) ref.current = handle;
         return () => {
-            if (typeof ref === "function") ref(null);
+            if (typeof ref === 'function') ref(null);
             else if (ref) ref.current = null;
         };
     }, [handle, ref]);
     const bounds = controller.bounds,
-        worldStyle: CSSProperties = interactive ? { transform: `translate(${controller.viewport.x}px, ${controller.viewport.y}px) scale(${controller.viewport.zoom})`, transition: controller.isTracking ? "none" : "transform 210ms var(--swift-out)" } : bounds ? { position: "relative", width: Math.ceil(bounds.maxX - bounds.minX + padding * 2), height: Math.ceil(bounds.maxY - bounds.minY + padding * 2), transform: `translate(${padding - bounds.minX}px, ${padding - bounds.minY}px)` } : { position: "relative" },
+        worldStyle: CSSProperties = interactive ? { transform: `translate(${controller.viewport.x}px, ${controller.viewport.y}px) scale(${controller.viewport.zoom})`, transition: controller.isTracking ? 'none' : 'transform 210ms var(--swift-out)' } : bounds ? { position: 'relative', width: Math.ceil(bounds.maxX - bounds.minX + padding * 2), height: Math.ceil(bounds.maxY - bounds.minY + padding * 2), transform: `translate(${padding - bounds.minX}px, ${padding - bounds.minY}px)` } : { position: 'relative' },
         edges = [...controller.edges.values()].filter((edge): edge is FluxFlowEdgeRecord & { spec: FluxFlowEdgeSpec } => Boolean(edge.spec)).sort((a, b) => Number(a.spec.isColored) - Number(b.spec.isColored));
     const pointerDown = (event: PointerEvent<HTMLDivElement>) => {
-        if (!interactive || event.button !== 0 || (event.target as Element).closest("[data-nopan]")) return;
+        if (!interactive || event.button !== 0 || (event.target as Element).closest('[data-nopan]')) return;
         dragging.current = { x: event.clientX, y: event.clientY };
         event.currentTarget.setPointerCapture?.(event.pointerId);
         controller.setTracking(true);
@@ -335,13 +335,13 @@ export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxF
     const keyDown = (event: KeyboardEvent<HTMLDivElement>) => {
         if (!interactive) return;
         const amount = event.shiftKey ? 60 : 20;
-        if (event.key === "+" || event.key === "=") controller.zoomIn();
-        else if (event.key === "-") controller.zoomOut();
-        else if (event.key === "0") controller.resetZoom();
-        else if (event.key === "ArrowLeft") controller.panBy(amount, 0);
-        else if (event.key === "ArrowRight") controller.panBy(-amount, 0);
-        else if (event.key === "ArrowUp") controller.panBy(0, amount);
-        else if (event.key === "ArrowDown") controller.panBy(0, -amount);
+        if (event.key === '+' || event.key === '=') controller.zoomIn();
+        else if (event.key === '-') controller.zoomOut();
+        else if (event.key === '0') controller.resetZoom();
+        else if (event.key === 'ArrowLeft') controller.panBy(amount, 0);
+        else if (event.key === 'ArrowRight') controller.panBy(-amount, 0);
+        else if (event.key === 'ArrowUp') controller.panBy(0, amount);
+        else if (event.key === 'ArrowDown') controller.panBy(0, -amount);
         else return;
         event.preventDefault();
     };
@@ -353,13 +353,13 @@ export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxF
     void version;
     return (
         <FlowContext.Provider value={controller}>
-            <div {...props} ref={clip} className={clsx(flowStyles.flow, interactive && flowStyles.isInteractive, dragging.current && flowStyles.isPanning, className)} style={{ ...style, height: interactive ? "100%" : style?.height }} tabIndex={interactive ? (props.tabIndex ?? 0) : props.tabIndex} onKeyDown={keyDown} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerUp} onWheel={wheel}>
-                {background !== "none" && <div className={clsx(flowStyles.flowBackground, background === "dots" ? flowStyles.flowBackgroundDots : flowStyles.flowBackgroundGrid)} style={{ backgroundSize: `${gridSize}px ${gridSize}px`, backgroundPosition: interactive ? `${controller.viewport.x}px ${controller.viewport.y}px` : "0 0" }} />}
-                <div className={flowStyles.flowScroll} style={interactive ? { height: "100%", overflow: "hidden" } : { display: "flex", justifyContent: "safe center", overflowX: "auto", overflowY: "hidden" }}>
+            <div {...props} ref={clip} className={clsx(flowStyles.flow, interactive && flowStyles.isInteractive, dragging.current && flowStyles.isPanning, className)} style={{ ...style, height: interactive ? '100%' : style?.height }} tabIndex={interactive ? (props.tabIndex ?? 0) : props.tabIndex} onKeyDown={keyDown} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerUp} onWheel={wheel}>
+                {background !== 'none' && <div className={clsx(flowStyles.flowBackground, background === 'dots' ? flowStyles.flowBackgroundDots : flowStyles.flowBackgroundGrid)} style={{ backgroundSize: `${gridSize}px ${gridSize}px`, backgroundPosition: interactive ? `${controller.viewport.x}px ${controller.viewport.y}px` : '0 0' }} />}
+                <div className={flowStyles.flowScroll} style={interactive ? { height: '100%', overflow: 'hidden' } : { display: 'flex', justifyContent: 'safe center', overflowX: 'auto', overflowY: 'hidden' }}>
                     <div className={flowStyles.flowWorld} style={worldStyle}>
                         <div ref={backdrop} className={flowStyles.flowBackdrop} />
                         {children}
-                        <svg className={clsx(flowStyles.flowEdges, edgeLayer === "under" && flowStyles.isUnder)} aria-hidden="true">
+                        <svg className={clsx(flowStyles.flowEdges, edgeLayer === 'under' && flowStyles.isUnder)} aria-hidden="true">
                             {edges.map((edge) => (
                                 <g key={edge.id} className={clsx(connectionStyles.flowConnectionGroup, !edge.spec.isColored && connectionStyles.isNeutral)} style={edge.spec.styleVars as CSSProperties}>
                                     <path className={clsx(connectionStyles.flowConnectionLine, edge.spec.animated && connectionStyles.isAnimated, edge.spec.dashed && connectionStyles.isDashed, edge.spec.dotted && connectionStyles.isDotted)} d={edge.spec.path} />
@@ -374,7 +374,7 @@ export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxF
                             {edges
                                 .filter((edge) => edge.spec.label || edge.spec.icon)
                                 .map((edge) => (
-                                    <FluxBadge key={edge.id} className={clsx(connectionStyles.flowConnectionBadge, !edge.spec.label && connectionStyles.isBare)} style={{ ...edge.spec.styleVars, left: edge.spec.labelX, top: edge.spec.labelY } as FluxStyle} icon={edge.spec.icon} label={edge.spec.label ?? ""} />
+                                    <FluxBadge key={edge.id} className={clsx(connectionStyles.flowConnectionBadge, !edge.spec.label && connectionStyles.isBare)} style={{ ...edge.spec.styleVars, left: edge.spec.labelX, top: edge.spec.labelY } as FluxStyle} icon={edge.spec.icon} label={edge.spec.label ?? ''} />
                                 ))}
                         </div>
                     </div>
@@ -406,7 +406,7 @@ export const FluxFlowNode = forwardRef<HTMLDivElement, FluxFlowNodeProps>(functi
                 const targetRect = target.getBoundingClientRect();
                 return { x: (targetRect.left + targetRect.width / 2 - rect.left) / (zoom || 1), y: (targetRect.top + targetRect.height / 2 - rect.top) / (zoom || 1) };
             },
-            anchorElement = node.querySelector("[data-flow-anchor]"),
+            anchorElement = node.querySelector('[data-flow-anchor]'),
             ports = new Map<string, FluxFlowPortRecord>();
         registrations.current.forEach((registration) => {
             if (registration.element.current) ports.set(registration.id, { id: registration.id, side: registration.side, offset: pointOf(registration.element.current) });
@@ -417,7 +417,7 @@ export const FluxFlowNode = forwardRef<HTMLDivElement, FluxFlowNodeProps>(functi
         const node = element.current;
         if (!node) return;
         measure();
-        const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
+        const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
         observer?.observe(node);
         return () => observer?.disconnect();
     }, [children]);
@@ -425,6 +425,11 @@ export const FluxFlowNode = forwardRef<HTMLDivElement, FluxFlowNodeProps>(functi
         controller.registerNode({ id, position, size: measurement.size, element: element.current, anchor: measurement.anchor, ports: measurement.ports });
         return () => controller.unregisterNode(id);
     }, [controller, id, position.x, position.y, measurement]);
+    useLayoutEffect(() => {
+        const link: FluxFlowPlacementLink = {id, size: measurement.size, anchor: measurement.anchor};
+        placement?.registerLink?.(link);
+        return () => placement?.unregisterLink?.(link);
+    }, [id, measurement, placement?.registerLink, placement?.unregisterLink]);
     const nodeContext = useMemo<FluxFlowNodeContext>(
         () => ({
             registerPort(registration) {
@@ -444,7 +449,7 @@ export const FluxFlowNode = forwardRef<HTMLDivElement, FluxFlowNodeProps>(functi
                 {...props}
                 ref={(value) => {
                     element.current = value;
-                    if (typeof forwardedRef === "function") forwardedRef(value);
+                    if (typeof forwardedRef === 'function') forwardedRef(value);
                     else if (forwardedRef) forwardedRef.current = value;
                 }}
                 className={clsx(nodeStyles.flowNode, className)}
@@ -482,7 +487,7 @@ export interface FluxFlowConnectionProps {
 export function FluxFlowConnection(props: FluxFlowConnectionProps) {
     const controller = useInternalFlow(),
         id = useId(),
-        registered = useRef("");
+        registered = useRef('');
     useLayoutEffect(() => () => controller.unregisterEdge(id), [controller, id]);
     useLayoutEffect(() => {
         const source = controller.getNode(props.from),
@@ -490,7 +495,7 @@ export function FluxFlowConnection(props: FluxFlowConnectionProps) {
         if (!source || !target) {
             if (registered.current) {
                 controller.unregisterEdge(id);
-                registered.current = "";
+                registered.current = '';
             }
             return;
         }
@@ -508,16 +513,16 @@ export function FluxFlowConnection(props: FluxFlowConnectionProps) {
             const loop = getSelfLoopPath(from, fromSide, to, toSide, { minX: source.position.x - 15, minY: source.position.y - 15, maxX: source.position.x + source.size.width + 15, maxY: source.position.y + source.size.height + 15 });
             path = loop;
             waypoints = [...loop.points];
-        } else if (props.type === "straight") path = getStraightPath(from, to, waypoints, props.labelPlacement);
-        else if (props.type === "bezier") path = getBezierPath(from, fromSide, to, toSide, waypoints, props.labelPlacement);
-        else if (!props.waypoints?.length && collectObstacles(controller.nodes.values(), props.from, props.to).length) path = routeAvoid(from, fromSide, to, toSide, collectObstacles(controller.nodes.values(), props.from, props.to), props.labelPlacement, 15, props.type === "step" ? 0 : 15);
-        else path = props.type === "step" ? getStepPath(from, fromSide, to, toSide, waypoints, props.labelPlacement) : getSmoothStepPath(from, fromSide, to, toSide, waypoints, props.labelPlacement);
-        const fill = (marker: FluxFlowMarker): FluxFlowMarkerFill => (marker === "arrow" ? "solid" : marker === "bar" || marker === "chevron" || marker === "none" ? "stroke" : "outline"),
-            startMarker = props.markerStart ?? "none",
-            endMarker = props.markerEnd ?? "arrow",
+        } else if (props.type === 'straight') path = getStraightPath(from, to, waypoints, props.labelPlacement);
+        else if (props.type === 'bezier') path = getBezierPath(from, fromSide, to, toSide, waypoints, props.labelPlacement);
+        else if (!props.waypoints?.length && collectObstacles(controller.nodes.values(), props.from, props.to).length) path = routeAvoid(from, fromSide, to, toSide, collectObstacles(controller.nodes.values(), props.from, props.to), props.labelPlacement, 15, props.type === 'step' ? 0 : 15);
+        else path = props.type === 'step' ? getStepPath(from, fromSide, to, toSide, waypoints, props.labelPlacement) : getSmoothStepPath(from, fromSide, to, toSide, waypoints, props.labelPlacement);
+        const fill = (marker: FluxFlowMarker): FluxFlowMarkerFill => (marker === 'arrow' ? 'solid' : marker === 'bar' || marker === 'chevron' || marker === 'none' ? 'stroke' : 'outline'),
+            startMarker = props.markerStart ?? 'none',
+            endMarker = props.markerEnd ?? 'arrow',
             color = flowColor(props.color),
             progress = Math.min(1, Math.max(0, props.progressValue ?? 0)),
-            spec: FluxFlowEdgeSpec = { path: path.path, labelX: path.labelX, labelY: path.labelY, fromX: from.x, fromY: from.y, toX: to.x, toY: to.y, waypoints: [from, ...waypoints, to], styleVars: { "--flow-connection-color": color, "--flow-connection-progress-color": flowColor(props.progressColor, color), "--flow-connection-progress": String(progress) }, animated: Boolean(props.animated), dashed: Boolean(props.dashed), dotted: Boolean(props.dotted), fromMarkerPath: markerPath(startMarker, from, path.fromDirection), fromMarkerFill: fill(startMarker), toMarkerPath: markerPath(endMarker, to, path.toDirection), toMarkerFill: fill(endMarker), fromActive: progress > 0, toActive: progress >= 1, hasProgress: props.progressValue !== undefined, isColored: Boolean(props.color), label: props.label, icon: props.icon };
+            spec: FluxFlowEdgeSpec = { path: path.path, labelX: path.labelX, labelY: path.labelY, fromX: from.x, fromY: from.y, toX: to.x, toY: to.y, waypoints: [from, ...waypoints, to], styleVars: { '--flow-connection-color': color, '--flow-connection-progress-color': flowColor(props.progressColor, color), '--flow-connection-progress': String(progress) }, animated: Boolean(props.animated), dashed: Boolean(props.dashed), dotted: Boolean(props.dotted), fromMarkerPath: markerPath(startMarker, from, path.fromDirection), fromMarkerFill: fill(startMarker), toMarkerPath: markerPath(endMarker, to, path.toDirection), toMarkerFill: fill(endMarker), fromActive: progress > 0, toActive: progress >= 1, hasProgress: props.progressValue !== undefined, isColored: Boolean(props.color), label: props.label, icon: props.icon };
         const signature = JSON.stringify(spec);
         if (signature !== registered.current) {
             registered.current = signature;
@@ -536,7 +541,7 @@ function flatten(children: ReactNode): ReactElement[] {
     });
     return result;
 }
-export function FluxFlowGraph({ children, direction = "vertical", indent, layerGap, nodeGap = 45, trunk, x = 0, y = 0 }: { children?: ReactNode; direction?: FluxFlowDirection; indent?: number; layerGap?: number; nodeGap?: number; trunk?: readonly string[]; x?: number; y?: number }) {
+export function FluxFlowGraph({ children, direction = 'vertical', indent, layerGap, nodeGap = 45, trunk, x = 0, y = 0 }: { children?: ReactNode; direction?: FluxFlowDirection; indent?: number; layerGap?: number; nodeGap?: number; trunk?: readonly string[]; x?: number; y?: number }) {
     const items = flatten(children),
         nodes = items.filter((item) => item.type === FluxFlowNode).map((item) => ({ id: String((item.props as FluxFlowNodeProps).id) })),
         edges = items.filter((item) => item.type === FluxFlowConnection).map((item) => ({ from: String((item.props as FluxFlowConnectionProps).from), to: String((item.props as FluxFlowConnectionProps).to) })),
@@ -545,7 +550,7 @@ export function FluxFlowGraph({ children, direction = "vertical", indent, layerG
         placement = useMemo(() => ({ positionOf: (id: string) => positions[id] ?? null }), [positions]);
     return <PlacementContext.Provider value={placement}>{children}</PlacementContext.Provider>;
 }
-export function FluxFlowChain({ align = "center", autoConnect = true, children, direction = "vertical", gap = 60, labelGap, x = 0, y = 0 }: { align?: FluxFlowAlign; autoConnect?: boolean; children?: ReactNode; direction?: FluxFlowDirection; gap?: number; labelGap?: number; x?: number; y?: number }) {
+export function FluxFlowChain({ align = 'center', autoConnect = true, children, direction = 'vertical', gap = 60, labelGap, x = 0, y = 0 }: { align?: FluxFlowAlign; autoConnect?: boolean; children?: ReactNode; direction?: FluxFlowDirection; gap?: number; labelGap?: number; x?: number; y?: number }) {
     const items = flatten(children),
         nodes = items.filter((item) => item.type === FluxFlowNode).map((item) => String((item.props as FluxFlowNodeProps).id)),
         claimed = new Map(
@@ -556,13 +561,33 @@ export function FluxFlowChain({ align = "center", autoConnect = true, children, 
                     return [`${props.from} ${props.to}`, Boolean(props.label || props.icon)] as const;
                 }),
         ),
-        size = { width: 300, height: 90 },
-        positions: Record<string, FluxFlowPosition> = {};
-    nodes.forEach((id, index) => {
-        const cross = align === "center" ? 0 : 0;
-        positions[id] = direction === "vertical" ? { x: x + cross, y: y + index * (size.height + Math.max(gap, index && claimed.get(`${nodes[index - 1]} ${id}`) ? (labelGap ?? LABELLED_GAP.vertical) : gap)) } : { x: x + index * (size.width + Math.max(gap, index && claimed.get(`${nodes[index - 1]} ${id}`) ? (labelGap ?? LABELLED_GAP.horizontal) : gap)), y: y + cross };
-    });
-    const placement = useMemo(() => ({ positionOf: (id: string) => positions[id] ?? null }), [JSON.stringify(positions)]),
+        [links, setLinks] = useState<ReadonlyMap<string, FluxFlowPlacementLink>>(() => new Map()),
+        registerLink = useCallback((link: FluxFlowPlacementLink) => setLinks(current => {
+            const previous = current.get(link.id);
+            if (previous?.size.width === link.size.width && previous.size.height === link.size.height && previous.anchor?.x === link.anchor?.x && previous.anchor?.y === link.anchor?.y) return current;
+            const next = new Map(current); next.set(link.id, link); return next;
+        }), []),
+        unregisterLink = useCallback((link: FluxFlowPlacementLink) => setLinks(current => {
+            if (current.get(link.id) !== link) return current;
+            const next = new Map(current); next.delete(link.id); return next;
+        }), []),
+        positions = useMemo(() => {
+            const sizes = nodes.map(id => links.get(id)?.size ?? {width: 300, height: 90}),
+                crossExtent = Math.max(0, ...sizes.map(size => direction === 'vertical' ? size.width : size.height)),
+                result: Record<string, FluxFlowPosition> = {};
+            let main = direction === 'vertical' ? y : x;
+            nodes.forEach((id, index) => {
+                const size = sizes[index], extent = direction === 'vertical' ? size.width : size.height,
+                    cross = align === 'start' ? 0 : align === 'end' ? crossExtent - extent : (crossExtent - extent) / 2;
+                result[id] = direction === 'vertical' ? {x: x + cross, y: main} : {x: main, y: y + cross};
+                if (index < nodes.length - 1) {
+                    const labelledGap = claimed.get(`${id} ${nodes[index + 1]}`) ? (labelGap ?? LABELLED_GAP[direction]) : gap;
+                    main += (direction === 'vertical' ? size.height : size.width) + Math.max(gap, labelledGap);
+                }
+            });
+            return result;
+        }, [align, claimed, direction, gap, labelGap, links, nodes, x, y]);
+    const placement = useMemo(() => ({ positionOf: (id: string) => positions[id] ?? null, registerLink, unregisterLink }), [positions, registerLink, unregisterLink]),
         automatic = autoConnect ? nodes.slice(1).flatMap((to, index) => (claimed.has(`${nodes[index]} ${to}`) ? [] : [<FluxFlowConnection key={`${nodes[index]} ${to}`} from={nodes[index]} to={to} />])) : [];
     return (
         <PlacementContext.Provider value={placement}>
@@ -582,10 +607,10 @@ export interface FluxFlowCardProps extends HTMLAttributes<HTMLDivElement> {
     label?: string;
     subtitle?: string;
     title?: string;
-    variant?: "default" | "trigger" | "condition" | "action";
+    variant?: 'default' | 'trigger' | 'condition' | 'action';
 }
-const VARIANTS = { default: { color: "gray", icon: "circle-dot", label: "Step" }, trigger: { color: "info", icon: "bolt", label: "Trigger" }, condition: { color: "warning", icon: "code-branch", label: "Condition" }, action: { color: "primary", icon: "play", label: "Action" } } as const;
-export function FluxFlowCard({ active, children, className, color, footer, header, icon, isLoading, label, subtitle, title, variant = "default", ...props }: FluxFlowCardProps) {
+const VARIANTS = { default: { color: 'gray', icon: 'circle-dot', label: 'Step' }, trigger: { color: 'info', icon: 'bolt', label: 'Trigger' }, condition: { color: 'warning', icon: 'code-branch', label: 'Condition' }, action: { color: 'primary', icon: 'play', label: 'Action' } } as const;
+export function FluxFlowCard({ active, children, className, color, footer, header, icon, isLoading, label, subtitle, title, variant = 'default', ...props }: FluxFlowCardProps) {
     const defaults = VARIANTS[variant];
     return (
         <FluxPane {...props} className={clsx(cardStyles.flowCardSurface, active && cardStyles.isActive, className)}>
@@ -595,7 +620,7 @@ export function FluxFlowCard({ active, children, className, color, footer, heade
         </FluxPane>
     );
 }
-type VariantCardProps = Omit<FluxFlowCardProps, "variant">;
+type VariantCardProps = Omit<FluxFlowCardProps, 'variant'>;
 export function FluxFlowActionCard(props: VariantCardProps) {
     return <FluxFlowCard {...props} variant="action" />;
 }
@@ -608,7 +633,7 @@ export function FluxFlowTriggerCard(props: VariantCardProps) {
 export function FluxFlowIcon({ color, isLoading, name }: { color?: FluxColor; isLoading?: boolean; name: FluxIconName }) {
     return isLoading ? <FluxSpinner data-flow-anchor className={iconStyles.flowIconSpinner} data-color={color} /> : <FluxBoxedIcon data-flow-anchor rounded color={color} name={name} size={30} />;
 }
-export function FluxFlowGate({ color, type }: { color?: FluxColor; type: "and" | "or" | "xor" }) {
+export function FluxFlowGate({ color, type }: { color?: FluxColor; type: 'and' | 'or' | 'xor' }) {
     return (
         <div data-flow-anchor className={gateStyles.flowGate} data-color={color}>
             <span>{type.toUpperCase()}</span>
@@ -648,7 +673,7 @@ export function FluxFlowTerminal({ color, icon, label }: { color?: FluxColor; ic
 export const FluxFlowPort = forwardRef<HTMLSpanElement, { id: string; side?: FluxFlowSide }>(function FluxFlowPort({ id, side }, forwardedRef) {
     const node = useContext(NodeContext),
         element = useRef<HTMLSpanElement>(null);
-    if (!node) throw new Error("<FluxFlowPort> must be used within a <FluxFlowNode>.");
+    if (!node) throw new Error('<FluxFlowPort> must be used within a <FluxFlowNode>.');
     useLayoutEffect(() => {
         const registration = { id, side, element: element as React.MutableRefObject<HTMLElement | null> };
         node.registerPort(registration);
@@ -658,7 +683,7 @@ export const FluxFlowPort = forwardRef<HTMLSpanElement, { id: string; side?: Flu
         <span
             ref={(value) => {
                 element.current = value;
-                if (typeof forwardedRef === "function") forwardedRef(value);
+                if (typeof forwardedRef === 'function') forwardedRef(value);
                 else if (forwardedRef) forwardedRef.current = value;
             }}
             className={portStyles.flowPort}
@@ -666,10 +691,10 @@ export const FluxFlowPort = forwardRef<HTMLSpanElement, { id: string; side?: Flu
     );
 });
 
-export function FluxFlowPanel({ children, offset = 15, position = "bottom-right" }: { children?: ReactNode; offset?: number; position?: FluxFlowPanelPosition }) {
+export function FluxFlowPanel({ children, offset = 15, position = 'bottom-right' }: { children?: ReactNode; offset?: number; position?: FluxFlowPanelPosition }) {
     const controller = useInternalFlow(),
         overlay = controller.overlayElement,
-        style = { [position.startsWith("top") ? "top" : "bottom"]: offset, [position.endsWith("left") ? "left" : "right"]: offset } as CSSProperties;
+        style = { [position.startsWith('top') ? 'top' : 'bottom']: offset, [position.endsWith('left') ? 'left' : 'right']: offset } as CSSProperties;
     return overlay
         ? createPortal(
               <div data-nopan className={panelStyles.flowPanel} style={style}>
@@ -679,13 +704,13 @@ export function FluxFlowPanel({ children, offset = 15, position = "bottom-right"
           )
         : null;
 }
-export function FluxFlowControls({ exitFullscreenLabel = "Exit fullscreen", fitLabel = "Fit view", fullscreenLabel = "Fullscreen", offset, position, zoomInLabel = "Zoom in", zoomLabel = "Zoom", zoomOutLabel = "Zoom out" }: { exitFullscreenLabel?: string; fitLabel?: string; fullscreenLabel?: string; offset?: number; position?: FluxFlowPanelPosition; zoomInLabel?: string; zoomLabel?: string; zoomOutLabel?: string }) {
+export function FluxFlowControls({ exitFullscreenLabel = 'Exit fullscreen', fitLabel = 'Fit view', fullscreenLabel = 'Fullscreen', offset, position, zoomInLabel = 'Zoom in', zoomLabel = 'Zoom', zoomOutLabel = 'Zoom out' }: { exitFullscreenLabel?: string; fitLabel?: string; fullscreenLabel?: string; offset?: number; position?: FluxFlowPanelPosition; zoomInLabel?: string; zoomLabel?: string; zoomOutLabel?: string }) {
     const controller = useInternalFlow(),
         [fullscreen, setFullscreen] = useState(false);
     useEffect(() => {
         const update = () => setFullscreen(document.fullscreenElement === controller.clipElement);
-        document.addEventListener("fullscreenchange", update);
-        return () => document.removeEventListener("fullscreenchange", update);
+        document.addEventListener('fullscreenchange', update);
+        return () => document.removeEventListener('fullscreenchange', update);
     }, [controller]);
     if (controller.isStatic) return null;
     const toggle = () => (fullscreen ? document.exitFullscreen?.().catch(() => undefined) : controller.clipElement?.requestFullscreen?.().catch(() => undefined));
@@ -699,7 +724,7 @@ export function FluxFlowControls({ exitFullscreenLabel = "Exit fullscreen", fitL
                 </FluxButtonGroup>
                 <FluxButtonGroup>
                     <FluxSecondaryButton iconLeading="arrows-to-dot" aria-label={fitLabel} onClick={() => controller.fitView()} />
-                    {typeof document !== "undefined" && document.fullscreenEnabled && <FluxSecondaryButton iconLeading={fullscreen ? "compress" : "expand"} aria-label={fullscreen ? exitFullscreenLabel : fullscreenLabel} onClick={toggle} />}
+                    {typeof document !== 'undefined' && document.fullscreenEnabled && <FluxSecondaryButton iconLeading={fullscreen ? 'compress' : 'expand'} aria-label={fullscreen ? exitFullscreenLabel : fullscreenLabel} onClick={toggle} />}
                 </FluxButtonGroup>
             </FluxButtonStack>
         </FluxFlowPanel>
@@ -782,7 +807,7 @@ export function FluxFlowLane({ color, height, padding = 21, title, width, x = 0,
         start = row ? bounds.minX - padding - gutter : bounds.minY - padding - gutter,
         box = row ? { x: start, y, width: bounds.maxX + padding - start, height: height ?? 0 } : { x, y: start, width: width ?? 0, height: bounds.maxY + padding - start };
     return createPortal(
-        <div className={laneStyles.flowLane} data-color={color} data-orientation={row ? "row" : "column"} style={{ transform: `translate(${box.x}px, ${box.y}px)`, width: box.width, height: box.height }}>
+        <div className={laneStyles.flowLane} data-color={color} data-orientation={row ? 'row' : 'column'} style={{ transform: `translate(${box.x}px, ${box.y}px)`, width: box.width, height: box.height }}>
             {title && <span className={laneStyles.flowLaneTitle}>{title}</span>}
         </div>,
         controller.backdropElement,
@@ -793,4 +818,4 @@ function capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-export * from "./FlowUtilities";
+export * from './FlowUtilities';
