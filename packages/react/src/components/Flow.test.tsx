@@ -11,7 +11,9 @@ describe('flow geometry and layout', () => {
         expect(getBezierPath({ x: 0, y: 0 }, 'right', { x: 100, y: 0 }, 'left').path).toContain(' C ');
         expect(getSmoothStepPath({ x: 0, y: 0 }, 'bottom', { x: 100, y: 100 }, 'top').path).toContain('Q');
         expect(markerPath('arrow', { x: 10, y: 10 }, [1, 0])).toContain('Z');
-        expect(routeAvoid({ x: 0, y: 0 }, 'right', { x: 100, y: 0 }, 'left', [{ minX: 40, minY: -10, maxX: 60, maxY: 10 }]).path).toContain('M 0 0');
+        const routed = routeAvoid({ x: 0, y: 0 }, 'right', { x: 100, y: 0 }, 'left', [{ minX: 40, minY: -10, maxX: 60, maxY: 10 }]);
+        expect(routed.path).toContain('M 0 0');
+        expect(routed.points.some((point) => point.x > 60)).toBe(true);
     });
 
     it('lays out layered and trunk graphs deterministically', () => {

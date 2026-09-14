@@ -1,4 +1,4 @@
-import {act, fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
 import {createRef} from 'react';
 import {describe, expect, it, vi} from 'vitest';
 import {
@@ -65,6 +65,16 @@ describe('compound interactions', () => {
         fireEvent.pointerMove(window, {clientX: 200});
         expect(separator).toHaveAttribute('aria-valuenow', '70');
         fireEvent.pointerUp(window);
+    });
+
+    it('keeps successful remote results when another source fails', async () => {
+        render(<FluxCommandPalette defaultOpen sources={[
+            {key: 'failed', label: 'Failed', items: [], fetchSearch: async () => { throw new Error('Offline'); }},
+            {key: 'working', label: 'Working', items: [], fetchSearch: async () => [{id: 1, label: 'Available', onActivate() {}}]}
+        ]} />);
+        fireEvent.change(screen.getByRole('combobox'), {target: {value: 'query'}});
+        expect(await screen.findByRole('option', {name: 'Available'})).toBeInTheDocument();
+        await waitFor(() => expect(screen.queryByText('Loading...')).not.toBeInTheDocument());
     });
 
     it('applies swipe displacement from the pointer-down offset', () => {

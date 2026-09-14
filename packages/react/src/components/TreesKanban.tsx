@@ -319,8 +319,10 @@ interface KanbanContextValue {
     reorderableColumns: boolean;
     registerColumn(id: string | number): () => void;
     registerItem(id: string | number): () => void;
+    registerSwimlane(id: string | number): () => void;
     resolveColumn(id: string): string | number;
     resolveItem(id: string): string | number;
+    resolveSwimlane(id?: string): string | number | undefined;
     setDrag(value: DragState | null): void;
 }
 const KanbanContext = createContext<KanbanContextValue | null>(null);
@@ -330,6 +332,7 @@ export function FluxKanban({ canMove, children, className, disabled = false, onM
         [message, setMessage] = useState('');
     const columnIds = useRef(new Map<string, string | number>());
     const itemIds = useRef(new Map<string, string | number>());
+    const swimlaneIds = useRef(new Map<string, string | number>());
     const emitMove = (event: FluxKanbanMoveEvent) => {
         if (canMove?.(event) === false) {
             setMessage('Move not allowed');
@@ -353,11 +356,18 @@ export function FluxKanban({ canMove, children, className, disabled = false, onM
                 itemIds.current.set(String(id), id);
                 return () => itemIds.current.delete(String(id));
             },
+            registerSwimlane(id: string | number) {
+                swimlaneIds.current.set(String(id), id);
+                return () => swimlaneIds.current.delete(String(id));
+            },
             resolveColumn(id: string) {
                 return columnIds.current.get(id) ?? id;
             },
             resolveItem(id: string) {
                 return itemIds.current.get(id) ?? id;
+            },
+            resolveSwimlane(id?: string) {
+                return id === undefined ? undefined : swimlaneIds.current.get(id) ?? id;
             },
             setDrag,
         }),
@@ -474,7 +484,7 @@ export function FluxKanbanItem({ children, className, columnId, disabled = false
             else if (event.key === 'ArrowDown' && index >= 0 && index < items.length - 1) board.onMove?.({itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: columnId, toSwimlaneId: swimlaneId, beforeItemId: items[index + 2]?.dataset.kanbanItemId ? board.resolveItem(items[index + 2].dataset.kanbanItemId!) : undefined});
             return;
         }
-        board.onMove?.({ itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: board.resolveColumn(target.dataset.kanbanColumn!), toSwimlaneId: target.closest<HTMLElement>('[data-kanban-swimlane]')?.dataset.kanbanSwimlane });
+        board.onMove?.({ itemId, fromColumnId: columnId, fromSwimlaneId: swimlaneId, toColumnId: board.resolveColumn(target.dataset.kanbanColumn!), toSwimlaneId: board.resolveSwimlane(target.closest<HTMLElement>('[data-kanban-swimlane]')?.dataset.kanbanSwimlane) });
     };
     return (
         <div {...props} className={clsx(kanbanStyles.kanbanItem, board.drag?.itemId === itemId && kanbanStyles.isDragging, grabbed && kanbanStyles.isGrabbed, inactive && kanbanStyles.isDisabled, className)} data-kanban-item data-kanban-item-id={itemId} role="listitem" aria-roledescription="Kanban item" aria-disabled={inactive || undefined} draggable={!inactive} tabIndex={inactive ? -1 : 0} onDragStart={begin} onDragEnd={() => board.setDrag(null)} onKeyDown={key}>
@@ -484,10 +494,12 @@ export function FluxKanbanItem({ children, className, columnId, disabled = false
 }
 export function FluxKanbanSwimlane({ children, className, color = 'gray', count, defaultCollapsed = false, isCollapsed, label, onCollapsedChange, swimlaneId }: Omit<HTMLAttributes<HTMLDivElement>, 'color'> & { color?: FluxColor; count?: number; defaultCollapsed?: boolean; isCollapsed?: boolean; label: string; onCollapsedChange?: (collapsed: boolean) => void; swimlaneId?: string | number }) {
     const fallbackId = useId(),
+        board = useContext(KanbanContext),
         controlled = isCollapsed !== undefined,
         [inner, setInner] = useState(defaultCollapsed),
         collapsed = controlled ? isCollapsed : inner,
         id = swimlaneId ?? fallbackId;
+    useEffect(() => board?.registerSwimlane(id), [board, id]);
     const toggle = () => {
         if (!controlled) setInner(!collapsed);
         onCollapsedChange?.(!collapsed);

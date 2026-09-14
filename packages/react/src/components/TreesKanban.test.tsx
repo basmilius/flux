@@ -92,6 +92,20 @@ describe('Kanban', () => {
         expect(onMove).toHaveBeenCalledWith(expect.objectContaining({ itemId: 'task', fromColumnId: 1, toColumnId: 2 }));
     });
 
+    it('preserves numeric swimlane ids during keyboard moves', () => {
+        const onMove = vi.fn();
+        render(
+            <FluxKanban onMove={onMove}>
+                <FluxKanbanSwimlane swimlaneId={10} label="Team A"><FluxKanbanColumn columnId="todo" label="Todo"><FluxKanbanItem columnId="todo" itemId="task">Task</FluxKanbanItem></FluxKanbanColumn></FluxKanbanSwimlane>
+                <FluxKanbanSwimlane swimlaneId={20} label="Team B"><FluxKanbanColumn columnId="done" label="Done" /></FluxKanbanSwimlane>
+            </FluxKanban>
+        );
+        const item = screen.getByRole('listitem');
+        fireEvent.keyDown(item, {key: ' '});
+        fireEvent.keyDown(item, {key: 'ArrowRight'});
+        expect(onMove).toHaveBeenCalledWith(expect.objectContaining({fromSwimlaneId: 10, toSwimlaneId: 20}));
+    });
+
     it('reorders columns from the keyboard', () => {
         const onMoveColumn = vi.fn();
         render(

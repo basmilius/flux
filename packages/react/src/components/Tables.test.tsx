@@ -79,6 +79,13 @@ describe('table primitives', () => {
         expect(onRowClick).toHaveBeenCalledWith(0, expect.anything());
     });
 
+    it('does not activate rows from custom interactive widgets', () => {
+        const onRowClick = vi.fn();
+        render(<FluxTable><FluxTableRow isClickable onRowClick={onRowClick}><FluxTableCell><span role="switch" aria-checked="false" tabIndex={0}>Toggle</span></FluxTableCell></FluxTableRow></FluxTable>);
+        fireEvent.click(screen.getByRole('switch'));
+        expect(onRowClick).not.toHaveBeenCalled();
+    });
+
     it('toggles groups and tree rows accessibly', () => {
         const onToggle = vi.fn();
         render(

@@ -110,7 +110,7 @@ function hasOpenFence(source: string) {
     for (const line of source.split('\n')) {
         if (fence) {
             if (line.trimStart().startsWith(fence)) fence = '';
-        } else fence = /^ {0,3}(`{3}|~{3})/.exec(line)?.[1] ?? '';
+        } else fence = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1] ?? '';
     }
     return Boolean(fence);
 }
@@ -608,12 +608,13 @@ function formatJson(value: string | Record<string, unknown>) {
 }
 function signature(value?: string | Record<string, unknown>) {
     if (value === undefined) return '';
-    let parsed: Record<string, unknown>;
+    let parsed: unknown;
     try {
         parsed = typeof value === 'string' ? JSON.parse(value) : value;
     } catch {
         return '';
     }
+    if (parsed === null || typeof parsed !== 'object') return '';
     const summary = Object.entries(parsed)
         .map(([key, item]) => `${key}: ${typeof item === 'string' ? JSON.stringify(item.length > 24 ? `${item.slice(0, 24)}...` : item) : Array.isArray(item) ? `[${item.length}]` : item && typeof item === 'object' ? '{...}' : String(item)}`)
         .join(', ');

@@ -117,7 +117,13 @@ export const FluxCommandPalette = forwardRef<FluxCommandPaletteHandle, { default
         if (!query) return setRemote({});
         let active = true;
         setLoading(true);
-        Promise.all(sources.map(async (source) => [source.key, source.fetchSearch ? await source.fetchSearch(query) : source.items.filter((item) => `${item.label} ${item.subLabel ?? ''}`.toLowerCase().includes(query.toLowerCase()))] as const))
+        Promise.all(sources.map(async (source) => {
+            try {
+                return [source.key, source.fetchSearch ? await source.fetchSearch(query) : source.items.filter((item) => `${item.label} ${item.subLabel ?? ''}`.toLowerCase().includes(query.toLowerCase()))] as const;
+            } catch {
+                return [source.key, []] as const;
+            }
+        }))
             .then((entries) => {
                 if (active) setRemote(Object.fromEntries(entries));
             })

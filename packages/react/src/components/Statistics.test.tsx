@@ -97,4 +97,21 @@ describe('statistics components', () => {
         expect(screen.getByText('Review')).toBeInTheDocument();
         expect(screen.getAllByRole('listitem')).toHaveLength(2);
     });
+
+    it('observes tracker geometry for layout-driven path updates', async () => {
+        const observe = vi.fn(),
+            disconnect = vi.fn();
+        vi.stubGlobal('ResizeObserver', class {
+            observe = observe;
+            disconnect = disconnect;
+        });
+        render(
+            <FluxStatisticsTracker>
+                <FluxStatisticsTrackerEntry title="First" />
+                <FluxStatisticsTrackerEntry title="Second" />
+            </FluxStatisticsTracker>
+        );
+        await waitFor(() => expect(observe.mock.calls.length).toBeGreaterThanOrEqual(3));
+        vi.unstubAllGlobals();
+    });
 });

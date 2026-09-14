@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
+import type { FluxConfirmObject, FluxPromptObject } from '@flux-ui/types/notify';
 import type { FluxColor, FluxDirection, FluxIconName } from '../types';
 import { FluxAction } from './Composition';
 import { FluxDestructiveButton, FluxPrimaryButton, FluxSecondaryButton } from './Actions';
@@ -42,17 +43,7 @@ export interface FluxAlertObject {
     title: string;
     onClose(): void;
 }
-export interface FluxConfirmObject extends Omit<FluxAlertObject, 'onClose'> {
-    onCancel(): void;
-    onConfirm(): void;
-}
-export interface FluxPromptObject extends Omit<FluxAlertObject, 'onClose'> {
-    fieldLabel: string;
-    fieldPlaceholder?: string;
-    fieldType?: string;
-    onCancel(): void;
-    onConfirm(text: string): void;
-}
+export type { FluxConfirmObject, FluxPromptObject } from '@flux-ui/types/notify';
 export interface FluxTooltipObject {
     id: number;
     content?: string;

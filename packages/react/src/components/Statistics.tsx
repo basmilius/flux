@@ -359,6 +359,7 @@ export const FluxStatisticsTrackerInjectionKey = createContext<TrackerContext | 
     FluxStatisticsTrackerGroupInjectionKey = createContext<TrackerGroupContext | null>(null);
 export function useTracker(root: React.RefObject<HTMLElement | null>) {
     const [markers, setMarkers] = useState<HTMLElement[]>([]),
+        [geometryVersion, setGeometryVersion] = useState(0),
         registerMarker = useCallback((element: HTMLElement | null) => {
             if (element) setMarkers((items) => (items.includes(element) ? items : [...items, element]));
             return () => {
@@ -375,7 +376,14 @@ export function useTracker(root: React.RefObject<HTMLElement | null>) {
                     return `${index ? 'L' : 'M'} ${rect.left + rect.width / 2 - rootRect.left} ${rect.top + rect.height / 2 - rootRect.top}`;
                 })
                 .join(' ');
-        }, [root.current, markers]);
+        }, [geometryVersion, markers, root]);
+    useLayoutEffect(() => {
+        if (typeof ResizeObserver === 'undefined') return;
+        const observer = new ResizeObserver(() => setGeometryVersion((version) => version + 1));
+        if (root.current) observer.observe(root.current);
+        markers.forEach((marker) => observer.observe(marker));
+        return () => observer.disconnect();
+    }, [markers, root]);
     return { dashPath: '', linePath, registerMarker, registerGroup };
 }
 export function FluxStatisticsTracker({ children }: { children?: ReactNode }) {

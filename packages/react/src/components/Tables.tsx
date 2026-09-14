@@ -161,7 +161,7 @@ export function FluxTable({ ariaRowcount, caption, captionSide = 'bottom', child
     );
 }
 
-const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [role=button]';
+const INTERACTIVE_SELECTOR = 'a, button, input, label, select, textarea, [contenteditable]:not([contenteditable="false"]), [role=button], [role=checkbox], [role=radio], [role=switch]';
 export interface FluxTableRowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color' | 'onClick'> {
     color?: FluxColor;
     isClickable?: boolean;

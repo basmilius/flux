@@ -52,6 +52,35 @@ describe('visual effects', () => {
         expect(screen.getByLabelText('42')).toBeInTheDocument();
     });
 
+    it('applies slot timing options and queues non-interrupting updates', () => {
+        vi.useFakeTimers();
+        const slot = createRef<FluxVisualSlotTextHandle>();
+        const {container} = render(<FluxVisualSlotText ref={slot} text="A" bounce={0} color="red" colorFade={20} duration={100} easing="linear" exitOffset={10} interrupt={false} stagger={0} skipUnchanged={false} />);
+        act(() => slot.current?.set('B'));
+        act(() => vi.advanceTimersByTime(11));
+        const faces = container.querySelectorAll<HTMLElement>('[class*=charFace]');
+        expect(faces[faces.length - 1].style.transition).toContain('transform 100ms linear, color 20ms');
+        act(() => slot.current?.set('C'));
+        act(() => vi.runAllTimers());
+        expect(screen.getByLabelText('C')).toHaveTextContent('C');
+        vi.useRealTimers();
+    });
+
+    it('honors cubic-bezier number easing and staggered unchanged scrambling', () => {
+        vi.useFakeTimers();
+        const scramble = createRef<FluxVisualTextScrambleHandle>();
+        render(<><FluxVisualNumberFlow value={100} duration={800} easing="cubic-bezier(0, 0, 1, 1)" /><FluxVisualTextScramble ref={scramble} text="AB" duration={100} stagger={1} skipUnchanged /></>);
+        act(() => vi.advanceTimersByTime(400));
+        expect(Number(screen.getByLabelText('100').textContent)).toBeGreaterThan(40);
+        expect(Number(screen.getByLabelText('100').textContent)).toBeLessThan(60);
+        act(() => scramble.current?.set('AX'));
+        act(() => vi.advanceTimersByTime(20));
+        expect(screen.getByLabelText('AB')).toHaveTextContent('AB');
+        act(() => vi.runAllTimers());
+        expect(screen.getByLabelText('AB')).toHaveTextContent('AX');
+        vi.useRealTimers();
+    });
+
     it('finishes border-beam deactivation after its animation', () => {
         vi.useFakeTimers();
         const onDeactivate = vi.fn();

@@ -17,6 +17,8 @@
     ],
     "exports": {
         ".": "./src/index.ts",
+        "./application": "./src/application.ts",
+        "./notify": "./src/notify.ts",
         "./react": "./src/react.ts",
         "./translate": "./src/translate.ts"
     },

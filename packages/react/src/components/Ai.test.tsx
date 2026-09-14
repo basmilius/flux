@@ -27,7 +27,13 @@ describe('AI markdown', () => {
     it('repairs partial streams and detects settled block boundaries', () => {
         expect(repairStreamingTail('A **partial')).toBe('A **partial**');
         expect(repairStreamingTail('A [partial')).toBe('A ');
+        expect(repairStreamingTail('````ts\nconst value = 1;\n```\n**partial')).toBe('````ts\nconst value = 1;\n```\n**partial');
         expect(findBlockBoundary('First\n\nSecond')).toBe(7);
+    });
+
+    it('accepts non-object JSON tool arguments without crashing', () => {
+        render(<FluxAiToolCall name="lookup" arguments="null" />);
+        expect(screen.getByRole('button', { name: /lookup/ })).toBeInTheDocument();
     });
 });
 

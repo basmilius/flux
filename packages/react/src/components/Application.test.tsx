@@ -18,6 +18,19 @@ function StateProbe() {
 }
 
 describe('application shell', () => {
+    it('falls back safely when browser storage is blocked', () => {
+        const getItem = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+                throw new Error('Blocked');
+            }),
+            setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+                throw new Error('Blocked');
+            });
+        render(<FluxApplication><StateProbe /></FluxApplication>);
+        expect(screen.getByText('default:true:0:0')).toBeInTheDocument();
+        getItem.mockRestore();
+        setItem.mockRestore();
+    });
+
     it('shares layout and menu state through the application hooks', () => {
         render(
             <FluxApplication menu={<FluxApplicationMenu><FluxApplicationMenuToggle /></FluxApplicationMenu>}>

@@ -198,7 +198,7 @@ export function autoSides(sourcePosition: FluxFlowPosition, sourceSize: FluxFlow
     return vertical ? (dy >= 0 ? ['bottom', 'top'] : ['top', 'bottom']) : dx >= 0 ? ['right', 'left'] : ['left', 'right'];
 }
 
-export type FluxFlowPath = { readonly path: string; readonly labelX: number; readonly labelY: number; readonly fromDirection: readonly [number, number]; readonly toDirection: readonly [number, number] };
+export type FluxFlowPath = { readonly path: string; readonly points: readonly FluxFlowPosition[]; readonly labelX: number; readonly labelY: number; readonly fromDirection: readonly [number, number]; readonly toDirection: readonly [number, number] };
 export function sideNormal(side: FluxFlowSide): readonly [number, number] {
     return side === 'top' ? [0, -1] : side === 'bottom' ? [0, 1] : side === 'left' ? [-1, 0] : [1, 0];
 }
@@ -290,7 +290,7 @@ export function roundedPath(rawPoints: readonly FluxFlowPosition[], radius: numb
 export function getStraightPath(source: FluxFlowPosition, target: FluxFlowPosition, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center'): FluxFlowPath {
     const points = [source, ...waypoints, target],
         label = labelPoint(points, placement, 0);
-    return { path: points.map((point, index) => `${index ? 'L' : 'M'} ${point.x} ${point.y}`).join(' '), labelX: label.x, labelY: label.y, fromDirection: unitVector(source, points[1]), toDirection: unitVector(target, points.at(-2)!) };
+    return { path: points.map((point, index) => `${index ? 'L' : 'M'} ${point.x} ${point.y}`).join(' '), points, labelX: label.x, labelY: label.y, fromDirection: unitVector(source, points[1]), toDirection: unitVector(target, points.at(-2)!) };
 }
 export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', curvature = 0.25): FluxFlowPath {
     if (waypoints.length) {
@@ -303,7 +303,7 @@ export function getBezierPath(source: FluxFlowPosition, sourceSide: FluxFlowSide
         offset = Math.max(Math.hypot(target.x - source.x, target.y - source.y) * curvature, 30),
         c1 = { x: source.x + snx * offset, y: source.y + sny * offset },
         c2 = { x: target.x + tnx * offset, y: target.y + tny * offset };
-    return { path: `M ${source.x} ${source.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${target.x} ${target.y}`, labelX: 0.125 * source.x + 0.375 * c1.x + 0.375 * c2.x + 0.125 * target.x, labelY: 0.125 * source.y + 0.375 * c1.y + 0.375 * c2.y + 0.125 * target.y, fromDirection: sideNormal(sourceSide), toDirection: sideNormal(targetSide) };
+    return { path: `M ${source.x} ${source.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${target.x} ${target.y}`, points: [source, c1, c2, target], labelX: 0.125 * source.x + 0.375 * c1.x + 0.375 * c2.x + 0.125 * target.x, labelY: 0.125 * source.y + 0.375 * c1.y + 0.375 * c2.y + 0.125 * target.y, fromDirection: sideNormal(sourceSide), toDirection: sideNormal(targetSide) };
 }
 export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', radius = 15, offset = 15): FluxFlowPath {
     const sourceStub = offsetPoint(source, sourceSide, offset),
@@ -319,7 +319,7 @@ export function getSmoothStepPath(source: FluxFlowPosition, sourceSide: FluxFlow
     } else points.push(isVerticalSide(sourceSide) ? { x: sourceStub.x, y: targetStub.y } : { x: targetStub.x, y: sourceStub.y });
     points.push(targetStub, target);
     const label = labelPoint(points, placement, offset);
-    return { path: roundedPath(points, radius), labelX: label.x, labelY: label.y, fromDirection: sideNormal(sourceSide), toDirection: sideNormal(targetSide) };
+    return { path: roundedPath(points, radius), points: dedupe(points), labelX: label.x, labelY: label.y, fromDirection: sideNormal(sourceSide), toDirection: sideNormal(targetSide) };
 }
 export function getStepPath(source: FluxFlowPosition, sourceSide: FluxFlowSide, target: FluxFlowPosition, targetSide: FluxFlowSide, waypoints: readonly FluxFlowPosition[] = [], placement: FluxFlowLabelPlacement = 'center', offset = 15): FluxFlowPath {
     return getSmoothStepPath(source, sourceSide, target, targetSide, waypoints, placement, 0, offset);

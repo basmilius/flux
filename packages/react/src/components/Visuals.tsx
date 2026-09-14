@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
-import { Children, cloneElement, createContext, forwardRef, isValidElement, useContext, useEffect, useId, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode, SVGAttributes } from 'react';
+import { Children, cloneElement, createContext, forwardRef, isValidElement, useContext, useEffect, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { AnimationEventHandler, CSSProperties, HTMLAttributes, ReactElement, ReactNode, SVGAttributes } from 'react';
 import type { FluxColor, FluxStyle } from '../types';
 import attentionStyles from '../../../visuals/src/css/component/Attention.module.scss';
 import beamStyles from '../../../visuals/src/css/component/BorderBeam.module.scss';
@@ -121,11 +121,14 @@ export const FluxVisualAttention = forwardRef<FluxVisualAttentionHandle, { child
         <>
             {Children.map(children, (child) => {
                 if (!isValidElement(child)) return child;
-                const element = child as ReactElement<{ className?: string; style?: CSSProperties; onAnimationEnd?: () => void }>;
+                const element = child as ReactElement<{ className?: string; style?: CSSProperties; onAnimationEnd?: AnimationEventHandler<HTMLElement> }>;
                 return cloneElement(element, {
                     className: clsx(element.props.className, className, playing && attentionStyles[effect]),
                     style: { ...element.props.style, '--attention-duration': duration } as FluxStyle,
-                    onAnimationEnd: finish
+                    onAnimationEnd: (event) => {
+                        element.props.onAnimationEnd?.(event);
+                        if (event.target === event.currentTarget) finish();
+                    }
                 });
             })}
         </>
@@ -356,6 +359,56 @@ export function FluxVisualNoise({ animated = false, blend = 'overlay', className
     return <div {...props} aria-hidden="true" className={clsx(noiseStyles.noise, animated && noiseStyles.animated, className)} style={{ ...props.style, '--noise-blend': blend, '--noise-opacity': opacity } as FluxStyle} />;
 }
 export type FluxVisualNumberFlowEasing = 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out' | `cubic-bezier(${string})` | ((progress: number) => number);
+type NumberFlowEasingFunction = (progress: number) => number;
+const NUMBER_FLOW_EASINGS: Record<'linear' | 'ease-in' | 'ease-out' | 'ease-in-out', NumberFlowEasingFunction> = {
+    linear: (progress) => progress,
+    'ease-in': (progress) => progress * progress,
+    'ease-out': (progress) => 1 - (1 - progress) ** 2,
+    'ease-in-out': (progress) => (progress < 0.5 ? 2 * progress * progress : 1 - (-2 * progress + 2) ** 2 / 2)
+};
+const CUBIC_BEZIER_PATTERN = /^cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)$/;
+function cubicBezier(x1: number, y1: number, x2: number, y2: number): NumberFlowEasingFunction {
+    const ax = 3 * x1 - 3 * x2 + 1,
+        bx = 3 * x2 - 6 * x1,
+        cx = 3 * x1,
+        ay = 3 * y1 - 3 * y2 + 1,
+        by = 3 * y2 - 6 * y1,
+        cy = 3 * y1,
+        sampleX = (time: number) => ((ax * time + bx) * time + cx) * time,
+        sampleY = (time: number) => ((ay * time + by) * time + cy) * time,
+        slopeX = (time: number) => (3 * ax * time + 2 * bx) * time + cx;
+    return (progress) => {
+        if (progress <= 0) return 0;
+        if (progress >= 1) return 1;
+        let time = progress;
+        for (let index = 0; index < 8; index++) {
+            const error = sampleX(time) - progress,
+                slope = slopeX(time);
+            if (Math.abs(error) < 1e-6) return sampleY(time);
+            if (Math.abs(slope) < 1e-6) break;
+            time -= error / slope;
+        }
+        let low = 0,
+            high = 1;
+        time = progress;
+        for (let index = 0; index < 20; index++) {
+            const estimate = sampleX(time);
+            if (Math.abs(estimate - progress) < 1e-6) break;
+            if (estimate < progress) low = time;
+            else high = time;
+            time = (low + high) / 2;
+        }
+        return sampleY(time);
+    };
+}
+function resolveNumberFlowEasing(easing: FluxVisualNumberFlowEasing): NumberFlowEasingFunction {
+    if (typeof easing === 'function') return easing;
+    if (easing in NUMBER_FLOW_EASINGS) return NUMBER_FLOW_EASINGS[easing as keyof typeof NUMBER_FLOW_EASINGS];
+    const match = CUBIC_BEZIER_PATTERN.exec(easing.trim());
+    if (!match) return NUMBER_FLOW_EASINGS['ease-out'];
+    const values = match.slice(1).map(Number);
+    return values.every(Number.isFinite) && values[0] >= 0 && values[0] <= 1 && values[2] >= 0 && values[2] <= 1 ? cubicBezier(values[0], values[1], values[2], values[3]) : NUMBER_FLOW_EASINGS['ease-out'];
+}
 export function FluxVisualNumberFlow({ animateOnMount = true, className, duration = 800, easing = 'ease-out', format, locale, value, ...props }: HTMLAttributes<HTMLSpanElement> & { animateOnMount?: boolean; duration?: number; easing?: FluxVisualNumberFlowEasing; format?: Intl.NumberFormatOptions; locale?: string; value: number }) {
     const formatter = useMemo(() => new Intl.NumberFormat(locale, format ?? { maximumFractionDigits: 0 }), [locale, JSON.stringify(format)]),
         [display, setDisplay] = useState(animateOnMount ? 0 : value),
@@ -364,7 +417,7 @@ export function FluxVisualNumberFlow({ animateOnMount = true, className, duratio
         const from = current.current,
             start = performance.now();
         let frame = 0;
-        const ease = typeof easing === 'function' ? easing : easing === 'linear' ? (x: number) => x : easing === 'ease-in' ? (x: number) => x * x : easing === 'ease-in-out' ? (x: number) => (x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2) : (x: number) => 1 - (1 - x) ** 2;
+        const ease = resolveNumberFlowEasing(easing);
         const tick = (now: number) => {
             const progress = reducedMotion() || duration <= 0 ? 1 : Math.min(1, (now - start) / duration),
                 next = from + (value - from) * ease(progress);
@@ -413,71 +466,246 @@ export interface FluxVisualSlotTextHandle {
     flash(text: string, options?: { revertAfter?: number }): void;
     set(text: string): void;
 }
-export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?: number; chromatic?: boolean; color?: string; colorFade?: number; direction?: 'up' | 'down'; duration?: number; easing?: string; exitOffset?: number; interrupt?: boolean; skipUnchanged?: boolean; stagger?: number; text: string }>(function FluxVisualSlotText({ chromatic, color, direction = 'down', duration = 300, stagger = 45, text }, forwardedRef) {
-    const [display, setDisplay] = useState(text),
-        resting = useRef(text),
-        timer = useRef(0);
+interface SlotTextOptions {
+    bounce: number;
+    color?: string | ((index: number, total: number) => string);
+    colorFade: number;
+    direction: 'up' | 'down';
+    duration: number;
+    easing: string;
+    exitOffset: number;
+    interrupt: boolean;
+    skipUnchanged: boolean;
+    stagger: number;
+}
+interface SlotTextState {
+    pending?: { options: SlotTextOptions; text: string };
+    target: string;
+    timers: number[];
+}
+export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?: number; chromatic?: boolean; color?: string; colorFade?: number; direction?: 'up' | 'down'; duration?: number; easing?: string; exitOffset?: number; interrupt?: boolean; skipUnchanged?: boolean; stagger?: number; text: string }>(function FluxVisualSlotText({ bounce = 0.6, chromatic = false, color, colorFade = 280, direction = 'down', duration = 300, easing = 'cubic-bezier(0.34, 1.56, 0.64, 1)', exitOffset = 50, interrupt = true, skipUnchanged = true, stagger = 45, text }, forwardedRef) {
+    const label = useRef<HTMLSpanElement>(null),
+        initialText = useRef(text),
+        previousText = useRef(text),
+        state = useRef<SlotTextState | null>(null),
+        restingText = useRef<string | undefined>(undefined),
+        revertTimer = useRef(0);
+    const glyph = (char: string) => (char === ' ' ? '\u00a0' : char);
+    const makeFace = (char: string) => {
+        const face = document.createElement('span');
+        face.className = slotStyles.charFace;
+        face.textContent = glyph(char);
+        return face;
+    };
+    const buildSlot = (char: string) => {
+        const slot = document.createElement('span'),
+            sizer = document.createElement('span');
+        slot.className = slotStyles.charSlot;
+        slot.dataset.char = char;
+        sizer.className = slotStyles.charSizer;
+        sizer.textContent = glyph(char);
+        slot.append(sizer, makeFace(char));
+        return slot;
+    };
+    const build = (container: HTMLElement, value: string) => {
+        container.classList.add(slotStyles.slotText);
+        container.replaceChildren(...Array.from(value, buildSlot));
+    };
+    const settle = (container: HTMLElement) => {
+        if (!state.current) return;
+        state.current.timers.forEach((timer) => window.clearTimeout(timer));
+        const target = state.current.target;
+        state.current = null;
+        build(container, target);
+    };
+    const baseOptions = (): SlotTextOptions => ({
+        bounce,
+        color: chromatic ? (index, total) => `hsl(${(index / Math.max(1, total - 1)) * 320} 92% 60%)` : color,
+        colorFade,
+        direction,
+        duration,
+        easing,
+        exitOffset,
+        interrupt,
+        skipUnchanged,
+        stagger
+    });
+    const animate = (container: HTMLElement, toText: string, options: SlotTextOptions) => {
+        if (reducedMotion() || options.duration <= 0) {
+            settle(container);
+            build(container, toText);
+            return;
+        }
+        if (state.current && !options.interrupt) {
+            if (state.current.target !== toText) state.current.pending = { options, text: toText };
+            return;
+        }
+        settle(container);
+        let slots = Array.from(container.querySelectorAll<HTMLElement>(`.${slotStyles.charSlot}`));
+        if (!slots.length) {
+            build(container, toText);
+            return;
+        }
+        const fromText = slots.map((slot) => slot.dataset.char ?? '').join(''),
+            maxLength = Math.max(fromText.length, toText.length);
+        if (fromText === toText && options.skipUnchanged) return;
+        for (let index = slots.length; index < maxLength; index++) container.append(buildSlot(''));
+        slots = Array.from(container.querySelectorAll<HTMLElement>(`.${slotStyles.charSlot}`));
+        const sample = slots.find((slot) => (slot.dataset.char ?? '') !== '') ?? slots[0],
+            computed = getComputedStyle(container),
+            height = Math.ceil(sample?.getBoundingClientRect().height || sample?.offsetHeight || container.getBoundingClientRect().height || Number.parseFloat(computed.lineHeight) || Number.parseFloat(computed.fontSize) * 1.3 || 18),
+            outY = options.direction === 'down' ? height : -height,
+            inY = -outY,
+            restColor = options.color ? computed.color : '',
+            timers: number[] = [];
+        state.current = { target: toText, timers };
+        let maxEnd = 0;
+        const wobble = (index: number, salt: number) => {
+            const value = Math.sin((index + 1) * 12.9898 + salt * 78.233) * 43758.5453;
+            return (value - Math.floor(value)) * 2 - 1;
+        };
+        for (let index = 0; index < maxLength; index++) {
+            const fromChar = fromText[index] ?? '',
+                toChar = toText[index] ?? '';
+            if (fromChar === toChar && (options.skipUnchanged || fromChar === '')) continue;
+            const slot = slots[index],
+                oldFace = slot.querySelector<HTMLElement>(`.${slotStyles.charFace}`),
+                sizer = slot.querySelector<HTMLElement>(`.${slotStyles.charSizer}`)!,
+                tail = toChar === '',
+                characterDuration = Math.max(0, Math.round(options.duration * (tail ? 0.75 : 1) * (1 + options.bounce * 0.45 * wobble(index, 1)))),
+                staggerIndex = tail ? toText.length * 0.5 + (index - toText.length) * 0.25 : index,
+                delay = Math.max(0, Math.round(staggerIndex * options.stagger * (1 + options.bounce * 0.25 * wobble(index, 2)))),
+                tilt = options.bounce * 5 * wobble(index, 3),
+                transition = `transform ${characterDuration}ms ${options.easing}`,
+                tint = typeof options.color === 'function' ? options.color(index, maxLength) : options.color,
+                newFace = makeFace(toChar);
+            sizer.textContent = glyph(toChar);
+            newFace.style.transformOrigin = '50% 50%';
+            newFace.style.transform = `translateY(${inY}px) rotate(${tilt.toFixed(2)}deg)`;
+            if (tint) newFace.style.color = tint;
+            slot.append(newFace);
+            void slot.offsetWidth;
+            if (oldFace)
+                timers.push(window.setTimeout(() => {
+                    oldFace.style.transition = transition;
+                    oldFace.style.transform = `translateY(${outY}px) rotate(${-tilt}deg)`;
+                }, delay));
+            timers.push(window.setTimeout(() => {
+                newFace.style.transition = options.color ? `${transition}, color ${options.colorFade}ms linear ${characterDuration}ms` : transition;
+                newFace.style.transform = 'translateY(0) rotate(0deg)';
+                if (options.color) newFace.style.color = restColor;
+            }, delay + options.exitOffset));
+            maxEnd = Math.max(maxEnd, delay + options.exitOffset + characterDuration + (options.color ? options.colorFade : 0));
+        }
+        timers.push(window.setTimeout(() => {
+            const pending = state.current?.pending;
+            state.current = null;
+            build(container, toText);
+            if (pending) animate(container, pending.text, pending.options);
+        }, maxEnd + 80));
+    };
+    const set = (next: string) => {
+        if (!label.current) return;
+        window.clearTimeout(revertTimer.current);
+        restingText.current = undefined;
+        label.current.setAttribute('aria-label', next);
+        animate(label.current, next, baseOptions());
+    };
+    useLayoutEffect(() => {
+        if (label.current) build(label.current, text);
+        return () => {
+            window.clearTimeout(revertTimer.current);
+            if (label.current) settle(label.current);
+        };
+    }, []);
     useEffect(() => {
-        resting.current = text;
-        setDisplay(text);
+        if (previousText.current === text) return;
+        previousText.current = text;
+        set(text);
     }, [text]);
     useImperativeHandle(forwardedRef, () => ({
-        set: setDisplay,
+        set,
         flash(next, options) {
-            clearTimeout(timer.current);
-            setDisplay(next);
-            timer.current = window.setTimeout(() => setDisplay(resting.current), options?.revertAfter ?? 1400);
-        },
+            const container = label.current;
+            if (!container) return;
+            if (restingText.current === undefined) restingText.current = text;
+            container.setAttribute('aria-label', next);
+            animate(container, next, { ...baseOptions(), interrupt: false });
+            window.clearTimeout(revertTimer.current);
+            revertTimer.current = window.setTimeout(() => {
+                const resting = restingText.current ?? text;
+                restingText.current = undefined;
+                container.setAttribute('aria-label', resting);
+                animate(container, resting, { ...baseOptions(), interrupt: false });
+            }, options?.revertAfter ?? 1400);
+        }
     }));
-    useEffect(() => () => clearTimeout(timer.current), []);
-    return (
-        <span className={slotStyles.slotText} aria-label={display}>
-            {Array.from(display).map((char, index) => (
-                <span key={`${index}-${char}`} className={slotStyles.charSlot} style={{ transition: `transform ${duration}ms`, transitionDelay: `${index * stagger}ms`, transform: direction === 'up' ? 'translateY(0)' : undefined, color: chromatic ? `hsl(${(index / Math.max(1, display.length - 1)) * 320} 92% 60%)` : color }}>
-                    <span className={slotStyles.charSizer}>{char === ' ' ? '\u00a0' : char}</span>
-                    <span className={slotStyles.charFace}>{char === ' ' ? '\u00a0' : char}</span>
-                </span>
-            ))}
-        </span>
-    );
+    return <span ref={label} className={slotStyles.slotText} aria-label={text}>{initialText.current}</span>;
 });
 export interface FluxVisualTextScrambleHandle {
     replay(): void;
     set(text: string): void;
 }
-export const FluxVisualTextScramble = forwardRef<FluxVisualTextScrambleHandle, { characters?: string; className?: string; duration?: number; onFinished?: () => void; skipUnchanged?: boolean; speed?: number; stagger?: number; text: string }>(function FluxVisualTextScramble({ characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', className, duration = 900, onFinished, speed = 45, text }, forwardedRef) {
+export const FluxVisualTextScramble = forwardRef<FluxVisualTextScrambleHandle, { characters?: string; className?: string; duration?: number; onFinished?: () => void; skipUnchanged?: boolean; speed?: number; stagger?: number; text: string }>(function FluxVisualTextScramble({ characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', className, duration = 900, onFinished, skipUnchanged = true, speed = 45, stagger = 0.5, text }, forwardedRef) {
     const [display, setDisplay] = useState(text),
         current = useRef(text),
-        timer = useRef(0);
-    const scramble = (next: string) => {
-        clearInterval(timer.current);
+        previousText = useRef(text),
+        frame = useRef(0);
+    const scramble = (next: string, force = false) => {
+        cancelAnimationFrame(frame.current);
+        const from = current.current;
+        current.current = next;
         if (duration <= 0 || reducedMotion()) {
-            current.current = next;
             setDisplay(next);
             onFinished?.();
             return;
         }
-        const start = performance.now(),
-            from = current.current;
-        timer.current = window.setInterval(() => {
-            const progress = Math.min(1, (performance.now() - start) / duration);
-            setDisplay(Array.from({ length: Math.max(from.length, next.length) }, (_, index) => (progress > index / Math.max(1, next.length) ? (next[index] ?? '') : characters[Math.floor(Math.random() * characters.length)])).join(''));
-            if (progress >= 1) {
-                clearInterval(timer.current);
-                current.current = next;
+        const maxLength = Math.max(from.length, next.length),
+            spread = Math.min(1, Math.max(0, stagger)),
+            revealWindow = duration * spread,
+            scrambleFor = duration - revealWindow,
+            cells = Array.from({ length: maxLength }, (_, index) => {
+                const fromChar = from[index] ?? '',
+                    toChar = next[index] ?? '',
+                    fixed = !force && skipUnchanged && fromChar !== '' && fromChar === toChar,
+                    start = maxLength <= 1 ? 0 : (index / (maxLength - 1)) * revealWindow;
+                return { from: fromChar, to: toChar, start, end: start + scrambleFor, char: '', lastSwap: -Infinity, fixed };
+            }),
+            startTime = performance.now();
+        const tick = (now: number) => {
+            const elapsed = now - startTime;
+            let output = '',
+                done = 0;
+            for (const cell of cells) {
+                if (cell.fixed || elapsed >= cell.end) {
+                    output += cell.to;
+                    done++;
+                } else if (elapsed >= cell.start) {
+                    if (now - cell.lastSwap >= speed) {
+                        cell.char = characters.charAt(Math.floor(Math.random() * characters.length));
+                        cell.lastSwap = now;
+                    }
+                    output += cell.char;
+                } else output += cell.from;
+            }
+            setDisplay(output);
+            if (done === cells.length) {
+                frame.current = 0;
                 setDisplay(next);
                 onFinished?.();
-            }
-        }, speed);
+            } else frame.current = requestAnimationFrame(tick);
+        };
+        frame.current = requestAnimationFrame(tick);
     };
-    useEffect(() => scramble(text), [text]);
-    useEffect(() => () => clearInterval(timer.current), []);
+    useEffect(() => {
+        if (previousText.current === text) return;
+        previousText.current = text;
+        scramble(text);
+    }, [text]);
+    useEffect(() => () => cancelAnimationFrame(frame.current), []);
     useImperativeHandle(forwardedRef, () => ({
-        replay: () => {
-            current.current = '';
-            scramble(text);
-        },
-        set: scramble,
+        replay: () => scramble(current.current, true),
+        set: scramble
     }));
     return (
         <span aria-label={text} className={clsx(scrambleStyles.textScramble, className)}>

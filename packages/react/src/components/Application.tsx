@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
+import type { FluxApplicationLayout } from '@flux-ui/types/application';
 import type { FluxColor, FluxIconName, FluxPressableType, FluxTo } from '../types';
 import { FluxSecondaryButton } from './Actions';
 import { FluxBoxedIcon } from './DisplayExtended';
@@ -19,7 +20,7 @@ import sideStyles from '../../../application/src/css/component/ApplicationSide.m
 import statusStyles from '../../../application/src/css/component/ApplicationStatusPage.module.scss';
 import topStyles from '../../../application/src/css/component/ApplicationTop.module.scss';
 
-export type FluxApplicationLayout = 'default' | 'dashboard' | 'full' | 'medium' | 'narrow';
+export type { FluxApplicationLayout } from '@flux-ui/types/application';
 export interface FluxApplicationContextInfo {
     entryTo?: FluxTo;
     href?: string;
@@ -125,7 +126,13 @@ export function FluxApplication({ children, className, contextMenuName = 'menu',
     const [contexts, setContexts] = useState<FluxApplicationContextInfo[]>([]);
     const [layout, setLayout] = useState<FluxApplicationLayout>('default');
     const [viewIndex, setViewIndex] = useState(0);
-    const [isMenuCollapsed, setCollapsed] = useState(() => (typeof localStorage === 'undefined' || typeof localStorage.getItem !== 'function' ? true : localStorage.getItem('flux-application-menu-collapsed') !== 'false'));
+    const [isMenuCollapsed, setCollapsed] = useState(() => {
+        try {
+            return typeof localStorage === 'undefined' || typeof localStorage.getItem !== 'function' || localStorage.getItem('flux-application-menu-collapsed') !== 'false';
+        } catch {
+            return true;
+        }
+    });
     const totalLevels = 1 + (route?.matched ?? []).filter((record) => record.components && contextMenuName in record.components).length;
     const clamp = (index: number) => Math.max(0, Math.min(totalLevels - 1, index));
     useEffect(() => {
@@ -136,7 +143,11 @@ export function FluxApplication({ children, className, contextMenuName = 'menu',
     }, [route?.fullPath, totalLevels]);
     useEffect(() => {
         if (typeof document !== 'undefined') document.documentElement.toggleAttribute('data-application-menu-open', !isMenuCollapsed);
-        if (typeof localStorage !== 'undefined' && typeof localStorage.setItem === 'function') localStorage.setItem('flux-application-menu-collapsed', String(isMenuCollapsed));
+        try {
+            if (typeof localStorage !== 'undefined' && typeof localStorage.setItem === 'function') localStorage.setItem('flux-application-menu-collapsed', String(isMenuCollapsed));
+        } catch {
+            // Storage can be unavailable in privacy-restricted contexts.
+        }
         return () => {
             if (typeof document !== 'undefined') document.documentElement.removeAttribute('data-application-menu-open');
         };
