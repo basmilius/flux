@@ -463,7 +463,7 @@
 
     "@flux-ui/visuals": ["@flux-ui/visuals@workspace:packages/visuals"],
 
-    "@fortawesome/fontawesome-common-types": ["@fortawesome/fontawesome-common-types@7.3.1", "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-7.3.1.tgz", {}, "sha512-k0C0sdHmZtAo6dRDtd1Z/qcpyHbL0CKsjV8seMY/21xGhY5Wsv0XRmiI/xEEH4y2c9b1+jvgNs/3EqhV27yUEA=="],
+    "@fortawesome/fontawesome-common-types": ["@fortawesome/fontawesome-common-types@7.3.1", "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-7.3.1.tgz", {}, "sha512-k0C0sdHmZtAo6dRDtd1Z/qcpyHbL0CKsjV8seMY/21xGhY5Wsv0XRmiI/xEEH4y2c9b1+jvgNs/3EqhV27yUEA=="],
 
     "@fortawesome/pro-regular-svg-icons": ["@fortawesome/pro-regular-svg-icons@7.3.1", "https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/pro-regular-svg-icons-7.3.1.tgz", { "dependencies": { "@fortawesome/fontawesome-common-types": "7.3.1" } }, "sha512-7iJTicd2X4cgUQ5/HlMIUCMtePYNmclMeunu+tvyErsqzu2cMmS3nwaLGNikwX1ISHRybWZqkMYb5l4/so3V5Q=="],
 

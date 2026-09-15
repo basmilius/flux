@@ -1,0 +1,234 @@
+name: Pull Request preview
+
+on:
+    workflow_dispatch:
+        inputs:
+            pr_number:
+                description: Pull request number to preview
+                required: true
+                type: number
+            expected_head_sha:
+                description: Exact reviewed PR head SHA
+                required: true
+                type: string
+
+concurrency:
+    cancel-in-progress: true
+    group: ${{ format('preview-pr-{0}', inputs.pr_number) }}
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        name: Build reviewed React preview
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            pull-requests: read
+        outputs:
+            artifact_name: ${{ steps.pr.outputs.artifact_name }}
+            environment_name: ${{ steps.pr.outputs.environment_name }}
+            head_sha: ${{ steps.pr.outputs.head_sha }}
+            pr_number: ${{ steps.pr.outputs.pr_number }}
+        steps:
+            -   name: Validate reviewed pull request
+                id: pr
+                uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+                env:
+                    EXPECTED_HEAD_SHA: ${{ inputs.expected_head_sha }}
+                    PR_NUMBER: ${{ inputs.pr_number }}
+                with:
+                    script: |
+                        const defaultRef = `refs/heads/${context.payload.repository.default_branch}`;
+                        const prNumber = Number(process.env.PR_NUMBER);
+                        const expectedHeadSha = process.env.EXPECTED_HEAD_SHA.trim().toLowerCase();
+
+                        if (context.ref !== defaultRef) {
+                            core.setFailed(`Run this workflow from the default branch (${defaultRef}).`);
+                            return;
+                        }
+
+                        if (!Number.isSafeInteger(prNumber) || prNumber < 1) {
+                            core.setFailed("pr_number must be a positive integer.");
+                            return;
+                        }
+
+                        if (!/^[0-9a-f]{40}$/.test(expectedHeadSha)) {
+                            core.setFailed("expected_head_sha must be a full 40-character commit SHA.");
+                            return;
+                        }
+
+                        const {data: pull} = await github.rest.pulls.get({
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            pull_number: prNumber,
+                        });
+
+                        if (pull.state !== "open") {
+                            core.setFailed(`Pull request #${prNumber} is not open.`);
+                            return;
+                        }
+
+                        if (pull.head.sha.toLowerCase() !== expectedHeadSha) {
+                            core.setFailed(
+                                `Pull request #${prNumber} moved: expected ${expectedHeadSha}, found ${pull.head.sha}. Review the new head before retrying.`,
+                            );
+                            return;
+                        }
+
+                        core.setOutput("artifact_name", `preview-${prNumber}-${pull.head.sha}`);
+                        core.setOutput("environment_name", "preview");
+                        core.setOutput("head_sha", pull.head.sha);
+                        core.setOutput("merge_ref", `refs/pull/${prNumber}/merge`);
+                        core.setOutput("pr_number", String(prNumber));
+
+            -   name: 👀 Checkout reviewed merge
+                uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+                with:
+                    fetch-depth: 1
+                    persist-credentials: false
+                    ref: ${{ steps.pr.outputs.merge_ref }}
+
+            -   name: 🍞 Setup Bun
+                uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+
+            -   name: Use public package registry
+                run: rm -f .npmrc
+
+            -   name: 📦 Install public React dependencies
+                run: bun install --filter @flux-ui/react --frozen-lockfile --ignore-scripts --config=.github/public-bunfig.toml
+
+            -   name: 🧪 Test React
+                run: bun run --cwd packages/react test
+
+            -   name: 🔨 Build React
+                run: bun run --cwd packages/react build
+
+            -   name: 🌐 Build React showcase
+                run: bun run --cwd packages/react build:showcase
+
+            -   name: Package static preview
+                uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+                with:
+                    if-no-files-found: error
+                    name: ${{ steps.pr.outputs.artifact_name }}
+                    path: docs/public/react
+                    retention-days: 7
+
+    deploy:
+        name: Deploy reviewed React preview
+        needs: build
+        runs-on: ubuntu-latest
+        environment: preview
+        permissions:
+            contents: read
+            deployments: write
+        steps:
+            -   name: Checkout trusted deployment configuration
+                uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+                with:
+                    persist-credentials: false
+                    ref: ${{ github.event.repository.default_branch }}
+
+            -   name: Download static preview
+                uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+                with:
+                    name: ${{ needs.build.outputs.artifact_name }}
+                    path: _preview/react
+
+            -   name: Reject symbolic links
+                shell: bash
+                run: |
+                    if find _preview -type l -print -quit | grep -q .; then
+                        echo "The preview artifact must not contain symbolic links." >&2
+                        exit 1
+                    fi
+
+            -   name: Create preview deployment
+                id: deployment
+                uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+                env:
+                    ENVIRONMENT_NAME: ${{ needs.build.outputs.environment_name }}
+                    HEAD_SHA: ${{ needs.build.outputs.head_sha }}
+                    PR_NUMBER: ${{ needs.build.outputs.pr_number }}
+                with:
+                    script: |
+                        const {data: deployment} = await github.rest.repos.createDeployment({
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            ref: process.env.HEAD_SHA,
+                            task: "deploy",
+                            auto_merge: false,
+                            required_contexts: [],
+                            environment: process.env.ENVIRONMENT_NAME,
+                            description: `React preview for pull request #${process.env.PR_NUMBER}`,
+                            transient_environment: true,
+                            production_environment: false,
+                        });
+
+                        core.setOutput("deployment_id", String(deployment.id));
+
+                        await github.rest.repos.createDeploymentStatus({
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            deployment_id: deployment.id,
+                            state: "in_progress",
+                            environment: process.env.ENVIRONMENT_NAME,
+                            description: "Uploading static preview to Cloudflare",
+                        });
+
+            -   name: 🚀 Publish static preview
+                id: publish
+                uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4
+                with:
+                    accountId: 5e565cf9fa55b0eae1f8131903da2ca9
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    command: versions upload --assets _preview --tag pr-${{ needs.build.outputs.pr_number }}
+                    wranglerVersion: "4.69.0"
+
+            -   name: Mark deployment successful
+                uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+                env:
+                    DEPLOYMENT_ID: ${{ steps.deployment.outputs.deployment_id }}
+                    DEPLOYMENT_URL: ${{ steps.publish.outputs.deployment-url }}
+                    ENVIRONMENT_NAME: ${{ needs.build.outputs.environment_name }}
+                with:
+                    script: |
+                        const deploymentUrl = process.env.DEPLOYMENT_URL.replace(/\/+$/, "");
+                        if (!deploymentUrl) {
+                            core.setFailed("Cloudflare did not return a deployment URL.");
+                            return;
+                        }
+
+                        await github.rest.repos.createDeploymentStatus({
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            deployment_id: Number(process.env.DEPLOYMENT_ID),
+                            state: "success",
+                            environment: process.env.ENVIRONMENT_NAME,
+                            environment_url: `${deploymentUrl}/react/`,
+                            description: "React preview is ready",
+                        });
+
+            -   name: Mark deployment failed
+                if: failure() && steps.deployment.outputs.deployment_id != ''
+                uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+                env:
+                    DEPLOYMENT_ID: ${{ steps.deployment.outputs.deployment_id }}
+                    ENVIRONMENT_NAME: ${{ needs.build.outputs.environment_name }}
+                with:
+                    script: |
+                        await github.rest.repos.createDeploymentStatus({
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            deployment_id: Number(process.env.DEPLOYMENT_ID),
+                            state: "failure",
+                            environment: process.env.ENVIRONMENT_NAME,
+                            description: "React preview deployment failed",
+                        });
+
+            -   name: ⭐️ Output
+                env:
+                    DEPLOYMENT_URL: ${{ steps.publish.outputs.deployment-url }}
+                run: echo "Deployed on ${DEPLOYMENT_URL%/}/react/"
