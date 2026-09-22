@@ -541,6 +541,12 @@
             display: none;
             -webkit-appearance: none;
         }
+
+        // Firefox draws a picker button of its own and exposes no pseudo-element to hide it,
+        // so it is clipped away instead: https://bugzil.la/1812397
+        @supports (-moz-appearance: none) {
+            clip-path: inset(0 calc(12px + 1.5em) 0 0);
+        }
     }
 }
 
