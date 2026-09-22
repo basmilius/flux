@@ -1,9 +1,13 @@
 import type { DateTime } from 'luxon';
-import { useTranslate } from '~flux/components/composable/private';
+import type { FluxTranslate } from '~flux/components/data';
 
-export default function (start: DateTime, end: DateTime, preventCustom: boolean = false): string {
-    const translate = useTranslate();
-
+/**
+ * Writes a date range as the shortest label that still reads unambiguously,
+ * dropping the parts both dates share. A range that spans more than one year
+ * has nothing left to drop; it becomes "custom period" when a translate
+ * function is given and the full range when it is not.
+ */
+export default function (start: DateTime, end: DateTime, translate?: FluxTranslate): string {
     if (start.day === end.day && start.month === end.month && start.year === end.year) {
         return start.toLocaleString({
             day: 'numeric',
@@ -41,21 +45,21 @@ export default function (start: DateTime, end: DateTime, preventCustom: boolean 
         return `${startStr} – ${endStr}`;
     }
 
-    if (preventCustom) {
-        const startStr = start.toLocaleString({
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        });
-
-        const endStr = end.toLocaleString({
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        });
-
-        return `${startStr} – ${endStr}`;
+    if (translate) {
+        return translate('flux.customPeriod');
     }
 
-    return translate('flux.customPeriod');
+    const startStr = start.toLocaleString({
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+
+    const endStr = end.toLocaleString({
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+
+    return `${startStr} – ${endStr}`;
 }
