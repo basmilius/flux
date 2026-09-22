@@ -198,6 +198,11 @@
     color: var(--foreground-prominent);
 }
 
+.applicationMenu :local(.menuItemDestructive) :local(.menuItemIcon),
+.applicationMenu :local(.menuItemDestructive) :local(.menuItemLabel) {
+    color: var(--danger-text);
+}
+
 .applicationMenuAccount {
     position: relative;
 
