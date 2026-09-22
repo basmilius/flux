@@ -2,10 +2,9 @@ import type { DateTime } from 'luxon';
 import type { FluxTranslate } from '~flux/components/data';
 
 /**
- * Writes a date range as the shortest label that still reads unambiguously,
- * dropping the parts both dates share. A range that spans more than one year
- * has nothing left to drop; it becomes "custom period" when a translate
- * function is given and the full range when it is not.
+ * Writes a date range as the shortest label that still reads unambiguously. A range
+ * spanning more than one year becomes "custom period", or the full range without a
+ * translate function.
  */
 export default function (start: DateTime, end: DateTime, translate?: FluxTranslate): string {
     if (start.day === end.day && start.month === end.month && start.year === end.year) {
