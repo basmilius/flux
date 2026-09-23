@@ -113,12 +113,13 @@ export default defineConfig({
             },
             {
                 text: 'Packages',
-                activeMatch: '/(ai|application|flow|internals|statistics|visuals)/',
+                activeMatch: '/(ai|application|flow|internals|react|statistics|visuals)/',
                 items: [
                     {text: 'AI', link: '/ai/'},
                     {text: 'Application', link: '/application/'},
                     {text: 'Flow', link: '/flow/'},
                     {text: 'Internals', link: '/internals/'},
+                    {text: 'React', link: '/react/'},
                     {text: 'Statistics', link: '/statistics/'},
                     {text: 'Visuals', link: '/visuals/'}
                 ]
@@ -137,6 +138,7 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'What is Flux', link: '/guide/introduction/what-is-flux'},
+                        {text: 'React', link: '/guide/introduction/react'},
                         {
                             text: 'Installation',
                             collapsed: true,

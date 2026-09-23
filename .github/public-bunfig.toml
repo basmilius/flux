@@ -1,0 +1,5 @@
+[install]
+registry = "https://registry.npmjs.org"
+
+[install.scopes]
+fortawesome = "https://registry.npmjs.org"
