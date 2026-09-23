@@ -546,6 +546,7 @@ export default defineConfig({
                     text: 'Utils',
                     collapsed: false,
                     items: [
+                        {text: 'createLabelForDateRange', link: '/internals/utils/createLabelForDateRange'},
                         {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},
@@ -555,6 +556,7 @@ export default defineConfig({
                         {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
                         {text: 'isActiveElement', link: '/internals/utils/isActiveElement'},
                         {text: 'isSSR', link: '/internals/utils/isSSR'},
+                        {text: 'VNodeRenderer', link: '/internals/utils/VNodeRenderer'},
                         {text: 'warn', link: '/internals/utils/warn'},
                         {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},
                         {text: 'FOCUS_TRAP_LOCKS', link: '/internals/utils/focusTrap'}

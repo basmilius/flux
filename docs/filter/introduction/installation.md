@@ -31,9 +31,11 @@ npm install @flux-ui/filter @flux-ui/components
 Once the installation is complete, add the following lines to your `main.ts` file:
 
 ```ts [main.ts]
-import '@flux-ui/filter/style.css'
 import '@flux-ui/components/style.css'
+import '@flux-ui/filter/style.css'
 ```
+
+Keep this order. The filter badge and the filter bar button restyle a component class at the same specificity, so the filter stylesheet has to load after the components one.
 
 ## Step 3
 

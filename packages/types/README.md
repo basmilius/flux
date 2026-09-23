@@ -36,3 +36,4 @@ There is no build step; consumers import directly from `./src/index.ts`.
 - [`@flux-ui/internals`](../internals)
 - [`@flux-ui/statistics`](../statistics)
 - [`@flux-ui/application`](../application)
+- [`@flux-ui/filter`](../filter)

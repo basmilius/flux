@@ -137,7 +137,7 @@ Always import from a directory's barrel (`index.ts`) **unless** the importing fi
 - ✅ From `component/FluxButton.vue`: `import { useDisabled } from '~flux/composable';`
 - ✅ From `composable/useFoo.ts`: `import { useDisabled } from './useDisabled';`
 
-Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `vite/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`. Every other package has the same set minus what it does not have, including a `composable/private/` of its own.
+Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`. Every other package has the same set minus what it does not have, including a `composable/private/` of its own. `filter` adds `vite/`, the entry behind `@flux-ui/filter/vite`.
 
 The three clusters under `component/` (`form/`, `table/`, `menu/`) deliberately have **no** barrel: they are a way to keep the directory listing readable, not a module boundary. Reach a component in one of them through `component/`'s barrel, or relatively.
 

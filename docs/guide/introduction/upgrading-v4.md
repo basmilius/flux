@@ -146,8 +146,11 @@ bun add @flux-ui/filter
 ```
 
 ```ts [main.ts]
-import '@flux-ui/filter/style.css'
+import '@flux-ui/components/style.css'
+import '@flux-ui/filter/style.css' // [!code focus]
 ```
+
+Import the filter stylesheet after the components one. A few filter styles override a component class at the same specificity, and before this release they won by coming later in the same bundle.
 
 These names now come from `@flux-ui/filter`:
 

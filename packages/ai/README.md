@@ -29,6 +29,7 @@ Components for chat surfaces, streaming responses and rendered markdown, built o
 - [`@flux-ui/types`](../types)
 - [`@flux-ui/internals`](../internals)
 - [`@flux-ui/application`](../application)
+- [`@flux-ui/filter`](../filter)
 - [`@flux-ui/statistics`](../statistics)
 - [`@flux-ui/flow`](../flow)
 - [`@flux-ui/visuals`](../visuals)
