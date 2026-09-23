@@ -8,9 +8,9 @@ import { english } from '../../../packages/internals/src/data/i18n/filter';
 
 # Translations
 
-The filters render a handful of strings of their own: the back action, the min and
-max labels of a range, the summary of a multiple selection and the label of a date
-range that spans several years. Unlike the other packages, these keys do not sit
+The filters render a handful of strings of their own: the back action, the remove
+button on a filter, the min and max labels of a range, the summary of a multiple
+selection and the label of a date range that spans several years. Unlike the other packages, these keys do not sit
 under `flux.filter`. They came out of `@flux-ui/components` and kept their names, so
 a translation you already had still applies. Translate a key in your own [vue-i18n](https://vue-i18n.intlify.dev/){target="_blank"}
 messages and the filters follow, leave it out and the English below is used.

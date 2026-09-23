@@ -26,7 +26,6 @@
 </template>
 
 <script lang="ts">
-    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
 
     export type FluxAiSuggestion = {
@@ -40,6 +39,7 @@
     lang="ts"
     setup>
     import { FluxIcon, useDisabled } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { toRef } from 'vue';
     import $style from '~flux/ai/css/component/AiSuggestions.module.scss';
 

@@ -189,15 +189,12 @@ If you reached for an injection key to read a controller, there is no replacemen
 
 Every package used to carry its own English dictionary and its own translate
 composable. They are one dictionary now, in `@flux-ui/internals`, with a single
-[`useTranslate`](../../internals/composables/useTranslate) next to it. So these
-names are gone:
+[`useTranslate`](../../internals/composables/useTranslate) next to it.
 
-- `FluxTranslate` and `FluxTranslation` from `@flux-ui/components`. Import them
-  from `@flux-ui/internals`, where they cover every Flux key.
-- `FluxAiTranslate`, `FluxAiTranslation`, `FluxApplicationTranslate`,
-  `FluxApplicationTranslation`, `FluxFlowTranslate` and `FluxFlowTranslation`,
-  along with the `useTranslate` each package exported. Use `FluxTranslate`,
-  `FluxTranslation` and `useTranslate` from `@flux-ui/internals`.
+`FluxTranslate` and `FluxTranslation` are no longer exported from
+`@flux-ui/components`. Import them from `@flux-ui/internals`, where they cover
+every Flux key. If you ran an early v4 beta, the same goes for `FluxAiTranslate`,
+`FluxAiTranslation` and `useTranslate` from `@flux-ui/ai`.
 
 The keys themselves did not change, so your translation files need nothing.
 
