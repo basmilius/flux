@@ -38,7 +38,6 @@ export type {
     FluxCalendarKeyboardDirection,
     FluxCalendarView,
     FluxExpandableGroupInjection,
-    FluxFilterInjection,
     FluxFlyoutInjection,
     FluxFormCheckboxGroupInjection,
     FluxFormCheckboxGroupValue,
@@ -60,15 +59,3 @@ export type {
     FluxState,
     FluxStore
 } from './data';
-
-export {
-    defineFilter,
-    isFluxFilterOptionHeader,
-    isFluxFilterOptionItem,
-    pickFilterCommon
-} from './util';
-
-export type {
-    FluxFilterDefinitionContext,
-    FluxFilterDefinitionFactory
-} from './util';

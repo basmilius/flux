@@ -99,10 +99,10 @@
     setup>
     import { useEventListener } from '@basmilius/common';
     import { isHtmlElement } from '@basmilius/utils';
-    import { flattenVNodeTree, useFocusTrap } from '@flux-ui/internals';
+    import { flattenVNodeTree, useFocusTrap, VNodeRenderer } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, Fragment, h, nextTick, ref, useId, useTemplateRef, type VNode, watch } from 'vue';
-    import { AnchorPopup, VNodeRenderer } from '~flux/components/component/primitive';
+    import { AnchorPopup } from '~flux/components/component/primitive';
     import { useTranslate } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxPane from './FluxPane.vue';

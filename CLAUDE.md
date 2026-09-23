@@ -20,6 +20,7 @@ packages/
   ai/           @flux-ui/ai          - conversational and AI building blocks
   statistics/   @flux-ui/statistics  - statistics / chart components (Apache ECharts)
   application/  @flux-ui/application - application layout / navigation components
+  filter/       @flux-ui/filter      - filter menu, filter bar and the filters in them
   flow/         @flux-ui/flow        - display-only node-based flow building blocks
   visuals/      @flux-ui/visuals     - visual effect components
 docs/                                - VitePress documentation site
@@ -32,6 +33,7 @@ A unified `~flux/*` namespace is used across all packages, with each Flux packag
 - `~flux/components/*` → `packages/components/src/*`
 - `~flux/ai/*` → `packages/ai/src/*`
 - `~flux/application/*` → `packages/application/src/*`
+- `~flux/filter/*` → `packages/filter/src/*`
 - `~flux/statistics/*` → `packages/statistics/src/*`
 - `~flux/flow/*` → `packages/flow/src/*`
 - `~flux/visuals/*` → `packages/visuals/src/*`
@@ -47,6 +49,7 @@ The same alias is used for both TypeScript/Vue imports and Sass `@use` statement
 | components     | `bun run --cwd packages/components build`            |
 | ai             | `bun run --cwd packages/ai build`                    |
 | application    | `bun run --cwd packages/application build`           |
+| filter         | `bun run --cwd packages/filter build`                |
 | statistics     | `bun run --cwd packages/statistics build`            |
 | flow           | `bun run --cwd packages/flow build`                  |
 | visuals        | `bun run --cwd packages/visuals build`               |
@@ -102,6 +105,7 @@ A single unified `~flux/*` namespace is used for both TypeScript/Vue imports and
 | `~flux/components/*`     | `packages/components/src/*`   |
 | `~flux/ai/*`             | `packages/ai/src/*`           |
 | `~flux/application/*`    | `packages/application/src/*`  |
+| `~flux/filter/*`         | `packages/filter/src/*`       |
 | `~flux/statistics/*`     | `packages/statistics/src/*`   |
 | `~flux/flow/*`           | `packages/flow/src/*`         |
 | `~flux/visuals/*`        | `packages/visuals/src/*`      |
@@ -135,7 +139,7 @@ Always import from a directory's barrel (`index.ts`) **unless** the importing fi
 
 Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `vite/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`. Every other package has the same set minus what it does not have, including a `composable/private/` of its own.
 
-The four clusters under `component/` (`form/`, `filter/`, `table/`, `menu/`) deliberately have **no** barrel: they are a way to keep the directory listing readable, not a module boundary. Reach a component in one of them through `component/`'s barrel, or relatively.
+The three clusters under `component/` (`form/`, `table/`, `menu/`) deliberately have **no** barrel: they are a way to keep the directory listing readable, not a module boundary. Reach a component in one of them through `component/`'s barrel, or relatively.
 
 **Critical for injection keys**: an injection key **must** always be reached through the barrel of the directory it lives in, never through a deep path. A deep import creates a separate module instance in Vite/rolldown - provider and consumer end up with different `Symbol()` instances and `inject()` returns nothing. So `FluxKanbanInjectionKey` and friends come from the `~flux/components/data` barrel, never from `~flux/components/data/di`.
 
@@ -193,7 +197,7 @@ All components use `<script lang="ts" setup>`. The Options API is disabled (`__V
 - Component files: `FluxComponentName.vue` (PascalCase, `Flux` prefix)
 - Primitive / internal components: `packages/components/src/component/primitive/`
 
-`packages/components/src/component/` groups four clusters into subdirectories, on **name prefix** alone: `FluxForm*` in `form/`, `FluxFilter*` in `filter/`, `FluxTable*` in `table/`, `FluxMenu*` in `menu/`. Everything else stays at the top level, which is why `FluxDataTable`, `FluxToggle`, `FluxContextMenu` and `FluxDatePicker` sit next to the folders instead of inside one. The rule is mechanical on purpose: a new component goes in a folder when its name starts with that prefix, and nowhere else. The CSS module does not follow it - `css/component/` stays flat.
+`packages/components/src/component/` groups three clusters into subdirectories, on **name prefix** alone: `FluxForm*` in `form/`, `FluxTable*` in `table/`, `FluxMenu*` in `menu/`. Everything else stays at the top level, which is why `FluxDataTable`, `FluxToggle`, `FluxContextMenu` and `FluxDatePicker` sit next to the folders instead of inside one. The rule is mechanical on purpose: a new component goes in a folder when its name starts with that prefix, and nowhere else. The CSS module does not follow it - `css/component/` stays flat.
 
 ### Props pattern
 
@@ -324,9 +328,9 @@ from there**. `internals` does not re-export it: one function, one import path.
 
 Utilities (`packages/internals/src/util/`):
 - Focus helpers - `wrapFocus`, `focusTrap`, `getFocusableElement`, `getFocusableElements`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`
-- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`
+- VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`, `VNodeRenderer`
 - Types - `TemplateElement`, `TemplateRef` (the shape a Flux template ref has; resolve one with `unwrapElement` from `@basmilius/common`)
-- Misc - `isActiveElement`, `isSSR`, `warn`
+- Misc - `createLabelForDateRange`, `isActiveElement`, `isSSR`, `warn`
 
 Composables (`packages/internals/src/composable/`):
 - Focus traps - `useFocusTrap`, `useFocusTrapLock`, `useFocusTrapReturn`, `useFocusTrapSubscription`, `useFocusZone`
@@ -363,7 +367,7 @@ Exported publicly:
 
 Injection composables (not public, used internally):
 - `useAdaptiveGroupInjection`, `useCalendarInjection`, `useDisabledInjection`, `useExpandableGroupInjection`
-- `useFilterInjection`, `useFlyoutInjection`, `useFormCheckboxGroupInjection`, `useFormFieldInjection`, `useFormRadioGroupInjection`
+- `useFlyoutInjection`, `useFormCheckboxGroupInjection`, `useFormFieldInjection`, `useFormRadioGroupInjection`
 - `useKanbanInjection`, `useSegmentedControlInjection`, `useTabBarInjection`, `useTableInjection`, `useTooltipInjection`
 
 ---
@@ -390,6 +394,7 @@ flat English dictionary in `src/data/i18n.ts` and turns it into a composable wit
 | components  | `flux.*`              |
 | ai          | `flux.ai.*`           |
 | application | `flux.application.*`  |
+| filter      | `flux.*` (see below)  |
 | flow        | `flux.flow.*`         |
 | statistics  | none                  |
 
@@ -397,6 +402,11 @@ Every package calls it `useTranslate`, in `composable/private/`, and none of the
 export it: the dictionary is an implementation detail of the components that render
 those strings. There is no `useAiTranslate` or `useFlowTranslate` - the package a
 component lives in already says which dictionary it reaches.
+
+`filter` breaks the prefix rule on purpose: its keys (`flux.back`, `flux.nSelected`, ...)
+moved out of the components dictionary and kept their names so existing translations
+still apply. `flux.filter.*` would also collide with the `flux.filter` leaf that
+`FluxActionBar` uses. `flux.filter` and `flux.filterReset` sit in both dictionaries.
 
 `createTranslate` reads `useI18n({useScope: 'global'})`, so the app's i18n instance
 must be created with `legacy: false`. A key the app did not translate falls back to
@@ -461,6 +471,12 @@ Icons use FontAwesome Pro. The npm registry token must be set:
 FONTAWESOME_NPM_AUTH_TOKEN=<token>
 ```
 Configured in `.npmrc` with `@fortawesome:registry=https://npm.fontawesome.com/`.
+
+---
+
+## Filter package (`@flux-ui/filter`)
+
+`FluxFilter`, `FluxFilterBar` and the filters in them, plus `defineFilter` and `useFilterInjection`. A filter registers through the `defineFilter()` compile-time macro; the `defineFilterMacro()` Vite plugin that compiles it ships as the second build entry `@flux-ui/filter/vite`, which is why the cluster left `components`. The filter types stay in `@flux-ui/types`.
 
 ---
 

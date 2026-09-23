@@ -1,0 +1,61 @@
+import { closeBundle, preset } from '@basmilius/vite-preset';
+import { resolve } from 'node:path';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import defineFilterMacro from './src/vite/defineFilterMacro.ts';
+
+export default defineConfig(({mode}) => ({
+    plugins: [
+        defineFilterMacro(),
+        preset({
+            cssModules: {
+                classNames: 'kebab'
+            },
+            isLibrary: true,
+            tsconfigPath: resolve(import.meta.dirname, 'tsconfig.app.json')
+        }),
+        vue(),
+        mode !== 'development' && closeBundle()
+    ],
+    build: {
+        assetsDir: '',
+        emptyOutDir: true,
+        outDir: resolve(import.meta.dirname, 'dist'),
+        sourcemap: true,
+        lib: {
+            entry: {
+                index: resolve(import.meta.dirname, 'src/index.ts'),
+                vite: resolve(import.meta.dirname, 'src/vite/index.ts')
+            },
+            formats: ['es'],
+            fileName: (_format, entryName) => `${entryName}.js`,
+            name: 'fluxFilter'
+        },
+        rolldownOptions: {
+            experimental: {
+                lazyBarrel: true
+            },
+            external: ['@basmilius/common', '@basmilius/utils', '@flux-ui/components', '@flux-ui/internals', 'luxon', 'vite', 'vue', 'vue-i18n'],
+            output: {
+                assetFileNames: assetInfo => {
+                    if (assetInfo.name?.endsWith('.css')) {
+                        return 'index.css';
+                    }
+
+                    return '[name][extname]';
+                },
+                exports: 'named',
+                sourcemapIgnoreList: path => path.includes('node_modules')
+            }
+        }
+    },
+    define: {
+        __VUE_OPTIONS_API__: 'false'
+    },
+    resolve: {
+        alias: {
+            '~flux/components': resolve(import.meta.dirname, '../components/src'),
+            '~flux/filter': resolve(import.meta.dirname, 'src')
+        }
+    }
+}));

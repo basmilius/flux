@@ -12,8 +12,9 @@ This major rebuilds the color layer, puts every package behind the same `vue-i18
 | [Translations](#every-package-speaks-the-same-way)        | `vue-i18n` is a peer dependency of every package that renders text.                 | You render any Flux component.                             |
 | [Application side](#the-side-panel-carries-its-own-state) | `FluxApplicationSide` takes `v-model:is-visible` and covers the content below `lg`. | You render a side panel.                                   |
 | [Kanban](#kanban-move-events-carry-a-swimlane)            | `move` and `canMove` carry the swimlane an item came from.                          | You annotate the move event with its type.                 |
+| [Filters](#filters-have-their-own-package)                | The filter components, `defineFilter` and the Vite macro moved to `@flux-ui/filter`. | You render a filter or wrote one of your own.              |
 | [Package exports](#a-package-hands-out-less)              | The injection keys and English dictionaries of `application` and `flow` are internal. | You import one of them by name.                            |
-| [New keys](#eighteen-new-translation-keys)                | 18 keys were added, none were removed or renamed.                                   | You keep a translation map of your own.                    |
+| [New keys](#eighteen-new-translation-keys)                | 18 keys were added and 6 moved to `@flux-ui/filter`, none were renamed.             | You keep a translation map of your own.                    |
 
 ## Colors
 
@@ -126,7 +127,7 @@ Two checks catch most of it. Measure `--primary-on-solid` against `--primary-sol
 
 ## Every package speaks the same way
 
-`vue-i18n` is now a peer dependency of every Flux package that renders text, and each one asks for its keys under the shared `flux` root: `flux.*` for the components, and `flux.ai.*`, `flux.application.*` and `flux.flow.*` for the siblings. A key you did not translate falls back to the English the package ships with, so the strings you never touch keep reading the way they did.
+`vue-i18n` is now a peer dependency of every Flux package that renders text, and each one asks for its keys under the shared `flux` root: `flux.*` for the components, and `flux.ai.*`, `flux.application.*` and `flux.flow.*` for the siblings. `@flux-ui/filter` is the exception: its keys came out of the components and kept their `flux.*` names. A key you did not translate falls back to the English the package ships with, so the strings you never touch keep reading the way they did.
 
 Two things to check.
 
@@ -135,6 +136,37 @@ Your i18n instance has to be created with `legacy: false`, since Flux reads the 
 `@flux-ui/statistics` renders no text of its own, but it does put the series names, slice labels and axis names you hand it through the same translations, which is what it did before v4. A name without a message behind it is rendered exactly as it was given.
 
 [Translations](./translations) covers the setup and lists every string, with the sibling packages on their own pages.
+
+## Filters have their own package
+
+The filter components left `@flux-ui/components` for a package of their own, `@flux-ui/filter`. They were the one feature that needed a build-tool entry in the core package, and `@flux-ui/components/vite` is gone with them. Nothing is renamed, so an upgrade is an install and a change of import path.
+
+```shell
+bun add @flux-ui/filter
+```
+
+```ts [main.ts]
+import '@flux-ui/filter/style.css'
+```
+
+These names now come from `@flux-ui/filter`:
+
+- The components: `FluxFilter`, `FluxFilterBar`, `FluxFilterDate`, `FluxFilterDateRange`, `FluxFilterOption`, `FluxFilterOptionAsync`, `FluxFilterOptions`, `FluxFilterOptionsAsync` and `FluxFilterRange`.
+- The helpers: `defineFilter`, `pickFilterCommon`, `useFilterInjection`, `isFluxFilterOptionHeader` and `isFluxFilterOptionItem`.
+- The types `FluxFilterInjection`, `FluxFilterDefinitionContext` and `FluxFilterDefinitionFactory`.
+- `defineFilterMacro`, from `@flux-ui/filter/vite` instead of `@flux-ui/components/vite`.
+
+```ts [vite.config.ts]
+import { defineFilterMacro } from '@flux-ui/filter/vite'; // [!code focus]
+```
+
+A few details moved along:
+
+- The filter types stay in `@flux-ui/types`, minus seven that nothing produced: `FluxFilterBase`, `FluxFilterItem`, `FluxFilterDateEntry`, `FluxFilterDateRangeEntry`, `FluxFilterOptionEntry`, `FluxFilterOptionsEntry` and `FluxFilterRangeEntry`. They described a union over `type` that the runtime never built. A registered filter is a `FluxFilterDefinition`, whose `type` is a plain string.
+- Six translation keys moved to the dictionary of `@flux-ui/filter` under the same names: `flux.back`, `flux.customPeriod`, `flux.filterRemove`, `flux.max`, `flux.min` and `flux.nSelected`. A translation you already had still applies.
+- The `translate` a `defineFilter` factory receives resolves the filter dictionary now, not the components one. A custom filter that borrowed a key such as `flux.cancel` gets a type error, and without a translation of your own the key renders raw. Put that string in your own translation files.
+
+See [Filter](../../filter/) for the package itself.
 
 ## A package hands out less
 
@@ -161,9 +193,10 @@ strings, and exposing it made an implementation detail part of the contract.
 
 What you lose is the fallback: reaching for `flux.cancel` through your own
 `useI18n()` returns the raw key unless you translated it yourself. So put the
-strings you want in your own translation files. `FluxTranslate` and
-`FluxTranslation` do stay exported, because `defineFilter` hands your factory a
-context carrying one.
+strings you want in your own translation files. `FluxFilterTranslate` and
+`FluxFilterTranslation` are exported from `@flux-ui/filter`, because
+`defineFilter` hands your factory a context carrying one. `FluxTranslate` and
+`FluxTranslation` stay exported from `@flux-ui/components`.
 
 ### Two composables changed name
 
@@ -256,7 +289,7 @@ One combination is refused rather than guessed: `reorderable-columns` is ignored
 
 ## Eighteen new translation keys
 
-The built-in strings of `@flux-ui/components` grew from 85 to 103. Nothing was removed and nothing was renamed, so an existing translation map keeps working; the eighteen new keys belong to components that are new themselves, among them the repeater, swipe actions and the resizable table header.
+`@flux-ui/components` gained eighteen built-in strings and handed six to `@flux-ui/filter`, which leaves it at 97 where v3 had 85. Nothing was renamed, and the six kept their names when they moved, so an existing translation map keeps working. The eighteen new keys belong to components that are new themselves, among them the repeater, swipe actions and the resizable table header.
 
 A key your map does not carry is not a hole: it falls back to the English the package ships with rather than rendering the raw key. [Translations](./translations) lists the full set, read straight from the source.
 

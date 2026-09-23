@@ -46,6 +46,12 @@ const TARGETS: readonly Target[] = [
         translations: 'docs/.vitepress/data/translations/application.ts'
     },
     {
+        name: 'filter',
+        page: 'docs/filter/introduction/translations.md',
+        dictionary: 'packages/filter/src/data/i18n.ts',
+        translations: 'docs/.vitepress/data/translations/filter.ts'
+    },
+    {
         name: 'flow',
         page: 'docs/flow/introduction/translations.md',
         dictionary: 'packages/flow/src/data/i18n.ts',

@@ -1,4 +1,3 @@
-export { default as useAsyncFilterOptions } from './useAsyncFilterOptions';
 export { default as useDateFlyout } from './useDateFlyout';
 export { default as useDropdownPopup, type UseDropdownPopupOptions, type UseDropdownPopupReturn } from './useDropdownPopup';
 export { elasticResistance, useElasticOverdrag, type ElasticResistanceOptions } from './useElasticOverdrag';
@@ -15,6 +14,4 @@ export { useTimeline } from './useTimeline';
 export { default as useTranslate } from './useTranslate';
 export { FLUX_COLORS } from './useTreeView';
 export { useCommandPalette, type CommandPaletteGroup, type CommandPaletteResultItem } from './useCommandPalette';
-export { useFilterOptionMulti, useFilterOptionSingle, type FilterOptionMulti, type FilterOptionSingle } from './useFilterOption';
-export { useFilterValueLabel } from './useFilterValueLabel';
 export { collectExpandedIds, flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, useTreeView, type TreeBaseOption, type TreeFlatNode } from './useTreeView';

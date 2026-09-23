@@ -42,13 +42,13 @@
 <script
     lang="ts"
     setup>
+    import { createLabelForDateRange } from '@flux-ui/internals';
     import type { FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed, toRef, unref, useTemplateRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
     import { useDateFlyout } from '~flux/components/composable/private';
-    import { createLabelForDateRange } from '~flux/components/util';
     import FluxDatePicker from '../FluxDatePicker.vue';
     import FluxFlyout from '../FluxFlyout.vue';
     import FluxSecondaryButton from '../FluxSecondaryButton.vue';

@@ -1,3 +1,4 @@
+export { default as createLabelForDateRange } from './createLabelForDateRange';
 export { default as flattenVNodeTree } from './flattenVNodeTree';
 export { default as getBidirectionalFocusElement } from './getBidirectionalFocusElement';
 export { default as getComponentName } from './getComponentName';
@@ -11,5 +12,6 @@ export { default as warn } from './warn';
 export { default as wrapFocus } from './wrapFocus';
 
 export { default as FOCUS_TRAP_LOCKS, type FocusTrap, type FocusTrapListener } from './focusTrap';
+export { VNodeRenderer } from './VNodeRenderer';
 
 export const isSSR: boolean = !globalThis.document;

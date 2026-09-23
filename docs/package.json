@@ -13,6 +13,7 @@
         "@flux-ui/ai": "workspace:*",
         "@flux-ui/application": "workspace:*",
         "@flux-ui/components": "workspace:*",
+        "@flux-ui/filter": "workspace:*",
         "@flux-ui/flow": "workspace:*",
         "@flux-ui/internals": "workspace:*",
         "@flux-ui/statistics": "workspace:*",

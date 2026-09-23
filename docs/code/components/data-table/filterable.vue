@@ -76,7 +76,8 @@
 <script
     setup
     lang="ts">
-    import { FluxBadge, FluxBadgeStack, FluxDataTable, FluxFilterBar, FluxFilterOption, FluxPane, FluxTableBar, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxBadge, FluxBadgeStack, FluxDataTable, FluxPane, FluxTableBar, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxFilterBar, FluxFilterOption } from '@flux-ui/filter';
     import type { FluxFilterOptionItem, FluxFilterState } from '@flux-ui/types';
     import { computed, ref, watch } from 'vue';
 

@@ -10,7 +10,8 @@ const TARGET_DIRS = [
     'packages/application/dist',
     'packages/statistics/dist',
     'packages/flow/dist',
-    'packages/ai/dist'
+    'packages/ai/dist',
+    'packages/filter/dist'
 ];
 
 function walk(dir) {

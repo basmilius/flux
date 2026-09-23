@@ -1,4 +1,4 @@
-import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue, FluxIconName, FluxSize } from '@flux-ui/types';
+import type { FluxIconName, FluxSize } from '@flux-ui/types';
 import type { DateTime } from 'luxon';
 import type { ComponentInternalInstance, ComputedRef, InjectionKey, Ref, VNode } from 'vue';
 
@@ -12,7 +12,6 @@ export const FluxKanbanLayoutInjectionKey: InjectionKey<FluxKanbanLayoutInjectio
 export const FluxKanbanSwimlaneInjectionKey: InjectionKey<FluxKanbanSwimlaneInjection> = Symbol();
 export const FluxExpandableGroupInjectionKey: InjectionKey<FluxExpandableGroupInjection> = Symbol();
 export const FluxFlyoutInjectionKey: InjectionKey<FluxFlyoutInjection> = Symbol();
-export const FluxFilterInjectionKey: InjectionKey<FluxFilterInjection> = Symbol();
 export const FluxFormCheckboxGroupInjectionKey: InjectionKey<FluxFormCheckboxGroupInjection> = Symbol();
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxFormRadioGroupInjectionKey: InjectionKey<FluxFormRadioGroupInjection> = Symbol();
@@ -156,18 +155,6 @@ export type FluxExpandableGroupInjection = {
     closeAll(): void;
     register(uid: string, expandable: ComponentInternalInstance): void;
     unregister(uid: string): void;
-};
-
-export type FluxFilterInjection = {
-    readonly state: Ref<FluxFilterState>;
-
-    back(): void;
-    clear(name: string | number): void;
-    getDefinition(name: string | number): FluxFilterDefinition | undefined;
-    getValue(name: string | number): FluxFilterValue | undefined;
-    hasValue(name: string | number): boolean;
-    reset(name: string | number): void;
-    setValue(name: string | number, value?: FluxFilterValue): void;
 };
 
 export type FluxFlyoutInjection = {

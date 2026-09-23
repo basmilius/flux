@@ -32,23 +32,16 @@ export type {
 } from './components';
 
 export type {
-    FluxFilterBase,
-    FluxFilterDateEntry,
-    FluxFilterDateRangeEntry,
     FluxFilterDateRangeSpec,
     FluxFilterDateSpec,
     FluxFilterDefinition,
-    FluxFilterItem,
     FluxFilterOptionAsyncSpec,
-    FluxFilterOptionEntry,
     FluxFilterOptionHeader,
     FluxFilterOptionItem,
     FluxFilterOptionRow,
     FluxFilterOptionSpec,
     FluxFilterOptionsAsyncSpec,
-    FluxFilterOptionsEntry,
     FluxFilterOptionsSpec,
-    FluxFilterRangeEntry,
     FluxFilterRangeSpec,
     FluxFilterSpec,
     FluxFilterState,

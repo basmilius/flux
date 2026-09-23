@@ -1,0 +1,57 @@
+---
+outline: deep
+
+props:
+    -   name: icon
+        description: The icon of the filter.
+        type: FluxIconName
+        optional: true
+
+    -   name: label
+        description: The label of the filter.
+        type: string
+
+    -   name: max
+        description: The maximum date that can be selected.
+        type: DateTime
+        optional: true
+
+    -   name: min
+        description: The minimum date that can be selected.
+        type: DateTime
+        optional: true
+
+    -   name: name
+        description: The name of the filter within the filter state.
+        type: string
+
+    -   name: range-mode
+        description: Which range mode should be used.
+        type: [ 'range', 'week', 'month' ]
+---
+
+# Filter date range
+
+The date range filter lets users pick a start and end date, honoring the configured minimum and maximum. It writes the selection to the filter state automatically.
+
+::: render
+render=../../code/filter/components/date-range/preview.vue
+:::
+
+::: warning
+This component can only be used within a [Filter](./filter).
+:::
+
+<FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/filter/components/date-range/snippet.vue [FilterDateRange.vue]
+
+:::
+
+## Used components
+
+- [Date picker](../../components/date-picker)

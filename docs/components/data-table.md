@@ -127,7 +127,7 @@ slots:
             clear: () => void
 
     -   name: filter
-        description: Renders above the table header, typically a `FluxFilterBar` for filtering the data set.
+        description: Renders above the table header, typically a `FluxFilterBar` from `@flux-ui/filter` for filtering the data set.
         type:
             page: number
             per-page: number

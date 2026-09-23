@@ -33,10 +33,6 @@
             "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
         },
-        "./vite": {
-            "types": "./dist/vite/index.d.ts",
-            "default": "./dist/vite.js"
-        },
         "./style.css": "./dist/index.css"
     },
     "publishConfig": {

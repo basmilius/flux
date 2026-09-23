@@ -15,6 +15,7 @@ This is a [Bun workspaces](https://bun.com/docs/install/workspaces) monorepo. Al
 | [`@flux-ui/internals`](packages/internals)       | Shared composables, utilities, and directives.   |
 | [`@flux-ui/statistics`](packages/statistics)     | Chart components built on Apache ECharts.        |
 | [`@flux-ui/application`](packages/application)   | Application shell components.                    |
+| [`@flux-ui/filter`](packages/filter)             | Filter bar and filter components.                |
 
 ## ⭐️ Prerequisites
 

@@ -7,8 +7,8 @@
 <script
     lang="ts"
     setup>
+    import { VNodeRenderer } from '@flux-ui/internals';
     import type { VNode } from 'vue';
-    import { VNodeRenderer } from './primitive';
 
     defineProps<{
         readonly vnode?: VNode;

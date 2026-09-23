@@ -28,6 +28,9 @@
             "~flux/flow/*": [
                 "./node_modules/@flux-ui/flow/src/*"
             ],
+            "~flux/filter/*": [
+                "./node_modules/@flux-ui/filter/src/*"
+            ],
             "~flux/*": [
                 "../node_modules/@flux-ui/components/src/*"
             ],

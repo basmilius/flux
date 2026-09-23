@@ -269,21 +269,6 @@ const navigation: SidebarItem[] = [
                 ]
             },
             {
-                text: 'Filter',
-                link: '/components/filter/',
-                collapsed: true,
-                items: [
-                    {text: 'Bar', link: '/components/filter/bar'},
-                    {text: 'Date', link: '/components/filter/date'},
-                    {text: 'Date range', link: '/components/filter/date-range'},
-                    {text: 'Option', link: '/components/filter/option'},
-                    {text: 'Options', link: '/components/filter/options'},
-                    {text: 'Range', link: '/components/filter/range'},
-                    {text: 'Async option', link: '/components/filter/async-option'},
-                    {text: 'Async options', link: '/components/filter/async-options'}
-                ]
-            },
-            {
                 text: 'Kanban',
                 link: '/components/kanban/',
                 collapsed: true,
