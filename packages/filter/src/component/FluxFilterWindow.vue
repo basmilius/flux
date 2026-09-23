@@ -49,11 +49,10 @@
     lang="ts"
     setup>
     import { FluxMenu, FluxMenuGroup, FluxMenuItem, FluxWindow } from '@flux-ui/components';
-    import { getFocusableElement, vHeightTransition, VNodeRenderer } from '@flux-ui/internals';
+    import { getFocusableElement, useTranslate, vHeightTransition, VNodeRenderer } from '@flux-ui/internals';
     import type { FluxFilterDefinition } from '@flux-ui/types';
     import { nextTick, unref, useTemplateRef, type VNode } from 'vue';
     import { useFilterInjection } from '~flux/filter/composable';
-    import { useTranslate } from '~flux/filter/composable/private';
     import { isResettable } from '~flux/filter/util';
     import { FilterMenuRenderer } from './primitive';
     import $style from '~flux/filter/css/component/Filter.module.scss';

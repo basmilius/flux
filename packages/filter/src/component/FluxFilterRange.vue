@@ -39,10 +39,10 @@
     setup>
     import { formatNumber } from '@basmilius/utils';
     import { FluxFormColumn, FluxFormField, FluxFormSlider, FluxPaneBody } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxFilterRangeSpec } from '@flux-ui/types';
     import { computed, unref } from 'vue';
     import { useFilterInjection } from '~flux/filter/composable';
-    import { useTranslate } from '~flux/filter/composable/private';
     import { defineFilter, pickFilterCommon } from '~flux/filter/util';
 
     type Props = FluxFilterRangeSpec & {

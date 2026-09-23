@@ -5,10 +5,9 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree, getComponentName, getComponentProps } from '@flux-ui/internals';
+    import { flattenVNodeTree, getComponentName, getComponentProps, useTranslate } from '@flux-ui/internals';
     import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
     import { computed, provide, unref, type VNode, watch } from 'vue';
-    import { useTranslate } from '~flux/filter/composable/private';
     import { FluxFilterInjectionKey } from '~flux/filter/data';
     import type { FluxFilterDefinitionFactory } from '~flux/filter/util';
 

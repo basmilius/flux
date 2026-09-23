@@ -19,9 +19,9 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import $style from '~flux/components/css/component/Remove.module.scss';
 

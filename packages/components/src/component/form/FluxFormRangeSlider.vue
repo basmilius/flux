@@ -47,10 +47,10 @@
     lang="ts"
     setup>
     import { countDecimals, formatNumber, roundStep } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxDirection, FluxFormInputBaseProps } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import { addTooltip, removeTooltip, updateTooltip } from '~flux/components/data';
     import { SliderBase, SliderThumb, SliderTrack } from '../primitive';
 

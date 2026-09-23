@@ -1,6 +1,6 @@
-import type { FluxFlowTranslation } from '../../../../packages/flow/src/data/i18n';
+import type { english } from '../../../../packages/internals/src/data/i18n/flow';
 
-export type Messages = Record<FluxFlowTranslation, string>;
+export type Messages = Record<keyof typeof english, string>;
 
 export const nl: Messages = {
     'flux.flow.exitFullscreen': 'Volledig scherm verlaten',

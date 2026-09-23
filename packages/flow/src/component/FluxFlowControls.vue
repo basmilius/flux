@@ -66,9 +66,9 @@
     lang="ts"
     setup>
     import { FluxButtonGroup, FluxButtonStack, FluxFlyout, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxSecondaryButton, FluxSeparator } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue';
     import { useFlowInjection } from '~flux/flow/composable';
-    import { useTranslate } from '~flux/flow/composable/private';
     import type { FluxFlowPanelPosition } from '~flux/flow/data';
     import FluxFlowPanel from './FluxFlowPanel.vue';
     import $style from '~flux/flow/css/component/FlowControls.module.scss';

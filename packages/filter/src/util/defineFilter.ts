@@ -1,8 +1,8 @@
+import type { FluxTranslate } from '@flux-ui/internals';
 import type { FluxFilterDefinition, FluxFilterValue } from '@flux-ui/types';
-import type { FluxFilterTranslate } from '~flux/filter/data';
 
 export type FluxFilterDefinitionContext = {
-    readonly translate: FluxFilterTranslate;
+    readonly translate: FluxTranslate;
 };
 
 export type FluxFilterDefinitionFactory<TProps = any, TValue extends FluxFilterValue = FluxFilterValue> =

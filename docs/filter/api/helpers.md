@@ -37,7 +37,7 @@ defineFilter<Props>(p => ({
 
 The factory is invoked by `FluxFilterBase` on each filter VNode's props, so it must be a self-contained pure function: no references to local `<script setup>` variables. The `defineFilterMacro()` Vite plugin compiles the call into the appropriate `defineOptions({ __filterDefinitionFactory: ... })`.
 
-Because it may not reach into the component, the factory cannot call `useTranslate()` either. That is what its second argument is for: a context carrying the same `translate` the filter components render their own strings with, so a value label follows the visitor's language. `FluxFilterOptions` uses it to summarize a multiple selection.
+Because it may not reach into the component, the factory cannot call `useTranslate()` either. That is what its second argument is for: a context carrying the same `translate` the Flux components render their own strings with, so a value label follows the visitor's language. It reaches every Flux key, not only the filter ones. `FluxFilterOptions` uses it to summarize a multiple selection.
 
 ```ts
 defineFilter<Props>((p, {translate}) => ({
@@ -81,7 +81,7 @@ if (isFluxFilterOptionItem(row)) {
 
 ```ts
 type FluxFilterDefinitionContext = {
-    readonly translate: FluxFilterTranslate;
+    readonly translate: FluxTranslate;
 };
 
 type FluxFilterDefinitionFactory<TProps = any, TValue extends FluxFilterValue = FluxFilterValue> =

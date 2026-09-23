@@ -74,8 +74,8 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxFlyout, FluxIcon, FluxMenu, FluxSecondaryButton } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { computed, type VNode } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiModelSelect.module.scss';
 
     const modelValue = defineModel<string>();

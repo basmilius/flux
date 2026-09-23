@@ -17,8 +17,8 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { VNode } from 'vue';
-    import { useTranslate } from '../composable/private';
     import $style from '~flux/application/css/component/ApplicationSide.module.scss';
 
     const isVisible = defineModel<boolean>('isVisible', {

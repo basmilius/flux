@@ -166,8 +166,7 @@ import { defineFilterMacro } from '@flux-ui/filter/vite'; // [!code focus]
 A few details moved along:
 
 - The filter types stay in `@flux-ui/types`, minus seven that nothing produced: `FluxFilterBase`, `FluxFilterItem`, `FluxFilterDateEntry`, `FluxFilterDateRangeEntry`, `FluxFilterOptionEntry`, `FluxFilterOptionsEntry` and `FluxFilterRangeEntry`. They described a union over `type` that the runtime never built. A registered filter is a `FluxFilterDefinition`, whose `type` is a plain string.
-- Six translation keys moved to the dictionary of `@flux-ui/filter` under the same names: `flux.back`, `flux.customPeriod`, `flux.filterRemove`, `flux.max`, `flux.min` and `flux.nSelected`. A translation you already had still applies.
-- The `translate` a `defineFilter` factory receives resolves the filter dictionary now, not the components one. A custom filter that borrowed a key such as `flux.cancel` gets a type error, and without a translation of your own the key renders raw. Put that string in your own translation files.
+- Six translation keys belong to the filters now, under the same names: `flux.back`, `flux.customPeriod`, `flux.filterRemove`, `flux.max`, `flux.min` and `flux.nSelected`. A translation you already had still applies, and they are listed on the [filter translations](../../filter/introduction/translations) page.
 
 See [Filter](../../filter/) for the package itself.
 
@@ -186,20 +185,21 @@ Only these five names fail there, and they fail at the type checker rather than 
 
 If you reached for an injection key to read a controller, there is no replacement: that state is internal, and a component that depended on it was depending on something that could move under it.
 
-### The translate composable is internal
+### Translations live in `@flux-ui/internals`
 
-`useTranslate` is gone from every package, and so are the dictionary types behind
-the per-package variants: `FluxAiTranslate`, `FluxAiTranslation`,
-`FluxApplicationTranslate`, `FluxApplicationTranslation`, `FluxFlowTranslate` and
-`FluxFlowTranslation`. The dictionary is how the components resolve their own
-strings, and exposing it made an implementation detail part of the contract.
+Every package used to carry its own English dictionary and its own translate
+composable. They are one dictionary now, in `@flux-ui/internals`, with a single
+[`useTranslate`](../../internals/composables/useTranslate) next to it. So these
+names are gone:
 
-What you lose is the fallback: reaching for `flux.cancel` through your own
-`useI18n()` returns the raw key unless you translated it yourself. So put the
-strings you want in your own translation files. `FluxFilterTranslate` and
-`FluxFilterTranslation` are exported from `@flux-ui/filter`, because
-`defineFilter` hands your factory a context carrying one. `FluxTranslate` and
-`FluxTranslation` stay exported from `@flux-ui/components`.
+- `FluxTranslate` and `FluxTranslation` from `@flux-ui/components`. Import them
+  from `@flux-ui/internals`, where they cover every Flux key.
+- `FluxAiTranslate`, `FluxAiTranslation`, `FluxApplicationTranslate`,
+  `FluxApplicationTranslation`, `FluxFlowTranslate` and `FluxFlowTranslation`,
+  along with the `useTranslate` each package exported. Use `FluxTranslate`,
+  `FluxTranslation` and `useTranslate` from `@flux-ui/internals`.
+
+The keys themselves did not change, so your translation files need nothing.
 
 ### Two composables changed name
 

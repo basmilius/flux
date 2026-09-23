@@ -1,6 +1,3 @@
-export type FluxFlowTranslate = (key: FluxFlowTranslation, params?: Record<string, string | number>) => string;
-export type FluxFlowTranslation = keyof typeof english;
-
 export const english = {
     'flux.flow.exitFullscreen': 'Exit fullscreen',
     'flux.flow.fitView': 'Fit view',

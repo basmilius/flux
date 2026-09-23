@@ -1,6 +1,3 @@
-export type FluxAiTranslate = (key: FluxAiTranslation, params?: Record<string, string | number>) => string;
-export type FluxAiTranslation = keyof typeof english;
-
 export const english = {
     'flux.ai.attach': 'Attach files',
     'flux.ai.attachments': 'Attachments',

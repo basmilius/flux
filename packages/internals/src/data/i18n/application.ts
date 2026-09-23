@@ -1,6 +1,3 @@
-export type FluxApplicationTranslate = (key: FluxApplicationTranslation, params?: Record<string, string | number>) => string;
-export type FluxApplicationTranslation = keyof typeof english;
-
 export const english = {
     'flux.application.back': 'Back',
     'flux.application.closeMenu': 'Close menu',

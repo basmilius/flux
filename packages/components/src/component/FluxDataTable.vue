@@ -172,12 +172,12 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxTableActions from './table/FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxAction from './FluxAction.vue';
     import FluxFormCheckbox from './form/FluxFormCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';

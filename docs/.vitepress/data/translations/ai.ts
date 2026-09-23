@@ -1,6 +1,6 @@
-import type { FluxAiTranslation } from '../../../../packages/ai/src/data/i18n';
+import type { english } from '../../../../packages/internals/src/data/i18n/ai';
 
-export type Messages = Record<FluxAiTranslation, string>;
+export type Messages = Record<keyof typeof english, string>;
 
 export const nl: Messages = {
     'flux.ai.attach': 'Bestanden toevoegen',

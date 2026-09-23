@@ -156,11 +156,12 @@
     lang="ts"
     setup>
     import { unwrapElement } from '@basmilius/common';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, nextTick, onMounted, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
-    import { INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate } from '~flux/components/composable/private';
+    import { INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup } from '~flux/components/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxFormInput from '../form/FluxFormInput.vue';

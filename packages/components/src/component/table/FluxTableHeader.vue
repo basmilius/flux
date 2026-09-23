@@ -77,11 +77,12 @@
     setup>
     import { usePointerDrag } from '@basmilius/common';
     import { clamp } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, onUnmounted, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
-    import { useTableColumnIndex, useTranslate } from '~flux/components/composable/private';
+    import { useTableColumnIndex } from '~flux/components/composable/private';
     import type { FluxTableColumnDef } from '~flux/components/data';
     import FluxFlyout from '../FluxFlyout.vue';
     import FluxIcon from '../FluxIcon.vue';

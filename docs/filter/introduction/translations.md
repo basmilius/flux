@@ -3,30 +3,30 @@ outline: deep
 ---
 
 <script setup>
-import { english } from '../../../packages/filter/src/data/i18n';
+import { english } from '../../../packages/internals/src/data/i18n/filter';
 </script>
 
 # Translations
 
-The filters render a handful of strings of their own: the back and reset actions, the
-min and max labels of a range and the summary of a multiple selection. Unlike the
-other packages, these keys do not sit under `flux.filter`. They moved here from
-`@flux-ui/components` and kept their names, so a translation you already had still
-applies. Translate a key in your own [vue-i18n](https://vue-i18n.intlify.dev/){target="_blank"}
+The filters render a handful of strings of their own: the back action, the min and
+max labels of a range, the summary of a multiple selection and the label of a date
+range that spans several years. Unlike the other packages, these keys do not sit
+under `flux.filter`. They came out of `@flux-ui/components` and kept their names, so
+a translation you already had still applies. Translate a key in your own [vue-i18n](https://vue-i18n.intlify.dev/){target="_blank"}
 messages and the filters follow, leave it out and the English below is used.
 
 [Translations](../../guide/introduction/translations) covers how the i18n instance
 is set up; the keys on this page slot into the same `flux` root.
 
 ::: tip
-`flux.filter` and `flux.filterReset` are in the dictionary of `@flux-ui/components`
-too, because the filter button of an [Action bar](../../components/action-bar) uses
-them. One translation covers both.
+The filter bar also renders `flux.filter` and `flux.filterReset`. It shares them with
+the [Action bar](../../components/action-bar), so they are listed with the
+[component strings](../../guide/introduction/translations).
 :::
 
 ## Strings
 
-The list is read straight from the source of `@flux-ui/filter`, so it is the set that
+The list is read straight from the Flux source, so it is the set that
 ships with the version this page documents.
 
 <table>
@@ -61,9 +61,7 @@ are generated from it by `bun scripts/generate-translations.ts`.
 flux:
   back: "Back"
   customPeriod: "Custom period"
-  filter: "Filter"
   filterRemove: "Remove filter"
-  filterReset: "Reset filters"
   max: "Max"
   min: "Min"
   nSelected: "{n} selected"
@@ -74,9 +72,7 @@ flux:
   "flux": {
     "back": "Back",
     "customPeriod": "Custom period",
-    "filter": "Filter",
     "filterRemove": "Remove filter",
-    "filterReset": "Reset filters",
     "max": "Max",
     "min": "Min",
     "nSelected": "{n} selected"
@@ -94,9 +90,7 @@ flux:
 flux:
   back: "Terug"
   customPeriod: "Aangepaste periode"
-  filter: "Filter"
   filterRemove: "Verwijder filter"
-  filterReset: "Verwijder alle filters"
   max: "Maximaal"
   min: "Minimaal"
   nSelected: "{n} geselecteerd"
@@ -107,9 +101,7 @@ flux:
   "flux": {
     "back": "Terug",
     "customPeriod": "Aangepaste periode",
-    "filter": "Filter",
     "filterRemove": "Verwijder filter",
-    "filterReset": "Verwijder alle filters",
     "max": "Maximaal",
     "min": "Minimaal",
     "nSelected": "{n} geselecteerd"
@@ -127,9 +119,7 @@ flux:
 flux:
   back: "Retour"
   customPeriod: "Période personnalisée"
-  filter: "Filtrer"
   filterRemove: "Supprimer le filtre"
-  filterReset: "Réinitialiser les filtres"
   max: "Max"
   min: "Min"
   nSelected: "{n} sélectionné(s)"
@@ -140,9 +130,7 @@ flux:
   "flux": {
     "back": "Retour",
     "customPeriod": "Période personnalisée",
-    "filter": "Filtrer",
     "filterRemove": "Supprimer le filtre",
-    "filterReset": "Réinitialiser les filtres",
     "max": "Max",
     "min": "Min",
     "nSelected": "{n} sélectionné(s)"
@@ -160,9 +148,7 @@ flux:
 flux:
   back: "Zurück"
   customPeriod: "Benutzerdefinierter Zeitraum"
-  filter: "Filter"
   filterRemove: "Filter entfernen"
-  filterReset: "Filter zurücksetzen"
   max: "Max"
   min: "Min"
   nSelected: "{n} ausgewählt"
@@ -173,9 +159,7 @@ flux:
   "flux": {
     "back": "Zurück",
     "customPeriod": "Benutzerdefinierter Zeitraum",
-    "filter": "Filter",
     "filterRemove": "Filter entfernen",
-    "filterReset": "Filter zurücksetzen",
     "max": "Max",
     "min": "Min",
     "nSelected": "{n} ausgewählt"
@@ -193,9 +177,7 @@ flux:
 flux:
   back: "Tillbaka"
   customPeriod: "Anpassad period"
-  filter: "Filter"
   filterRemove: "Ta bort filter"
-  filterReset: "Återställ filter"
   max: "Max"
   min: "Min"
   nSelected: "{n} valda"
@@ -206,9 +188,7 @@ flux:
   "flux": {
     "back": "Tillbaka",
     "customPeriod": "Anpassad period",
-    "filter": "Filter",
     "filterRemove": "Ta bort filter",
-    "filterReset": "Återställ filter",
     "max": "Max",
     "min": "Min",
     "nSelected": "{n} valda"

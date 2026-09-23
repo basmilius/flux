@@ -1,7 +1,7 @@
 export * from './component';
 export * from './composable';
 
-export type { FluxFilterInjection, FluxFilterTranslate, FluxFilterTranslation } from './data';
+export type { FluxFilterInjection } from './data';
 
 export {
     defineFilter,

@@ -11,7 +11,6 @@ export { useSplitView, type SplitViewPane, type UseSplitViewOptions, type UseSpl
 export { countColumns, getColumnSpan, resolveColumnIndex, useTableColumnIndex } from './useTableColumnIndex';
 export { useTableTree, TREE_STEP, TREE_MARKER_SIZE } from './useTableTree';
 export { useTimeline } from './useTimeline';
-export { default as useTranslate } from './useTranslate';
 export { FLUX_COLORS } from './useTreeView';
 export { useCommandPalette, type CommandPaletteGroup, type CommandPaletteResultItem } from './useCommandPalette';
 export { collectExpandedIds, flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, useTreeView, type TreeBaseOption, type TreeFlatNode } from './useTreeView';

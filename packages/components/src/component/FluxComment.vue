@@ -35,11 +35,11 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { DateTime } from 'luxon';
     import { computed, onBeforeUnmount, onMounted, ref, type VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxAvatar from './FluxAvatar.vue';
     import $style from '~flux/components/css/component/Comment.module.scss';
 

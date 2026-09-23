@@ -3,7 +3,7 @@ outline: deep
 ---
 
 <script setup>
-import { english } from '../../../packages/ai/src/data/i18n';
+import { english } from '../../../packages/internals/src/data/i18n/ai';
 </script>
 
 # Translations
@@ -25,7 +25,7 @@ they are set.
 
 ## Strings
 
-The list is read straight from the source of `@flux-ui/ai`, so it is the set that
+The list is read straight from the Flux source, so it is the set that
 ships with the version this page documents. A value wrapped in `{}` takes a value
 from the component and is filled in for you.
 

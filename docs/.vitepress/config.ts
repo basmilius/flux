@@ -531,7 +531,8 @@ export default defineConfig({
                         {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
                         {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
                         {text: 'useKeyboardGrab', link: '/internals/composables/useKeyboardGrab'},
-                        {text: 'useRemembered', link: '/internals/composables/useRemembered'}
+                        {text: 'useRemembered', link: '/internals/composables/useRemembered'},
+                        {text: 'useTranslate', link: '/internals/composables/useTranslate'}
                     ]
                 },
                 {

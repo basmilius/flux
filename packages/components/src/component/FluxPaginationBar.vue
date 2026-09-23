@@ -26,9 +26,9 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxFormSelectOption } from '@flux-ui/types';
     import { computed, ref, watch } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxFormSelect from './form/FluxFormSelect.vue';
     import FluxPagination from './FluxPagination.vue';
     import FluxSpacer from './FluxSpacer.vue';

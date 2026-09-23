@@ -1,6 +1,6 @@
 # createTranslate
 
-This function builds the composable a package translates its own strings with. It is handed the English dictionary that ships with the package and returns a `useTranslate` style composable, so every Flux package resolves its strings the same way without repeating the lookup.
+This function builds a translate composable from an English dictionary. [`useTranslate`](./useTranslate) is built with it from the dictionary that holds every Flux string, and `@flux-ui/statistics` builds its own without one.
 
 A key is looked up in the app's [vue-i18n](../../guide/introduction/translations) messages first and falls back to the dictionary when the app did not translate it. That fallback is what keeps a component from ever rendering a raw key path, which is also why a package ships its English strings in source instead of a locale file.
 

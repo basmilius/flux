@@ -18,8 +18,6 @@ export {
     useFluxStore
 } from './data';
 
-export type { FluxTranslate, FluxTranslation } from './data';
-
 export type {
     ConfigureIconsOptions,
     FluxDialogRegistration,

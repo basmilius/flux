@@ -18,12 +18,10 @@
     lang="ts"
     setup>
     import { upperFirst } from '@basmilius/utils';
-    import { isSSR } from '@flux-ui/internals';
+    import { type FluxTranslation, isSSR, useTranslate } from '@flux-ui/internals';
     import type { FluxFormInputBaseProps, FluxFormSelectEntry } from '@flux-ui/types';
     import { computed, toRef } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
-    import type { FluxTranslation } from '~flux/components/data';
     import { TIME_ZONE_GROUP_ORDER, TIME_ZONES } from '~flux/components/data/timeZones';
     import FluxFormSelect from './FluxFormSelect.vue';
 

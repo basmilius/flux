@@ -20,9 +20,9 @@
     setup>
     import { useScrollPosition } from '@basmilius/common';
     import { prefersReducedMotion } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, toRef, type VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import FluxTooltip from './FluxTooltip.vue';

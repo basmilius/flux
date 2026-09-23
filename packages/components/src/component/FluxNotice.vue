@@ -52,10 +52,10 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/Notice.module.scss';

@@ -59,8 +59,8 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import { computed, unref } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import { showPrompt } from '~flux/components/data';
     import FluxPaginationButton from './FluxPaginationButton.vue';
     import $style from '~flux/components/css/component/Pagination.module.scss';

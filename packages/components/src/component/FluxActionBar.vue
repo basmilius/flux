@@ -47,8 +47,8 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
     import FluxFlex from './FluxFlex.vue';

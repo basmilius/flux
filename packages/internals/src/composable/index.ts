@@ -8,6 +8,7 @@ export { default as useKeyboardGrab, defaultAnnounce as defaultKeyboardGrabAnnou
 export type { KeyboardGrabDirection, UseKeyboardGrabOptions, UseKeyboardGrabReturn } from './useKeyboardGrab';
 export { default as useNumberFormat } from './useNumberFormat';
 export { default as useRemembered } from './useRemembered';
+export { default as useTranslate } from './useTranslate';
 
 export { default as useFocusTrap } from './useFocusTrap';
 export { default as useFocusTrapLock } from './useFocusTrapLock';

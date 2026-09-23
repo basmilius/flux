@@ -24,8 +24,8 @@
     setup>
     import { copyToClipboard } from '@basmilius/utils';
     import { FluxIcon } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { onUnmounted, ref } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiCodeBlock.module.scss';
 
     const {

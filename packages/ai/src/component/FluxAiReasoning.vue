@@ -46,9 +46,9 @@
     lang="ts"
     setup>
     import { FluxExpandable, FluxIcon, FluxSpinner } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, h, type VNode } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import { aiConfig } from '~flux/ai/data';
     import { renderText } from '~flux/ai/util';
     import $style from '~flux/ai/css/component/AiReasoning.module.scss';

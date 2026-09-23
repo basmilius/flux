@@ -71,13 +71,13 @@
     lang="ts"
     setup>
     import { unwrapElement } from '@basmilius/common';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxAutoCompleteType, FluxFormInputBaseProps, FluxIconName, FluxInputMask, FluxInputType } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import type { InputMask } from 'imask';
     import { DateTime } from 'luxon';
     import { getCurrentInstance, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import { inputMask } from '~flux/components/data';
     import FluxIcon from '../FluxIcon.vue';
     import FluxSpinner from '../FluxSpinner.vue';

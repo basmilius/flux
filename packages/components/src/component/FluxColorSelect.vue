@@ -61,10 +61,9 @@
 <script
     lang="ts"
     setup>
-    import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose500, sky500, teal500, violet500, yellow500 } from '@flux-ui/internals';
+    import { amber500, blue500, cyan500, emerald500, fuchsia500, green500, indigo500, lime500, orange500, pink500, purple500, red500, rose500, sky500, teal500, useTranslate, violet500, yellow500 } from '@flux-ui/internals';
     import { ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxColorPicker from './FluxColorPicker.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';

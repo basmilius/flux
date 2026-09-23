@@ -1,6 +1,3 @@
-export type FluxTranslate = (key: FluxTranslation, params?: Record<string, string | number>) => string;
-export type FluxTranslation = keyof typeof english;
-
 export const english = {
     'flux.allDay': 'All day',
     'flux.andNMore': '{n} more',

@@ -3,7 +3,7 @@ outline: deep
 ---
 
 <script setup>
-import { english } from '../../../packages/components/src/data/i18n';
+import { english } from '../../../packages/internals/src/data/i18n/components';
 </script>
 
 # Translations
@@ -47,7 +47,7 @@ finished text.
 
 ## Strings
 
-The list is read straight from the source of `@flux-ui/components`, so it is the
+The list is read straight from the Flux source, so it is the
 set that ships with the version this page documents.
 
 <table>

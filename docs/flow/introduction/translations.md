@@ -3,7 +3,7 @@ outline: deep
 ---
 
 <script setup>
-import { english } from '../../../packages/flow/src/data/i18n';
+import { english } from '../../../packages/internals/src/data/i18n/flow';
 </script>
 
 # Translations
@@ -24,7 +24,7 @@ is set up; the keys on this page slot into the same `flux` root.
 
 ## Strings
 
-The list is read straight from the source of `@flux-ui/flow`, so it is the set that
+The list is read straight from the Flux source, so it is the set that
 ships with the version this page documents.
 
 <table>

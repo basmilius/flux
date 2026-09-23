@@ -1,6 +1,6 @@
-import type { FluxTranslation } from '../../../../packages/components/src/data/i18n';
+import type { english } from '../../../../packages/internals/src/data/i18n/components';
 
-export type Messages = Record<FluxTranslation, string>;
+export type Messages = Record<keyof typeof english, string>;
 
 export const nl: Messages = {
     'flux.backToTop': 'Terug naar boven',

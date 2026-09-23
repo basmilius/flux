@@ -62,9 +62,9 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxDirection, FluxIconName } from '@flux-ui/types';
     import type { VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxDestructiveButton from './FluxDestructiveButton.vue';
     import FluxFlyout from './FluxFlyout.vue';
     import FluxIcon from './FluxIcon.vue';

@@ -104,10 +104,9 @@
     lang="ts"
     setup>
     import { FluxBadge, FluxFlyout, FluxFormInput, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxOverflowBar, FluxSecondaryButton, FluxSeparator } from '@flux-ui/components';
-    import { VNodeRenderer } from '@flux-ui/internals';
+    import { useTranslate, VNodeRenderer } from '@flux-ui/internals';
     import type { FluxFilterDefinition, FluxFilterState, FluxFilterValue } from '@flux-ui/types';
     import { unref, type VNode } from 'vue';
-    import { useTranslate } from '~flux/filter/composable/private';
     import { isResettable } from '~flux/filter/util';
     import FluxFilterBase from './FluxFilterBase.vue';
     import FluxFilterWindow from './FluxFilterWindow.vue';

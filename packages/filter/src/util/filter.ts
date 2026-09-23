@@ -1,6 +1,6 @@
+import type { FluxTranslate } from '@flux-ui/internals';
 import type { FluxFilterDefinition, FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterSpec, FluxFilterValue, FluxFilterValueSingle } from '@flux-ui/types';
 import { DateTime } from 'luxon';
-import type { FluxFilterTranslate } from '~flux/filter/data';
 
 export function isFluxFilterOptionHeader(obj: object): obj is FluxFilterOptionHeader {
     return 'title' in obj;
@@ -46,7 +46,7 @@ export function pickFilterCommon<T extends FluxFilterSpec>(props: T): FluxFilter
     };
 }
 
-export function generateMultiOptionsLabel(translate: FluxFilterTranslate, options: FluxFilterOptionItem[], values: FluxFilterValueSingle[]): string | null {
+export function generateMultiOptionsLabel(translate: FluxTranslate, options: FluxFilterOptionItem[], values: FluxFilterValueSingle[]): string | null {
     const selected = options.filter(o => values.includes(o.value)).length;
 
     if (selected <= 0) {

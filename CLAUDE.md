@@ -137,7 +137,7 @@ Always import from a directory's barrel (`index.ts`) **unless** the importing fi
 - ✅ From `component/FluxButton.vue`: `import { useDisabled } from '~flux/composable';`
 - ✅ From `composable/useFoo.ts`: `import { useDisabled } from './useDisabled';`
 
-Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`. Every other package has the same set minus what it does not have, including a `composable/private/` of its own. `filter` adds `vite/`, the entry behind `@flux-ui/filter/vite`.
+Known barrels in `packages/components/src/`: `composable/`, `composable/private/`, `data/`, `transition/`, `util/`, `component/`, `component/primitive/`, `component/calendar/`, plus the top-level `index.ts`. Every other package has the same set minus what it does not have. `filter` adds `vite/`, the entry behind `@flux-ui/filter/vite`.
 
 The three clusters under `component/` (`form/`, `table/`, `menu/`) deliberately have **no** barrel: they are a way to keep the directory listing readable, not a module boundary. Reach a component in one of them through `component/`'s barrel, or relatively.
 
@@ -336,7 +336,7 @@ Composables (`packages/internals/src/composable/`):
 - Focus traps - `useFocusTrap`, `useFocusTrapLock`, `useFocusTrapReturn`, `useFocusTrapSubscription`, `useFocusZone`
 - Calendar - `useCalendar`, `useCalendarMonthSwitcher`, `useCalendarTimeGrid`, `useCalendarYearSwitcher`
 - Misc - `useKeyboardGrab`, `useRemembered` (wraps common's with the `flux/` prefix and Luxon serialization)
-- Translations - `createTranslate`
+- Translations - `useTranslate` (every Flux string, typed `FluxTranslate`), `createTranslate`
 
 `useFocusZone` takes an optional `ignore?: string` selector (threaded through `getFocusableElements` / `getFocusableElement` / `getBidirectionalFocusElement`) to exclude a subtree from roving focus. `FluxMenu` uses it with `ignore: '[data-flux-menu-pane]'` so an interactive component inside a `FluxMenuPane` (color picker, slider, search field) keeps its own keyboard behavior. The shared `getFocusableElements` default is deliberately unchanged so focus traps still reach those controls via Tab.
 
@@ -385,38 +385,38 @@ Functions exported from the package root:
 
 ## Translations
 
-`vue-i18n` is a peer dependency of every package that renders text. Each one keeps a
-flat English dictionary in `src/data/i18n.ts` and turns it into a composable with
-`createTranslate(english)` from `@flux-ui/internals`, next to it:
+`vue-i18n` is a peer dependency of every package that renders text. All English
+strings live in `@flux-ui/internals`, one flat dictionary per package under
+`packages/internals/src/data/i18n/`, merged into one `english` in its `index.ts`:
 
-| Package     | Keys                  |
-|-------------|-----------------------|
-| components  | `flux.*`              |
-| ai          | `flux.ai.*`           |
-| application | `flux.application.*`  |
-| filter      | `flux.*` (see below)  |
-| flow        | `flux.flow.*`         |
-| statistics  | none                  |
+| File             | Keys                  |
+|------------------|-----------------------|
+| `components.ts`  | `flux.*`              |
+| `ai.ts`          | `flux.ai.*`           |
+| `application.ts` | `flux.application.*`  |
+| `filter.ts`      | `flux.*` (see below)  |
+| `flow.ts`        | `flux.flow.*`         |
 
-Every package calls it `useTranslate`, in `composable/private/`, and none of them
-export it: the dictionary is an implementation detail of the components that render
-those strings. There is no `useAiTranslate` or `useFlowTranslate` - the package a
-component lives in already says which dictionary it reaches.
+A component translates with `useTranslate` from `@flux-ui/internals`, typed
+`FluxTranslate` over every key. There is no per-package wrapper: one dictionary
+means any package can use any key, so the filter bar reuses `flux.filter` from the
+components file instead of duplicating it. The per-package files exist for the docs
+pages and the translation check.
 
-`filter` breaks the prefix rule on purpose: its keys (`flux.back`, `flux.nSelected`, ...)
-moved out of the components dictionary and kept their names so existing translations
+`filter.ts` breaks the prefix rule on purpose: its keys (`flux.back`, `flux.nSelected`, ...)
+came out of the components dictionary and kept their names so existing translations
 still apply. `flux.filter.*` would also collide with the `flux.filter` leaf that
-`FluxActionBar` uses. `flux.filter` and `flux.filterReset` sit in both dictionaries.
+`FluxActionBar` uses.
 
-`createTranslate` reads `useI18n({useScope: 'global'})`, so the app's i18n instance
+`useTranslate` reads `useI18n({useScope: 'global'})`, so the app's i18n instance
 must be created with `legacy: false`. A key the app did not translate falls back to
 the dictionary, which is why a component never renders a raw key path. Statistics
-has no strings of its own; it uses the dictionary-less variant to put the series,
-slice and axis names it is given through the same translations, handing back a name
-without a message unchanged.
+has no strings of its own; it keeps a private `useTranslate` built with the
+dictionary-less `createTranslate()` to put the series, slice and axis names it is
+given through the same translations, handing back a name without a message unchanged.
 
-A new string means a new key in the package's `i18n.ts` **and** in
-`docs/.vitepress/data/translations/<package>.ts` (nl, fr, de, sv). Then run
+A new string means a new key in the package's file under `internals/src/data/i18n/`
+**and** in `docs/.vitepress/data/translations/<package>.ts` (nl, fr, de, sv). Then run
 `bun scripts/generate-translations.ts` to rewrite the blocks on the translations
 pages; CI runs the same script with `--check`.
 

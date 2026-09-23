@@ -1,4 +1,4 @@
-import type { FluxTranslation } from './i18n';
+import type { FluxTranslation } from '@flux-ui/internals';
 
 export const TIME_ZONES: readonly string[] = [
     'Africa/Abidjan',
