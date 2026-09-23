@@ -1,9 +1,8 @@
-import type { FluxTranslation } from '../../../../packages/components/src/data/i18n';
+import type { english } from '../../../../packages/internals/src/data/i18n/components';
 
-export type Messages = Record<FluxTranslation, string>;
+export type Messages = Record<keyof typeof english, string>;
 
 export const nl: Messages = {
-    'flux.back': 'Terug',
     'flux.backToTop': 'Terug naar boven',
     'flux.cancel': 'Annuleren',
     'flux.close': 'Sluiten',
@@ -12,7 +11,6 @@ export const nl: Messages = {
     'flux.comingSoon': 'Binnenkort',
     'flux.continue': 'Verder',
     'flux.createOption': 'Maak "{value}" aan',
-    'flux.customPeriod': 'Aangepaste periode',
     'flux.decrease': 'Verlagen',
     'flux.delete': 'Verwijderen',
     'flux.displayingOf': '{from}–{to} van {total}',
@@ -20,18 +18,14 @@ export const nl: Messages = {
     'flux.expandGroup': 'Groep uitklappen',
     'flux.expandRow': 'Rij uitklappen',
     'flux.filter': 'Filter',
-    'flux.filterRemove': 'Verwijder filter',
     'flux.filterReset': 'Verwijder alle filters',
     'flux.focalPoint': 'Focuspunt',
     'flux.focalPointValue': '{x}% horizontaal, {y}% verticaal',
     'flux.increase': 'Verhogen',
     'flux.justNow': 'Zojuist',
-    'flux.max': 'Maximaal',
-    'flux.min': 'Minimaal',
     'flux.moreActions': 'Meer acties',
     'flux.next': 'Volgende',
     'flux.noItems': 'Geen resultaten gevonden',
-    'flux.nSelected': '{n} geselecteerd',
     'flux.ok': 'Oké',
     'flux.optional': 'Optioneel',
     'flux.pagination': 'Paginatie',
@@ -109,7 +103,6 @@ export const nl: Messages = {
 };
 
 export const fr: Messages = {
-    'flux.back': 'Retour',
     'flux.backToTop': 'Retour en haut',
     'flux.cancel': 'Annuler',
     'flux.close': 'Fermer',
@@ -118,7 +111,6 @@ export const fr: Messages = {
     'flux.comingSoon': 'Bientôt disponible',
     'flux.continue': 'Continuer',
     'flux.createOption': 'Créer "{value}"',
-    'flux.customPeriod': 'Période personnalisée',
     'flux.decrease': 'Diminuer',
     'flux.delete': 'Supprimer',
     'flux.displayingOf': '{from}–{to} sur {total}',
@@ -126,18 +118,14 @@ export const fr: Messages = {
     'flux.expandGroup': 'Développer le groupe',
     'flux.expandRow': 'Développer la ligne',
     'flux.filter': 'Filtrer',
-    'flux.filterRemove': 'Supprimer le filtre',
     'flux.filterReset': 'Réinitialiser les filtres',
     'flux.focalPoint': 'Point focal',
     'flux.focalPointValue': '{x} % horizontal, {y} % vertical',
     'flux.increase': 'Augmenter',
     'flux.justNow': 'À l\'instant',
-    'flux.max': 'Max',
-    'flux.min': 'Min',
     'flux.moreActions': 'Plus d\'actions',
     'flux.next': 'Suivant',
     'flux.noItems': 'Aucun élément disponible.',
-    'flux.nSelected': '{n} sélectionné(s)',
     'flux.ok': 'OK',
     'flux.optional': 'Optionnel',
     'flux.pagination': 'Pagination',
@@ -215,7 +203,6 @@ export const fr: Messages = {
 };
 
 export const de: Messages = {
-    'flux.back': 'Zurück',
     'flux.backToTop': 'Nach oben',
     'flux.cancel': 'Abbrechen',
     'flux.close': 'Schließen',
@@ -224,7 +211,6 @@ export const de: Messages = {
     'flux.comingSoon': 'Demnächst',
     'flux.continue': 'Weiter',
     'flux.createOption': '"{value}" erstellen',
-    'flux.customPeriod': 'Benutzerdefinierter Zeitraum',
     'flux.decrease': 'Verringern',
     'flux.delete': 'Löschen',
     'flux.displayingOf': '{from}–{to} von {total}',
@@ -232,18 +218,14 @@ export const de: Messages = {
     'flux.expandGroup': 'Gruppe ausklappen',
     'flux.expandRow': 'Zeile ausklappen',
     'flux.filter': 'Filter',
-    'flux.filterRemove': 'Filter entfernen',
     'flux.filterReset': 'Filter zurücksetzen',
     'flux.focalPoint': 'Fokuspunkt',
     'flux.focalPointValue': '{x} % horizontal, {y} % vertikal',
     'flux.increase': 'Erhöhen',
     'flux.justNow': 'Gerade eben',
-    'flux.max': 'Max',
-    'flux.min': 'Min',
     'flux.moreActions': 'Weitere Aktionen',
     'flux.next': 'Weiter',
     'flux.noItems': 'Es sind keine Einträge (mehr) vorhanden.',
-    'flux.nSelected': '{n} ausgewählt',
     'flux.ok': 'Ok',
     'flux.optional': 'Optional',
     'flux.pagination': 'Seitennummerierung',
@@ -321,7 +303,6 @@ export const de: Messages = {
 };
 
 export const sv: Messages = {
-    'flux.back': 'Tillbaka',
     'flux.backToTop': 'Till toppen',
     'flux.cancel': 'Avbryt',
     'flux.close': 'Stäng',
@@ -330,7 +311,6 @@ export const sv: Messages = {
     'flux.comingSoon': 'Kommer snart',
     'flux.continue': 'Fortsätt',
     'flux.createOption': 'Skapa "{value}"',
-    'flux.customPeriod': 'Anpassad period',
     'flux.decrease': 'Minska',
     'flux.delete': 'Ta bort',
     'flux.displayingOf': '{from}–{to} av {total}',
@@ -338,18 +318,14 @@ export const sv: Messages = {
     'flux.expandGroup': 'Expandera grupp',
     'flux.expandRow': 'Expandera rad',
     'flux.filter': 'Filter',
-    'flux.filterRemove': 'Ta bort filter',
     'flux.filterReset': 'Återställ filter',
     'flux.focalPoint': 'Fokuspunkt',
     'flux.focalPointValue': '{x} % horisontellt, {y} % vertikalt',
     'flux.increase': 'Öka',
     'flux.justNow': 'Just nu',
-    'flux.max': 'Max',
-    'flux.min': 'Min',
     'flux.moreActions': 'Fler åtgärder',
     'flux.next': 'Nästa',
     'flux.noItems': 'Det finns inga poster (kvar).',
-    'flux.nSelected': '{n} valda',
     'flux.ok': 'Ok',
     'flux.optional': 'Valfritt',
     'flux.pagination': 'Sidnavigering',

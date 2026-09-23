@@ -165,10 +165,10 @@
     lang="ts"
     setup>
     import { useHotKey } from '@basmilius/common';
-    import { useFocusTrap, vHeightTransition } from '@flux-ui/internals';
+    import { useFocusTrap, useTranslate, vHeightTransition } from '@flux-ui/internals';
     import type { FluxCommandSource, FluxCommandSourceItem } from '@flux-ui/types';
     import { computed, onUnmounted, ref, toRef, unref, useId, useTemplateRef } from 'vue';
-    import { useCommandPalette, useTranslate } from '~flux/components/composable/private';
+    import { useCommandPalette } from '~flux/components/composable/private';
     import { type FluxDialogRegistration, registerDialog } from '~flux/components/data';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxCommandPaletteGroup from './FluxCommandPaletteGroup.vue';

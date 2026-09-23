@@ -3,7 +3,7 @@ outline: deep
 ---
 
 <script setup>
-import { english } from '../../../packages/application/src/data/i18n';
+import { english } from '../../../packages/internals/src/data/i18n/application';
 </script>
 
 # Translations
@@ -25,7 +25,7 @@ a `title` and a `description` that do the same for its presets.
 
 ## Strings
 
-The list is read straight from the source of `@flux-ui/application`, so it is the
+The list is read straight from the Flux source, so it is the
 set that ships with the version this page documents.
 
 <table>

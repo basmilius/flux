@@ -39,8 +39,8 @@
     lang="ts"
     setup>
     import { FluxIcon, useDisabled } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { toRef } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiSuggestions.module.scss';
 
     defineEmits<{

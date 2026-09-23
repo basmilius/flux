@@ -73,11 +73,10 @@
     lang="ts"
     setup>
     import { FluxIcon, FluxProgressBar } from '@flux-ui/components';
-    import { useNumberFormat } from '@flux-ui/internals';
+    import { useNumberFormat, useTranslate } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, unref } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiUsage.module.scss';
 
     const {

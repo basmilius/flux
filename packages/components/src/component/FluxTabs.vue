@@ -35,13 +35,12 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
+    import { flattenVNodeTree, getComponentProps, VNodeRenderer } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { cloneVNode, Comment, computed, ref, Text, unref, useId, type VNode, watch } from 'vue';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxTabBar from './FluxTabBar.vue';
     import FluxTabBarItem from './FluxTabBarItem.vue';
-    import { VNodeRenderer } from './primitive';
     import $style from '~flux/components/css/component/Tab.module.scss';
 
     const modelValue = defineModel<number>({

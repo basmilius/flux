@@ -42,11 +42,11 @@
     setup>
     import { type DragContext, unwrapElement, usePointerDrag, useResizeObserver, useSpring, useWheelDrag } from '@basmilius/common';
     import { animationFrameDebounce, clamp } from '@basmilius/utils';
-    import { warn } from '@flux-ui/internals';
+    import { useTranslate, warn } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, onMounted, onScopeDispose, provide, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { elasticResistance, useTranslate } from '~flux/components/composable/private';
+    import { elasticResistance } from '~flux/components/composable/private';
     import { FluxDisabledInjectionKey } from '~flux/components/data';
     import $style from '~flux/components/css/component/SwipeActions.module.scss';
 

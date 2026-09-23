@@ -38,11 +38,11 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxAutoCompleteType, FluxFormInputBaseProps } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/Form.module.scss';
 
     const modelValue = defineModel<string>({

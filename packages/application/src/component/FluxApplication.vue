@@ -20,9 +20,8 @@
     lang="ts"
     setup>
     import { useBreakpoints } from '@flux-ui/components';
-    import { useRemembered } from '@flux-ui/internals';
+    import { useRemembered, useTranslate } from '@flux-ui/internals';
     import { computed, onMounted, onUnmounted, provide, ref, shallowRef, toRef, type VNode, watch } from 'vue';
-    import { useTranslate } from '../composable/private';
     import { type FluxApplicationContextInfo, FluxApplicationInjectionKey, type FluxApplicationLayout } from '../data';
     import { useNamedRoutes, useRoute } from '../routing';
     import $style from '~flux/application/css/component/Application.module.scss';

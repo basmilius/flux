@@ -51,10 +51,10 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from '../FluxIcon.vue';
     import { PassThrough } from '../primitive';
     import $style from '~flux/components/css/component/Table.module.scss';

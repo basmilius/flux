@@ -68,7 +68,8 @@
 <script
     setup
     lang="ts">
-    import { FluxDataTable, FluxFilterBar, FluxFilterOption, FluxFlex, FluxFlexItem, FluxPane, FluxSecondaryButton, FluxSpacer, FluxTableBar, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxDataTable, FluxFlex, FluxFlexItem, FluxPane, FluxSecondaryButton, FluxSpacer, FluxTableBar, FluxTableCell, FluxTableHeader } from '@flux-ui/components';
+    import { FluxFilterBar, FluxFilterOption } from '@flux-ui/filter';
     import type { FluxFilterOptionItem, FluxFilterState } from '@flux-ui/types';
     import { computed, ref } from 'vue';
 

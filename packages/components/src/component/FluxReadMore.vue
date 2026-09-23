@@ -29,9 +29,9 @@
     setup>
     import { unwrapElement, useMutationObserver, useResizeObserver } from '@basmilius/common';
     import { prefersReducedMotion } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, nextTick, onScopeDispose, ref, unref, useId, useTemplateRef, type VNode, watch } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import $style from '~flux/components/css/component/ReadMore.module.scss';
 
     const isExpanded = defineModel<boolean>('isExpanded', {

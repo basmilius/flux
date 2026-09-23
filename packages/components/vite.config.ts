@@ -2,11 +2,9 @@ import { closeBundle, preset } from '@basmilius/vite-preset';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import defineFilterMacro from './src/vite/defineFilterMacro';
 
 export default defineConfig(({mode}) => ({
     plugins: [
-        defineFilterMacro(),
         preset({
             cssModules: {
                 classNames: 'kebab'
@@ -23,19 +21,16 @@ export default defineConfig(({mode}) => ({
         outDir: resolve(import.meta.dirname, 'dist'),
         sourcemap: true,
         lib: {
-            entry: {
-                index: resolve(import.meta.dirname, 'src/index.ts'),
-                vite: resolve(import.meta.dirname, 'src/vite/index.ts')
-            },
+            entry: resolve(import.meta.dirname, 'src/index.ts'),
+            fileName: 'index',
             formats: ['es'],
-            fileName: (_format, entryName) => `${entryName}.js`,
             name: 'flux'
         },
         rolldownOptions: {
             experimental: {
                 lazyBarrel: true
             },
-            external: ['@basmilius/common', '@basmilius/utils', '@flux-ui/internals', 'clsx', 'imask', /^imask\//, 'luxon', 'vite', 'vue', 'vue-i18n'],
+            external: ['@basmilius/common', '@basmilius/utils', '@flux-ui/internals', 'clsx', 'imask', /^imask\//, 'luxon', 'vue', 'vue-i18n'],
             output: {
                 assetFileNames: assetInfo => {
                     if (assetInfo.name?.endsWith('.css')) {

@@ -25,8 +25,8 @@
     lang="ts"
     setup>
     import { FluxMenuItem } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { useApplicationInjection } from '../composable';
-    import { useTranslate } from '../composable/private';
     import $style from '~flux/application/css/component/ApplicationMenu.module.scss';
 
     const translate = useTranslate();

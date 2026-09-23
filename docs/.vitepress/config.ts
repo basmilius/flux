@@ -1,5 +1,5 @@
 import { composeLibrary, preset } from '@basmilius/vite-preset';
-import { defineFilterMacro } from '@flux-ui/components/vite';
+import { defineFilterMacro } from '@flux-ui/filter/vite';
 import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import examplePlugin from 'vitepress-plugin-example';
@@ -18,6 +18,7 @@ const composeFluxLibrary = (name: string, alias: string) => composeLibrary({
 export const flux = composeFluxLibrary('@flux-ui/components', '~flux/components');
 export const fluxAi = composeFluxLibrary('@flux-ui/ai', '~flux/ai');
 export const fluxApplication = composeFluxLibrary('@flux-ui/application', '~flux/application');
+export const fluxFilter = composeFluxLibrary('@flux-ui/filter', '~flux/filter');
 export const fluxStatistics = composeFluxLibrary('@flux-ui/statistics', '~flux/statistics');
 export const fluxVisuals = composeFluxLibrary('@flux-ui/visuals', '~flux/visuals');
 export const fluxFlow = composeFluxLibrary('@flux-ui/flow', '~flux/flow');
@@ -70,6 +71,7 @@ export default defineConfig({
             flux(),
             fluxAi(),
             fluxApplication(),
+            fluxFilter(),
             fluxStatistics(),
             fluxVisuals(),
             fluxFlow(),
@@ -113,10 +115,11 @@ export default defineConfig({
             },
             {
                 text: 'Packages',
-                activeMatch: '/(ai|application|flow|internals|statistics|visuals)/',
+                activeMatch: '/(ai|application|filter|flow|internals|statistics|visuals)/',
                 items: [
                     {text: 'AI', link: '/ai/'},
                     {text: 'Application', link: '/application/'},
+                    {text: 'Filter', link: '/filter/'},
                     {text: 'Flow', link: '/flow/'},
                     {text: 'Internals', link: '/internals/'},
                     {text: 'Statistics', link: '/statistics/'},
@@ -166,7 +169,6 @@ export default defineConfig({
                         {text: 'useDisabled', link: '/guide/composables/useDisabled'},
                         {text: 'useDisabledInjection', link: '/guide/composables/useDisabledInjection'},
                         {text: 'useExpandableGroupInjection', link: '/guide/composables/useExpandableGroupInjection'},
-                        {text: 'useFilterInjection', link: '/guide/composables/useFilterInjection'},
                         {text: 'useFlyoutInjection', link: '/guide/composables/useFlyoutInjection'},
                         {text: 'useFormCheckboxGroupInjection', link: '/guide/composables/useFormCheckboxGroupInjection'},
                         {text: 'useFormFieldInjection', link: '/guide/composables/useFormFieldInjection'},
@@ -282,6 +284,46 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'useStreamingMarkdown', link: '/ai/composables/useStreamingMarkdown'}
+                    ]
+                }
+            ],
+            '/filter/': [
+                {
+                    text: 'Introduction',
+                    collapsed: false,
+                    items: [
+                        {text: 'What is Flux Filter?', link: '/filter/'},
+                        {text: 'Installation', link: '/filter/introduction/installation'},
+                        {text: 'Translations', link: '/filter/introduction/translations'}
+                    ]
+                },
+                {
+                    text: 'Components',
+                    collapsed: false,
+                    items: [
+                        {text: 'Filter', link: '/filter/components/filter'},
+                        {text: 'Bar', link: '/filter/components/bar'},
+                        {text: 'Date', link: '/filter/components/date'},
+                        {text: 'Date range', link: '/filter/components/date-range'},
+                        {text: 'Option', link: '/filter/components/option'},
+                        {text: 'Options', link: '/filter/components/options'},
+                        {text: 'Range', link: '/filter/components/range'},
+                        {text: 'Async option', link: '/filter/components/async-option'},
+                        {text: 'Async options', link: '/filter/components/async-options'}
+                    ]
+                },
+                {
+                    text: 'Composables',
+                    collapsed: false,
+                    items: [
+                        {text: 'useFilterInjection', link: '/filter/composables/useFilterInjection'}
+                    ]
+                },
+                {
+                    text: 'API',
+                    collapsed: false,
+                    items: [
+                        {text: 'Helpers', link: '/filter/api/helpers'}
                     ]
                 }
             ],
@@ -489,7 +531,8 @@ export default defineConfig({
                         {text: 'useFocusTrapSubscription', link: '/internals/composables/useFocusTrapSubscription'},
                         {text: 'useFocusZone', link: '/internals/composables/useFocusZone'},
                         {text: 'useKeyboardGrab', link: '/internals/composables/useKeyboardGrab'},
-                        {text: 'useRemembered', link: '/internals/composables/useRemembered'}
+                        {text: 'useRemembered', link: '/internals/composables/useRemembered'},
+                        {text: 'useTranslate', link: '/internals/composables/useTranslate'}
                     ]
                 },
                 {
@@ -504,6 +547,7 @@ export default defineConfig({
                     text: 'Utils',
                     collapsed: false,
                     items: [
+                        {text: 'createLabelForDateRange', link: '/internals/utils/createLabelForDateRange'},
                         {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},
@@ -513,6 +557,7 @@ export default defineConfig({
                         {text: 'getKeyboardFocusableElements', link: '/internals/utils/getKeyboardFocusableElements'},
                         {text: 'isActiveElement', link: '/internals/utils/isActiveElement'},
                         {text: 'isSSR', link: '/internals/utils/isSSR'},
+                        {text: 'VNodeRenderer', link: '/internals/utils/VNodeRenderer'},
                         {text: 'warn', link: '/internals/utils/warn'},
                         {text: 'wrapFocus', link: '/internals/utils/wrapFocus'},
                         {text: 'FOCUS_TRAP_LOCKS', link: '/internals/utils/focusTrap'}

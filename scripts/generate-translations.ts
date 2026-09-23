@@ -30,25 +30,31 @@ const TARGETS: readonly Target[] = [
     {
         name: 'components',
         page: 'docs/guide/introduction/translations.md',
-        dictionary: 'packages/components/src/data/i18n.ts',
+        dictionary: 'packages/internals/src/data/i18n/components.ts',
         translations: 'docs/.vitepress/data/translations/components.ts'
     },
     {
         name: 'ai',
         page: 'docs/ai/introduction/translations.md',
-        dictionary: 'packages/ai/src/data/i18n.ts',
+        dictionary: 'packages/internals/src/data/i18n/ai.ts',
         translations: 'docs/.vitepress/data/translations/ai.ts'
     },
     {
         name: 'application',
         page: 'docs/application/introduction/translations.md',
-        dictionary: 'packages/application/src/data/i18n.ts',
+        dictionary: 'packages/internals/src/data/i18n/application.ts',
         translations: 'docs/.vitepress/data/translations/application.ts'
+    },
+    {
+        name: 'filter',
+        page: 'docs/filter/introduction/translations.md',
+        dictionary: 'packages/internals/src/data/i18n/filter.ts',
+        translations: 'docs/.vitepress/data/translations/filter.ts'
     },
     {
         name: 'flow',
         page: 'docs/flow/introduction/translations.md',
-        dictionary: 'packages/flow/src/data/i18n.ts',
+        dictionary: 'packages/internals/src/data/i18n/flow.ts',
         translations: 'docs/.vitepress/data/translations/flow.ts'
     }
 ];

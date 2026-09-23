@@ -65,11 +65,12 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { type ComponentPublicInstance, computed, toRef, useId, useTemplateRef, type VNode } from 'vue';
     import { AnchorPopup } from '~flux/components/component/primitive';
-    import { useMenuFlyout, useTranslate } from '~flux/components/composable/private';
+    import { useMenuFlyout } from '~flux/components/composable/private';
     import FluxMenuItem from './FluxMenuItem.vue';
     import $style from '~flux/components/css/component/MenuFlyout.module.scss';
 

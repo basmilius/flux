@@ -48,10 +48,11 @@
     lang="ts"
     setup
     generic="TOption extends TreeBaseOption">
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type CSSProperties } from 'vue';
-    import { FLUX_COLORS, type TreeBaseOption, type TreeFlatNode, useTranslate } from '~flux/components/composable/private';
+    import { FLUX_COLORS, type TreeBaseOption, type TreeFlatNode } from '~flux/components/composable/private';
     import FluxIcon from '../FluxIcon.vue';
     import $style from '~flux/components/css/component/primitive/TreeNode.module.scss';
 

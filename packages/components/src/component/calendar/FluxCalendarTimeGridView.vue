@@ -117,10 +117,10 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { DateTime } from 'luxon';
     import { computed, onBeforeUnmount, ref, unref } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import type { FluxCalendarItemData } from '~flux/components/data';
     import { FluxWindowTransition } from '~flux/components/transition';
     import FluxCalendarItemDisplay from './FluxCalendarItemDisplay.vue';

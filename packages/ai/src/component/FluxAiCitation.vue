@@ -46,8 +46,8 @@
     lang="ts"
     setup>
     import { FluxHoverCard, FluxIcon } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { computed, useId, type VNode } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiCitation.module.scss';
 
     const {

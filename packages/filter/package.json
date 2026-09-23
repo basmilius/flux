@@ -1,0 +1,80 @@
+{
+    "name": "@flux-ui/filter",
+    "description": "Filter bar and filter building blocks for the Flux UI library.",
+    "version": "0.0.0",
+    "type": "module",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://flux-ui.dev",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/basmilius/flux.git",
+        "directory": "packages/filter"
+    },
+    "keywords": [
+        "ui library",
+        "component library",
+        "design system",
+        "vue",
+        "vue 3",
+        "ui",
+        "components",
+        "flux",
+        "filter"
+    ],
+    "scripts": {
+        "build": "vue-tsc --build && vite build",
+        "dev": "vite build --watch --mode development"
+    },
+    "engines": {
+        "node": ">=23"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./vite": {
+            "types": "./dist/vite/index.d.ts",
+            "default": "./dist/vite.js"
+        },
+        "./style.css": "./dist/index.css"
+    },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@flux-ui/types": "workspace:^"
+    },
+    "peerDependencies": {
+        "@basmilius/common": "^3.59.0",
+        "@basmilius/utils": "^3.59.0",
+        "@flux-ui/components": "workspace:^",
+        "@flux-ui/internals": "workspace:^",
+        "luxon": "^3.7.2",
+        "vue": "^3.6.0-rc.2",
+        "vue-i18n": "^11.4.8"
+    },
+    "devDependencies": {
+        "@basmilius/common": "^3.59.0",
+        "@basmilius/utils": "^3.59.0",
+        "@basmilius/vite-preset": "^3.58.0",
+        "@types/luxon": "^3.7.2",
+        "@types/node": "^26.1.2",
+        "@vitejs/plugin-vue": "^6.0.8",
+        "@vue/tsconfig": "^0.9.1",
+        "sass-embedded": "^1.100.0",
+        "typescript": "6.0.3",
+        "vite": "^8.2.0",
+        "vue-i18n": "^11.4.8",
+        "vue-tsc": "^3.3.8"
+    }
+}

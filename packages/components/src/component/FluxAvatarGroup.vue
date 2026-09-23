@@ -22,9 +22,8 @@
 <script
     lang="ts"
     setup>
-    import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
+    import { flattenVNodeTree, getComponentProps, useTranslate } from '@flux-ui/internals';
     import { computed, type VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxAvatar from './FluxAvatar.vue';
     import FluxTooltip from './FluxTooltip.vue';
     import $style from '~flux/components/css/component/AvatarGroup.module.scss';

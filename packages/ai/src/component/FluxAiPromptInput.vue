@@ -87,9 +87,9 @@
     lang="ts"
     setup>
     import { FluxIcon, FluxPrimaryButton, FluxSecondaryButton, useDisabled } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, ref, toRef, unref, useTemplateRef, type VNode } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import $style from '~flux/ai/css/component/AiPromptInput.module.scss';
 
     const emit = defineEmits<{

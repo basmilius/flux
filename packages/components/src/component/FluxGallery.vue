@@ -58,9 +58,9 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxFocalPointObject } from '@flux-ui/types';
     import type { VNode } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxDropZone from './FluxDropZone.vue';
     import FluxGalleryItem from './FluxGalleryItem.vue';
     import FluxIcon from './FluxIcon.vue';

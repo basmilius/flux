@@ -29,6 +29,7 @@ Display-only components for drawing node graphs, chains and their connections, b
 - [`@flux-ui/types`](../types)
 - [`@flux-ui/internals`](../internals)
 - [`@flux-ui/application`](../application)
+- [`@flux-ui/filter`](../filter)
 - [`@flux-ui/statistics`](../statistics)
 - [`@flux-ui/ai`](../ai)
 - [`@flux-ui/visuals`](../visuals)

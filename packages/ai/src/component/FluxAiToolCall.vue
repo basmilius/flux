@@ -103,10 +103,10 @@
     setup>
     import { copyToClipboard } from '@basmilius/utils';
     import { FluxExpandable, FluxIcon } from '@flux-ui/components';
+    import { type FluxTranslation, useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, onUnmounted, ref, type VNode } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
-    import { aiConfig, type FluxAiTranslation } from '~flux/ai/data';
+    import { aiConfig } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiToolCall.module.scss';
 
     type FluxAiToolCallSection = 'arguments' | 'result';
@@ -141,7 +141,7 @@
         error: $style.isError
     });
 
-    const STATUS_LABEL: Readonly<Record<FluxAiToolCallStatus, FluxAiTranslation>> = Object.freeze({
+    const STATUS_LABEL: Readonly<Record<FluxAiToolCallStatus, FluxTranslation>> = Object.freeze({
         running: 'flux.ai.toolRunning',
         success: 'flux.ai.toolSucceeded',
         error: 'flux.ai.toolFailed'

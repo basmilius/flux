@@ -5,7 +5,6 @@ export { default as useAdaptiveGroupInjection } from './useAdaptiveGroupInjectio
 export { default as useCalendarInjection } from './useCalendarInjection';
 export { default as useDisabledInjection } from './useDisabledInjection';
 export { default as useExpandableGroupInjection } from './useExpandableGroupInjection';
-export { default as useFilterInjection } from './useFilterInjection';
 export { default as useFlyoutInjection } from './useFlyoutInjection';
 export { default as useFormCheckboxGroupInjection } from './useFormCheckboxGroupInjection';
 export { default as useFormFieldInjection } from './useFormFieldInjection';

@@ -163,11 +163,10 @@
 <script
     lang="ts"
     setup>
-    import { defaultKeyboardGrabAnnounce, useCalendar, useCalendarMonthSwitcher, useCalendarTimeGrid, useCalendarYearSwitcher } from '@flux-ui/internals';
+    import { defaultKeyboardGrabAnnounce, useCalendar, useCalendarMonthSwitcher, useCalendarTimeGrid, useCalendarYearSwitcher, useTranslate } from '@flux-ui/internals';
     import { DateTime } from 'luxon';
     import { computed, onBeforeUnmount, onMounted, provide, ref, shallowRef, unref, type VNode, watch } from 'vue';
     import { useBreakpoints } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import { FluxCalendarInjectionKey, type FluxCalendarItemData, type FluxCalendarKeyboardDirection, type FluxCalendarView } from '~flux/components/data';
     import { FluxCalendarMonthView, FluxCalendarTimeGridView } from './calendar';
     import FluxActionBar from './FluxActionBar.vue';

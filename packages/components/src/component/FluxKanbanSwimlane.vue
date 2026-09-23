@@ -44,10 +44,10 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, provide, toRef, useId } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import { FluxKanbanSwimlaneInjectionKey } from '~flux/components/data';
     import FluxBadge from './FluxBadge.vue';
     import FluxIcon from './FluxIcon.vue';

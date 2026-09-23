@@ -232,7 +232,7 @@ type FluxFilterValue = FluxFilterValueSingle | FluxFilterValueSingle[];
 type FluxFilterState<T extends Record<string, unknown> = Record<string, FluxFilterValue>> = T;
 ```
 
-The current value of a [Filter](../../components/filter) keyed by filter `name`. Pass a generic to type the state shape for custom filter types.
+The current value of a [Filter](../../filter/components/filter) keyed by filter `name`. Pass a generic to type the state shape for custom filter types.
 
 ### `FluxFilterDefinition`
 
@@ -250,34 +250,7 @@ type FluxFilterDefinition<TValue = FluxFilterValue> = {
 };
 ```
 
-The runtime metadata returned by a filter component's `__filterDefinitionFactory`. Built via [`defineFilter`](./helpers) inside `defineOptions`. `FluxFilterBase` calls the factory on each slot VNode to build the menu, badge labels and lifecycle hooks.
-
-### `FluxFilterBase` and the entry types
-
-```ts
-type FluxFilterBase = {
-    readonly icon?: FluxIconName;
-    readonly label: string;
-    readonly name: string;
-    readonly disabled?: boolean;
-    getValueLabel(value: FluxFilterValue): Promise<string | null>;
-};
-
-type FluxFilterDateEntry = FluxFilterBase & { readonly type: 'date' };
-type FluxFilterDateRangeEntry = FluxFilterBase & { readonly type: 'dateRange' };
-type FluxFilterOptionEntry = FluxFilterBase & { readonly type: 'option' };
-type FluxFilterOptionsEntry = FluxFilterBase & { readonly type: 'options' };
-type FluxFilterRangeEntry = FluxFilterBase & { readonly type: 'range' };
-
-type FluxFilterItem =
-    | FluxFilterDateEntry
-    | FluxFilterDateRangeEntry
-    | FluxFilterOptionEntry
-    | FluxFilterOptionsEntry
-    | FluxFilterRangeEntry;
-```
-
-One registered filter as [Filter](../../components/filter) sees it. `type` narrows the union, so a switch over `FluxFilterItem` covers every filter kind.
+The runtime metadata returned by a filter component's `__filterDefinitionFactory`. Built via [`defineFilter`](../../filter/api/helpers) inside `defineOptions`. `FluxFilterBase` calls the factory on each slot VNode to build the menu, badge labels and lifecycle hooks.
 
 ### `FluxFilterOptionRow`
 

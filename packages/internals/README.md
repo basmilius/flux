@@ -33,3 +33,4 @@ The package exposes four sub-entry points alongside the root export:
 - [`@flux-ui/types`](../types)
 - [`@flux-ui/statistics`](../statistics)
 - [`@flux-ui/application`](../application)
+- [`@flux-ui/filter`](../filter)

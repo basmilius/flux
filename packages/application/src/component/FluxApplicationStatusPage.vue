@@ -47,10 +47,10 @@
     lang="ts"
     setup>
     import { FluxBoxedIcon, FluxSecondaryButton } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type VNode } from 'vue';
-    import { useTranslate } from '../composable/private';
     import { useRouter } from '../routing';
     import $style from '~flux/application/css/component/ApplicationStatusPage.module.scss';
 

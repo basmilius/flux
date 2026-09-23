@@ -29,4 +29,5 @@ Decorative, animated building blocks (border beams, patterns, animated colors, s
 - [`@flux-ui/types`](../types)
 - [`@flux-ui/internals`](../internals)
 - [`@flux-ui/application`](../application)
+- [`@flux-ui/filter`](../filter)
 - [`@flux-ui/statistics`](../statistics)

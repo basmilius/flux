@@ -1,6 +1,6 @@
-import type { FluxApplicationTranslation } from '../../../../packages/application/src/data/i18n';
+import type { english } from '../../../../packages/internals/src/data/i18n/application';
 
-export type Messages = Record<FluxApplicationTranslation, string>;
+export type Messages = Record<keyof typeof english, string>;
 
 export const nl: Messages = {
     'flux.application.back': 'Terug',

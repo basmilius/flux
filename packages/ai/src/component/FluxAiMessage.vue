@@ -56,10 +56,10 @@
     lang="ts"
     setup>
     import { FluxActionStack, FluxAvatar, FluxBoxedIcon } from '@flux-ui/components';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, inject, type VNode } from 'vue';
-    import { useTranslate } from '~flux/ai/composable/private';
     import { FluxAiConversationInjectionKey } from '~flux/ai/data';
     import $style from '~flux/ai/css/component/AiMessage.module.scss';
 

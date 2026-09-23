@@ -3,7 +3,7 @@ outline: deep
 ---
 
 <script setup>
-import { english } from '../../../packages/components/src/data/i18n';
+import { english } from '../../../packages/internals/src/data/i18n/components';
 </script>
 
 # Translations
@@ -38,8 +38,8 @@ createApp(App)
 
 ::: tip
 The sibling packages carry their own keys under the same `flux` root:
-[AI](../../ai/introduction/translations), [Application](../../application/introduction/translations)
-and [Flow](../../flow/introduction/translations). `@flux-ui/statistics` renders no
+[AI](../../ai/introduction/translations), [Application](../../application/introduction/translations),
+[Filter](../../filter/introduction/translations) and [Flow](../../flow/introduction/translations). `@flux-ui/statistics` renders no
 text of its own, but it does put the series, slice and axis names you hand it through
 the same translations, which lets you pass keys where you would otherwise pass
 finished text.
@@ -47,7 +47,7 @@ finished text.
 
 ## Strings
 
-The list is read straight from the source of `@flux-ui/components`, so it is the
+The list is read straight from the Flux source, so it is the
 set that ships with the version this page documents.
 
 <table>
@@ -82,7 +82,6 @@ blocks below are generated from it by `bun scripts/generate-translations.ts`.
 flux:
   allDay: "All day"
   andNMore: "{n} more"
-  back: "Back"
   backToTop: "Back to top"
   cancel: "Cancel"
   close: "Close"
@@ -93,7 +92,6 @@ flux:
   continue: "Continue"
   createOption: "Create \"{value}\""
   customColor: "Custom color"
-  customPeriod: "Custom period"
   decrease: "Decrease"
   delete: "Delete"
   displayingOf: "{from}–{to} of {total}"
@@ -102,7 +100,6 @@ flux:
   expandGroup: "Expand group"
   expandRow: "Expand row"
   filter: "Filter"
-  filterRemove: "Remove filter"
   filterReset: "Reset filters"
   focalPoint: "Focal point"
   focalPointValue: "{x}% horizontal, {y}% vertical"
@@ -115,14 +112,11 @@ flux:
   increase: "Increase"
   justNow: "Just now"
   lowerBound: "Lower bound"
-  max: "Max"
-  min: "Min"
   moreActions: "More actions"
   next: "Next"
   nextMonth: "Next month"
   nextYears: "Next years"
   noItems: "There are no items (left)."
-  nSelected: "{n} selected"
   ok: "Ok"
   opacity: "Opacity"
   optional: "Optional"
@@ -190,7 +184,6 @@ flux:
   "flux": {
     "allDay": "All day",
     "andNMore": "{n} more",
-    "back": "Back",
     "backToTop": "Back to top",
     "cancel": "Cancel",
     "close": "Close",
@@ -201,7 +194,6 @@ flux:
     "continue": "Continue",
     "createOption": "Create \"{value}\"",
     "customColor": "Custom color",
-    "customPeriod": "Custom period",
     "decrease": "Decrease",
     "delete": "Delete",
     "displayingOf": "{from}–{to} of {total}",
@@ -210,7 +202,6 @@ flux:
     "expandGroup": "Expand group",
     "expandRow": "Expand row",
     "filter": "Filter",
-    "filterRemove": "Remove filter",
     "filterReset": "Reset filters",
     "focalPoint": "Focal point",
     "focalPointValue": "{x}% horizontal, {y}% vertical",
@@ -223,14 +214,11 @@ flux:
     "increase": "Increase",
     "justNow": "Just now",
     "lowerBound": "Lower bound",
-    "max": "Max",
-    "min": "Min",
     "moreActions": "More actions",
     "next": "Next",
     "nextMonth": "Next month",
     "nextYears": "Next years",
     "noItems": "There are no items (left).",
-    "nSelected": "{n} selected",
     "ok": "Ok",
     "opacity": "Opacity",
     "optional": "Optional",
@@ -305,7 +293,6 @@ flux:
 flux:
   allDay: "Hele dag"
   andNMore: "nog {n}"
-  back: "Terug"
   backToTop: "Terug naar boven"
   cancel: "Annuleren"
   close: "Sluiten"
@@ -316,7 +303,6 @@ flux:
   continue: "Verder"
   createOption: "Maak \"{value}\" aan"
   customColor: "Aangepaste kleur"
-  customPeriod: "Aangepaste periode"
   decrease: "Verlagen"
   delete: "Verwijderen"
   displayingOf: "{from}–{to} van {total}"
@@ -325,7 +311,6 @@ flux:
   expandGroup: "Groep uitklappen"
   expandRow: "Rij uitklappen"
   filter: "Filter"
-  filterRemove: "Verwijder filter"
   filterReset: "Verwijder alle filters"
   focalPoint: "Focuspunt"
   focalPointValue: "{x}% horizontaal, {y}% verticaal"
@@ -338,14 +323,11 @@ flux:
   increase: "Verhogen"
   justNow: "Zojuist"
   lowerBound: "Ondergrens"
-  max: "Maximaal"
-  min: "Minimaal"
   moreActions: "Meer acties"
   next: "Volgende"
   nextMonth: "Volgende maand"
   nextYears: "Volgende jaren"
   noItems: "Geen resultaten gevonden"
-  nSelected: "{n} geselecteerd"
   ok: "Oké"
   opacity: "Dekking"
   optional: "Optioneel"
@@ -413,7 +395,6 @@ flux:
   "flux": {
     "allDay": "Hele dag",
     "andNMore": "nog {n}",
-    "back": "Terug",
     "backToTop": "Terug naar boven",
     "cancel": "Annuleren",
     "close": "Sluiten",
@@ -424,7 +405,6 @@ flux:
     "continue": "Verder",
     "createOption": "Maak \"{value}\" aan",
     "customColor": "Aangepaste kleur",
-    "customPeriod": "Aangepaste periode",
     "decrease": "Verlagen",
     "delete": "Verwijderen",
     "displayingOf": "{from}–{to} van {total}",
@@ -433,7 +413,6 @@ flux:
     "expandGroup": "Groep uitklappen",
     "expandRow": "Rij uitklappen",
     "filter": "Filter",
-    "filterRemove": "Verwijder filter",
     "filterReset": "Verwijder alle filters",
     "focalPoint": "Focuspunt",
     "focalPointValue": "{x}% horizontaal, {y}% verticaal",
@@ -446,14 +425,11 @@ flux:
     "increase": "Verhogen",
     "justNow": "Zojuist",
     "lowerBound": "Ondergrens",
-    "max": "Maximaal",
-    "min": "Minimaal",
     "moreActions": "Meer acties",
     "next": "Volgende",
     "nextMonth": "Volgende maand",
     "nextYears": "Volgende jaren",
     "noItems": "Geen resultaten gevonden",
-    "nSelected": "{n} geselecteerd",
     "ok": "Oké",
     "opacity": "Dekking",
     "optional": "Optioneel",
@@ -528,7 +504,6 @@ flux:
 flux:
   allDay: "Toute la journée"
   andNMore: "{n} de plus"
-  back: "Retour"
   backToTop: "Retour en haut"
   cancel: "Annuler"
   close: "Fermer"
@@ -539,7 +514,6 @@ flux:
   continue: "Continuer"
   createOption: "Créer \"{value}\""
   customColor: "Couleur personnalisée"
-  customPeriod: "Période personnalisée"
   decrease: "Diminuer"
   delete: "Supprimer"
   displayingOf: "{from}–{to} sur {total}"
@@ -548,7 +522,6 @@ flux:
   expandGroup: "Développer le groupe"
   expandRow: "Développer la ligne"
   filter: "Filtrer"
-  filterRemove: "Supprimer le filtre"
   filterReset: "Réinitialiser les filtres"
   focalPoint: "Point focal"
   focalPointValue: "{x} % horizontal, {y} % vertical"
@@ -561,14 +534,11 @@ flux:
   increase: "Augmenter"
   justNow: "À l'instant"
   lowerBound: "Borne inférieure"
-  max: "Max"
-  min: "Min"
   moreActions: "Plus d'actions"
   next: "Suivant"
   nextMonth: "Mois suivant"
   nextYears: "Années suivantes"
   noItems: "Aucun élément disponible."
-  nSelected: "{n} sélectionné(s)"
   ok: "OK"
   opacity: "Opacité"
   optional: "Optionnel"
@@ -636,7 +606,6 @@ flux:
   "flux": {
     "allDay": "Toute la journée",
     "andNMore": "{n} de plus",
-    "back": "Retour",
     "backToTop": "Retour en haut",
     "cancel": "Annuler",
     "close": "Fermer",
@@ -647,7 +616,6 @@ flux:
     "continue": "Continuer",
     "createOption": "Créer \"{value}\"",
     "customColor": "Couleur personnalisée",
-    "customPeriod": "Période personnalisée",
     "decrease": "Diminuer",
     "delete": "Supprimer",
     "displayingOf": "{from}–{to} sur {total}",
@@ -656,7 +624,6 @@ flux:
     "expandGroup": "Développer le groupe",
     "expandRow": "Développer la ligne",
     "filter": "Filtrer",
-    "filterRemove": "Supprimer le filtre",
     "filterReset": "Réinitialiser les filtres",
     "focalPoint": "Point focal",
     "focalPointValue": "{x} % horizontal, {y} % vertical",
@@ -669,14 +636,11 @@ flux:
     "increase": "Augmenter",
     "justNow": "À l'instant",
     "lowerBound": "Borne inférieure",
-    "max": "Max",
-    "min": "Min",
     "moreActions": "Plus d'actions",
     "next": "Suivant",
     "nextMonth": "Mois suivant",
     "nextYears": "Années suivantes",
     "noItems": "Aucun élément disponible.",
-    "nSelected": "{n} sélectionné(s)",
     "ok": "OK",
     "opacity": "Opacité",
     "optional": "Optionnel",
@@ -751,7 +715,6 @@ flux:
 flux:
   allDay: "Ganztägig"
   andNMore: "{n} weitere"
-  back: "Zurück"
   backToTop: "Nach oben"
   cancel: "Abbrechen"
   close: "Schließen"
@@ -762,7 +725,6 @@ flux:
   continue: "Weiter"
   createOption: "\"{value}\" erstellen"
   customColor: "Benutzerdefinierte Farbe"
-  customPeriod: "Benutzerdefinierter Zeitraum"
   decrease: "Verringern"
   delete: "Löschen"
   displayingOf: "{from}–{to} von {total}"
@@ -771,7 +733,6 @@ flux:
   expandGroup: "Gruppe ausklappen"
   expandRow: "Zeile ausklappen"
   filter: "Filter"
-  filterRemove: "Filter entfernen"
   filterReset: "Filter zurücksetzen"
   focalPoint: "Fokuspunkt"
   focalPointValue: "{x} % horizontal, {y} % vertikal"
@@ -784,14 +745,11 @@ flux:
   increase: "Erhöhen"
   justNow: "Gerade eben"
   lowerBound: "Untergrenze"
-  max: "Max"
-  min: "Min"
   moreActions: "Weitere Aktionen"
   next: "Weiter"
   nextMonth: "Nächster Monat"
   nextYears: "Nächste Jahre"
   noItems: "Es sind keine Einträge (mehr) vorhanden."
-  nSelected: "{n} ausgewählt"
   ok: "Ok"
   opacity: "Deckkraft"
   optional: "Optional"
@@ -859,7 +817,6 @@ flux:
   "flux": {
     "allDay": "Ganztägig",
     "andNMore": "{n} weitere",
-    "back": "Zurück",
     "backToTop": "Nach oben",
     "cancel": "Abbrechen",
     "close": "Schließen",
@@ -870,7 +827,6 @@ flux:
     "continue": "Weiter",
     "createOption": "\"{value}\" erstellen",
     "customColor": "Benutzerdefinierte Farbe",
-    "customPeriod": "Benutzerdefinierter Zeitraum",
     "decrease": "Verringern",
     "delete": "Löschen",
     "displayingOf": "{from}–{to} von {total}",
@@ -879,7 +835,6 @@ flux:
     "expandGroup": "Gruppe ausklappen",
     "expandRow": "Zeile ausklappen",
     "filter": "Filter",
-    "filterRemove": "Filter entfernen",
     "filterReset": "Filter zurücksetzen",
     "focalPoint": "Fokuspunkt",
     "focalPointValue": "{x} % horizontal, {y} % vertikal",
@@ -892,14 +847,11 @@ flux:
     "increase": "Erhöhen",
     "justNow": "Gerade eben",
     "lowerBound": "Untergrenze",
-    "max": "Max",
-    "min": "Min",
     "moreActions": "Weitere Aktionen",
     "next": "Weiter",
     "nextMonth": "Nächster Monat",
     "nextYears": "Nächste Jahre",
     "noItems": "Es sind keine Einträge (mehr) vorhanden.",
-    "nSelected": "{n} ausgewählt",
     "ok": "Ok",
     "opacity": "Deckkraft",
     "optional": "Optional",
@@ -974,7 +926,6 @@ flux:
 flux:
   allDay: "Heldag"
   andNMore: "{n} till"
-  back: "Tillbaka"
   backToTop: "Till toppen"
   cancel: "Avbryt"
   close: "Stäng"
@@ -985,7 +936,6 @@ flux:
   continue: "Fortsätt"
   createOption: "Skapa \"{value}\""
   customColor: "Anpassad färg"
-  customPeriod: "Anpassad period"
   decrease: "Minska"
   delete: "Ta bort"
   displayingOf: "{from}–{to} av {total}"
@@ -994,7 +944,6 @@ flux:
   expandGroup: "Expandera grupp"
   expandRow: "Expandera rad"
   filter: "Filter"
-  filterRemove: "Ta bort filter"
   filterReset: "Återställ filter"
   focalPoint: "Fokuspunkt"
   focalPointValue: "{x} % horisontellt, {y} % vertikalt"
@@ -1007,14 +956,11 @@ flux:
   increase: "Öka"
   justNow: "Just nu"
   lowerBound: "Undre gräns"
-  max: "Max"
-  min: "Min"
   moreActions: "Fler åtgärder"
   next: "Nästa"
   nextMonth: "Nästa månad"
   nextYears: "Nästa år"
   noItems: "Det finns inga poster (kvar)."
-  nSelected: "{n} valda"
   ok: "Ok"
   opacity: "Opacitet"
   optional: "Valfritt"
@@ -1082,7 +1028,6 @@ flux:
   "flux": {
     "allDay": "Heldag",
     "andNMore": "{n} till",
-    "back": "Tillbaka",
     "backToTop": "Till toppen",
     "cancel": "Avbryt",
     "close": "Stäng",
@@ -1093,7 +1038,6 @@ flux:
     "continue": "Fortsätt",
     "createOption": "Skapa \"{value}\"",
     "customColor": "Anpassad färg",
-    "customPeriod": "Anpassad period",
     "decrease": "Minska",
     "delete": "Ta bort",
     "displayingOf": "{from}–{to} av {total}",
@@ -1102,7 +1046,6 @@ flux:
     "expandGroup": "Expandera grupp",
     "expandRow": "Expandera rad",
     "filter": "Filter",
-    "filterRemove": "Ta bort filter",
     "filterReset": "Återställ filter",
     "focalPoint": "Fokuspunkt",
     "focalPointValue": "{x} % horisontellt, {y} % vertikalt",
@@ -1115,14 +1058,11 @@ flux:
     "increase": "Öka",
     "justNow": "Just nu",
     "lowerBound": "Undre gräns",
-    "max": "Max",
-    "min": "Min",
     "moreActions": "Fler åtgärder",
     "next": "Nästa",
     "nextMonth": "Nästa månad",
     "nextYears": "Nästa år",
     "noItems": "Det finns inga poster (kvar).",
-    "nSelected": "{n} valda",
     "ok": "Ok",
     "opacity": "Opacitet",
     "optional": "Valfritt",

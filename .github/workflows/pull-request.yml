@@ -45,6 +45,7 @@ jobs:
                     bun --cwd packages/statistics build
                     bun --cwd packages/flow build
                     bun --cwd packages/ai build
+                    bun --cwd packages/filter build
                     node scripts/transform-dts.mjs
                     bun --cwd docs build
                 env:

@@ -65,8 +65,8 @@
     lang="ts"
     setup>
     import { clamp } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import { computed, nextTick, onMounted, onUnmounted, ref, unref, useTemplateRef, watch } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxPane from './FluxPane.vue';
     import FluxPaneBody from './FluxPaneBody.vue';

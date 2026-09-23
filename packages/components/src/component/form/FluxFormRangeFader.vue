@@ -134,11 +134,12 @@
     setup>
     import { unwrapElement } from '@basmilius/common';
     import { formatNumber } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxColor, FluxDirection, FluxFormInputBaseProps, FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type CSSProperties, nextTick, onBeforeUnmount, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { createFaderAnimator, FADER_BAR_INSET, faderBarLeft, faderBarStateClass, faderClampPark, faderRoundToDecimals, useFormFader, useTranslate } from '~flux/components/composable/private';
+    import { createFaderAnimator, FADER_BAR_INSET, faderBarLeft, faderBarStateClass, faderClampPark, faderRoundToDecimals, useFormFader } from '~flux/components/composable/private';
     import FluxIcon from '../FluxIcon.vue';
     import $style from '~flux/components/css/component/FormFader.module.scss';
 

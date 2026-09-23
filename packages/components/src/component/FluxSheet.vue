@@ -1,9 +1,9 @@
 <script lang="ts">
     import { type PointerDragAxis, type PointerDragContext, useEventListener, usePointerDrag, useResizeObserver, useSpring } from '@basmilius/common';
-    import { flattenVNodeTree } from '@flux-ui/internals';
+    import { flattenVNodeTree, useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { Comment, computed, defineComponent, h, type PropType, ref, shallowRef, unref, type VNode, watch } from 'vue';
-    import { elasticResistance, useTranslate } from '~flux/components/composable/private';
+    import { elasticResistance } from '~flux/components/composable/private';
     import { FluxSheetTransition } from '~flux/components/transition';
     import { createDialogRenderer } from '~flux/components/util';
     import $style from '~flux/components/css/component/Sheet.module.scss';

@@ -44,9 +44,9 @@
     setup>
     import { unwrapElement } from '@basmilius/common';
     import { clamp } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import { onMounted, ref, toRef, unref, useTemplateRef, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxButtonGroup from './FluxButtonGroup.vue';
     import FluxSecondaryButton from './FluxSecondaryButton.vue';
     import $style from '~flux/components/css/component/Form.module.scss';

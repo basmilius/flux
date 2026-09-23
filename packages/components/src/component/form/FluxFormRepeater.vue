@@ -80,11 +80,10 @@
     lang="ts"
     setup
     generic="T">
-    import { getFocusableElements, useKeyboardGrab } from '@flux-ui/internals';
+    import { getFocusableElements, useKeyboardGrab, useTranslate } from '@flux-ui/internals';
     import { clsx } from 'clsx';
     import { computed, nextTick, provide, ref, toRef, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import { FluxDisabledInjectionKey, showConfirm } from '~flux/components/data';
     import FluxIcon from '../FluxIcon.vue';
     import FluxSecondaryButton from '../FluxSecondaryButton.vue';

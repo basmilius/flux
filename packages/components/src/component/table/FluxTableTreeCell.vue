@@ -32,11 +32,12 @@
 <script
     lang="ts"
     setup>
+    import { useTranslate } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, onUnmounted, toRef, useTemplateRef, type VNode } from 'vue';
     import { useTableInjection } from '~flux/components/composable';
-    import { FLUX_COLORS, TREE_MARKER_SIZE, TREE_STEP, useTranslate } from '~flux/components/composable/private';
+    import { FLUX_COLORS, TREE_MARKER_SIZE, TREE_STEP } from '~flux/components/composable/private';
     import FluxIcon from '../FluxIcon.vue';
     import $style from '~flux/components/css/component/Table.module.scss';
 

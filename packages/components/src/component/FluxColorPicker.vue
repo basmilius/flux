@@ -142,9 +142,8 @@
     lang="ts"
     setup>
     import { clamp, hexToRGB, hslToHSV, hslToRGB, hsvToHSL, hsvToRGB, rgbToHEX, rgbToHSL, rgbToHSV } from '@basmilius/utils';
-    import { blue500 } from '@flux-ui/internals';
+    import { blue500, useTranslate } from '@flux-ui/internals';
     import { computed, type ComputedRef, ref, unref, watch } from 'vue';
-    import { useTranslate } from '~flux/components/composable/private';
     import FluxFormField from './form/FluxFormField.vue';
     import FluxFormInput from './form/FluxFormInput.vue';
     import FluxFormSlider from './form/FluxFormSlider.vue';

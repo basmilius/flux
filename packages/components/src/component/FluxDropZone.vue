@@ -58,9 +58,9 @@
     lang="ts"
     setup>
     import { roundStep } from '@basmilius/utils';
+    import { useTranslate } from '@flux-ui/internals';
     import { onMounted, onUnmounted, ref, toRef, unref, useTemplateRef, type VNode, watch } from 'vue';
     import { useDisabled } from '~flux/components/composable';
-    import { useTranslate } from '~flux/components/composable/private';
     import { FluxFadeTransition } from '~flux/components/transition';
     import FluxSpinner from './FluxSpinner.vue';
     import $style from '~flux/components/css/component/DropZone.module.scss';
