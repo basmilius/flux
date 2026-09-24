@@ -38,7 +38,8 @@
         isNumeric,
         noWrap,
         pinned,
-        rowspan
+        rowspan,
+        verticalAlign
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
         readonly colspan?: number;
@@ -48,6 +49,7 @@
         readonly noWrap?: boolean;
         readonly pinned?: boolean | 'start' | 'end';
         readonly rowspan?: number;
+        readonly verticalAlign?: 'start' | 'center' | 'end';
     }>();
 
     const slots = defineSlots<{
@@ -75,6 +77,7 @@
     const effectiveAlign = computed(() => align ?? column.value?.align);
     const effectiveIsNumeric = computed(() => isNumeric || (column.value?.isNumeric ?? false));
     const effectiveNoWrap = computed(() => noWrap || (column.value?.noWrap ?? false));
+    const effectiveVerticalAlign = computed(() => verticalAlign ?? column.value?.verticalAlign);
 
     const pinnedSide = computed<'start' | 'end' | null>(() => {
         if (pinned === true || pinned === 'start') {
@@ -118,6 +121,14 @@
                 }
 
                 style.textAlign = effectiveAlign.value;
+            }
+
+            if (effectiveVerticalAlign.value) {
+                if (contentDirection === 'column') {
+                    style.justifyContent = effectiveVerticalAlign.value;
+                } else {
+                    style.alignItems = effectiveVerticalAlign.value;
+                }
             }
         }
 
