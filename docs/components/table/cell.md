@@ -23,6 +23,11 @@ props:
         type: number
         optional: true
 
+    -   name: copy-value
+        description: The value the cell hands to the clipboard instead of the text it renders. Use it so a formatted date or amount pastes into a spreadsheet as the value behind it, for example `1234.56` for `$ 1,234.56`.
+        type: [ 'string', 'number' ]
+        optional: true
+
     -   name: is-numeric
         description: Renders the cell content with tabular (monospaced) figures. Use for numeric columns so digits align vertically. Combine with `align` set to `end` for right-aligned numbers. Also inherited from the column's header, which is preferred for whole columns.
         type: boolean

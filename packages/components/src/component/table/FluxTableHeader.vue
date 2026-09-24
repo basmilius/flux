@@ -19,6 +19,7 @@
                 <button
                     :class="$style.tableSort"
                     :aria-label="translate('flux.sort')"
+                    data-flux-copy="none"
                     type="button"
                     @click="open">
                     <FluxIcon
@@ -66,6 +67,7 @@
             :aria-valuemax="maxWidth"
             :aria-valuemin="minWidth ?? MIN_RESIZE_WIDTH"
             :aria-valuenow="resizedWidth ?? width"
+            data-flux-copy="none"
             type="button"
             @dblclick="resetWidth"
             @keydown="onResizeKeyDown"/>

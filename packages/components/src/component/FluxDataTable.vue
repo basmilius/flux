@@ -2,6 +2,7 @@
     <FluxTable
         ref="table"
         :aria-rowcount="total + 1"
+        :is-cell-selectable="hasCellSelection"
         :is-filled="limitedItems.length !== 0 && isFilled"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
@@ -12,7 +13,7 @@
             <FluxTableBar v-if="hasSelectionBar">
                 <slot
                     name="selection"
-                    v-bind="{selected: selectedIds, count: selectedCount, clear: clearSelection}"/>
+                    v-bind="{selected: selectedIds, count: selectedCount, clear: clearSelection, copy: copySelection}"/>
             </FluxTableBar>
 
             <slot
@@ -25,7 +26,8 @@
                     v-if="selectionMode"
                     is-shrinking
                     :pinned="leadingPinned ? 'start' : undefined"
-                    :class="$style.tableCellSelection">
+                    :class="$style.tableCellSelection"
+                    data-flux-copy="none">
                     <FluxFormCheckbox
                         v-if="selectionMode === 'multiple'"
                         :model-value="selectAllState"
@@ -36,7 +38,8 @@
                     v-if="hasExpandable"
                     is-shrinking
                     :pinned="leadingPinned ? 'start' : undefined"
-                    :class="$style.tableCellExpand"/>
+                    :class="$style.tableCellExpand"
+                    data-flux-copy="none"/>
 
                 <slot
                     name="header"
@@ -99,7 +102,8 @@
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
                         v-if="selectionMode"
-                        :class="$style.tableCellSelection">
+                        :class="$style.tableCellSelection"
+                        data-flux-copy="none">
                         <FluxFormCheckbox
                             :model-value="rowStates.get(entry.key)?.isSelected"
                             @update:model-value="onSelectRow(entry.item)"/>
@@ -107,7 +111,8 @@
 
                     <FluxTableCell
                         v-if="hasExpandable"
-                        :class="$style.tableCellExpand">
+                        :class="$style.tableCellExpand"
+                        data-flux-copy="none">
                         <FluxTableActions v-if="rowStates.get(entry.key)?.isExpandable">
                             <FluxAction
                                 :class="clsx($style.tableExpandToggle, rowStates.get(entry.key)?.isExpanded && $style.isExpanded)"
@@ -158,7 +163,7 @@
             #empty>
             <div
                 :class="$style.tableCellBase"
-                role="cell"
+                :role="cellRole"
                 :style="{gridColumn: '1 / -1'}">
                 <slot name="empty">
                     <div :class="$style.tableEmpty">{{ translate('flux.noItems') }}</div>
@@ -172,9 +177,10 @@
     lang="ts"
     setup
     generic="T extends Record<string, any>">
+    import { warn } from '@flux-ui/internals';
     import type { FluxColor } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch, watchEffect } from 'vue';
     import FluxTableActions from './table/FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
@@ -225,6 +231,7 @@
         collapseMode = 'unmount',
         expandMode = 'multiple',
         groupBy,
+        isCellSelectable = false,
         isFilled = false,
         isHoverable = false,
         isLoading = false,
@@ -241,6 +248,7 @@
         readonly collapseMode?: 'hide' | 'unmount';
         readonly expandMode?: 'single' | 'multiple';
         readonly groupBy?: (item: T) => SelectionId;
+        readonly isCellSelectable?: boolean;
         readonly isFilled?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
@@ -297,6 +305,8 @@
             readonly count: number;
 
             clear(): void;
+
+            copy(): Promise<boolean>;
         }): VNode;
 
         expandable(props: {
@@ -336,6 +346,8 @@
 
     const hasRowClickListener = computed(() => !!instance?.vnode?.props?.onRowClick);
     const isRowInteractive = computed(() => (!!selectionMode && !unref(treeDisabled)) || unref(hasRowClickListener));
+    const hasCellSelection = computed(() => isCellSelectable && !unref(isRowInteractive));
+    const cellRole = computed(() => unref(hasCellSelection) ? 'gridcell' : 'cell');
 
     const limitedItems = computed(() => items.slice(0, perPage));
 
@@ -428,7 +440,7 @@
     const collapsedGroupSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(collapsedGroups)));
 
     const rowStates = computed(() => {
-        const states = new Map<SelectionId, { color: FluxColor | undefined; isExpandable: boolean; isExpanded: boolean; isSelected: boolean }>();
+        const states = new Map<SelectionId, { color: FluxColor | undefined; isExpandable: boolean; isExpanded: boolean; isSelected: boolean | undefined }>();
 
         for (const chunk of unref(renderChunks)) {
             for (const entry of chunk.entries) {
@@ -436,7 +448,9 @@
                     color: rowColor?.(entry.item),
                     isExpandable: isRowExpandable(entry.item),
                     isExpanded: isItemExpanded(entry.item),
-                    isSelected: isItemSelected(entry.item)
+                    // Left undefined without a selection mode: the row would otherwise
+                    // report aria-selected="false" and promise a selection that is not there.
+                    isSelected: selectionMode ? isItemSelected(entry.item) : undefined
                 });
             }
         }
@@ -474,8 +488,24 @@
         unref(table)?.$el.scrollTo(0, 0);
     });
 
+    watchEffect(() => {
+        if (import.meta.env.DEV && isCellSelectable && unref(isRowInteractive)) {
+            warn('FluxDataTable: is-cell-selectable is ignored while the rows are interactive. Remove selection-mode and the row-click listener, or drop is-cell-selectable.');
+        }
+    });
+
     function clearSelection(): void {
         selected.value = selectionMode === 'multiple' ? [] : null;
+    }
+
+    // Reads the rendered rows rather than the items: only the DOM knows what a
+    // column made of an item, so a selection beyond the current page is copied as
+    // far as it is rendered.
+    function copySelection(): Promise<boolean> {
+        const tableRef = unref(table);
+        const rows = (tableRef?.$el as HTMLElement | undefined)?.querySelectorAll<HTMLElement>('[role="row"][aria-selected="true"]');
+
+        return rows?.length ? tableRef!.copy(Array.from(rows)) : Promise.resolve(false);
     }
 
     function getItemId(item: T): SelectionId | undefined {

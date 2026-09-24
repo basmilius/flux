@@ -7,13 +7,14 @@ This composable provides access to the [Table](../../components/table/) layout c
 ```ts
 import { useTableInjection } from '@flux-ui/components';
 
-const { pinnedEdges, pinnedOffsets, registerColumn } = useTableInjection();
+const { cellRole, pinnedEdges, pinnedOffsets, registerColumn } = useTableInjection();
 ```
 
 ## Type declarations
 
 ```ts
 declare function useTableInjection(): {
+    readonly cellRole: Readonly<Ref<'cell' | 'gridcell'>>;
     readonly pinnedEdges: Ref<{ readonly end: number; readonly start: number; }>;
     readonly pinnedOffsets: Ref<Map<number, number>>;
 
@@ -21,6 +22,7 @@ declare function useTableInjection(): {
 };
 ```
 
+- `cellRole`: the role a cell has to render, which becomes `gridcell` while the table is `is-cell-selectable`. Bind it on a hand-built cell so it joins the cell selection.
 - `pinnedEdges`: the column index of the last start-pinned column and the first end-pinned column (`-1` when there is none). Used to render the scroll shadow on the outermost pinned column.
 - `pinnedOffsets`: the sticky offset in pixels for each pinned column, keyed by column index.
 - `registerColumn`: registers a column definition (sizing and pinning) for the table's `grid-template-columns`. Returns an unregister function.

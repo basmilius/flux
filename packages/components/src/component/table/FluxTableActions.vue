@@ -1,5 +1,7 @@
 <template>
-    <FluxActionStack :class="$style.tableActions">
+    <FluxActionStack
+        :class="$style.tableActions"
+        data-flux-copy="none">
         <slot/>
     </FluxActionStack>
 </template>

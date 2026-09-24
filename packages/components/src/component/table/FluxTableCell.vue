@@ -11,9 +11,10 @@
             pinnedSide === 'end' && $style.isPinnedEnd,
             isPinnedEdge && $style.isPinnedEdge
         )"
-        role="cell"
+        :role="cellRole"
         :aria-colspan="colspan"
         :aria-rowspan="rowspan"
+        :data-flux-copy-value="copyValue"
         :style="cellStyle">
         <slot name="content">
             <slot/>
@@ -44,6 +45,7 @@
         readonly colspan?: number;
         readonly contentDirection?: 'column' | 'row';
         readonly contentGap?: number;
+        readonly copyValue?: string | number;
         readonly isNumeric?: boolean;
         readonly noWrap?: boolean;
         readonly pinned?: boolean | 'start' | 'end';
@@ -58,6 +60,7 @@
     const cell = useTemplateRef('cell');
 
     const {
+        cellRole,
         columns,
         pinnedEdges,
         pinnedOffsets

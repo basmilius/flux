@@ -1,7 +1,7 @@
 <template>
     <div
         :class="$style.tableTreeCell"
-        role="cell">
+        :role="cellRole">
         <div
             ref="branch"
             :class="$style.treeBranch"
@@ -72,7 +72,7 @@
     const branch = useTemplateRef('branch');
     const translate = useTranslate();
 
-    const {registerTreeNode} = useTableInjection();
+    const {cellRole, registerTreeNode} = useTableInjection();
 
     const isFluxColor = computed(() => FLUX_COLORS.includes(color as FluxColor));
     const markerColorClass = computed(() => isFluxColor.value ? MARKER_COLOR_CLASS[color as FluxColor] : $style.treeMarkerCustom);

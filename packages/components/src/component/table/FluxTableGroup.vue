@@ -11,7 +11,8 @@
                     $style.tableGroup,
                     isExpandable && $style.isHoverable
                 )"
-                role="cell">
+                :role="cellRole"
+                :aria-colspan="columns.length || undefined">
                 <component
                     :is="isExpandable ? 'button' : 'div'"
                     :class="$style.tableGroupContent"
@@ -54,6 +55,7 @@
     import type { FluxIconName } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { computed, type VNode } from 'vue';
+    import { useTableInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from '../FluxIcon.vue';
     import { PassThrough } from '../primitive';
@@ -78,6 +80,7 @@
         after?(): VNode[];
     }>();
 
+    const {cellRole, columns} = useTableInjection();
     const translate = useTranslate();
 
     const hasRows = computed(() => 'default' in slots);
