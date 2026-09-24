@@ -181,6 +181,10 @@
     }
 }
 
+.applicationMenu :local(.flyoutDialog) :local(.menuItem)::before {
+    content: none;
+}
+
 .applicationMenu :local(.menuItemActive) :local(.menuItemIcon) {
     color: var(--foreground);
 }
@@ -213,6 +217,11 @@
     composes: applicationMenuAccount;
 
     pointer-events: auto;
+}
+
+.applicationMenuAccountFlyout :local(.flyoutPane) {
+    max-width: calc(100dvw - 24px);
+    width: calc(var(--application-menu-width) - 24px);
 }
 
 .applicationMenuAccount :local(.menuItemLabel) {
@@ -318,13 +327,13 @@
     .applicationMenu[data-collapsed][data-collapsible] {
         width: var(--application-menu-width-collapsed);
 
-        :local(.menuItemLabel) {
+        :local(.menuItemLabel):not(:local(.flyoutDialog) *) {
             filter: blur(3px);
             opacity: 0;
             translate: -12px 0;
         }
 
-        :local(.menuSubHeader) {
+        :local(.menuSubHeader):not(:local(.flyoutDialog) *) {
             display: none;
             height: 0;
             margin-block: -9px -3px;
