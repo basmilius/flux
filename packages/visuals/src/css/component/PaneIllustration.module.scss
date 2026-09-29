@@ -3,7 +3,7 @@
     --mask-content: linear-gradient(to bottom, black, rgb(0 0 0 / .75), transparent);
 
     position: relative;
-    border-radius: calc(var(--radius) - 1px);
+    border-radius: calc(var(--radius-container) - 1px);
 
     &:not(:first-child) {
         border-top-left-radius: 0;

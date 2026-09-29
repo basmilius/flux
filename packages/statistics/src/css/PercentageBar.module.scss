@@ -3,7 +3,7 @@
 .statisticsPercentageBar {
     display: flex;
     flex-flow: column;
-    gap: 12px;
+    gap: 9px;
 }
 
 .statisticsPercentageBarTrack {
@@ -14,19 +14,19 @@
 
 .statisticsPercentageBarSegment {
     height: 12px;
-    border-radius: calc(var(--radius) / 3);
+    border-radius: calc(var(--radius-control) / 3);
     transition: var(--transition-default);
     transition-property: height, margin, flex-grow, opacity;
 
     @include mixin.hover {
-        height: 16px;
-        margin-block: -2px;
+        height: 18px;
+        margin-block: -3px;
     }
 }
 
 .statisticsPercentageBarSegment.isHovered {
-    height: 16px;
-    margin-block: -2px;
+    height: 18px;
+    margin-block: -3px;
 }
 
 .statisticsPercentageBarTrack.isHoverActive .statisticsPercentageBarSegment:not(.isHovered):not(:hover) {
@@ -37,5 +37,5 @@
     display: flex;
     align-items: center;
     flex-flow: row nowrap;
-    gap: 9px;
+    gap: 6px;
 }

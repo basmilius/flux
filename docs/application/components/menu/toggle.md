@@ -20,5 +20,4 @@ The toggle reads its state from [`useApplicationInjection`](../../composables/us
 
 ## Used components
 
-- [Menu](../../../components/menu)
-    - [Item](../../../components/menu/item)
+- [Secondary link button](../../../components/button/secondary-link)

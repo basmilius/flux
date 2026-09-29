@@ -25,7 +25,7 @@
                     <FluxIcon
                         :class="clsx($style.kanbanSwimlaneChevron, !isCollapsed && $style.isExpanded)"
                         name="angle-right"
-                        :size="16"/>
+                        :size="15"/>
 
                     <span :class="$style.kanbanSwimlaneLabel">{{ label }}</span>
                 </button>

@@ -111,7 +111,7 @@
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
-        if (evt.key !== 'Enter' && evt.key !== ' ') {
+        if (evt.target !== evt.currentTarget || (evt.key !== 'Enter' && evt.key !== ' ')) {
             return;
         }
 

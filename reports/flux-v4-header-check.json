@@ -1,0 +1,136 @@
+{
+    "checks": [
+        "c plain icon",
+        "c plain first line",
+        "c subtitle icon",
+        "c subtitle first line",
+        "c wrapped icon",
+        "c wrapped first line",
+        "c clickable icon",
+        "c clickable first line",
+        "c disabled icon",
+        "c disabled first line",
+        "c clickable chevron",
+        "c disabled chevron",
+        "c expandable-pane .expandable-pane-header-icon",
+        "c expandable-pane .expandable-pane-header-chevron",
+        "c expandable .expandable-header-icon",
+        "c expandable .expandable-header-toggle",
+        "c info > .icon",
+        "c statistics .statistics-base-header-icon",
+        "c statistics .statistics-base-header-info",
+        "c statistics-small .statistics-base-header-icon",
+        "c statistics-small .statistics-base-header-info",
+        "c statistics center 0",
+        "c statistics center 1",
+        "c statistics-small center 0",
+        "c statistics-small center 1",
+        "c clickable focus",
+        "c disabled header",
+        "c expandable opened",
+        "c expandable closed",
+        "w plain icon",
+        "w plain first line",
+        "w subtitle icon",
+        "w subtitle first line",
+        "w wrapped icon",
+        "w wrapped first line",
+        "w clickable icon",
+        "w clickable first line",
+        "w disabled icon",
+        "w disabled first line",
+        "w clickable chevron",
+        "w disabled chevron",
+        "w expandable-pane .expandable-pane-header-icon",
+        "w expandable-pane .expandable-pane-header-chevron",
+        "w expandable .expandable-header-icon",
+        "w expandable .expandable-header-toggle",
+        "w info > .icon",
+        "w statistics .statistics-base-header-icon",
+        "w statistics .statistics-base-header-info",
+        "w statistics-small .statistics-base-header-icon",
+        "w statistics-small .statistics-base-header-info",
+        "w statistics center 0",
+        "w statistics center 1",
+        "w statistics-small center 0",
+        "w statistics-small center 1",
+        "w clickable focus",
+        "w disabled header",
+        "w expandable opened",
+        "w expandable closed",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "id": "c",
+            "name": "plain",
+            "size": 15,
+            "center": 12,
+            "title": "15px"
+        },
+        {
+            "id": "c",
+            "name": "subtitle",
+            "size": 15,
+            "center": 12,
+            "title": "16px"
+        },
+        {
+            "id": "c",
+            "name": "wrapped",
+            "size": 15,
+            "center": 12,
+            "title": "16px"
+        },
+        {
+            "id": "c",
+            "name": "clickable",
+            "size": 15,
+            "center": 12,
+            "title": "16px"
+        },
+        {
+            "id": "c",
+            "name": "disabled",
+            "size": 15,
+            "center": 12,
+            "title": "15px"
+        },
+        {
+            "id": "w",
+            "name": "plain",
+            "size": 15,
+            "center": 12,
+            "title": "15px"
+        },
+        {
+            "id": "w",
+            "name": "subtitle",
+            "size": 15,
+            "center": 12,
+            "title": "16px"
+        },
+        {
+            "id": "w",
+            "name": "wrapped",
+            "size": 15,
+            "center": 12,
+            "title": "16px"
+        },
+        {
+            "id": "w",
+            "name": "clickable",
+            "size": 15,
+            "center": 12,
+            "title": "16px"
+        },
+        {
+            "id": "w",
+            "name": "disabled",
+            "size": 15,
+            "center": 12,
+            "title": "15px"
+        }
+    ],
+    "errors": []
+}

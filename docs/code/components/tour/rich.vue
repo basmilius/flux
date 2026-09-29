@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; flex-flow: column; gap: 18px; align-items: flex-start">
+    <div style="display: flex; flex-flow: column; gap: 12px; align-items: flex-start">
         <div style="display: flex; gap: 9px">
             <span id="rich-dashboard">
                 <FluxSecondaryButton

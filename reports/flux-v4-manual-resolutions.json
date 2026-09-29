@@ -1,0 +1,702 @@
+[
+    {
+        "file": "packages/visuals/src/css/component/Visual.module.scss",
+        "line": 50,
+        "selector": ".borderShine > &::before",
+        "property": "inset",
+        "value": "-1px",
+        "reason": "Coupled geometry or expression",
+        "after": "calc(var(--shine-offset) * -1px)",
+        "decision": "Keep the 1px shine border and its matching inset."
+    },
+    {
+        "file": "packages/visuals/src/css/component/Visual.module.scss",
+        "line": 51,
+        "selector": ".borderShine > &::before",
+        "property": "padding",
+        "value": "1px",
+        "reason": "Coupled geometry or expression",
+        "after": "calc(var(--shine-width) * 1px)",
+        "decision": "Keep the 1px shine border and its matching inset."
+    },
+    {
+        "file": "packages/statistics/src/css/TrackerCard.module.scss",
+        "line": 5,
+        "selector": ".trackerCard",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/statistics/src/css/TrackerCard.module.scss",
+        "line": 7,
+        "selector": ".trackerCard",
+        "property": "gap",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Tracker.module.scss",
+        "line": 136,
+        "selector": "",
+        "property": "margin",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "24px 0 24px 3px",
+        "decision": "Branch clearance is measured by the tracker; retain 24px above and below its rail."
+    },
+    {
+        "file": "packages/statistics/src/css/Tracker.module.scss",
+        "line": 136,
+        "selector": "",
+        "property": "margin",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "24px 0 24px 3px",
+        "decision": "Branch clearance is measured by the tracker; retain 24px above and below its rail."
+    },
+    {
+        "file": "packages/statistics/src/css/Metric.module.scss",
+        "line": 50,
+        "selector": ".statisticsMetricContent > :global([data-sparkline])",
+        "property": "margin-inline",
+        "value": "-18px",
+        "reason": "Ambiguous spacing",
+        "after": "calc(-1 * var(--pane-padding))",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/statistics/src/css/Metric.module.scss",
+        "line": 64,
+        "selector": ".statisticsMetricLabel",
+        "property": "padding-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Legend.module.scss",
+        "line": 14,
+        "selector": ":local(.statisticsChartPaneBody) .statisticsLegend",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "6px 21px 6px var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/statistics/src/css/Legend.module.scss",
+        "line": 91,
+        "selector": ".statisticsLegendCompact > &.isHorizontal",
+        "property": "gap",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "6px 12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Kpi.module.scss",
+        "line": 16,
+        "selector": ".statisticsKpiValue",
+        "property": "padding-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Empty.module.scss",
+        "line": 7,
+        "selector": ".statisticsEmpty",
+        "property": "padding",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px 15px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Empty.module.scss",
+        "line": 7,
+        "selector": ".statisticsEmpty",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "18px 15px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Core.module.scss",
+        "line": 2,
+        "selector": ":local(.statisticsBaseContent) .statisticsStackable + .statisticsStackable",
+        "property": "margin-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Comparison.module.scss",
+        "line": 5,
+        "selector": ".statisticsComparison",
+        "property": "margin-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/ChartPane.module.scss",
+        "line": 54,
+        "selector": ":local(.paneHeader) + .statisticsChartPaneContainer",
+        "property": "margin-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Chart.module.scss",
+        "line": 34,
+        "selector": ".statisticsChartTooltipTitle",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px 12px 0",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Chart.module.scss",
+        "line": 34,
+        "selector": ".statisticsChartTooltipTitle",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px 12px 0",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Chart.module.scss",
+        "line": 41,
+        "selector": ".statisticsChartTooltipBody",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "9px 12px 12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Chart.module.scss",
+        "line": 91,
+        "selector": ".statisticsChartTooltipSection",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "9px 12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/statistics/src/css/Base.module.scss",
+        "line": 16,
+        "selector": ".statisticsBaseContent",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/statistics/src/css/Base.module.scss",
+        "line": 22,
+        "selector": ".statisticsBaseHeader",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding) var(--pane-padding) 0",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/statistics/src/css/Base.module.scss",
+        "line": 22,
+        "selector": ".statisticsBaseHeader",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding) var(--pane-padding) 0",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/flow/src/css/component/FlowTerminal.module.scss",
+        "line": 10,
+        "selector": "",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "0 12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Tour.module.scss",
+        "line": 50,
+        "selector": ".tourBody",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px 18px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Tour.module.scss",
+        "line": 83,
+        "selector": ".tourFooter",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "9px 18px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Table.module.scss",
+        "line": 510,
+        "selector": ".basePaneStructure > .table .tableCaption",
+        "property": "padding",
+        "value": "12px",
+        "reason": "Coupled geometry or expression",
+        "after": "12px var(--table-spacing)",
+        "decision": "Keep caption padding paired with the inherited table-spacing token."
+    },
+    {
+        "file": "packages/components/src/css/component/Tab.module.scss",
+        "line": 8,
+        "selector": ".tab",
+        "property": "gap",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "15px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Tab.module.scss",
+        "line": 223,
+        "selector": ".tabsBar",
+        "property": "margin-bottom",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "15px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Tab.module.scss",
+        "line": 232,
+        "selector": ".basePaneStructure > .tabBarDefault, .basePaneStructure > .tabs > .tabBarDefault, .basePaneStructure > .form > .tabBarDefault, .basePaneStructure > .form > .tabs > .tabBarDefault",
+        "property": "padding-inline",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/SwipeActions.module.scss",
+        "line": 79,
+        "selector": ".swipeAction",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "6px 12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/SpeedDial.module.scss",
+        "line": 19,
+        "selector": ".speedDial > &.isCornerStart",
+        "property": "inset-inline-start",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Keep the formula tied to the action diameter; compact the outer corner offset."
+    },
+    {
+        "file": "packages/components/src/css/component/SpeedDial.module.scss",
+        "line": 23,
+        "selector": ".speedDial > &.isCornerEnd",
+        "property": "inset-inline-end",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Keep the formula tied to the action diameter; compact the outer corner offset."
+    },
+    {
+        "file": "packages/components/src/css/component/SpeedDial.module.scss",
+        "line": 87,
+        "selector": ".speedDial.isStart .speedDialActions",
+        "property": "inset-inline-end",
+        "value": "12px",
+        "reason": "Coupled geometry or expression",
+        "after": "calc(100% + 12px)",
+        "decision": "Keep the formula tied to the action diameter; compact the outer corner offset."
+    },
+    {
+        "file": "packages/components/src/css/component/SpeedDial.module.scss",
+        "line": 95,
+        "selector": ".speedDial.isEnd .speedDialActions",
+        "property": "inset-inline-start",
+        "value": "12px",
+        "reason": "Coupled geometry or expression",
+        "after": "calc(100% + 12px)",
+        "decision": "Keep the formula tied to the action diameter; compact the outer corner offset."
+    },
+    {
+        "file": "packages/components/src/css/component/Snackbar.module.scss",
+        "line": 25,
+        "selector": ".snackbarContent",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--snackbar-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/Prose.module.scss",
+        "line": 45,
+        "selector": ".prose > > * + *",
+        "property": "margin-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "15px",
+        "decision": "Compact paragraph rhythm and code padding to 15px; list and quote indentation share 18px."
+    },
+    {
+        "file": "packages/components/src/css/component/Prose.module.scss",
+        "line": 59,
+        "selector": ".prose > > :where(ul, ol), > :where(ul, ol) :where(ul, ol)",
+        "property": "padding-left",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Compact paragraph rhythm and code padding to 15px; list and quote indentation share 18px."
+    },
+    {
+        "file": "packages/components/src/css/component/Prose.module.scss",
+        "line": 85,
+        "selector": ".prose > > blockquote",
+        "property": "padding-left",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Compact paragraph rhythm and code padding to 15px; list and quote indentation share 18px."
+    },
+    {
+        "file": "packages/components/src/css/component/Prose.module.scss",
+        "line": 111,
+        "selector": ".prose > > pre",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px 15px",
+        "decision": "Compact paragraph rhythm and code padding to 15px; list and quote indentation share 18px."
+    },
+    {
+        "file": "packages/components/src/css/component/Placeholder.module.scss",
+        "line": 34,
+        "selector": ".placeholder > &.isSimple",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "15px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Overlay.module.scss",
+        "line": 56,
+        "selector": ".overlay > > .basePaneStructure > > .paneHeader",
+        "property": "padding-bottom",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/Notice.module.scss",
+        "line": 145,
+        "selector": ".basePane > .notice",
+        "property": "padding-inline",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/Menu.module.scss",
+        "line": 423,
+        "selector": ".expandableBody > .menu > > :where(.divider, .separator)",
+        "property": "margin-inline",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Item.module.scss",
+        "line": 6,
+        "selector": ".item",
+        "property": "gap",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Item.module.scss",
+        "line": 67,
+        "selector": ".itemStack > .item + .item",
+        "property": "margin-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Item.module.scss",
+        "line": 68,
+        "selector": ".itemStack > .item + .item",
+        "property": "padding-top",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Item.module.scss",
+        "line": 75,
+        "selector": ".basePaneStructure > .item, .basePaneStructure > .itemStack > .item",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/Expandable.module.scss",
+        "line": 15,
+        "selector": ".expandableHeader",
+        "property": "padding-inline",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/Expandable.module.scss",
+        "line": 68,
+        "selector": ".expandableContent",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "0 var(--pane-padding) var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/Expandable.module.scss",
+        "line": 68,
+        "selector": ".expandableContent",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "0 var(--pane-padding) var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/components/src/css/component/Divider.module.scss",
+        "line": 5,
+        "selector": ".divider",
+        "property": "margin-block",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "15px",
+        "decision": "Keep the paired line endpoint formulas; compact the external rhythm to 15px."
+    },
+    {
+        "file": "packages/components/src/css/component/Divider.module.scss",
+        "line": 41,
+        "selector": ".dividerContent > &::before",
+        "property": "inset-inline",
+        "value": "15px",
+        "reason": "Coupled geometry or expression",
+        "after": "-100dvh calc(100% + 15px)",
+        "decision": "Keep the paired line endpoint formulas; compact the external rhythm to 15px."
+    },
+    {
+        "file": "packages/components/src/css/component/Divider.module.scss",
+        "line": 45,
+        "selector": ".dividerContent > &::after",
+        "property": "inset-inline",
+        "value": "15px",
+        "reason": "Coupled geometry or expression",
+        "after": "calc(100% + 15px) -100dvh",
+        "decision": "Keep the paired line endpoint formulas; compact the external rhythm to 15px."
+    },
+    {
+        "file": "packages/components/src/css/component/DescriptionList.module.scss",
+        "line": 80,
+        "selector": ".descriptionListItems.hasLabelWidth",
+        "property": "gap",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "9px 18px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/DescriptionList.module.scss",
+        "line": 103,
+        "selector": ".descriptionListItems.isHorizontal > .descriptionItem",
+        "property": "padding-inline",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/Comment.module.scss",
+        "line": 45,
+        "selector": ".commentContent",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "9px 12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/CommandPalette.module.scss",
+        "line": 20,
+        "selector": ".commandPaletteDialog",
+        "property": "padding-top",
+        "value": "60px",
+        "reason": "Coupled geometry or expression",
+        "after": "clamp(60px, 15vh, 159px)",
+        "decision": "Use the component targets; retain viewport anchoring with the clamp maximum rounded to 159px."
+    },
+    {
+        "file": "packages/components/src/css/component/CommandPalette.module.scss",
+        "line": 20,
+        "selector": ".commandPaletteDialog",
+        "property": "padding-top",
+        "value": "160px",
+        "reason": "Coupled geometry or expression",
+        "after": "clamp(60px, 15vh, 159px)",
+        "decision": "Use the component targets; retain viewport anchoring with the clamp maximum rounded to 159px."
+    },
+    {
+        "file": "packages/components/src/css/component/CommandPalette.module.scss",
+        "line": 47,
+        "selector": ".commandPaletteSearch",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "0 12px",
+        "decision": "Use the component targets; retain viewport anchoring with the clamp maximum rounded to 159px."
+    },
+    {
+        "file": "packages/components/src/css/component/CommandPalette.module.scss",
+        "line": 161,
+        "selector": ".commandPaletteLoading",
+        "property": "padding",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Use the component targets; retain viewport anchoring with the clamp maximum rounded to 159px."
+    },
+    {
+        "file": "packages/components/src/css/component/CommandPalette.module.scss",
+        "line": 170,
+        "selector": ".commandPaletteEmpty",
+        "property": "padding",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Use the component targets; retain viewport anchoring with the clamp maximum rounded to 159px."
+    },
+    {
+        "file": "packages/components/src/css/component/BackToTop.module.scss",
+        "line": 13,
+        "selector": ".backToTop > &.isStart",
+        "property": "inset-inline-start",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/BackToTop.module.scss",
+        "line": 17,
+        "selector": ".backToTop > &.isEnd",
+        "property": "inset-inline-end",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/components/src/css/component/AdaptiveSlot.module.scss",
+        "line": 5,
+        "selector": ".adaptiveGroup",
+        "property": "gap",
+        "value": "9px",
+        "reason": "Coupled geometry or expression",
+        "after": "var(--gap, 9px)",
+        "decision": "Retain the 9px fallback for the configurable gap."
+    },
+    {
+        "file": "packages/components/src/css/component/Action.module.scss",
+        "line": 55,
+        "selector": ".basePaneStructure > .actionBar",
+        "property": "padding",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "9px var(--pane-padding)",
+        "decision": "Use the role token so the comfortable preset inherits correctly."
+    },
+    {
+        "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+        "line": 46,
+        "selector": ".applicationMenuFooter",
+        "property": "padding-bottom",
+        "value": "12px",
+        "reason": "Coupled geometry or expression",
+        "after": "max(9px, env(safe-area-inset-bottom))",
+        "decision": "Reduce the minimum safe-area gutter to 9px; preserve the safe-area expression."
+    },
+    {
+        "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+        "line": 58,
+        "selector": ".applicationMenuHeader",
+        "property": "padding-top",
+        "value": "12px",
+        "reason": "Coupled geometry or expression",
+        "after": "max(9px, env(safe-area-inset-top))",
+        "decision": "Reduce the minimum safe-area gutter to 9px; preserve the safe-area expression."
+    },
+    {
+        "file": "packages/ai/src/css/component/AiUsage.module.scss",
+        "line": 15,
+        "selector": ".usageFigures",
+        "property": "gap",
+        "value": "18px",
+        "reason": "Ambiguous spacing",
+        "after": "6px 12px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    },
+    {
+        "file": "packages/ai/src/css/component/AiConversation.module.scss",
+        "line": 31,
+        "selector": ".conversationList",
+        "property": "gap",
+        "value": "24px",
+        "reason": "Ambiguous spacing",
+        "after": "18px",
+        "decision": "Apply the explicit component target or compact internal spacing on the 3px grid."
+    }
+]

@@ -3,13 +3,13 @@
 .formRepeater {
     display: flex;
     flex-flow: column;
-    gap: 18px;
+    gap: 15px;
 }
 
 .formRepeaterRows {
     display: flex;
     flex-flow: column;
-    gap: 18px;
+    gap: 15px;
 }
 
 .formRepeaterRow {
@@ -33,11 +33,11 @@
     }
 
     &::before {
-        top: -9px;
+        top: -6px;
     }
 
     &::after {
-        bottom: -9px;
+        bottom: -6px;
     }
 
     &.isDropBefore::before,
@@ -50,7 +50,7 @@
     }
 
     &.isGrabbed {
-        border-radius: var(--radius);
+        border-radius: var(--radius-control);
         outline: 2px solid var(--primary-solid);
         outline-offset: 6px;
     }
@@ -61,12 +61,12 @@
     min-width: 0;
     flex: 1 1 auto;
     flex-flow: column;
-    gap: 12px;
+    gap: 9px;
 }
 
 .formRepeaterHandle {
     display: flex;
-    height: 36px;
+    height: var(--control-height-small);
     width: 27px;
     flex-shrink: 0;
     margin: 0;
@@ -75,7 +75,7 @@
     justify-content: center;
     background: unset;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     color: var(--foreground-secondary);
     cursor: grab;
     transition: var(--transition-default);

@@ -18,7 +18,7 @@ props:
         optional: true
 
     -   name: size
-        description: The size of the icon.
+        description: The width and height of the icon box. SVG artwork keeps its aspect ratio inside this box. Defaults to 18px; built-in controls set their own size on the 3px grid.
         type: [ number, string ]
         optional: true
 

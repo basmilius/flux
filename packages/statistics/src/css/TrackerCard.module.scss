@@ -2,14 +2,14 @@
 
 .trackerCard {
     display: flex;
-    padding: 18px;
+    padding: var(--pane-padding);
     flex-flow: column;
-    gap: 18px;
+    gap: 12px;
 }
 
 .trackerCardHeader {
     display: flex;
-    gap: 12px;
+    gap: 9px;
     align-items: flex-start;
 }
 

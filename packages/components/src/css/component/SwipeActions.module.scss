@@ -26,10 +26,10 @@
     position: relative;
     z-index: 1;
     background: var(--surface-current);
-    border-start-start-radius: calc(var(--radius) * var(--swipe-open-start));
-    border-end-start-radius: calc(var(--radius) * var(--swipe-open-start));
-    border-start-end-radius: calc(var(--radius) * var(--swipe-open-end));
-    border-end-end-radius: calc(var(--radius) * var(--swipe-open-end));
+    border-start-start-radius: calc(var(--radius-container) * var(--swipe-open-start));
+    border-end-start-radius: calc(var(--radius-container) * var(--swipe-open-start));
+    border-start-end-radius: calc(var(--radius-container) * var(--swipe-open-end));
+    border-end-end-radius: calc(var(--radius-container) * var(--swipe-open-end));
     touch-action: pan-y;
     translate: calc(var(--swipe-offset) * var(--swipe-dir)) 0;
 
@@ -76,7 +76,7 @@
     min-width: 42px;
     height: 42px;
     max-height: 100%;
-    padding: 6px 18px;
+    padding: 6px 12px;
     align-items: center;
     justify-content: center;
     gap: 6px;

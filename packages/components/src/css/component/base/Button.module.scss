@@ -2,25 +2,26 @@
 @use '~flux/components/css/mixin';
 
 $-sizes: (
-    isSmall: (height: 36px, padding: 9px),
-    isMedium: (height: 42px, padding: 12px),
-    isLarge: (height: 48px, padding: 15px),
-    isXl: (height: 54px, padding: 18px)
+    isSmall: (height: var(--control-height-small), padding: 9px),
+    isMedium: (height: var(--control-height-medium), padding: 12px),
+    isLarge: (height: var(--control-height-large), padding: 15px),
+    isXl: (height: var(--control-height-xl), padding: 18px)
 );
 
 @layer flux-base {
     .button {
-        @include mixin.text(default);
+        font-size: var(--control-font-size);
+        line-height: var(--control-line-height);
 
         display: inline-flex;
         align-items: center;
         flex-grow: 0;
         flex-shrink: 0;
-        gap: 12px;
+        gap: var(--control-gap);
         justify-content: center;
         background: unset;
         border: 1px solid;
-        border-radius: var(--radius);
+        border-radius: var(--radius-control);
         box-shadow: var(--shadow-px);
         cursor: pointer;
         text-decoration: none;
@@ -49,6 +50,14 @@ $-sizes: (
             &.#{$-class} {
                 height: map.get($-size, height);
                 padding: 0 map.get($-size, padding);
+
+                &:has(> :is(.buttonIcon, :local(.spinner)):first-child) {
+                    padding-inline-start: calc(#{map.get($-size, padding)} - 3px);
+                }
+
+                &:has(> :is(.buttonIcon, :local(.spinner)):last-child) {
+                    padding-inline-end: calc(#{map.get($-size, padding)} - 3px);
+                }
             }
         }
 
@@ -56,33 +65,23 @@ $-sizes: (
             align-self: stretch;
         }
 
-        :local(.spinner) {
+        > :local(.spinner) {
             flex-shrink: 0;
-
-            &:only-child {
-                margin-inline: -2px;
-            }
         }
 
-        &:has(.buttonIcon:only-child) {
-            padding-inline: 0;
-
+        &:has(> :is(.buttonIcon, :local(.spinner)):only-child) {
             @each $-class, $-size in $-sizes {
                 &.#{$-class} {
                     width: map.get($-size, height);
+                    padding-inline: 0;
                 }
             }
         }
     }
 
     .buttonIcon {
-        margin: 1px;
         flex-shrink: 0;
-        font-size: 18px;
-
-        &:only-child {
-            margin-inline: -1px;
-        }
+        font-size: var(--control-icon-size);
     }
 
     .buttonLabel {
@@ -91,8 +90,7 @@ $-sizes: (
         text-align: center;
 
         &:only-child {
-            margin-inline: 6px;
-            min-width: 42px;
+            min-width: 33px;
         }
     }
 
@@ -105,4 +103,9 @@ $-sizes: (
             margin-right: -6px;
         }
     }
+}
+
+// Spinner's unlayered default would otherwise override the button's base layer.
+.button > :local(.spinner) {
+    font-size: var(--control-icon-size);
 }

@@ -10,7 +10,7 @@
             v-if="icon"
             :class="$style.formFieldAdditionIcon"
             :name="icon"
-            :size="16"/>
+            :size="15"/>
 
         <span v-if="message">
             {{ message }}

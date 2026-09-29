@@ -1,0 +1,97 @@
+{
+    "checks": [
+        "matches bell width false",
+        "matches bell height false",
+        "matches bell radius false",
+        "matches bell background false",
+        "matches bell iconSize false",
+        "matches bell iconColor false",
+        "control size false",
+        "centered X false",
+        "centered Y false",
+        "no menuitem role false",
+        "hover matches bell false",
+        "Space toggles false",
+        "Enter restores false",
+        "focus retained false",
+        "focus ring matches bell false",
+        "matches bell width true",
+        "matches bell height true",
+        "matches bell radius true",
+        "matches bell background true",
+        "matches bell iconSize true",
+        "matches bell iconColor true",
+        "control size true",
+        "centered X true",
+        "centered Y true",
+        "no menuitem role true",
+        "hover matches bell true",
+        "Space toggles true",
+        "Enter restores true",
+        "focus retained true",
+        "focus ring matches bell true",
+        "mobile toggle visible",
+        "mobile toggle square",
+        "mobile inset follows topbar padding",
+        "mobile toggle fits",
+        "mobile click toggles",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "comfortable": false,
+            "menu": {
+                "width": 30,
+                "height": 30,
+                "radius": "9px",
+                "background": "rgba(0, 0, 0, 0)",
+                "iconSize": 15,
+                "iconColor": "oklch(0.4004 0.0403 269.6)",
+                "centerX": 0,
+                "centerY": 0,
+                "outlineStyle": "solid",
+                "outlineWidth": "2px"
+            },
+            "bell": {
+                "width": 30,
+                "height": 30,
+                "radius": "9px",
+                "background": "rgba(0, 0, 0, 0)",
+                "iconSize": 15,
+                "iconColor": "oklch(0.4004 0.0403 269.6)",
+                "centerX": 0,
+                "centerY": 0,
+                "outlineStyle": "solid",
+                "outlineWidth": "2px"
+            }
+        },
+        {
+            "comfortable": true,
+            "menu": {
+                "width": 36,
+                "height": 36,
+                "radius": "12px",
+                "background": "rgba(0, 0, 0, 0)",
+                "iconSize": 18,
+                "iconColor": "oklch(0.4004 0.0403 269.6)",
+                "centerX": 0,
+                "centerY": 0,
+                "outlineStyle": "solid",
+                "outlineWidth": "2px"
+            },
+            "bell": {
+                "width": 36,
+                "height": 36,
+                "radius": "12px",
+                "background": "rgba(0, 0, 0, 0)",
+                "iconSize": 18,
+                "iconColor": "oklch(0.4004 0.0403 269.6)",
+                "centerX": 0,
+                "centerY": 0,
+                "outlineStyle": "solid",
+                "outlineWidth": "2px"
+            }
+        }
+    ],
+    "errors": []
+}

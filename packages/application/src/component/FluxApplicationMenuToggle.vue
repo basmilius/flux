@@ -1,13 +1,15 @@
 <template>
-    <FluxMenuItem
+    <FluxSecondaryLinkButton
         :class="$style.applicationMenuToggle"
+        size="small"
         :aria-label="translate('flux.application.toggleMenu')"
         :aria-expanded="!isMenuCollapsed"
         @click="isMenuCollapsed = !isMenuCollapsed">
-        <template #before>
+        <template #iconLeading>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
+                aria-hidden="true"
                 viewBox="0 0 18 18"
                 :class="$style.applicationMenuToggleIcon">
                 <path
@@ -18,13 +20,13 @@
                 <path d="M16 15V3a1 1 0 0 0-1-1h-5a1 1 0 0 1 0-2h5c1.63.04 3 1.33 3 3v12a3.07 3.07 0 0 1-3 3h-5a1 1 0 1 1 0-2h5a1 1 0 0 0 1-1"/>
             </svg>
         </template>
-    </FluxMenuItem>
+    </FluxSecondaryLinkButton>
 </template>
 
 <script
     lang="ts"
     setup>
-    import { FluxMenuItem } from '@flux-ui/components';
+    import { FluxSecondaryLinkButton } from '@flux-ui/components';
     import { useApplicationInjection } from '../composable';
     import { useTranslate } from '../composable/private';
     import $style from '~flux/application/css/component/ApplicationMenu.module.scss';

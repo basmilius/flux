@@ -5,7 +5,6 @@
         <FluxIcon
             v-if="icon"
             :class="$style.paneHeaderIcon"
-            :size="20"
             :name="icon"/>
 
         <div

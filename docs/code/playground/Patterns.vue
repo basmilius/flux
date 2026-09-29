@@ -259,7 +259,7 @@
                     <FluxIcon
                         :color="STATUS_COLOR[detail.status]"
                         :name="STATUS_ICON[detail.status]"
-                        :size="20"/>
+                        :size="18"/>
                 </FluxTooltip>
             </template>
 
@@ -719,7 +719,7 @@
                         <FluxIcon
                             :color="entry.color"
                             :name="entry.icon"
-                            :size="20"/>
+                            :size="18"/>
                     </FluxTooltip>
                 </FluxTableCell>
 

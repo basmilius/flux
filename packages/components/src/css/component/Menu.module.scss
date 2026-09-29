@@ -8,13 +8,13 @@
 .menuNormal {
     composes: menu;
 
-    gap: 6px;
+    gap: 3px;
 }
 
 .menuLarge {
     composes: menu;
 
-    gap: 9px;
+    gap: 3px;
 }
 
 .menuGroup {
@@ -39,19 +39,22 @@
 .menuPane {
     display: flex;
     flex-flow: column;
-    gap: 9px;
-    padding: 9px;
+    gap: 3px;
+    padding: var(--menu-padding);
 }
 
 // A control has no hover background of its own, so it lines up with the edge of the one on the items
 // around it rather than with their padding. Only the icon and the label keep that padding, matching
 // the sub header; a row that is nothing but the control lines up on both sides.
 .menuControl {
+    font-size: var(--control-font-size);
+    line-height: var(--control-line-height);
+
     display: flex;
-    min-height: 42px;
-    padding: 0 0 0 12px;
+    min-height: var(--menu-item-height);
+    padding: 0 0 0 9px;
     align-items: center;
-    gap: 15px;
+    gap: 9px;
     color: var(--foreground);
 
     &:has(> .menuControlContent:only-child) {
@@ -92,8 +95,8 @@
     composes: button from './base/Button.module.scss';
 
     height: unset;
-    min-height: 42px;
-    gap: 15px;
+    min-height: var(--menu-item-height);
+    gap: 9px;
     justify-content: flex-start;
     border: 0;
     box-shadow: none;
@@ -238,7 +241,7 @@
 .menuCollapsibleContent {
     display: flex;
     padding-block: 3px;
-    padding-left: 35px;
+    padding-left: 27px;
     flex-flow: column;
     gap: 3px;
 }
@@ -267,7 +270,7 @@
     color: var(--foreground-secondary);
 
     &.icon {
-        font-size: 16px;
+        font-size: 15px;
     }
 }
 
@@ -305,7 +308,7 @@
 .menuTitle {
     @include mixin.text(xlarge);
 
-    padding: 0 12px;
+    padding: 0 9px;
     color: var(--foreground-prominent);
     font-weight: 700;
 }
@@ -314,10 +317,10 @@
     position: sticky;
     display: flex;
     top: 0;
-    margin-block: -9px -3px;
-    padding: 12px 12px 6px;
+    margin-block: -6px -3px;
+    padding: 9px 9px 6px;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     background: linear-gradient(to bottom, var(--surface-current) 75%, transparent);
     pointer-events: none;
     z-index: 1;
@@ -329,7 +332,7 @@
 }
 
 .menuSubHeaderIcon {
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .menuSubHeaderLabel {
@@ -339,24 +342,24 @@
 }
 
 .menuItem + .menuSubHeader {
-    margin-top: 9px;
+    margin-top: 6px;
 }
 
 .menuLarge .menuControl {
-    min-height: 48px;
-    padding-left: 15px;
+    min-height: var(--menu-item-height-large);
+    padding-left: 12px;
 }
 
 .menuLarge .menuItem {
     position: relative;
-    padding-inline: 15px;
+    padding-inline: 12px;
 
     &::after {
         position: absolute;
         display: block;
-        inset-block: 12px;
+        inset-block: 9px;
         right: 12px;
-        width: 4px;
+        width: 3px;
         content: '';
         background: var(--primary-solid);
         border-radius: var(--radius-full);
@@ -366,7 +369,7 @@
 }
 
 .menuLarge .menuItem:not(.menuItemIndented) {
-    min-height: 48px;
+    min-height: var(--menu-item-height-large);
 
     &::after {
         background: var(--primary-on-solid);
@@ -397,29 +400,29 @@
 }
 
 .basePane > .menu {
-    margin-inline: 9px;
+    margin-inline: var(--menu-padding);
 
     &:first-child {
-        margin-top: 9px;
+        margin-top: var(--menu-padding);
     }
 
     &:last-child {
-        margin-bottom: 9px;
+        margin-bottom: var(--menu-padding);
     }
 
     > :where(.divider, .separator) {
-        margin: 3px -9px;
+        margin: 3px calc(-1 * var(--menu-padding));
     }
 }
 
 .expandableBody > .menu {
-    margin-inline: 9px;
+    margin-inline: var(--menu-padding);
 
     &:last-child {
-        margin-bottom: 9px;
+        margin-bottom: var(--menu-padding);
     }
 
     > :where(.divider, .separator) {
-        margin-inline: 18px;
+        margin-inline: 12px;
     }
 }

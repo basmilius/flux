@@ -53,7 +53,7 @@
                         v-if="model.id === modelValue"
                         :class="$style.modelSelectCheck"
                         name="check"
-                        :size="16"/>
+                        :size="15"/>
                 </button>
             </FluxMenu>
         </template>

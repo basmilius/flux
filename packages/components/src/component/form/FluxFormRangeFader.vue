@@ -83,7 +83,7 @@
                 v-if="iconLeading"
                 :class="$style.formFaderIconLeading"
                 :name="iconLeading"
-                :size="16"/>
+                :size="15"/>
 
             <span
                 v-if="label"
@@ -99,7 +99,7 @@
                 v-if="iconTrailing"
                 :class="$style.formFaderIconTrailing"
                 :name="iconTrailing"
-                :size="16"/>
+                :size="15"/>
         </div>
 
         <div
@@ -110,7 +110,7 @@
                 v-if="iconLeading"
                 :class="$style.formFaderIconLeading"
                 :name="iconLeading"
-                :size="16"/>
+                :size="15"/>
 
             <span
                 v-if="label"
@@ -124,7 +124,7 @@
                 v-if="iconTrailing"
                 :class="$style.formFaderIconTrailing"
                 :name="iconTrailing"
-                :size="16"/>
+                :size="15"/>
         </div>
     </div>
 </template>

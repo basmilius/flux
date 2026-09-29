@@ -39,16 +39,16 @@
         font-size: 21px;
         font-weight: 800;
         font-variant-numeric: tabular-nums;
-        line-height: 36px;
+        line-height: 30px;
     }
 
     :global(small):not(:first-child) {
-        margin-top: 15px;
+        margin-top: 12px;
     }
 
     :global([data-sparkline]) {
-        margin-inline: -18px;
-        width: calc(100% + 36px);
+        margin-inline: calc(-1 * var(--pane-padding));
+        width: calc(100% + 2 * var(--pane-padding));
         max-width: none;
     }
 }
@@ -61,13 +61,13 @@
 .statisticsMetricLabel {
     @include mixin.text(default);
 
-    padding-top: 18px;
+    padding-top: 12px;
     color: var(--foreground-secondary);
     font-weight: 500;
 }
 
 .statisticsMetricValue {
-    @include mixin.text(xlarge, $line-height: 36px);
+    @include mixin.text(xlarge, $line-height: 30px);
 
     color: var(--foreground-prominent);
     font-weight: 800;
@@ -76,9 +76,9 @@
 }
 
 .statisticsMetricContent + .statisticsMetricBottom {
-    margin-top: 9px;
+    margin-top: 6px;
 }
 
 .statisticsMetricValue + .statisticsMetricContent {
-    margin-top: 15px;
+    margin-top: 12px;
 }

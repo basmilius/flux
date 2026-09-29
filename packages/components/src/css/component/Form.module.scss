@@ -9,13 +9,13 @@
     @include mixin.focus-ring-remove();
 
     &:first-child {
-        border-top-left-radius: calc(var(--radius) - 1px);
-        border-bottom-left-radius: calc(var(--radius) - 1px);
+        border-top-left-radius: calc(var(--radius-control) - 1px);
+        border-bottom-left-radius: calc(var(--radius-control) - 1px);
     }
 
     &:last-child {
-        border-top-right-radius: calc(var(--radius) - 1px);
-        border-bottom-right-radius: calc(var(--radius) - 1px);
+        border-top-right-radius: calc(var(--radius-control) - 1px);
+        border-bottom-right-radius: calc(var(--radius-control) - 1px);
     }
 }
 
@@ -28,7 +28,7 @@
     composes: formStructureElement;
 
     counter-reset: flux-step;
-    gap: 42px;
+    gap: 24px;
 }
 
 :local(.pane) > .form {
@@ -40,7 +40,7 @@
 .formSection {
     composes: formStructureElement;
 
-    gap: 18px;
+    gap: 15px;
 }
 
 .form,
@@ -55,14 +55,14 @@
     --columns: 2;
 
     display: grid;
-    gap: 18px;
+    gap: 15px;
     grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
 }
 
 .formRow {
     display: flex;
     flex-grow: 1;
-    gap: 18px;
+    gap: 15px;
 }
 
 .formSectionTitle {
@@ -76,17 +76,17 @@
     composes: formStructureElement;
 
     counter-increment: flux-step;
-    gap: 12px;
+    gap: 9px;
 }
 
 .formStepHeader {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: 9px;
 }
 
 .formStepNumber {
-    @include mixin.text(xsmall);
+    @include mixin.text(xsmall, $line-height: 21px);
 
     display: inline-flex;
     height: 27px;
@@ -95,7 +95,7 @@
     align-items: center;
     justify-content: center;
     background: var(--primary-soft);
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     color: var(--primary-text);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -131,9 +131,9 @@
 
 .formStepContent {
     display: flex;
-    margin-left: 39px;
+    margin-left: 36px;
     flex-flow: column;
-    gap: 12px;
+    gap: 9px;
 }
 
 @include mixin.breakpoint-down(sm) {
@@ -143,7 +143,7 @@
 
     .formRow {
         flex-flow: column;
-        gap: 18px;
+        gap: 15px;
     }
 }
 
@@ -199,7 +199,8 @@
 }
 
 .formFieldAdditionIcon {
-    margin-top: calc((var(--line-height-small) - 16px) / 2);
+    margin-top: 3px;
+    font-size: 15px;
 }
 
 .formFieldAdditionError {
@@ -223,13 +224,13 @@
 
     position: relative;
     display: block;
-    height: 42px;
+    height: var(--field-height);
     width: 100%;
-    padding: 0 12px;
+    padding: 0 var(--field-padding);
     background: var(--surface);
     background-clip: padding-box;
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     box-shadow: var(--shadow-px);
     color: var(--foreground);
     outline: 0 solid transparent;
@@ -247,7 +248,7 @@
     }
 
     &.isCondensed {
-        height: 34px;
+        height: var(--field-height-small);
     }
 
     &.isInvalid {
@@ -283,21 +284,23 @@
 
 .formInputIcon {
     position: absolute;
-    margin-block: 11px;
+    top: 50%;
     color: var(--foreground-secondary);
+    font-size: 15px;
     pointer-events: none;
+    translate: 0 -50%;
 }
 
 .formInputIconTrailing {
     composes: formInputIcon;
 
-    right: 12px;
+    right: var(--field-padding);
 }
 
 .formInputIconLeading {
     composes: formInputIcon;
 
-    left: 12px;
+    left: var(--field-padding);
 }
 
 .formInputIconPasswordToggle {
@@ -328,7 +331,7 @@
     inset: 0;
     height: 100%;
     width: 100%;
-    padding: 0 12px;
+    padding: 0 var(--field-padding);
     background: unset;
     border: 0;
     border-radius: inherit;
@@ -354,24 +357,24 @@
     }
 
     &::-webkit-color-swatch-wrapper {
-        width: calc(100% + 24px);
-        margin: 0 -12px;
+        width: calc(100% + 2 * var(--field-padding));
+        margin: 0 calc(-1 * var(--field-padding));
         padding: 3px;
     }
 }
 
 .formInputNativeHasIconLeading {
-    padding-left: 42px;
+    padding-left: calc(var(--field-padding) + 24px);
 }
 
 .formInputNativeHasIconTrailing {
-    padding-right: 42px;
+    padding-right: calc(var(--field-padding) + 24px);
 }
 
 .formNumberInputNative {
     composes: formInputNative;
 
-    padding-right: 38px;
+    padding-right: calc(var(--field-padding) + 27px);
     appearance: textfield;
     -moz-appearance: textfield;
     font-variant-numeric: tabular-nums;
@@ -389,9 +392,9 @@
     right: 0;
     display: flex;
     flex-direction: column;
-    width: 33px;
+    width: 27px;
     border-left: 1px solid var(--surface-stroke);
-    border-radius: 0 calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0;
+    border-radius: 0 calc(var(--radius-control) - 1px) calc(var(--radius-control) - 1px) 0;
     overflow: hidden;
 }
 
@@ -546,7 +549,7 @@
         // so it is clipped away instead: https://bugzil.la/1812397
         @supports (-moz-appearance: none) {
             &[type="date"] {
-                clip-path: inset(0 calc(12px + 1.5em) 0 0);
+                clip-path: inset(0 calc(var(--field-padding) + 1.5em) 0 0);
             }
         }
     }
@@ -580,12 +583,17 @@
     position: relative;
     display: flex;
     height: unset;
-    min-height: 42px;
-    padding: 0 39px 0 6px;
+    min-height: var(--field-height);
+    padding: 0 calc(var(--field-padding) + 24px) 0 3px;
     align-items: center;
     flex-wrap: wrap;
     gap: 0 6px;
     cursor: pointer;
+
+    &.isCondensed {
+        height: auto;
+        min-height: var(--field-height-small);
+    }
 
     &:not(.isDisabled) {
         @include mixin.focus-ring(-1px, true);
@@ -604,7 +612,7 @@
     }
 
     .badge {
-        margin-block: 6px;
+        margin-block: 3px;
         max-width: 100%;
         flex: 0 0 auto;
     }
@@ -613,7 +621,7 @@
 .formSelectIcon {
     position: absolute;
     top: 50%;
-    right: 12px;
+    right: var(--field-padding);
     color: var(--foreground-secondary);
     translate: 0 -50%;
 }
@@ -621,8 +629,8 @@
 .formSelectInput {
     position: sticky;
     top: 0;
-    height: 48px;
-    margin-bottom: 9px;
+    height: var(--field-height);
+    margin-bottom: 6px;
     background: var(--surface-current);
     border-top: 0;
     border-left: 0;
@@ -633,14 +641,8 @@
 
     @include mixin.focus-ring-remove;
 
-    .formInputIcon {
-        right: 0;
-        margin: 15px;
-        font-size: 18px;
-    }
-
-    .formInputNative {
-        padding-inline: 18px;
+    &:has(~ .menu) {
+        --field-padding: calc(var(--menu-padding) + 12px);
     }
 }
 
@@ -666,7 +668,7 @@
     z-index: 10000;
 
     .menuItem {
-        contain-intrinsic-size: auto 42px;
+        contain-intrinsic-size: auto var(--menu-item-height);
         content-visibility: auto;
     }
 
@@ -675,15 +677,18 @@
     }
 
     &.isSearchable .menuSubHeader {
-        top: 48px;
+        top: var(--field-height);
     }
 }
 
 .formSelectSelected {
     position: absolute;
-    height: 100%;
-    padding-inline: 12px 42px;
+    height: auto;
+    min-height: 0;
+    padding-inline: var(--field-padding) calc(var(--field-padding) + 24px);
     inset: -1px;
+    font-size: var(--control-font-size);
+    line-height: var(--control-line-height);
     pointer-events: none;
 
     .buttonLabel {
@@ -704,8 +709,8 @@
 
 .formTextArea {
     height: unset;
-    min-height: calc(18px + 2px + var(--rows, 1) * 1lh);
-    padding-block: 9px;
+    min-height: calc(12px + 2px + var(--rows, 1) * 1lh);
+    padding-block: 6px;
     flex-shrink: 0;
     field-sizing: content;
     resize: vertical;
@@ -726,12 +731,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 6px;
 
     &.isInline {
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 8px 20px;
+        gap: 6px 15px;
     }
 
     &.isInline:has(> .formCheckboxTile) {
@@ -758,13 +763,13 @@
             }
 
             &:first-child {
-                border-top-left-radius: var(--radius);
-                border-top-right-radius: var(--radius);
+                border-top-left-radius: var(--radius-control);
+                border-top-right-radius: var(--radius-control);
             }
 
             &:last-child {
-                border-bottom-left-radius: var(--radius);
-                border-bottom-right-radius: var(--radius);
+                border-bottom-left-radius: var(--radius-control);
+                border-bottom-right-radius: var(--radius-control);
             }
 
             @include mixin.hover {
@@ -792,11 +797,11 @@
                 }
 
                 &:first-child {
-                    border-radius: var(--radius) 0 0 var(--radius);
+                    border-radius: var(--radius-control) 0 0 var(--radius-control);
                 }
 
                 &:last-child {
-                    border-radius: 0 var(--radius) var(--radius) 0;
+                    border-radius: 0 var(--radius-control) var(--radius-control) 0;
                 }
             }
         }
@@ -807,9 +812,9 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: flex-start;
-    gap: 12px;
+    gap: 9px;
 
-    line-height: 21px;
+    line-height: var(--line-height-default);
     outline: 0;
 
     &.isDisabled {
@@ -841,16 +846,16 @@
 
 .formCheckboxElement,
 .formCheckboxNative {
-    margin: 1px 0 0;
-    height: 20px;
-    width: 20px;
+    margin: 3px 0 0;
+    height: 18px;
+    width: 18px;
 }
 
 .formCheckboxElement {
     position: relative;
     display: inline-flex;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     padding: 0;
     align-items: center;
     flex-shrink: 0;
@@ -868,7 +873,6 @@
 
     .icon {
         opacity: 0;
-        scale: .85;
         transition: inherit;
         transition-property: opacity;
 
@@ -884,10 +888,11 @@
     min-width: 0;
     flex-direction: column;
     gap: 3px;
+    overflow-wrap: anywhere;
 }
 
 .formCheckboxLabel {
-    @include mixin.text(default, $line-height: 21px);
+    @include mixin.text(default);
 }
 
 .formCheckboxSubLabel {
@@ -936,10 +941,10 @@
 
     width: 100%;
     align-items: flex-start;
-    padding: 15px 18px;
+    padding: 12px 15px;
     background: var(--surface);
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     color: var(--foreground);
     cursor: pointer;
     transition: 210ms var(--swift-out);
@@ -972,7 +977,8 @@
     > .formCheckboxIcon {
         order: 1;
         flex-shrink: 0;
-        margin-top: 1px;
+        font-size: var(--control-icon-size);
+        margin-top: calc((var(--line-height-default) - var(--control-icon-size)) / 2);
         color: var(--primary-text);
     }
 
@@ -990,12 +996,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 6px;
 
     &.isInline {
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 9px 21px;
+        gap: 6px 15px;
     }
 
     &.isInline:has(> .formRadioTile) {
@@ -1022,13 +1028,13 @@
             }
 
             &:first-child {
-                border-top-left-radius: var(--radius);
-                border-top-right-radius: var(--radius);
+                border-top-left-radius: var(--radius-control);
+                border-top-right-radius: var(--radius-control);
             }
 
             &:last-child {
-                border-bottom-left-radius: var(--radius);
-                border-bottom-right-radius: var(--radius);
+                border-bottom-left-radius: var(--radius-control);
+                border-bottom-right-radius: var(--radius-control);
             }
 
             @include mixin.hover {
@@ -1056,11 +1062,11 @@
                 }
 
                 &:first-child {
-                    border-radius: var(--radius) 0 0 var(--radius);
+                    border-radius: var(--radius-control) 0 0 var(--radius-control);
                 }
 
                 &:last-child {
-                    border-radius: 0 var(--radius) var(--radius) 0;
+                    border-radius: 0 var(--radius-control) var(--radius-control) 0;
                 }
             }
         }
@@ -1072,9 +1078,9 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: flex-start;
-    gap: 12px;
+    gap: 9px;
 
-    line-height: 21px;
+    line-height: var(--line-height-default);
     outline: 0;
     cursor: pointer;
 
@@ -1106,17 +1112,17 @@
 
 .formRadioElement,
 .formRadioNative {
-    margin: 1px 0 0;
-    height: 20px;
-    width: 20px;
+    margin: 3px 0 0;
+    height: 18px;
+    width: 18px;
 }
 
 .formRadioElement {
     position: relative;
     display: inline-flex;
     flex-shrink: 0;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     align-items: center;
     justify-content: center;
     background: var(--surface-hover);
@@ -1131,8 +1137,8 @@
 
     &::after {
         content: '';
-        height: 8px;
-        width: 8px;
+        height: 6px;
+        width: 6px;
         background: var(--primary-on-solid);
         border-radius: 50%;
         scale: 0;
@@ -1142,7 +1148,7 @@
 }
 
 .formRadioLabel {
-    @include mixin.text(default, $line-height: 21px);
+    @include mixin.text(default);
 }
 
 .formRadioNative {
@@ -1184,6 +1190,7 @@
     min-width: 0;
     flex-direction: column;
     gap: 3px;
+    overflow-wrap: anywhere;
 }
 
 .formRadioSubLabel {
@@ -1197,10 +1204,10 @@
 
     width: 100%;
     align-items: flex-start;
-    padding: 15px 18px;
+    padding: 12px 15px;
     background: var(--surface);
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     color: var(--foreground);
     cursor: pointer;
     transition: 210ms var(--swift-out);
@@ -1233,7 +1240,8 @@
     > .formRadioIcon {
         order: 1;
         flex-shrink: 0;
-        margin-top: 1px;
+        font-size: var(--control-icon-size);
+        margin-top: calc((var(--line-height-default) - var(--control-icon-size)) / 2);
         color: var(--primary-text);
     }
 
@@ -1252,7 +1260,7 @@
     align-self: center;
     justify-self: center;
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     box-shadow: var(--shadow-px);
     overflow: hidden;
     transition: var(--transition-default);
@@ -1331,7 +1339,7 @@
     padding: 0;
     width: 2.7ch;
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     box-shadow: var(--shadow-px);
     font: inherit;
     line-height: 3.3ch;
@@ -1365,8 +1373,8 @@
 .formToggle {
     position: relative;
     display: block;
-    width: 54px;
-    height: 30px;
+    width: 42px;
+    height: 24px;
     flex: 0 0 auto;
     background: var(--surface-hover);
     border: 1px solid var(--surface-stroke);
@@ -1385,7 +1393,7 @@
         background: var(--primary-solid);
 
         .formToggleInput::after {
-            translate: 24px 0;
+            translate: 18px 0;
             border-color: transparent;
         }
 
@@ -1394,12 +1402,12 @@
         }
 
         .formToggleIconOn {
-            translate: calc(-50% + 24px) -50%;
+            translate: calc(-50% + 18px) -50%;
         }
     }
 
     &:not(.isChecked) .formToggleIconOff {
-        translate: calc(-50% - 24px) -50%;
+        translate: calc(-50% - 18px) -50%;
     }
 
     &.isDisabled {
@@ -1427,13 +1435,13 @@
 .formToggleIconOff {
     composes: formToggleIcon;
 
-    left: 15px;
+    left: 12px;
 }
 
 .formToggleIconOn {
     composes: formToggleIcon;
 
-    left: 39px;
+    left: 30px;
 }
 
 .formToggleInput {
@@ -1460,8 +1468,8 @@
         display: block;
         top: 2px;
         left: 2px;
-        height: 24px;
-        width: 24px;
+        height: 18px;
+        width: 18px;
         content: '';
         background: var(--surface);
         border: 1px solid var(--surface-stroke);
@@ -1483,8 +1491,8 @@
 
     display: flex;
     height: unset;
-    min-height: 42px;
-    padding: 3px 6px;
+    min-height: var(--field-height);
+    padding: 3px var(--field-padding);
     align-items: center;
     flex-wrap: wrap;
     gap: 6px;
@@ -1507,18 +1515,15 @@
 }
 
 .formTagsInputField {
-    height: 30px;
+    height: var(--line-height-default);
     min-width: 60px;
+    padding: 0;
     flex: 1 1 60px;
     background: none;
     border: 0;
     color: inherit;
     font: inherit;
     outline: 0;
-
-    &:first-child {
-        padding-left: 6px;
-    }
 
     &::placeholder {
         color: var(--foreground-secondary);

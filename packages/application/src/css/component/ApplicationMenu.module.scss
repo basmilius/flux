@@ -21,8 +21,8 @@
 .applicationMenuFooter,
 .applicationMenuHeader,
 .applicationMenuPanel {
-    padding: 12px;
-    gap: 12px;
+    padding: 9px;
+    gap: 9px;
 }
 
 .applicationMenuFooter,
@@ -43,7 +43,7 @@
 
 .applicationMenuFooter {
     max-height: 50vh;
-    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    padding-bottom: max(9px, env(safe-area-inset-bottom));
     transition: var(--application-duration) var(--swift-out);
     transition-property: max-height, opacity, padding-top, padding-bottom;
 
@@ -55,7 +55,7 @@
 }
 
 .applicationMenuHeader {
-    padding-top: max(12px, env(safe-area-inset-top));
+    padding-top: max(9px, env(safe-area-inset-top));
     flex-shrink: 0;
     border-bottom: 1px solid var(--application-menu-surface-stroke);
     overflow: hidden;
@@ -104,7 +104,7 @@
 }
 
 .applicationMenu :local(.divider) {
-    margin: 3px 12px;
+    margin: 3px 9px;
 }
 
 .applicationMenu :local(.dividerContent)::before,
@@ -123,7 +123,7 @@
 
     @starting-style {
         height: 0;
-        margin-block: -9px -3px;
+        margin-block: -6px -3px;
         padding-block: 0;
         opacity: 0;
     }
@@ -153,7 +153,7 @@
         height: 1em;
         width: 3px;
         background: var(--foreground-secondary);
-        border-radius: var(--radius);
+        border-radius: var(--radius-container);
         opacity: 0;
         transition: 300ms var(--swift-out);
         transition-property: height, opacity;
@@ -220,17 +220,17 @@
 }
 
 .applicationMenuAccount :local(.avatar) {
-    margin: -5px;
+    margin: -3px;
     font-size: 30px;
 }
 
 .applicationMenuContext {
     display: flex;
-    margin-top: -12px;
-    margin-inline: -12px;
-    padding: 15px 16px;
+    margin-top: -9px;
+    margin-inline: -9px;
+    padding: 9px 12px;
     flex-flow: row nowrap;
-    gap: 15px;
+    gap: 12px;
     border-bottom: 1px solid var(--application-menu-surface-stroke);
 }
 
@@ -262,19 +262,19 @@
 
 .applicationMenuPromo {
     display: flex;
-    padding: 12px;
+    padding: 9px;
     flex-flow: row;
-    gap: 12px;
+    gap: 9px;
     background: var(--surface);
     border: 1px solid var(--application-menu-surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     transition: opacity var(--application-duration) var(--swift-out);
 }
 
 .applicationMenuPromo > :local(.icon) {
     margin: 2px;
     color: var(--foreground-secondary);
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .applicationMenuPromoContent {
@@ -289,19 +289,18 @@
     color: var(--foreground);
 }
 
-.applicationMenuToggle:local(.menuItem) {
-    height: min-content;
+.applicationMenuToggle {
+    width: var(--control-height-small);
+    padding-inline: 0;
     align-self: center;
-    color: var(--foreground);
-    flex-grow: 0;
-    flex-shrink: 0;
 }
 
 .applicationMenuToggleIcon {
     height: 1em;
     width: 1em;
     flex-shrink: 0;
-    font-size: 18px;
+    color: var(--foreground);
+    font-size: var(--control-icon-size);
     line-height: 1;
     overflow: visible;
 
@@ -312,7 +311,7 @@
 
 @include mixin.breakpoint-up(lg) {
     .applicationMenuPromo {
-        width: calc(var(--application-menu-width) - 25px);
+        width: calc(var(--application-menu-width) - 21px);
     }
 
     .applicationMenu[data-collapsed][data-collapsible] {
@@ -327,7 +326,7 @@
         :local(.menuSubHeader) {
             display: none;
             height: 0;
-            margin-block: -9px -3px;
+            margin-block: -6px -3px;
             padding-block: 0;
             opacity: 0;
         }

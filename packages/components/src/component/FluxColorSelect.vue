@@ -21,7 +21,7 @@
             <FluxIcon
                 :class="$style.colorSelectCheck"
                 name="check"
-                :size="14"/>
+                :size="12"/>
         </button>
 
         <FluxFlyout v-if="isCustomAllowed">
@@ -35,7 +35,7 @@
                     @click="open()">
                     <FluxIcon
                         name="ellipsis-h"
-                        :size="16"/>
+                        :size="15"/>
                 </button>
             </template>
 

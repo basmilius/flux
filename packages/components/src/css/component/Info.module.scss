@@ -4,10 +4,11 @@
     --info-icon-color: var(--primary-text);
 
     display: flex;
-    gap: 15px;
+    gap: 12px;
 
     > .icon {
-        margin-top: 3px;
+        font-size: 15px;
+        margin-top: calc((var(--line-height-default) - 1em) / 2);
         flex-shrink: 0;
         color: var(--info-icon-color);
     }

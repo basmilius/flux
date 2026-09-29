@@ -13,20 +13,20 @@
             <FluxIcon
                 :key="selectableIcon"
                 :name="selectableIcon"
-                :size="16"/>
+                :class="$style.chipIcon"/>
         </FluxFadeTransition>
 
         <FluxIcon
             v-else-if="iconLeading"
             :name="iconLeading"
-            :size="16"/>
+            :class="$style.chipIcon"/>
 
         <span>{{ label }}</span>
 
         <FluxIcon
             v-if="iconTrailing"
             :name="iconTrailing"
-            :size="16"/>
+            :class="$style.chipIcon"/>
     </Component>
 </template>
 

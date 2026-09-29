@@ -15,7 +15,7 @@
                     @click="toggle()">
                     <FluxIcon
                         name="ellipsis-h"
-                        :size="16"/>
+                        :size="15"/>
                 </FluxPressable>
             </template>
 

@@ -15,7 +15,7 @@
 
 .progressBarTrack {
     position: relative;
-    height: 9px;
+    height: 6px;
     background: var(--gray-soft);
     border-radius: var(--radius-half);
     box-shadow: inset 0 0 0 1px var(--gray-border);
@@ -58,7 +58,7 @@
     @include mixin.text(small);
 
     display: flex;
-    gap: 21px;
+    gap: 15px;
     justify-content: flex-end;
 }
 
@@ -76,11 +76,11 @@
 }
 
 .basePaneStructure > .progressBar:first-child {
-    margin: 9px 9px 0;
+    margin: 6px 6px 0;
 }
 
 .basePaneStructure > .progressBar:last-child {
-    margin: 0 9px 9px;
+    margin: 0 6px 6px;
 }
 
 .tableCell > .progressBar {

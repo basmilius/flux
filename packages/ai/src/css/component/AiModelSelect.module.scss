@@ -2,13 +2,13 @@
 
 .modelSelectOption {
     display: grid;
-    padding: 9px 12px;
+    padding: 6px 9px;
     grid-template-columns: minmax(0, auto) 1fr auto;
     align-items: center;
-    gap: 3px 9px;
+    gap: 3px 6px;
     background: unset;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     color: var(--foreground);
     cursor: pointer;
     text-align: left;

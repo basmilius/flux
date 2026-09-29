@@ -2,7 +2,7 @@
     <Preview>
         <FluxPane style="max-width: 390px">
             <FluxPaneBody>
-                <FluxFlex :gap="18">
+                <FluxFlex :gap="15">
                     <FluxToggle
                         v-model="value"/>
 

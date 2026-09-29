@@ -1,0 +1,125 @@
+{
+    "checks": [
+        "default heights false",
+        "default centered icons false",
+        "icon size false",
+        "default keyboard activates second false",
+        "default focus follows selection false",
+        "default Home selects first false",
+        "default hover height stable false",
+        "default highlight width false",
+        "default highlight position false",
+        "pills heights false",
+        "pills centered icons false",
+        "pills keyboard activates second false",
+        "pills focus follows selection false",
+        "pills Home selects first false",
+        "pills hover height stable false",
+        "pills highlight width false",
+        "pills highlight position false",
+        "pill highlight fills height false",
+        "disabled tab remains disabled false",
+        "default heights true",
+        "default centered icons true",
+        "icon size true",
+        "default keyboard activates second true",
+        "default focus follows selection true",
+        "default Home selects first true",
+        "default hover height stable true",
+        "default highlight width true",
+        "default highlight position true",
+        "pills heights true",
+        "pills centered icons true",
+        "pills keyboard activates second true",
+        "pills focus follows selection true",
+        "pills Home selects first true",
+        "pills hover height stable true",
+        "pills highlight width true",
+        "pills highlight position true",
+        "pill highlight fills height true",
+        "disabled tab remains disabled true",
+        "narrow pane can select last tab",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "comfortable": false,
+            "name": "default",
+            "metrics": [
+                {
+                    "height": 42,
+                    "icon": 15,
+                    "center": 0
+                },
+                {
+                    "height": 42,
+                    "icon": 15,
+                    "center": 0
+                },
+                {
+                    "height": 42,
+                    "icon": 15,
+                    "center": 0
+                }
+            ]
+        },
+        {
+            "comfortable": false,
+            "name": "pills",
+            "metrics": [
+                {
+                    "height": 36,
+                    "center": 0
+                },
+                {
+                    "height": 36,
+                    "center": 0
+                },
+                {
+                    "height": 36,
+                    "center": 0
+                }
+            ]
+        },
+        {
+            "comfortable": true,
+            "name": "default",
+            "metrics": [
+                {
+                    "height": 48,
+                    "icon": 18,
+                    "center": 0
+                },
+                {
+                    "height": 48,
+                    "icon": 18,
+                    "center": 0
+                },
+                {
+                    "height": 48,
+                    "icon": 18,
+                    "center": 0
+                }
+            ]
+        },
+        {
+            "comfortable": true,
+            "name": "pills",
+            "metrics": [
+                {
+                    "height": 42,
+                    "center": 0
+                },
+                {
+                    "height": 42,
+                    "center": 0
+                },
+                {
+                    "height": 42,
+                    "center": 0
+                }
+            ]
+        }
+    ],
+    "errors": []
+}

@@ -3,14 +3,14 @@
 .applicationPageHeader {
     display: flex;
     flex-flow: column;
-    gap: 21px;
+    gap: 15px;
 }
 
 .applicationPageHeaderMain {
     display: flex;
     align-items: center;
     flex-flow: row;
-    gap: 21px;
+    gap: 15px;
 }
 
 .applicationPageHeaderTitle {
@@ -33,19 +33,19 @@
     align-items: center;
     flex-flow: row wrap;
     flex-shrink: 0;
-    gap: 9px;
+    gap: 6px;
     justify-content: flex-end;
 }
 
 @include mixin.breakpoint-down(md) {
     .applicationPageHeader {
-        gap: 15px;
+        gap: 12px;
     }
 
     .applicationPageHeaderMain {
         align-items: stretch;
         flex-flow: column;
-        gap: 15px;
+        gap: 12px;
     }
 
     .applicationPageHeaderActions {

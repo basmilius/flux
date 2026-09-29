@@ -6,7 +6,7 @@
             <FluxSeparator v-if="index > 0"/>
 
             <FluxSwipeActions>
-                <FluxItem style="padding: 18px">
+                <FluxItem style="padding: var(--pane-padding)">
                     <FluxItemContent is-center>
                         <strong :style="task.isCompleted ? 'text-decoration: line-through; opacity: .6' : undefined">{{ task.title }}</strong>
                         <span style="font-size: .875rem; opacity: .6">{{ task.due }}</span>

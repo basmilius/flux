@@ -15,7 +15,7 @@
             :class="$style.activityFeedItemIcon">
             <FluxIcon
                 :name="icon"
-                :size="16"/>
+                :size="15"/>
         </div>
 
         <span

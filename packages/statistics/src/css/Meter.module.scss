@@ -8,7 +8,7 @@
 
     display: flex;
     flex-flow: column;
-    gap: 9px;
+    gap: 6px;
 }
 
 .statisticsMeterSmall {
@@ -20,7 +20,7 @@
 .statisticsMeterBar {
     height: 6px;
     background: var(--surface-sunken);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     contain: paint;
 }
 
@@ -58,7 +58,7 @@
 
 .statisticsMeterHeader {
     display: grid;
-    gap: 6px 12px;
+    gap: 6px 9px;
     grid-template-areas: "title value" "sub-title tip";
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;

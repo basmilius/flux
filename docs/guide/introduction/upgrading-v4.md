@@ -4,16 +4,119 @@ outline: deep
 
 # Upgrading to v4
 
-This major rebuilds the color layer, puts every package behind the same `vue-i18n` translations, and turns the application side panel into something you drive with a model. An application that renders Flux components and never reached into a custom property has little to do. The rest is worth a read in the order below, which runs from what fails quietly to what fails at the type checker.
+This major makes the default layout more compact, rebuilds the color layer, puts every package behind the same `vue-i18n` translations, and turns the application side panel into something you drive with a model. An application that renders Flux components and never reached into a custom property has little to do. The rest is worth a read in the order below, which runs from what fails quietly to what fails at the type checker.
 
 | Area                                                      | What changed                                                                        | Concerns you if                                            |
 |-----------------------------------------------------------|-------------------------------------------------------------------------------------|------------------------------------------------------------|
+| [Density](#compact-by-default) | Controls and spacing are smaller; role tokens support overrides. | You use fixed sizes or need the previous density. |
 | [Colors](#colors)                                         | The palette moved behind `--palette-*` and both themes resolve via `light-dark()`.  | You read or declared one of the color custom properties.   |
 | [Translations](#every-package-speaks-the-same-way)        | `vue-i18n` is a peer dependency of every package that renders text.                 | You render any Flux component.                             |
 | [Application side](#the-side-panel-carries-its-own-state) | `FluxApplicationSide` takes `v-model:is-visible` and covers the content below `lg`. | You render a side panel.                                   |
 | [Kanban](#kanban-move-events-carry-a-swimlane)            | `move` and `canMove` carry the swimlane an item came from.                          | You annotate the move event with its type.                 |
 | [Package exports](#a-package-hands-out-less)              | The injection keys and English dictionaries of `application` and `flow` are internal. | You import one of them by name.                            |
 | [New keys](#eighteen-new-translation-keys)                | 18 keys were added, none were removed or renamed.                                   | You keep a translation map of your own.                    |
+
+## Compact by default
+
+V4 uses smaller controls and less space between elements. Body text stays at 15px with a 24px line height. Buttons and menu labels use 14/24, while native input text stays at 15/24. The playground's **Comfortable** switch lets you compare the two densities, including menus and dialogs.
+
+| Element | Previous default | V4 default |
+| --- | --- | --- |
+| Button small / medium / large / xl | 36 / 42 / 48 / 54px | 30 / 36 / 42 / 48px |
+| Input / small input | 42 / 34px | 36 / 30px |
+| Menu item / large item | 42 / 48px | 36 / 42px |
+| Table cell padding | 12px 15px | 6px 12px |
+| Tab padding / gap / pill height | 12 / 27 / 36px | 6 / 18 / 30px |
+| Segmented item small / medium / large | 30 / 36 / 48px | 24 / 30 / 36px |
+| Badge small / medium / large | 21 / 28 / 33px | 21 / 24 / 30px |
+| Chip height | 36px | 30px |
+| Checkbox and radio | 20px | 18px |
+| Pane padding | 18px | 15px |
+| Snackbar width | 570px | 480px |
+| Application top / menu / collapsed menu | 66 / 300 / 69px | 48 / 240 / 54px |
+| h1 font / line height | 27 / 42px | 27 / 36px |
+| h2 font / line height | 21 / 33px | 21 / 30px |
+
+Buttons keep 9 / 12 / 15 / 18px horizontal padding by size, with 3px less on each icon edge. Loading and icon-only buttons use the same geometry. Segmented tracks add 3px of padding on each side of the item, giving heights of 30 / 36 / 42px.
+
+Built-in icon and spinner sizes follow the 3px grid. Compact controls and pane headers use 15px icons; supporting chevrons use 12px. Badge and tag icons use 12 / 15 / 15px by size (12 / 15 / 18px in Comfortable); chips use 15px. Standalone icons and spinners default to 18px. Pane header icons stay at 15px in both density modes because their title typography stays the same. Loading indicators occupy the same space as the icon they replace. Explicit `FluxIcon` sizes are preserved. SVG artwork now fits its declared square box without extra scaling for wide viewBoxes, so wide icons no longer paint into adjacent text.
+
+Menus keep a 9px inset from their pane in both modes. This also applies to flyout menu panes, so hover and selected rows have room around them.
+
+### A migration preset through v4
+
+The standard stylesheet includes a temporary `[comfortable]` preset, available until v5:
+
+```html
+<html comfortable>
+```
+
+It restores the larger button, field, menu, table, tab, segmented, badge, chip, pane, snackbar and application-shell tokens. Internal spacing and smaller controls such as checkboxes stay compact; it is not a pixel-exact v3 theme. Small fields become 33px instead of 34px. The medium badge keeps its old 28px height and negative margin only inside this preset.
+
+You can put the attribute on a subtree. Teleported overlays inherit from their destination, so use the document root when overlays need the same density. A boolean value does not disable a presence selector: remove `comfortable` to return to compact sizing.
+
+### Override sizes by role
+
+Set these custom properties on `:root` or a component ancestor. There are no density props or injections, and Flux does not automatically increase sizes for coarse pointers. Apps choose their own touch sizing.
+
+```css
+:root {
+    --control-height-small: 30px;
+    --control-height-medium: 36px;
+    --control-height-large: 42px;
+    --control-height-xl: 48px;
+    --control-font-size: var(--font-size-small);
+    --control-line-height: var(--line-height-default);
+    --control-icon-size: 15px;
+    --control-gap: 6px;
+    --field-height: 36px;
+    --field-height-small: 30px;
+    --field-padding: 9px;
+    --menu-item-height: 36px;
+    --menu-item-height-large: 42px;
+    --menu-padding: 9px;
+    --table-cell-padding: 6px 12px;
+    --table-header-padding-block: 9px;
+    --table-spacing: 15px;
+    --tab-padding: 9px;
+    --tab-gap: 18px;
+    --tab-pill-height: 36px;
+    --segmented-height-small: 24px;
+    --segmented-height-medium: 30px;
+    --segmented-height-large: 36px;
+    --chip-height: 30px;
+    --chip-padding: 9px;
+    --badge-height-small: 21px;
+    --badge-height-medium: 24px;
+    --badge-height-large: 30px;
+    --badge-line-height-small: 21px;
+    --badge-line-height-large: 24px;
+    --badge-margin: 0px;
+    --pane-padding: 15px;
+    --pane-header-gap: 12px;
+    --snackbar-padding: 12px 15px;
+    --snackbar-width: 480px;
+    --application-top-height: 48px;
+    --application-menu-width: 240px;
+    --application-menu-width-collapsed: 54px;
+
+}
+```
+
+Controls now use `--radius-control: 9px`; containers use `--radius-container: 12px`. Small corners stay at `--radius-half: 6px`. The legacy `--radius` remains available for app CSS, but Flux components read the role tokens. Update existing `--radius` overrides to both roles if they should still affect the whole library.
+
+### Update custom layouts
+
+Review hardcoded row heights, sticky offsets, aligned icons and padding around Flux components. Prefer the role tokens above. For your own spacing, the general mapping is:
+
+| Previous spacing | Compact spacing |
+| --- | --- |
+| 9 / 12 / 15px | 6 / 9 / 12px |
+| 18px | 15px at a container edge, usually 12px inside a component |
+| 21 / 24 / 27 / 30px | 15 / 18 / 21 / 24px |
+| 36 / 42 / 48 / 54 / 60px | 27 / 33 / 36 / 42 / 45px |
+
+Explicit component sizes in the first table take priority over this spacing map. Do not apply it to text, icons, images or avatars. Spacing and dimensions follow a 3px grid; 1px and 2px remain valid for strokes and border corrections. For fixed text controls, keep height minus line height even so their text centers on a whole pixel. Tree indentation and markers both use 21px; table-tree geometry follows the same values.
 
 ## Colors
 

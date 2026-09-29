@@ -1,6 +1,6 @@
 <template>
     <FluxPane style="max-width: 390px">
-        <FluxPaneBody style="display: flex; flex-direction: column; gap: 9px">
+        <FluxPaneBody style="display: flex; flex-direction: column; gap: 6px">
             <FluxFormFader
                 label="Primary"
                 v-model="a"/>

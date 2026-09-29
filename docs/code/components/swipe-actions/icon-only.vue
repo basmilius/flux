@@ -6,7 +6,7 @@
             <FluxSeparator v-if="index > 0"/>
 
             <FluxSwipeActions>
-                <FluxItem style="padding: 18px">
+                <FluxItem style="padding: var(--pane-padding)">
                     <FluxItemContent is-center>
                         <strong>{{ mail.from }}</strong>
                         <span style="font-size: .875rem; opacity: .6">{{ mail.subject }}</span>

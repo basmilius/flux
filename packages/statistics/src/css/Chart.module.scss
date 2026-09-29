@@ -23,7 +23,7 @@
     background-clip: padding-box;
     backdrop-filter: blur(3px) saturate(180%);
     border: 1px solid var(--surface-stroke-out-hover);
-    border-radius: var(--radius-double);
+    border-radius: var(--radius-container);
     box-shadow: var(--shadow-lg);
     color: var(--foreground);
 }
@@ -31,16 +31,16 @@
 .statisticsChartTooltipTitle {
     @include mixin.text(default, $line-height: 1);
 
-    padding: 18px 18px 0;
+    padding: 12px 12px 0;
     color: var(--foreground-prominent);
     font-weight: 700;
 }
 
 .statisticsChartTooltipBody {
     display: grid;
-    padding: 12px 18px 15px;
+    padding: 9px 12px 12px;
     align-items: center;
-    gap: 6px 15px;
+    gap: 6px 12px;
     grid-template-columns: repeat(3, auto);
 }
 
@@ -53,8 +53,8 @@
 
 .statisticsChartTooltipSeriesIcon {
     display: flex;
-    height: 14px;
-    width: 14px;
+    height: 12px;
+    width: 12px;
     color: var(--chart-1);
     align-items: center;
     justify-content: center;
@@ -88,7 +88,7 @@
 }
 
 .statisticsChartTooltipSection {
-    padding: 12px 18px;
+    padding: 9px 12px;
     transition: opacity .15s ease-out;
 
     & + & {
@@ -105,12 +105,12 @@
 
     color: var(--foreground-prominent);
     font-weight: 700;
-    margin-bottom: 9px;
+    margin-bottom: 6px;
 }
 
 .statisticsChartTooltipSectionBody {
     display: grid;
     align-items: center;
-    gap: 6px 15px;
+    gap: 6px 12px;
     grid-template-columns: repeat(3, auto);
 }

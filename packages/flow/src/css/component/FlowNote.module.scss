@@ -7,11 +7,11 @@
 
     display: flex;
     width: 210px;
-    padding: 12px 15px;
+    padding: 9px 12px;
     flex-direction: column;
     gap: 3px;
     background: var(--gray-soft-hover);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     color: var(--foreground);
 
     :is(strong) {

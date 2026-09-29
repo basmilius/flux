@@ -146,7 +146,7 @@
                         <div
                             v-else-if="isLoading"
                             :class="$style.commandPaletteLoading">
-                            <FluxSpinner :size="22"/>
+                            <FluxSpinner :size="21"/>
                         </div>
 
                         <div

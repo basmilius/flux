@@ -30,8 +30,7 @@
         <FluxIcon
             v-if="icon"
             :class="$style.formCheckboxIcon"
-            :name="icon"
-            :size="20"/>
+            :name="icon"/>
 
         <span :class="$style.formCheckboxText">
             <span :class="$style.formCheckboxLabel">

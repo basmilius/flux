@@ -42,21 +42,21 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
     color: var(--foreground);
 
     > * + * {
-        margin-top: 18px;
+        margin-top: 15px;
     }
 
     > * + :where(h1, h2, h3) {
-        margin-top: 42px;
+        margin-top: 33px;
     }
 
     > h2 {
-        padding-bottom: 9px;
+        padding-bottom: 6px;
         border-bottom: 1px solid var(--surface-stroke);
     }
 
     > :where(ul, ol),
     > :where(ul, ol) :where(ul, ol) {
-        padding-left: 24px;
+        padding-left: 18px;
     }
 
     > ul {
@@ -108,8 +108,8 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
 
     > pre {
         overflow-x: auto;
-        padding: 15px 18px;
-        border-radius: var(--radius);
+        padding: 12px 15px;
+        border-radius: var(--radius-container);
         background: var(--surface-sunken);
     }
 
@@ -136,7 +136,7 @@ $text: ':where(p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table)';
     }
 
     > table :where(th, td) {
-        padding: 12px 15px;
+        padding: 9px 12px;
         vertical-align: top;
         text-align: start;
         overflow-wrap: break-word;

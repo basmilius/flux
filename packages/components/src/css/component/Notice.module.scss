@@ -4,14 +4,14 @@
     composes: basePaneElement from './base/Pane.module.scss';
 
     display: flex;
-    padding: 12px 15px;
-    gap: 12px;
-    border-radius: var(--radius);
+    padding: 9px 12px;
+    gap: 9px;
+    border-radius: var(--radius-control);
 
     .button {
-        margin-block: -6px;
-        margin-right: -9px;
-        height: 36px;
+        margin-block: 0;
+        margin-right: -6px;
+        height: var(--control-height-small);
     }
 
     a {
@@ -30,7 +30,7 @@
         list-style-type: disc;
 
         li + li {
-            margin-top: 9px;
+            margin-top: 6px;
         }
     }
 }
@@ -48,9 +48,9 @@
 
 .noticeClose {
     display: flex;
-    height: 20px;
-    width: 20px;
-    margin: 2px;
+    height: 18px;
+    width: 18px;
+    margin: 3px;
     padding: 0;
     align-items: center;
     flex-shrink: 0;
@@ -67,9 +67,9 @@
 }
 
 .noticePrefix {
-    margin-top: 2px;
+    margin-top: calc((var(--line-height-default) - var(--control-icon-size)) / 2);
     flex-shrink: 0;
-    font-size: 20px;
+    font-size: var(--control-icon-size);
 }
 
 .noticeMessage,
@@ -142,5 +142,5 @@
 }
 
 .basePane > .notice {
-    padding-inline: 18px;
+    padding-inline: var(--pane-padding);
 }

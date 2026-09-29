@@ -16,12 +16,12 @@
 
         position: absolute;
         display: block;
-        inset: 9px;
+        inset: 6px;
         transform: rotate(45deg);
         background: var(--surface);
         background-clip: padding-box;
         border: 2px solid var(--flow-line);
-        border-radius: var(--radius);
+        border-radius: var(--radius-container);
     }
 
     > span {

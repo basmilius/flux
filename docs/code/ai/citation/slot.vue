@@ -8,7 +8,7 @@
                 <FluxIcon
                     color="success"
                     name="circle-check"
-                    :size="16"/>
+                    :size="15"/>
 
                 <FluxText weight="600">
                     check-contrast.ts

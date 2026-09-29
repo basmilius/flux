@@ -164,12 +164,12 @@ export const GAUGE_SERIES_DEFAULTS: Partial<GaugeSeriesOption> = {
     emphasis: NO_EMPHASIS,
     progress: {
         show: true,
-        width: 14,
+        width: 12,
         roundCap: true
     },
     axisLine: {
         lineStyle: {
-            width: 14,
+            width: 12,
             color: [[1, 'var(--chart-grid)']]
         },
         roundCap: true
@@ -189,7 +189,7 @@ export const GAUGE_SERIES_DEFAULTS: Partial<GaugeSeriesOption> = {
     detail: {
         show: true,
         color: 'var(--foreground-prominent)',
-        fontSize: 28,
+        fontSize: 27,
         fontWeight: 800,
         fontFamily: CHART_FONT_FAMILY,
         offsetCenter: [0, '10%'],

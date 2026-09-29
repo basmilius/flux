@@ -1,0 +1,42 @@
+{
+    "checks": [
+        "tag inset false",
+        "field height false",
+        "empty text uses same inset false",
+        "placeholder preserved false",
+        "Enter adds tags false",
+        "Backspace removes last tag false",
+        "wrapped tags retain inset false",
+        "narrow field stays within bounds false",
+        "custom field padding false",
+        "tag inset true",
+        "field height true",
+        "empty text uses same inset true",
+        "placeholder preserved true",
+        "Enter adds tags true",
+        "Backspace removes last tag true",
+        "wrapped tags retain inset true",
+        "narrow field stays within bounds true",
+        "custom field padding true",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "comfortable": false,
+            "padding": 9,
+            "tagInset": 9,
+            "inputInset": 191.625,
+            "height": 36,
+            "overflow": false
+        },
+        {
+            "comfortable": true,
+            "padding": 12,
+            "tagInset": 12,
+            "inputInset": 194.625,
+            "height": 42,
+            "overflow": false
+        }
+    ],
+    "errors": []
+}

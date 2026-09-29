@@ -15,9 +15,9 @@
 
     .treeNodeLineArea.hasDropLine::after {
         position: absolute;
-        inset-block: calc(50% + 14px) 0;
-        left: calc(var(--tree-marker-column) * 24px + 11px);
-        width: 2px;
+        inset-block: calc(50% + 21px / 2 + 3px) 0;
+        left: calc(var(--tree-marker-column) * 21px + 21px / 2 - 1px / 2);
+        width: 1px;
         content: '';
         background: var(--surface-active);
     }
@@ -26,7 +26,7 @@
     // is a column whose center carries the guide line, the marker sits centered in it.
     .treeIndent {
         position: relative;
-        width: 24px;
+        width: 21px;
         align-self: stretch;
         flex-shrink: 0;
         pointer-events: none;
@@ -34,8 +34,8 @@
         &.hasLine::before {
             position: absolute;
             inset-block: 0;
-            left: 11px;
-            width: 2px;
+            left: calc(21px / 2 - 1px / 2);
+            width: 1px;
             content: '';
             background: var(--surface-active);
         }
@@ -43,7 +43,7 @@
 
     .treeConnector {
         position: relative;
-        width: 24px;
+        width: 21px;
         align-self: stretch;
         flex-shrink: 0;
         pointer-events: none;
@@ -51,8 +51,8 @@
         &:not(.isLast)::before {
             position: absolute;
             inset-block: 0;
-            left: 11px;
-            width: 2px;
+            left: calc(21px / 2 - 1px / 2);
+            width: 1px;
             content: '';
             background: var(--surface-active);
         }
@@ -60,11 +60,11 @@
         &::after {
             position: absolute;
             inset-block: 0 50%;
-            inset-inline: 11px 2px;
+            inset-inline: calc(21px / 2 - 1px / 2) 0;
             content: '';
-            border-left: 2px solid var(--surface-active);
-            border-bottom: 2px solid var(--surface-active);
-            border-bottom-left-radius: 9px;
+            border-left: 1px solid var(--surface-active);
+            border-bottom: 1px solid var(--surface-active);
+            border-bottom-left-radius: 6px;
         }
     }
 
@@ -75,12 +75,12 @@
 
         display: flex;
         box-sizing: border-box;
-        width: 22px;
-        height: 22px;
+        width: 21px;
+        height: 21px;
         flex-shrink: 0;
         align-items: center;
         justify-content: center;
-        margin-inline: 1px;
+        margin-inline: 0;
         background: var(--tree-marker-fill);
         border: 1px solid var(--tree-marker-stroke);
         border-radius: 50%;

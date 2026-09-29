@@ -1,0 +1,453 @@
+{
+    "counts": {
+        "packages/ai": 0,
+        "packages/application": 5,
+        "packages/components": 50,
+        "packages/flow": 0,
+        "packages/statistics": 7,
+        "packages/visuals": 1
+    },
+    "hits": [
+        {
+            "file": "packages/application/src/css/component/ApplicationContent.module.scss",
+            "line": 35,
+            "selector": ".applicationContentMedium",
+            "property": "width",
+            "value": "1280px"
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+            "line": 223,
+            "selector": ".applicationMenuAccount :local(.avatar)",
+            "property": "margin",
+            "value": "-5px"
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+            "line": 231,
+            "selector": ".applicationMenuContext",
+            "property": "padding",
+            "value": "16px"
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+            "line": 315,
+            "selector": "@include mixin.breakpoint-up(lg) > .applicationMenuPromo",
+            "property": "width",
+            "value": "25px"
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationTop.module.scss",
+            "line": 83,
+            "selector": ".applicationTopTabsMedium",
+            "property": "width",
+            "value": "1280px"
+        },
+        {
+            "file": "packages/components/src/css/component/Badge.module.scss",
+            "line": 9,
+            "selector": ".badge",
+            "property": "height",
+            "value": "28px"
+        },
+        {
+            "file": "packages/components/src/css/component/Badge.module.scss",
+            "line": 83,
+            "selector": ".badgeClose",
+            "property": "height",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Badge.module.scss",
+            "line": 84,
+            "selector": ".badgeClose",
+            "property": "width",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Badge.module.scss",
+            "line": 86,
+            "selector": ".badgeClose",
+            "property": "padding",
+            "value": "5px"
+        },
+        {
+            "file": "packages/components/src/css/component/Button.module.scss",
+            "line": 159,
+            "selector": ".publishButtonAnimation",
+            "property": "height",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Button.module.scss",
+            "line": 160,
+            "selector": ".publishButtonAnimation",
+            "property": "width",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 20,
+            "selector": ".commandPaletteDialog",
+            "property": "padding-top",
+            "value": "160px"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 38,
+            "selector": ".commandPalette",
+            "property": "max-height",
+            "value": "160px"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 116,
+            "selector": ".commandPaletteTab",
+            "property": "padding",
+            "value": "10px"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 180,
+            "selector": ".commandPaletteGroup",
+            "property": "padding",
+            "value": "10px"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 199,
+            "selector": ".commandPaletteItem",
+            "property": "padding",
+            "value": "8px"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 199,
+            "selector": ".commandPaletteItem",
+            "property": "padding",
+            "value": "10px"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 201,
+            "selector": ".commandPaletteItem",
+            "property": "gap",
+            "value": "10px"
+        },
+        {
+            "file": "packages/components/src/css/component/Filter.module.scss",
+            "line": 100,
+            "selector": ".filterHeader + .menuGroup .filterSearch",
+            "property": "top",
+            "value": "52px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 202,
+            "selector": ".formFieldAdditionIcon",
+            "property": "margin-top",
+            "value": "16px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 250,
+            "selector": ".formInput > &.isCondensed",
+            "property": "height",
+            "value": "34px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 286,
+            "selector": ".formInputIcon",
+            "property": "margin-block",
+            "value": "11px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 374,
+            "selector": ".formNumberInputNative",
+            "property": "padding-right",
+            "value": "38px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 734,
+            "selector": ".formCheckboxGroup > &.isInline",
+            "property": "gap",
+            "value": "8px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 734,
+            "selector": ".formCheckboxGroup > &.isInline",
+            "property": "gap",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 845,
+            "selector": ".formCheckboxElement, .formCheckboxNative",
+            "property": "height",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 846,
+            "selector": ".formCheckboxElement, .formCheckboxNative",
+            "property": "width",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 852,
+            "selector": ".formCheckboxElement",
+            "property": "height",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 853,
+            "selector": ".formCheckboxElement",
+            "property": "width",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 1110,
+            "selector": ".formRadioElement, .formRadioNative",
+            "property": "height",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 1111,
+            "selector": ".formRadioElement, .formRadioNative",
+            "property": "width",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 1118,
+            "selector": ".formRadioElement",
+            "property": "height",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 1119,
+            "selector": ".formRadioElement",
+            "property": "width",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 1134,
+            "selector": ".formRadioElement > &::after",
+            "property": "height",
+            "value": "8px"
+        },
+        {
+            "file": "packages/components/src/css/component/Form.module.scss",
+            "line": 1135,
+            "selector": ".formRadioElement > &::after",
+            "property": "width",
+            "value": "8px"
+        },
+        {
+            "file": "packages/components/src/css/component/FormFader.module.scss",
+            "line": 72,
+            "selector": ".formFaderBar",
+            "property": "width",
+            "value": "4px"
+        },
+        {
+            "file": "packages/components/src/css/component/FormFader.module.scss",
+            "line": 206,
+            "selector": ".formFader.isVertical > .formFaderBar",
+            "property": "height",
+            "value": "4px"
+        },
+        {
+            "file": "packages/components/src/css/component/Menu.module.scss",
+            "line": 241,
+            "selector": ".menuCollapsibleContent",
+            "property": "padding-left",
+            "value": "35px"
+        },
+        {
+            "file": "packages/components/src/css/component/Menu.module.scss",
+            "line": 359,
+            "selector": ".menuLarge .menuItem > &::after",
+            "property": "width",
+            "value": "4px"
+        },
+        {
+            "file": "packages/components/src/css/component/Notice.module.scss",
+            "line": 51,
+            "selector": ".noticeClose",
+            "property": "height",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Notice.module.scss",
+            "line": 52,
+            "selector": ".noticeClose",
+            "property": "width",
+            "value": "20px"
+        },
+        {
+            "file": "packages/components/src/css/component/Skeleton.module.scss",
+            "line": 38,
+            "selector": ".skeleton.isCircle",
+            "property": "height",
+            "value": "40px"
+        },
+        {
+            "file": "packages/components/src/css/component/Skeleton.module.scss",
+            "line": 39,
+            "selector": ".skeleton.isCircle",
+            "property": "width",
+            "value": "40px"
+        },
+        {
+            "file": "packages/components/src/css/component/Stepper.module.scss",
+            "line": 26,
+            "selector": ".stepperSteps > &::before, &::after",
+            "property": "height",
+            "value": "4px"
+        },
+        {
+            "file": "packages/components/src/css/component/Table.module.scss",
+            "line": 225,
+            "selector": ".tableActions",
+            "property": "margin",
+            "value": "-4px"
+        },
+        {
+            "file": "packages/components/src/css/component/Table.module.scss",
+            "line": 225,
+            "selector": ".tableActions",
+            "property": "margin",
+            "value": "-4px"
+        },
+        {
+            "file": "packages/components/src/css/component/Table.module.scss",
+            "line": 569,
+            "selector": ".treeMarker",
+            "property": "width",
+            "value": "22px"
+        },
+        {
+            "file": "packages/components/src/css/component/Table.module.scss",
+            "line": 570,
+            "selector": ".treeMarker",
+            "property": "height",
+            "value": "22px"
+        },
+        {
+            "file": "packages/components/src/css/mixin/tree-node.scss",
+            "line": 18,
+            "selector": "@mixin tree-node-classes() > .treeNodeLineArea.hasDropLine::after",
+            "property": "inset-block",
+            "value": "14px"
+        },
+        {
+            "file": "packages/components/src/css/mixin/tree-node.scss",
+            "line": 19,
+            "selector": "@mixin tree-node-classes() > .treeNodeLineArea.hasDropLine::after",
+            "property": "left",
+            "value": "11px"
+        },
+        {
+            "file": "packages/components/src/css/mixin/tree-node.scss",
+            "line": 37,
+            "selector": "@mixin tree-node-classes() > // Geometry mirrors the table tree, so these numbers move with useTableTree.ts: a level // is a column whose center carries the guide line, the marker sits centered in it. .treeIndent > &.hasLine::before",
+            "property": "left",
+            "value": "11px"
+        },
+        {
+            "file": "packages/components/src/css/mixin/tree-node.scss",
+            "line": 54,
+            "selector": "@mixin tree-node-classes() > .treeConnector > &:not(.isLast)::before",
+            "property": "left",
+            "value": "11px"
+        },
+        {
+            "file": "packages/components/src/css/mixin/tree-node.scss",
+            "line": 63,
+            "selector": "@mixin tree-node-classes() > .treeConnector > &::after",
+            "property": "inset-inline",
+            "value": "11px"
+        },
+        {
+            "file": "packages/components/src/css/mixin/tree-node.scss",
+            "line": 78,
+            "selector": "@mixin tree-node-classes() > .treeNodeMarker",
+            "property": "width",
+            "value": "22px"
+        },
+        {
+            "file": "packages/components/src/css/mixin/tree-node.scss",
+            "line": 79,
+            "selector": "@mixin tree-node-classes() > .treeNodeMarker",
+            "property": "height",
+            "value": "22px"
+        },
+        {
+            "file": "packages/statistics/src/css/Chart.module.scss",
+            "line": 56,
+            "selector": ".statisticsChartTooltipSeriesIcon",
+            "property": "height",
+            "value": "14px"
+        },
+        {
+            "file": "packages/statistics/src/css/Chart.module.scss",
+            "line": 57,
+            "selector": ".statisticsChartTooltipSeriesIcon",
+            "property": "width",
+            "value": "14px"
+        },
+        {
+            "file": "packages/statistics/src/css/Empty.module.scss",
+            "line": 31,
+            "selector": ".statisticsEmptyDescription",
+            "property": "max-width",
+            "value": "320px"
+        },
+        {
+            "file": "packages/statistics/src/css/Legend.module.scss",
+            "line": 53,
+            "selector": ".statisticsLegendItemColor",
+            "property": "margin",
+            "value": "4px"
+        },
+        {
+            "file": "packages/statistics/src/css/PercentageBar.module.scss",
+            "line": 22,
+            "selector": ".statisticsPercentageBarSegment > @include mixin.hover",
+            "property": "height",
+            "value": "16px"
+        },
+        {
+            "file": "packages/statistics/src/css/PercentageBar.module.scss",
+            "line": 28,
+            "selector": ".statisticsPercentageBarSegment.isHovered",
+            "property": "height",
+            "value": "16px"
+        },
+        {
+            "file": "packages/statistics/src/css/Sparkline.module.scss",
+            "line": 5,
+            "selector": ".statisticsSparkline",
+            "property": "height",
+            "value": "40px"
+        },
+        {
+            "file": "packages/visuals/src/css/component/BorderBeam.module.scss",
+            "line": 961,
+            "selector": ".pulseOutside > &.isActive::before, &.isFading::before",
+            "property": "inset",
+            "value": "-10px"
+        }
+    ]
+}

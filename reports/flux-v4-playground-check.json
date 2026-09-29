@@ -1,0 +1,265 @@
+{
+    "method": "Built VitePress site loaded through local request interception; no devserver. External images are blocked.",
+    "checks": [
+        "long radio labels fit false",
+        "icon false",
+        "menu font false",
+        "shell top false",
+        "tree false",
+        "root false",
+        "button false",
+        "menu false",
+        "table false",
+        "tab false",
+        "pill false",
+        "chip false",
+        "pane menu left inset false",
+        "pane menu right inset false",
+        "pane menu top inset false",
+        "pane menu bottom inset false",
+        "menu pane padding false",
+        "selected row retains menu inset false",
+        "divider still reaches pane sides false",
+        "submenu inset false",
+        "submenu returns focus false",
+        "dialog padding false light",
+        "dialog padding false dark",
+        "long radio labels fit true",
+        "icon true",
+        "menu font true",
+        "shell top true",
+        "tree true",
+        "root true",
+        "button true",
+        "menu true",
+        "table true",
+        "tab true",
+        "pill true",
+        "chip true",
+        "pane menu left inset true",
+        "pane menu right inset true",
+        "pane menu top inset true",
+        "pane menu bottom inset true",
+        "menu pane padding true",
+        "selected row retains menu inset true",
+        "divider still reaches pane sides true",
+        "submenu inset true",
+        "submenu returns focus true",
+        "dialog padding true light",
+        "dialog padding true dark",
+        "teleported flyout inherits comfortable",
+        "mobile switch visible",
+        "keyboard toggles density",
+        "navigation restores absent attribute",
+        "reads preexisting attribute",
+        "navigation restores existing value",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "comfortable": false,
+            "metrics": {
+                ".f_buttonIcon": {
+                    "height": 15,
+                    "minHeight": "auto",
+                    "width": "15px",
+                    "padding": "0px",
+                    "font": "15px",
+                    "line": "15px"
+                },
+                ".f_menuItemIcon": {
+                    "height": 15,
+                    "minHeight": "auto",
+                    "width": "15px",
+                    "padding": "0px",
+                    "font": "15px",
+                    "line": "15px"
+                },
+                ".f_menuControlIcon": null,
+                ".f_menuNormal .f_menuItem": {
+                    "height": 36,
+                    "minHeight": "36px",
+                    "width": "307px",
+                    "padding": "0px 12px 0px 9px",
+                    "font": "14px",
+                    "line": "24px"
+                },
+                ".f_tableBody .f_tableCell": {
+                    "height": 36,
+                    "minHeight": "auto",
+                    "width": "210px",
+                    "padding": "6px 12px 6px 15px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_tabBarItemDefault": {
+                    "height": 36,
+                    "minHeight": "auto",
+                    "width": "38.3594px",
+                    "padding": "6px 0px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_tabBarItemPills": {
+                    "height": 30,
+                    "minHeight": "auto",
+                    "width": "42.9062px",
+                    "padding": "0px 9px",
+                    "font": "14px",
+                    "line": "24px"
+                },
+                ".f_chip": {
+                    "height": 30,
+                    "minHeight": "auto",
+                    "width": "66.7969px",
+                    "padding": "0px 9px 0px 6px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_paneBody": {
+                    "height": 264,
+                    "minHeight": "0px",
+                    "width": "748.797px",
+                    "padding": "15px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_treeNode": {
+                    "height": 36,
+                    "minHeight": "36px",
+                    "width": "295px",
+                    "padding": "0px 9px",
+                    "font": "14px",
+                    "line": "24px"
+                },
+                ".f_applicationTopBar": {
+                    "height": 48,
+                    "minHeight": "0px",
+                    "width": "1324px",
+                    "padding": "0px 15px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_applicationMenu": {
+                    "height": 1080,
+                    "minHeight": "0px",
+                    "width": "54px",
+                    "padding": "0px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_snackbarContent": {
+                    "height": 72,
+                    "minHeight": "auto",
+                    "width": "748.797px",
+                    "padding": "12px 15px",
+                    "font": "15px",
+                    "line": "24px"
+                }
+            }
+        },
+        {
+            "comfortable": true,
+            "metrics": {
+                ".f_buttonIcon": {
+                    "height": 18,
+                    "minHeight": "auto",
+                    "width": "18px",
+                    "padding": "0px",
+                    "font": "18px",
+                    "line": "18px"
+                },
+                ".f_menuItemIcon": {
+                    "height": 18,
+                    "minHeight": "auto",
+                    "width": "18px",
+                    "padding": "0px",
+                    "font": "18px",
+                    "line": "18px"
+                },
+                ".f_menuControlIcon": null,
+                ".f_menuNormal .f_menuItem": {
+                    "height": 42,
+                    "minHeight": "42px",
+                    "width": "307px",
+                    "padding": "0px 12px 0px 9px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_tableBody .f_tableCell": {
+                    "height": 48,
+                    "minHeight": "auto",
+                    "width": "210px",
+                    "padding": "12px 15px 12px 18px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_tabBarItemDefault": {
+                    "height": 48,
+                    "minHeight": "auto",
+                    "width": "38.3594px",
+                    "padding": "12px 0px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_tabBarItemPills": {
+                    "height": 36,
+                    "minHeight": "auto",
+                    "width": "44.6875px",
+                    "padding": "0px 9px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_chip": {
+                    "height": 36,
+                    "minHeight": "auto",
+                    "width": "74.8594px",
+                    "padding": "0px 12px 0px 9px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_paneBody": {
+                    "height": 270,
+                    "minHeight": "0px",
+                    "width": "748.797px",
+                    "padding": "18px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_treeNode": {
+                    "height": 42,
+                    "minHeight": "42px",
+                    "width": "289px",
+                    "padding": "0px 9px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_applicationTopBar": {
+                    "height": 66,
+                    "minHeight": "0px",
+                    "width": "1309px",
+                    "padding": "0px 15px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_applicationMenu": {
+                    "height": 1080,
+                    "minHeight": "0px",
+                    "width": "69px",
+                    "padding": "0px",
+                    "font": "15px",
+                    "line": "24px"
+                },
+                ".f_snackbarContent": {
+                    "height": 78,
+                    "minHeight": "auto",
+                    "width": "748.797px",
+                    "padding": "15px 18px",
+                    "font": "15px",
+                    "line": "24px"
+                }
+            }
+        }
+    ],
+    "errors": []
+}

@@ -1,0 +1,5927 @@
+{
+    "method": "Last declaration per exact selector and at-rule context; var() resolved against compact :root. Selector matching and inherited subtree overrides are tested separately.",
+    "changes": [
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--radius-control",
+            "before": null,
+            "after": "9px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--radius-container",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-height-small",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-height-medium",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-height-large",
+            "before": null,
+            "after": "42px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-height-xl",
+            "before": null,
+            "after": "48px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-font-size",
+            "before": null,
+            "after": "14px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-line-height",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-icon-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--control-gap",
+            "before": null,
+            "after": "6px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--field-height",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--field-height-small",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--field-padding",
+            "before": null,
+            "after": "9px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--menu-item-height",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--menu-item-height-large",
+            "before": null,
+            "after": "42px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--menu-padding",
+            "before": null,
+            "after": "9px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--table-cell-padding",
+            "before": null,
+            "after": "6px 12px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--table-spacing",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--tab-padding",
+            "before": null,
+            "after": "6px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--tab-gap",
+            "before": null,
+            "after": "18px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--tab-pill-height",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--segmented-height-small",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--segmented-height-medium",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--segmented-height-large",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--chip-height",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--chip-padding",
+            "before": null,
+            "after": "9px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--badge-height-small",
+            "before": null,
+            "after": "21px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--badge-height-medium",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--badge-height-large",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--badge-line-height-small",
+            "before": null,
+            "after": "21px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--badge-line-height-large",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--badge-margin",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--pane-padding",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--pane-header-gap",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--snackbar-padding",
+            "before": null,
+            "after": "12px 15px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--snackbar-width",
+            "before": null,
+            "after": "480px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--application-top-height",
+            "before": null,
+            "after": "48px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--application-menu-width",
+            "before": null,
+            "after": "240px"
+        },
+        {
+            "selector": "@layer flux-base | :root",
+            "property": "--application-menu-width-collapsed",
+            "before": null,
+            "after": "54px"
+        },
+        {
+            "selector": "@layer flux-base | h1",
+            "property": "line-height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | h2",
+            "property": "line-height",
+            "before": "33px",
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | .icon",
+            "property": "font-size",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".spinner",
+            "property": "font-size",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": "@layer flux-base | .button",
+            "property": "font-size",
+            "before": "15px",
+            "after": "14px"
+        },
+        {
+            "selector": "@layer flux-base | .button",
+            "property": "row-gap",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": "@layer flux-base | .button",
+            "property": "column-gap",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": "@layer flux-base | .button.is-small",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-medium",
+            "property": "height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-large",
+            "property": "height",
+            "before": "48px",
+            "after": "42px"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-xl",
+            "property": "height",
+            "before": "54px",
+            "after": "48px"
+        },
+        {
+            "selector": "@layer flux-base | .button .spinner",
+            "property": "flex-shrink",
+            "before": "0",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button .spinner:only-child",
+            "property": "margin-inline-start",
+            "before": "-2px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button .spinner:only-child",
+            "property": "margin-inline-end",
+            "before": "-2px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button:has(.button-icon:only-child)",
+            "property": "padding-inline-start",
+            "before": "0px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button:has(.button-icon:only-child)",
+            "property": "padding-inline-end",
+            "before": "0px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button:has(.button-icon:only-child).is-small",
+            "property": "width",
+            "before": "36px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button:has(.button-icon:only-child).is-medium",
+            "property": "width",
+            "before": "42px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button:has(.button-icon:only-child).is-large",
+            "property": "width",
+            "before": "48px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button:has(.button-icon:only-child).is-xl",
+            "property": "width",
+            "before": "54px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-icon",
+            "property": "margin-top",
+            "before": "1px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-icon",
+            "property": "margin-right",
+            "before": "1px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-icon",
+            "property": "margin-bottom",
+            "before": "1px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-icon",
+            "property": "margin-left",
+            "before": "1px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-icon",
+            "property": "font-size",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": "@layer flux-base | .button-icon:only-child",
+            "property": "margin-inline-start",
+            "before": "-1px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-icon:only-child",
+            "property": "margin-inline-end",
+            "before": "-1px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-label:only-child",
+            "property": "margin-inline-start",
+            "before": "6px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-label:only-child",
+            "property": "margin-inline-end",
+            "before": "6px",
+            "after": null
+        },
+        {
+            "selector": "@layer flux-base | .button-label:only-child",
+            "property": "min-width",
+            "before": "42px",
+            "after": "33px"
+        },
+        {
+            "selector": ".action-icon",
+            "property": "font-size",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".action-bar .separator",
+            "property": "margin-block-start",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".action-bar .separator",
+            "property": "margin-block-end",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".base-pane-structure > .action-bar",
+            "property": "padding-top",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .action-bar",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .action-bar",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .action-bar",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".action-pane-grid",
+            "property": "padding-top",
+            "before": "36px",
+            "after": "21px"
+        },
+        {
+            "selector": ".action-pane-grid",
+            "property": "padding-right",
+            "before": "36px",
+            "after": "21px"
+        },
+        {
+            "selector": ".action-pane-grid",
+            "property": "padding-bottom",
+            "before": "36px",
+            "after": "21px"
+        },
+        {
+            "selector": ".action-pane-grid",
+            "property": "padding-left",
+            "before": "36px",
+            "after": "21px"
+        },
+        {
+            "selector": ".action-pane-grid",
+            "property": "row-gap",
+            "before": "36px",
+            "after": "21px"
+        },
+        {
+            "selector": ".action-pane-grid",
+            "property": "column-gap",
+            "before": "36px",
+            "after": "21px"
+        },
+        {
+            "selector": ".overlay > .base-pane-structure > .pane-header",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".slide-over > .base-pane-structure",
+            "property": "margin-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".slide-over > .base-pane-structure",
+            "property": "margin-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".slide-over > .base-pane-structure",
+            "property": "margin-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".slide-over > .base-pane-structure",
+            "property": "margin-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".publish-button-animation",
+            "property": "height",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".publish-button-animation",
+            "property": "width",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".button-group .button:first-child",
+            "property": "border-top-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".button-group .button:first-child",
+            "property": "border-bottom-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".button-group .button:last-child",
+            "property": "border-top-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".button-group .button:last-child",
+            "property": "border-bottom-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".pane-header",
+            "property": "padding-top",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header",
+            "property": "padding-bottom",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header",
+            "property": "row-gap",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header",
+            "property": "column-gap",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:only-child",
+            "property": "padding-top",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:only-child",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:only-child",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:only-child",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:not(:has(+ .pane-body))",
+            "property": "padding-top",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:not(:has(+ .pane-body))",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:not(:has(+ .pane-body))",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header:not(:has(+ .pane-body))",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-header-icon",
+            "property": "margin-top",
+            "before": "2px",
+            "after": "calc((24px - 1em) / 2)"
+        },
+        {
+            "selector": ".pane-header-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".pane-header-chevron",
+            "property": "margin-top",
+            "before": "2px",
+            "after": "calc((24px - 1em) / 2)"
+        },
+        {
+            "selector": ".pane-header-chevron",
+            "property": "font-size",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": ".pane-body",
+            "property": "padding-top",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-body",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-body",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-body",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-footer",
+            "property": "padding-top",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-footer",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-footer",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-footer",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-media-inset",
+            "property": "margin-top",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-media-inset",
+            "property": "margin-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-media-inset",
+            "property": "margin-bottom",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pane-media-inset",
+            "property": "margin-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".flyout-dialog",
+            "property": "padding-top",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".flyout-dialog",
+            "property": "padding-right",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".flyout-dialog",
+            "property": "padding-bottom",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".flyout-dialog",
+            "property": "padding-left",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".badge",
+            "property": "height",
+            "before": "28px",
+            "after": "24px"
+        },
+        {
+            "selector": ".badge",
+            "property": "margin-block-start",
+            "before": "-2px",
+            "after": ""
+        },
+        {
+            "selector": ".badge",
+            "property": "margin-block-end",
+            "before": "-2px",
+            "after": ""
+        },
+        {
+            "selector": ".badge",
+            "property": "--badge-icon-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".badge.is-small",
+            "property": "line-height",
+            "before": "18px",
+            "after": "21px"
+        },
+        {
+            "selector": ".badge.is-small",
+            "property": "--badge-icon-size",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": ".badge.is-small .badge-close",
+            "property": "padding-top",
+            "before": "3px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge.is-small .badge-close",
+            "property": "padding-right",
+            "before": "3px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge.is-small .badge-close",
+            "property": "padding-bottom",
+            "before": "3px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge.is-small .badge-close",
+            "property": "padding-left",
+            "before": "3px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge.is-small .badge-close .icon",
+            "property": "font-size",
+            "before": "12px",
+            "after": null
+        },
+        {
+            "selector": ".badge.is-large",
+            "property": "line-height",
+            "before": "21px",
+            "after": "24px"
+        },
+        {
+            "selector": ".badge.is-large",
+            "property": "height",
+            "before": "33px",
+            "after": "30px"
+        },
+        {
+            "selector": ".badge.is-large",
+            "property": "--badge-icon-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".badge.is-large .badge-close .icon",
+            "property": "font-size",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".badge-close",
+            "property": "height",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".badge-close",
+            "property": "width",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".badge-close",
+            "property": "padding-top",
+            "before": "5px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge-close",
+            "property": "padding-right",
+            "before": "5px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge-close",
+            "property": "padding-bottom",
+            "before": "5px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge-close",
+            "property": "padding-left",
+            "before": "5px",
+            "after": "0px"
+        },
+        {
+            "selector": ".badge-close",
+            "property": "outline-color",
+            "before": null,
+            "after": ""
+        },
+        {
+            "selector": ".badge-close",
+            "property": "outline-style",
+            "before": null,
+            "after": ""
+        },
+        {
+            "selector": ".badge-close",
+            "property": "outline-width",
+            "before": null,
+            "after": ""
+        },
+        {
+            "selector": ".badge-close",
+            "property": "outline-offset",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": ".badge-close .icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "12px"
+        },
+        {
+            "selector": ".badge-dot",
+            "property": "height",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".badge-dot",
+            "property": "width",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".badge-icon",
+            "property": "margin-left",
+            "before": "-3px",
+            "after": null
+        },
+        {
+            "selector": ".badge-icon",
+            "property": "color",
+            "before": "var(--intent-text)",
+            "after": null
+        },
+        {
+            "selector": ".badge-group",
+            "property": "--badge-group-padding",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".badge-group",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".badge-group",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".badge-group-small",
+            "property": "--badge-icon-size",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": ".badge-group-large",
+            "property": "--badge-group-padding",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".badge-group-large",
+            "property": "--badge-icon-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".badge-group-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "var(--badge-icon-size)"
+        },
+        {
+            "selector": ".filter",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter",
+            "property": "width",
+            "before": "300px",
+            "after": "270px"
+        },
+        {
+            "selector": ".filter .menu > :where(.divider, .separator)",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter .menu > :where(.divider, .separator)",
+            "property": "margin-left",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter .menu > .menu-group > .menu-sub-header",
+            "property": "top",
+            "before": "51px",
+            "after": "calc(36px + 9px)"
+        },
+        {
+            "selector": ".filter .menu > .menu-group:has(.filter-search) > .menu-sub-header",
+            "property": "top",
+            "before": "105px",
+            "after": "calc(36px + 36px + 21px)"
+        },
+        {
+            "selector": ".filter .pane-body",
+            "property": "margin-top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter .pane-body",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter .pane-body",
+            "property": "margin-bottom",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter .pane-body",
+            "property": "margin-left",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-button .button-icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "margin-top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "margin-left",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-header",
+            "property": "top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-header.menu-group .filter-action",
+            "property": "min-width",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": ".filter-header.menu-group .filter-action",
+            "property": "flex-grow",
+            "before": "0",
+            "after": ""
+        },
+        {
+            "selector": ".filter-header.menu-group .filter-action",
+            "property": "flex-shrink",
+            "before": "0",
+            "after": ""
+        },
+        {
+            "selector": ".filter-header.menu-group .filter-action",
+            "property": "flex-basis",
+            "before": "42px",
+            "after": ""
+        },
+        {
+            "selector": ".filter-date-picker",
+            "property": "margin-top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-date-picker",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-date-picker",
+            "property": "margin-bottom",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-date-picker",
+            "property": "margin-left",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "margin-top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "margin-left",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-search",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".filter-header + .menu-group .filter-search",
+            "property": "top",
+            "before": "52px",
+            "after": "calc(36px + 9px + 1px)"
+        },
+        {
+            "selector": ".filter-bar",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".filter-bar",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".filter-bar-search",
+            "property": "max-width",
+            "before": "300px",
+            "after": "270px"
+        },
+        {
+            "selector": ".menu-normal",
+            "property": "row-gap",
+            "before": "6px",
+            "after": "3px"
+        },
+        {
+            "selector": ".menu-normal",
+            "property": "column-gap",
+            "before": "6px",
+            "after": "3px"
+        },
+        {
+            "selector": ".menu-large",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "3px"
+        },
+        {
+            "selector": ".menu-large",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "3px"
+        },
+        {
+            "selector": ".menu-pane",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "3px"
+        },
+        {
+            "selector": ".menu-pane",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "3px"
+        },
+        {
+            "selector": ".menu-pane",
+            "property": "padding-top",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".menu-pane",
+            "property": "padding-right",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".menu-pane",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".menu-pane",
+            "property": "padding-left",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".menu-control",
+            "property": "min-height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": ".menu-control",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-control",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-control",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-control",
+            "property": "font-size",
+            "before": null,
+            "after": "14px"
+        },
+        {
+            "selector": ".menu-control",
+            "property": "line-height",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": ".menu-item",
+            "property": "min-height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": ".menu-item",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-item",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-collapsible-content",
+            "property": "padding-left",
+            "before": "35px",
+            "after": "27px"
+        },
+        {
+            "selector": ".menu-item-command-icon.icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".menu-title",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-title",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-sub-header",
+            "property": "margin-block-start",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".menu-sub-header",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-sub-header",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-sub-header",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-sub-header",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".menu-sub-header",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".menu-sub-header-icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".menu-item + .menu-sub-header",
+            "property": "margin-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".menu-large .menu-control",
+            "property": "min-height",
+            "before": "48px",
+            "after": "42px"
+        },
+        {
+            "selector": ".menu-large .menu-control",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".menu-large .menu-item",
+            "property": "padding-inline-start",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".menu-large .menu-item",
+            "property": "padding-inline-end",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".menu-large .menu-item::after",
+            "property": "inset-block-start",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-large .menu-item::after",
+            "property": "inset-block-end",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".menu-large .menu-item::after",
+            "property": "width",
+            "before": "4px",
+            "after": "3px"
+        },
+        {
+            "selector": ".menu-large .menu-item:not(.menu-item-indented)",
+            "property": "min-height",
+            "before": "48px",
+            "after": "42px"
+        },
+        {
+            "selector": ".base-pane > .menu",
+            "property": "margin-inline-start",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane > .menu",
+            "property": "margin-inline-end",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane > .menu > :where(.divider, .separator)",
+            "property": "margin-top",
+            "before": "3px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane > .menu > :where(.divider, .separator)",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane > .menu > :where(.divider, .separator)",
+            "property": "margin-bottom",
+            "before": "3px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane > .menu > :where(.divider, .separator)",
+            "property": "margin-left",
+            "before": "-9px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-body > .menu",
+            "property": "margin-inline-start",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-body > .menu",
+            "property": "margin-inline-end",
+            "before": "9px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-body > .menu > :where(.divider, .separator)",
+            "property": "margin-inline-start",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".expandable-body > .menu > :where(.divider, .separator)",
+            "property": "margin-inline-end",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".form-input-group > .button-group > .button:first-child, .form-input-group > :first-child:is(.form-input, .form-select, .button)",
+            "property": "border-top-left-radius",
+            "before": "calc(12px - 1px)",
+            "after": "calc(9px - 1px)"
+        },
+        {
+            "selector": ".form-input-group > .button-group > .button:first-child, .form-input-group > :first-child:is(.form-input, .form-select, .button)",
+            "property": "border-bottom-left-radius",
+            "before": "calc(12px - 1px)",
+            "after": "calc(9px - 1px)"
+        },
+        {
+            "selector": ".form-input-group > .button-group > .button:last-child, .form-input-group > :last-child:is(.form-input, .form-select, .button)",
+            "property": "border-top-right-radius",
+            "before": "calc(12px - 1px)",
+            "after": "calc(9px - 1px)"
+        },
+        {
+            "selector": ".form-input-group > .button-group > .button:last-child, .form-input-group > :last-child:is(.form-input, .form-select, .button)",
+            "property": "border-bottom-right-radius",
+            "before": "calc(12px - 1px)",
+            "after": "calc(9px - 1px)"
+        },
+        {
+            "selector": ".form",
+            "property": "row-gap",
+            "before": "42px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form",
+            "property": "column-gap",
+            "before": "42px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-column, .form-section",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-column, .form-section",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-grid",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-grid",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-row",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-row",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-step",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-step",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-step-header",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-step-header",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-step-number",
+            "property": "line-height",
+            "before": "18px",
+            "after": "21px"
+        },
+        {
+            "selector": ".form-step-content",
+            "property": "margin-left",
+            "before": "39px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-step-content",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-step-content",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": "@media (max-width: 767.98px) | .form-row",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": "@media (max-width: 767.98px) | .form-row",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-field-addition-icon",
+            "property": "margin-top",
+            "before": "calc((21px - 16px) / 2)",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-field-addition-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".form-input",
+            "property": "height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-input",
+            "property": "padding-top",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input",
+            "property": "padding-right",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input",
+            "property": "padding-bottom",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input",
+            "property": "padding-left",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input.is-condensed",
+            "property": "height",
+            "before": "34px",
+            "after": "30px"
+        },
+        {
+            "selector": ".form-input-icon",
+            "property": "margin-block-start",
+            "before": "11px",
+            "after": null
+        },
+        {
+            "selector": ".form-input-icon",
+            "property": "margin-block-end",
+            "before": "11px",
+            "after": null
+        },
+        {
+            "selector": ".form-input-icon",
+            "property": "top",
+            "before": null,
+            "after": "50%"
+        },
+        {
+            "selector": ".form-input-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".form-input-icon",
+            "property": "translate",
+            "before": null,
+            "after": "0px -50%"
+        },
+        {
+            "selector": ".form-input-icon-trailing",
+            "property": "right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-input-icon-leading",
+            "property": "left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-input-native",
+            "property": "padding-top",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native",
+            "property": "padding-right",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native",
+            "property": "padding-bottom",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native",
+            "property": "padding-left",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native::-webkit-color-swatch-wrapper",
+            "property": "width",
+            "before": "calc(100% + 24px)",
+            "after": "calc(100% + 2 * 9px)"
+        },
+        {
+            "selector": ".form-input-native::-webkit-color-swatch-wrapper",
+            "property": "margin-top",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native::-webkit-color-swatch-wrapper",
+            "property": "margin-right",
+            "before": "-12px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native::-webkit-color-swatch-wrapper",
+            "property": "margin-bottom",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native::-webkit-color-swatch-wrapper",
+            "property": "margin-left",
+            "before": "-12px",
+            "after": ""
+        },
+        {
+            "selector": ".form-input-native-has-icon-leading",
+            "property": "padding-left",
+            "before": "42px",
+            "after": "calc(9px + 24px)"
+        },
+        {
+            "selector": ".form-input-native-has-icon-trailing",
+            "property": "padding-right",
+            "before": "42px",
+            "after": "calc(9px + 24px)"
+        },
+        {
+            "selector": ".form-number-input-native",
+            "property": "padding-right",
+            "before": "38px",
+            "after": "calc(9px + 27px)"
+        },
+        {
+            "selector": ".form-number-input-buttons",
+            "property": "width",
+            "before": "33px",
+            "after": "27px"
+        },
+        {
+            "selector": "@supports (-moz-appearance: none) | .form-date-input :is(input)[type=\"date\"]",
+            "property": "clip-path",
+            "before": "inset(0px calc(1.5em + 12px) 0px 0px)",
+            "after": "inset(0 calc(9px + 1.5em) 0 0)"
+        },
+        {
+            "selector": ".form-select",
+            "property": "min-height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-select",
+            "property": "padding-top",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select",
+            "property": "padding-right",
+            "before": "39px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select",
+            "property": "padding-bottom",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select",
+            "property": "padding-left",
+            "before": "6px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select .badge",
+            "property": "margin-block-start",
+            "before": "6px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-select .badge",
+            "property": "margin-block-end",
+            "before": "6px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-select-icon",
+            "property": "right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-select-input",
+            "property": "height",
+            "before": "48px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-select-input",
+            "property": "margin-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-select-input .form-input-icon",
+            "property": "right",
+            "before": "0px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-select-input .form-input-icon",
+            "property": "margin-top",
+            "before": "15px",
+            "after": null
+        },
+        {
+            "selector": ".form-select-input .form-input-icon",
+            "property": "margin-right",
+            "before": "15px",
+            "after": null
+        },
+        {
+            "selector": ".form-select-input .form-input-icon",
+            "property": "margin-bottom",
+            "before": "15px",
+            "after": null
+        },
+        {
+            "selector": ".form-select-input .form-input-icon",
+            "property": "margin-left",
+            "before": "15px",
+            "after": null
+        },
+        {
+            "selector": ".form-select-input .form-input-icon",
+            "property": "font-size",
+            "before": "18px",
+            "after": null
+        },
+        {
+            "selector": ".form-select-input .form-input-native",
+            "property": "padding-inline-start",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select-input .form-input-native",
+            "property": "padding-inline-end",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select-popup .menu-item",
+            "property": "contain-intrinsic-width",
+            "before": "auto 42px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select-popup .menu-item",
+            "property": "contain-intrinsic-height",
+            "before": "auto 42px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select-popup.is-searchable .menu-sub-header",
+            "property": "top",
+            "before": "48px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-select-selected",
+            "property": "height",
+            "before": "100%",
+            "after": "auto"
+        },
+        {
+            "selector": ".form-select-selected",
+            "property": "padding-inline-start",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select-selected",
+            "property": "padding-inline-end",
+            "before": "42px",
+            "after": ""
+        },
+        {
+            "selector": ".form-select-selected",
+            "property": "min-height",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": ".form-select-selected",
+            "property": "font-size",
+            "before": null,
+            "after": "14px"
+        },
+        {
+            "selector": ".form-select-selected",
+            "property": "line-height",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": ".form-text-area",
+            "property": "min-height",
+            "before": "calc(20px + 1 * 1lh)",
+            "after": "calc(14px + 1 * 1lh)"
+        },
+        {
+            "selector": ".form-text-area",
+            "property": "padding-block-start",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-text-area",
+            "property": "padding-block-end",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-checkbox-group",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-checkbox-group",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-checkbox-group.is-inline",
+            "property": "row-gap",
+            "before": "8px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-checkbox-group.is-inline",
+            "property": "column-gap",
+            "before": "20px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-checkbox-group.is-connected > .form-checkbox-tile:first-child",
+            "property": "border-top-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-checkbox-group.is-connected > .form-checkbox-tile:first-child",
+            "property": "border-top-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-checkbox-group.is-connected > .form-checkbox-tile:last-child",
+            "property": "border-bottom-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-checkbox-group.is-connected > .form-checkbox-tile:last-child",
+            "property": "border-bottom-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-checkbox",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-checkbox",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-checkbox",
+            "property": "line-height",
+            "before": "21px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-checkbox-element, .form-checkbox-native",
+            "property": "margin-top",
+            "before": "1px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-checkbox-element, .form-checkbox-native",
+            "property": "height",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-checkbox-element, .form-checkbox-native",
+            "property": "width",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-checkbox-element",
+            "property": "height",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-checkbox-element",
+            "property": "width",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-checkbox-element .icon",
+            "property": "scale",
+            "before": "0.85",
+            "after": null
+        },
+        {
+            "selector": ".form-checkbox-text",
+            "property": "overflow-wrap",
+            "before": null,
+            "after": "anywhere"
+        },
+        {
+            "selector": ".form-checkbox-label",
+            "property": "line-height",
+            "before": "21px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-checkbox-tile",
+            "property": "padding-top",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".form-checkbox-tile",
+            "property": "padding-right",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-checkbox-tile",
+            "property": "padding-bottom",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".form-checkbox-tile",
+            "property": "padding-left",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-checkbox-tile > .form-checkbox-icon",
+            "property": "margin-top",
+            "before": "1px",
+            "after": "calc((24px - 15px) / 2)"
+        },
+        {
+            "selector": ".form-checkbox-tile > .form-checkbox-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".form-radio-group",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-radio-group",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-radio-group.is-inline",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-radio-group.is-inline",
+            "property": "column-gap",
+            "before": "21px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-radio-group.is-connected > .form-radio-tile:first-child",
+            "property": "border-top-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-radio-group.is-connected > .form-radio-tile:first-child",
+            "property": "border-top-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-radio-group.is-connected > .form-radio-tile:last-child",
+            "property": "border-bottom-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-radio-group.is-connected > .form-radio-tile:last-child",
+            "property": "border-bottom-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-radio",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-radio",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-radio",
+            "property": "line-height",
+            "before": "21px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-radio-element, .form-radio-native",
+            "property": "margin-top",
+            "before": "1px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-radio-element, .form-radio-native",
+            "property": "height",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-radio-element, .form-radio-native",
+            "property": "width",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-radio-element",
+            "property": "height",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-radio-element",
+            "property": "width",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-radio-element::after",
+            "property": "height",
+            "before": "8px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-radio-element::after",
+            "property": "width",
+            "before": "8px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-radio-label",
+            "property": "line-height",
+            "before": "21px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-radio-text",
+            "property": "overflow-wrap",
+            "before": null,
+            "after": "anywhere"
+        },
+        {
+            "selector": ".form-radio-tile",
+            "property": "padding-top",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".form-radio-tile",
+            "property": "padding-right",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-radio-tile",
+            "property": "padding-bottom",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".form-radio-tile",
+            "property": "padding-left",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-radio-tile > .form-radio-icon",
+            "property": "margin-top",
+            "before": "1px",
+            "after": "calc((24px - 15px) / 2)"
+        },
+        {
+            "selector": ".form-radio-tile > .form-radio-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".form-toggle",
+            "property": "width",
+            "before": "54px",
+            "after": "42px"
+        },
+        {
+            "selector": ".form-toggle",
+            "property": "height",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-toggle.is-checked .form-toggle-input::after",
+            "property": "translate",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-toggle.is-checked .form-toggle-icon-on",
+            "property": "translate",
+            "before": "calc(-50% + 24px) -50%",
+            "after": "calc(-50% + 18px) -50%"
+        },
+        {
+            "selector": ".form-toggle:not(.is-checked) .form-toggle-icon-off",
+            "property": "translate",
+            "before": "calc(-50% - 24px) -50%",
+            "after": "calc(-50% - 18px) -50%"
+        },
+        {
+            "selector": ".form-toggle-icon-off",
+            "property": "left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".form-toggle-icon-on",
+            "property": "left",
+            "before": "39px",
+            "after": "30px"
+        },
+        {
+            "selector": ".form-toggle-input::after",
+            "property": "height",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-toggle-input::after",
+            "property": "width",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".form-tags-input",
+            "property": "min-height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-tags-input",
+            "property": "padding-right",
+            "before": "6px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-tags-input",
+            "property": "padding-left",
+            "before": "6px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-tags-input-field",
+            "property": "height",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".slider",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".slider",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".slider-thumb",
+            "property": "height",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".slider-thumb",
+            "property": "width",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".slider-track",
+            "property": "height",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".slider.is-vertical .slider-track",
+            "property": "width",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tree-node",
+            "property": "min-height",
+            "before": "42px",
+            "after": "36px"
+        },
+        {
+            "selector": ".tree-node",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tree-node",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-style",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variant-ligatures",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variant-caps",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variant-numeric",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variant-east-asian",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variant-alternates",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variant-position",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variant-emoji",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-weight",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-stretch",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-size",
+            "before": "inherit",
+            "after": "14px"
+        },
+        {
+            "selector": ".tree-node",
+            "property": "line-height",
+            "before": "inherit",
+            "after": "24px"
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-family",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-optical-sizing",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-size-adjust",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-kerning",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-feature-settings",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-variation-settings",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "font-language-override",
+            "before": "inherit",
+            "after": null
+        },
+        {
+            "selector": ".tree-node",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tree-node",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tree-node-line-area.has-drop-line::after",
+            "property": "inset-block-start",
+            "before": "calc(50% + 14px)",
+            "after": "calc(50% + 13.5px)"
+        },
+        {
+            "selector": ".tree-node-line-area.has-drop-line::after",
+            "property": "left",
+            "before": "calc(var(--tree-marker-column) * 24px + 11px)",
+            "after": "calc(var(--tree-marker-column) * 21px + 10.5px - 0.5px)"
+        },
+        {
+            "selector": ".tree-node-line-area.has-drop-line::after",
+            "property": "width",
+            "before": "2px",
+            "after": "1px"
+        },
+        {
+            "selector": ".tree-indent",
+            "property": "width",
+            "before": "24px",
+            "after": "21px"
+        },
+        {
+            "selector": ".tree-indent.has-line::before",
+            "property": "left",
+            "before": "11px",
+            "after": "10px"
+        },
+        {
+            "selector": ".tree-indent.has-line::before",
+            "property": "width",
+            "before": "2px",
+            "after": "1px"
+        },
+        {
+            "selector": ".tree-connector",
+            "property": "width",
+            "before": "24px",
+            "after": "21px"
+        },
+        {
+            "selector": ".tree-connector:not(.is-last)::before",
+            "property": "left",
+            "before": "11px",
+            "after": "10px"
+        },
+        {
+            "selector": ".tree-connector:not(.is-last)::before",
+            "property": "width",
+            "before": "2px",
+            "after": "1px"
+        },
+        {
+            "selector": ".tree-connector::after",
+            "property": "inset-inline-start",
+            "before": "11px",
+            "after": "10px"
+        },
+        {
+            "selector": ".tree-connector::after",
+            "property": "inset-inline-end",
+            "before": "2px",
+            "after": "0px"
+        },
+        {
+            "selector": ".tree-connector::after",
+            "property": "border-bottom-left-radius",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tree-node-marker",
+            "property": "width",
+            "before": "22px",
+            "after": "21px"
+        },
+        {
+            "selector": ".tree-node-marker",
+            "property": "height",
+            "before": "22px",
+            "after": "21px"
+        },
+        {
+            "selector": ".tree-node-marker",
+            "property": "margin-inline-start",
+            "before": "1px",
+            "after": "0px"
+        },
+        {
+            "selector": ".tree-node-marker",
+            "property": "margin-inline-end",
+            "before": "1px",
+            "after": "0px"
+        },
+        {
+            "selector": ".divider",
+            "property": "margin-block-start",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".divider",
+            "property": "margin-block-end",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".timeline",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".timeline",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".timeline-item",
+            "property": "row-gap",
+            "before": "21px",
+            "after": "15px"
+        },
+        {
+            "selector": ".timeline-item",
+            "property": "column-gap",
+            "before": "21px",
+            "after": "15px"
+        },
+        {
+            "selector": ".timeline-item",
+            "property": "grid-template-columns",
+            "before": "42px minmax(0px, 1fr)",
+            "after": "33px minmax(0px, 1fr)"
+        },
+        {
+            "selector": ".timeline-item-icon",
+            "property": "height",
+            "before": "36px",
+            "after": "27px"
+        },
+        {
+            "selector": ".timeline-item-icon",
+            "property": "width",
+            "before": "36px",
+            "after": "27px"
+        },
+        {
+            "selector": ".timeline-item-dot",
+            "property": "margin-top",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".timeline-item-photo",
+            "property": "height",
+            "before": "42px",
+            "after": "33px"
+        },
+        {
+            "selector": ".timeline-item-photo",
+            "property": "width",
+            "before": "42px",
+            "after": "33px"
+        },
+        {
+            "selector": ".timeline-item-photo-icon",
+            "property": "height",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".timeline-item-photo-icon",
+            "property": "width",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".timeline-item-body",
+            "property": "padding-block-start",
+            "before": "9px",
+            "after": "3px"
+        },
+        {
+            "selector": ".timeline-item-body",
+            "property": "padding-block-end",
+            "before": "9px",
+            "after": "3px"
+        },
+        {
+            "selector": ".timeline-item-body",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".timeline-item-body",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".timeline-item-header",
+            "property": "margin-bottom",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".activity-feed-list",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".activity-feed-list",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".activity-feed-item",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".activity-feed-item",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".activity-feed-item-details",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".activity-feed-item-details",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".activity-feed-item-details",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".activity-feed-item-details",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".persona",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".persona",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".persona-details",
+            "property": "margin-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".back-to-top.is-start",
+            "property": "inset-inline-start",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".back-to-top.is-end",
+            "property": "inset-inline-end",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".breadcrumb-link",
+            "property": "line-height",
+            "before": "1",
+            "after": "18px"
+        },
+        {
+            "selector": ".breadcrumb-link",
+            "property": "height",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".breadcrumb-link",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".breadcrumb-link",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".breadcrumb-link",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".breadcrumb-link",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".calendar-current",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".calendar-current",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".calendar-cell",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".calendar-cell",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".calendar-cell",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".calendar-cell",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".time-grid-header-day",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".time-grid-header-day",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".time-grid-header-day",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".time-grid-header-day",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".time-grid-all-day-label",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".time-grid-all-day-label",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".time-grid-hour-label",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".date-picker-dates, .date-picker-months, .date-picker-years, .date-picker-header",
+            "property": "padding-top",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".date-picker-dates, .date-picker-months, .date-picker-years, .date-picker-header",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".date-picker-dates, .date-picker-months, .date-picker-years, .date-picker-header",
+            "property": "padding-bottom",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".date-picker-dates, .date-picker-months, .date-picker-years, .date-picker-header",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".date-picker-header-view",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".date-picker-header-view",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".date-picker-date.is-range-entry:nth-child(7n+8), .date-picker-date.is-range-start",
+            "property": "border-top-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-date.is-range-entry:nth-child(7n+8), .date-picker-date.is-range-start",
+            "property": "border-bottom-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-date.is-range-entry:nth-child(7n), .date-picker-date.is-range-end",
+            "property": "border-top-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-date.is-range-entry:nth-child(7n), .date-picker-date.is-range-end",
+            "property": "border-bottom-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-date.is-selection-entry:nth-child(7n+8), .date-picker-date.is-selection-start",
+            "property": "border-top-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-date.is-selection-entry:nth-child(7n+8), .date-picker-date.is-selection-start",
+            "property": "border-bottom-left-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-date.is-selection-entry:nth-child(7n), .date-picker-date.is-selection-end",
+            "property": "border-top-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-date.is-selection-entry:nth-child(7n), .date-picker-date.is-selection-end",
+            "property": "border-bottom-right-radius",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".date-picker-months, .date-picker-years",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".date-picker-months, .date-picker-years",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".date-picker-months .button, .date-picker-years .button",
+            "property": "contain-intrinsic-width",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".date-picker-months .button, .date-picker-years .button",
+            "property": "contain-intrinsic-height",
+            "before": "42px",
+            "after": ""
+        },
+        {
+            "selector": ".layer-pane > .pane-header > :is(.button, .button-group)",
+            "property": "margin-top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".layer-pane > .pane-header > :is(.button, .button-group)",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".layer-pane > .pane-header > :is(.button, .button-group)",
+            "property": "margin-bottom",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".chip",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".chip",
+            "property": "padding-top",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".chip",
+            "property": "padding-right",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".chip",
+            "property": "padding-bottom",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".chip",
+            "property": "padding-left",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".chip",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".chip",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".chip :is(span)",
+            "property": "line-height",
+            "before": "21px",
+            "after": "24px"
+        },
+        {
+            "selector": ".command-palette-dialog",
+            "property": "padding-top",
+            "before": "clamp(60px, 15vh, 160px)",
+            "after": "clamp(60px, 15vh, 159px)"
+        },
+        {
+            "selector": ".command-palette",
+            "property": "width",
+            "before": "min(600px, -48px + 100dvw)",
+            "after": "min(540px, -36px + 100dvw)"
+        },
+        {
+            "selector": ".command-palette",
+            "property": "max-height",
+            "before": "min(480px, -120px + 100dvh - clamp(60px, 15vh, 160px))",
+            "after": "min(480px, -120px + 100dvh - clamp(60px, 15vh, 159px))"
+        },
+        {
+            "selector": ".command-palette-search",
+            "property": "height",
+            "before": "54px",
+            "after": "42px"
+        },
+        {
+            "selector": ".command-palette-search",
+            "property": "padding-right",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".command-palette-search",
+            "property": "padding-left",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".command-palette-search",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-search",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-search-icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".command-palette-tabs",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".command-palette-tabs",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".command-palette-tab",
+            "property": "height",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".command-palette-tab",
+            "property": "padding-right",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-tab",
+            "property": "padding-left",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-tab-icon",
+            "property": "font-size",
+            "before": "13px",
+            "after": "12px"
+        },
+        {
+            "selector": ".command-palette-loading",
+            "property": "padding-top",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-loading",
+            "property": "padding-right",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-loading",
+            "property": "padding-bottom",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-loading",
+            "property": "padding-left",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-empty",
+            "property": "padding-top",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-empty",
+            "property": "padding-right",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-empty",
+            "property": "padding-bottom",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-empty",
+            "property": "padding-left",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".command-palette-group",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".command-palette-group",
+            "property": "padding-right",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-group",
+            "property": "padding-left",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-item",
+            "property": "padding-top",
+            "before": "8px",
+            "after": "6px"
+        },
+        {
+            "selector": ".command-palette-item",
+            "property": "padding-right",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-item",
+            "property": "padding-bottom",
+            "before": "8px",
+            "after": "6px"
+        },
+        {
+            "selector": ".command-palette-item",
+            "property": "padding-left",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-item",
+            "property": "row-gap",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-item",
+            "property": "column-gap",
+            "before": "10px",
+            "after": "9px"
+        },
+        {
+            "selector": ".command-palette-item-icon",
+            "property": "width",
+            "before": "30px",
+            "after": "27px"
+        },
+        {
+            "selector": ".command-palette-item-icon",
+            "property": "height",
+            "before": "30px",
+            "after": "27px"
+        },
+        {
+            "selector": ".command-palette-item-icon .icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".comment",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".comment-content",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".comment-content",
+            "property": "padding-right",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".comment-content",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".comment-content",
+            "property": "padding-left",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".comment-footer",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".comment-footer",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".table-cell",
+            "property": "padding-top",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".table-cell",
+            "property": "padding-right",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".table-cell",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".table-cell",
+            "property": "padding-left",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".table-actions",
+            "property": "margin-top",
+            "before": "-4px",
+            "after": "-3px"
+        },
+        {
+            "selector": ".table-actions",
+            "property": "margin-bottom",
+            "before": "-4px",
+            "after": "-3px"
+        },
+        {
+            "selector": ".table-bar-content",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".table-bar-content",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".table-bar-content",
+            "property": "padding-top",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".table-bar-content",
+            "property": "padding-right",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".table-bar-content",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".table-bar-content",
+            "property": "padding-left",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".table-group-content",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".table-group-content",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".table-group-after",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".table-group-after",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".base-pane-structure:has(.table)",
+            "property": "--table-spacing",
+            "before": "18px",
+            "after": null
+        },
+        {
+            "selector": ".base-pane-structure .base-pane-structure",
+            "property": "--table-spacing",
+            "before": "15px",
+            "after": null
+        },
+        {
+            "selector": ".base-pane-structure > .table .table-cell:not(.table-bar):not(.table-group):not(.is-raw):first-child",
+            "property": "padding-left",
+            "before": "var(--table-spacing)",
+            "after": "15px"
+        },
+        {
+            "selector": ".base-pane-structure > .table .table-cell:not(.table-bar):not(.table-group):not(.is-raw):last-child",
+            "property": "padding-right",
+            "before": "var(--table-spacing)",
+            "after": "15px"
+        },
+        {
+            "selector": ".table-expand-content",
+            "property": "padding-top",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".table-expand-content",
+            "property": "padding-right",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".table-expand-content",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": ""
+        },
+        {
+            "selector": ".table-expand-content",
+            "property": "padding-left",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".tree-branch",
+            "property": "margin-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".table-tree-lines",
+            "property": "stroke-width",
+            "before": "2",
+            "after": "1"
+        },
+        {
+            "selector": ".tree-marker",
+            "property": "width",
+            "before": "22px",
+            "after": "21px"
+        },
+        {
+            "selector": ".tree-marker",
+            "property": "height",
+            "before": "22px",
+            "after": "21px"
+        },
+        {
+            "selector": ".table-empty",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".table-empty",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".pagination-button",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".pagination-button",
+            "property": "min-width",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".pagination-button-arrow",
+            "property": "width",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".pagination-dots",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".pagination-dots",
+            "property": "min-width",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".pagination-button-icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".pagination-bar-limit",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".pagination-bar-limit",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".pagination-bar-limit-select",
+            "property": "min-height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".pagination-bar-limit-select .menu-item",
+            "property": "min-height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": "@media (max-width: 767.98px) | .pagination-bar",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": "@media (max-width: 767.98px) | .pagination-bar",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".description-list",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".description-list",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".description-list-items",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".description-list-items",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".description-item",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".description-item",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".description-item-term",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".description-item-term",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".description-item-icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".description-list-items.has-label-width",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".description-list-items.has-label-width",
+            "property": "column-gap",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".description-list-items.is-horizontal .description-item",
+            "property": "padding-inline-start",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".description-list-items.is-horizontal .description-item",
+            "property": "padding-inline-end",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".drop-zone",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".drop-zone",
+            "property": "column-gap",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".drop-zone-actions",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".drop-zone-actions",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".expandable-header",
+            "property": "height",
+            "before": "54px",
+            "after": "42px"
+        },
+        {
+            "selector": ".expandable-header",
+            "property": "padding-inline-start",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-header",
+            "property": "padding-inline-end",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-header",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".expandable-header",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".expandable-content",
+            "property": "padding-top",
+            "before": "0px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-content",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-content",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-content",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".expandable-group .expandable-pane + .expandable-pane",
+            "property": "margin-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-fader",
+            "property": "height",
+            "before": "39px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-fader-bar",
+            "property": "width",
+            "before": "4px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-fader-overlay",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-fader-overlay",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-fader-icon-leading",
+            "property": "margin-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-fader-icon-trailing",
+            "property": "margin-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".form-fader-label",
+            "property": "line-height",
+            "before": "21px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-fader-value",
+            "property": "line-height",
+            "before": "18px",
+            "after": "24px"
+        },
+        {
+            "selector": ".form-fader-value",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-fader.is-vertical",
+            "property": "width",
+            "before": "39px",
+            "after": "36px"
+        },
+        {
+            "selector": ".form-fader.is-vertical .form-fader-bar",
+            "property": "height",
+            "before": "4px",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-fader.is-vertical .form-fader-overlay",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-fader.is-vertical .form-fader-overlay",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-fader.is-vertical .form-fader-value",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-rating",
+            "property": "row-gap",
+            "before": "0.15em",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-rating",
+            "property": "column-gap",
+            "before": "0.15em",
+            "after": "3px"
+        },
+        {
+            "selector": ".form-rating",
+            "property": "border-top-left-radius",
+            "before": "4px",
+            "after": ""
+        },
+        {
+            "selector": ".form-rating",
+            "property": "border-top-right-radius",
+            "before": "4px",
+            "after": ""
+        },
+        {
+            "selector": ".form-rating",
+            "property": "border-bottom-right-radius",
+            "before": "4px",
+            "after": ""
+        },
+        {
+            "selector": ".form-rating",
+            "property": "border-bottom-left-radius",
+            "before": "4px",
+            "after": ""
+        },
+        {
+            "selector": ".form-repeater",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-repeater",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-repeater-rows",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-repeater-rows",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".form-repeater-row::before",
+            "property": "top",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".form-repeater-row::after",
+            "property": "bottom",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".form-repeater-row-content",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-repeater-row-content",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".form-repeater-handle",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".tree-view-select-list",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tree-view-select-list",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tree-view-select-list",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tree-view-select-list",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tree-view-select-empty",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tree-view-select-empty",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".placeholder.is-extended",
+            "property": "padding-top",
+            "before": "27px",
+            "after": "21px"
+        },
+        {
+            "selector": ".placeholder.is-extended",
+            "property": "padding-right",
+            "before": "27px",
+            "after": "21px"
+        },
+        {
+            "selector": ".placeholder.is-extended",
+            "property": "padding-bottom",
+            "before": "27px",
+            "after": "21px"
+        },
+        {
+            "selector": ".placeholder.is-extended",
+            "property": "padding-left",
+            "before": "27px",
+            "after": "21px"
+        },
+        {
+            "selector": ".placeholder.is-extended",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".placeholder.is-extended",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".placeholder.is-simple",
+            "property": "padding-top",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".placeholder.is-simple",
+            "property": "padding-right",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".placeholder.is-simple",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".placeholder.is-simple",
+            "property": "padding-left",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".placeholder.is-small",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".placeholder.is-small",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".placeholder.is-small",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".placeholder.is-small",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".placeholder-icon",
+            "property": "font-size",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".gallery-grid",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".gallery-grid",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".hover-card-popup",
+            "property": "padding-top",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".hover-card-popup",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".hover-card-popup",
+            "property": "padding-bottom",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".hover-card-popup",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".hover-card-popup",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".hover-card-popup",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".info",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".info",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".info > .icon",
+            "property": "margin-top",
+            "before": "3px",
+            "after": "calc((24px - 1em) / 2)"
+        },
+        {
+            "selector": ".info > .icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".item",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".item",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".item-media > .icon",
+            "property": "margin-top",
+            "before": "1px",
+            "after": "3px"
+        },
+        {
+            "selector": ".item-media > .icon",
+            "property": "margin-right",
+            "before": "1px",
+            "after": "3px"
+        },
+        {
+            "selector": ".item-media > .icon",
+            "property": "margin-bottom",
+            "before": "1px",
+            "after": "3px"
+        },
+        {
+            "selector": ".item-media > .icon",
+            "property": "margin-left",
+            "before": "1px",
+            "after": "3px"
+        },
+        {
+            "selector": ".item-media > .icon",
+            "property": "font-size",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".item-stack .item + .item",
+            "property": "margin-top",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".item-stack .item + .item",
+            "property": "padding-top",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".base-pane-structure > .item, .base-pane-structure > .item-stack > .item",
+            "property": "padding-top",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .item, .base-pane-structure > .item-stack > .item",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .item, .base-pane-structure > .item-stack > .item",
+            "property": "padding-bottom",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .item, .base-pane-structure > .item-stack > .item",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".kanban",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".kanban-column-header",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-column-header",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-column-header",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-header",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-header",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-header-caption",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-column-header-caption",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-column-header-caption",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-column-header-caption .icon",
+            "property": "font-size",
+            "before": "16px",
+            "after": "15px"
+        },
+        {
+            "selector": ".kanban-column-body",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-body",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-body",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-body",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-body",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-body",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-column-footer",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-column-footer",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".kanban-column-footer",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-column-footer",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".kanban-drop-indicator",
+            "property": "inset-inline-start",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".kanban-drop-indicator",
+            "property": "inset-inline-end",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".kanban:has(> .kanban-swimlane)",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".kanban:has(> .kanban-swimlane)",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".kanban-swimlane-caption",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-swimlane-caption",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-swimlane-caption",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-swimlane-caption",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".kanban-swimlane-toggle",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban-swimlane-toggle",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".kanban > .kanban-swimlane:first-child.is-collapsed .kanban-column-header",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".link",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".link",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".notice",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".notice",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".notice",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".notice",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".notice",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".notice",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".notice .button",
+            "property": "margin-block-start",
+            "before": "-6px",
+            "after": "0px"
+        },
+        {
+            "selector": ".notice .button",
+            "property": "margin-block-end",
+            "before": "-6px",
+            "after": "0px"
+        },
+        {
+            "selector": ".notice .button",
+            "property": "margin-right",
+            "before": "-9px",
+            "after": "-6px"
+        },
+        {
+            "selector": ".notice .button",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".notice ul li + li",
+            "property": "margin-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".notice-close",
+            "property": "height",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".notice-close",
+            "property": "width",
+            "before": "20px",
+            "after": "18px"
+        },
+        {
+            "selector": ".notice-close",
+            "property": "margin-top",
+            "before": "2px",
+            "after": "3px"
+        },
+        {
+            "selector": ".notice-close",
+            "property": "margin-right",
+            "before": "2px",
+            "after": "3px"
+        },
+        {
+            "selector": ".notice-close",
+            "property": "margin-bottom",
+            "before": "2px",
+            "after": "3px"
+        },
+        {
+            "selector": ".notice-close",
+            "property": "margin-left",
+            "before": "2px",
+            "after": "3px"
+        },
+        {
+            "selector": ".notice-prefix",
+            "property": "margin-top",
+            "before": "2px",
+            "after": "calc((24px - 15px) / 2)"
+        },
+        {
+            "selector": ".notice-prefix",
+            "property": "font-size",
+            "before": "20px",
+            "after": "15px"
+        },
+        {
+            "selector": ".base-pane > .notice",
+            "property": "padding-inline-start",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane > .notice",
+            "property": "padding-inline-end",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".pop-confirm-content",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".pop-confirm-content",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".pop-confirm-icon",
+            "property": "margin-top",
+            "before": "3px",
+            "after": "calc((24px - 1em) / 2)"
+        },
+        {
+            "selector": ".pop-confirm-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".progress-bar-track",
+            "property": "height",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".progress-bar-status-row",
+            "property": "row-gap",
+            "before": "21px",
+            "after": "15px"
+        },
+        {
+            "selector": ".progress-bar-status-row",
+            "property": "column-gap",
+            "before": "21px",
+            "after": "15px"
+        },
+        {
+            "selector": ".base-pane-structure > .progress-bar:first-child",
+            "property": "margin-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".base-pane-structure > .progress-bar:first-child",
+            "property": "margin-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".base-pane-structure > .progress-bar:first-child",
+            "property": "margin-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".base-pane-structure > .progress-bar:last-child",
+            "property": "margin-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".base-pane-structure > .progress-bar:last-child",
+            "property": "margin-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".base-pane-structure > .progress-bar:last-child",
+            "property": "margin-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".prose > * + *",
+            "property": "margin-top",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".prose > * + :where(h1, h2, h3)",
+            "property": "margin-top",
+            "before": "42px",
+            "after": "33px"
+        },
+        {
+            "selector": ".prose > h2",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".prose > :where(ul, ol), .prose > :where(ul, ol) :where(ul, ol)",
+            "property": "padding-left",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".prose > pre",
+            "property": "padding-top",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".prose > pre",
+            "property": "padding-right",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".prose > pre",
+            "property": "padding-bottom",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".prose > pre",
+            "property": "padding-left",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".prose > table :where(th, td)",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".prose > table :where(th, td)",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".prose > table :where(th, td)",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".prose > table :where(th, td)",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".snackbar .action",
+            "property": "margin-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".snackbar .action",
+            "property": "margin-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".snackbar .action",
+            "property": "margin-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".snackbar .progress-bar",
+            "property": "margin-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".snackbar-content",
+            "property": "padding-top",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".snackbar-content",
+            "property": "padding-right",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".snackbar-content",
+            "property": "padding-bottom",
+            "before": "15px",
+            "after": ""
+        },
+        {
+            "selector": ".snackbar-content",
+            "property": "padding-left",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".snackbar-content",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".snackbar-content",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".snackbar-action",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".snackbar-action",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".snackbars",
+            "property": "row-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".snackbars",
+            "property": "column-gap",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": "@media (max-width: 767.98px) | .snackbars",
+            "property": "inset-inline-start",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": "@media (max-width: 767.98px) | .snackbars",
+            "property": "inset-inline-end",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": "@media (min-width: 768px) | .snackbars",
+            "property": "width",
+            "before": "570px",
+            "after": "min(480px, 100dvw - 24px)"
+        },
+        {
+            "selector": "@media (min-width: 768px) | .snackbars",
+            "property": "left",
+            "before": "calc(-285px + 50dvw)",
+            "after": "50%"
+        },
+        {
+            "selector": "@media (min-width: 768px) | .snackbars",
+            "property": "translate",
+            "before": null,
+            "after": "-50%"
+        },
+        {
+            "selector": ".tooltip",
+            "property": "font-size",
+            "before": "14px",
+            "after": "13px"
+        },
+        {
+            "selector": ".tooltip",
+            "property": "line-height",
+            "before": "21px",
+            "after": "18px"
+        },
+        {
+            "selector": ".tooltip",
+            "property": "padding-top",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tooltip",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tooltip",
+            "property": "padding-bottom",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tooltip",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "9px"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "padding-top",
+            "before": "2px",
+            "after": "3px"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "padding-bottom",
+            "before": "2px",
+            "after": "3px"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-top-color",
+            "before": "",
+            "after": "currentcolor"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-top-style",
+            "before": "",
+            "after": "none"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-top-width",
+            "before": "",
+            "after": "0px"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-right-color",
+            "before": "",
+            "after": "currentcolor"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-right-style",
+            "before": "",
+            "after": "none"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-right-width",
+            "before": "",
+            "after": "0px"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-bottom-color",
+            "before": "",
+            "after": "currentcolor"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-bottom-style",
+            "before": "",
+            "after": "none"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-bottom-width",
+            "before": "",
+            "after": "0px"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-left-color",
+            "before": "",
+            "after": "currentcolor"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-left-style",
+            "before": "",
+            "after": "none"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-left-width",
+            "before": "",
+            "after": "0px"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-image-source",
+            "before": "",
+            "after": "initial"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-image-slice",
+            "before": "",
+            "after": "initial"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-image-width",
+            "before": "",
+            "after": "initial"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-image-outset",
+            "before": "",
+            "after": "initial"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "border-image-repeat",
+            "before": "",
+            "after": "initial"
+        },
+        {
+            "selector": ".segmented-control",
+            "property": "box-shadow",
+            "before": null,
+            "after": "inset 0 0 0 1px light-dark(oklch(0.9101 0.0126 271.3), oklch(from oklch(0.6411 0.0342 269.6) 0.303 calc(c * 0.5263) h))"
+        },
+        {
+            "selector": ".segmented-control-item",
+            "property": "font-size",
+            "before": null,
+            "after": "14px"
+        },
+        {
+            "selector": ".segmented-control-item",
+            "property": "line-height",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": ".segmented-control-item.is-small",
+            "property": "height",
+            "before": "30px",
+            "after": "24px"
+        },
+        {
+            "selector": ".segmented-control-item.is-small",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".segmented-control-item.is-small",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".segmented-control-item.is-small",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".segmented-control-item.is-small",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".segmented-control-item.is-medium",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".segmented-control-item.is-medium",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".segmented-control-item.is-medium",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".segmented-control-item.is-medium",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".segmented-control-item.is-medium",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".segmented-control-item.is-large",
+            "property": "height",
+            "before": "48px",
+            "after": "36px"
+        },
+        {
+            "selector": ".segmented-control-item.is-large",
+            "property": "padding-right",
+            "before": "21px",
+            "after": "15px"
+        },
+        {
+            "selector": ".segmented-control-item.is-large",
+            "property": "padding-left",
+            "before": "21px",
+            "after": "15px"
+        },
+        {
+            "selector": ".segmented-control-item.is-large",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".segmented-control-item.is-large",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "6px"
+        },
+        {
+            "selector": ".skeleton.is-circle",
+            "property": "height",
+            "before": "40px",
+            "after": "33px"
+        },
+        {
+            "selector": ".skeleton.is-circle",
+            "property": "width",
+            "before": "40px",
+            "after": "33px"
+        },
+        {
+            "selector": ".speed-dial.is-corner-start",
+            "property": "inset-inline-start",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".speed-dial.is-corner-end",
+            "property": "inset-inline-end",
+            "before": "24px",
+            "after": "18px"
+        },
+        {
+            "selector": ".speed-dial-actions",
+            "property": "row-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".speed-dial-actions",
+            "property": "column-gap",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".speed-dial-action",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".speed-dial-action",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".speed-dial-action-label",
+            "property": "padding-right",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".speed-dial-action-label",
+            "property": "padding-left",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".stepper-steps::before, .stepper-steps::after",
+            "property": "--margin",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".stepper-steps::before, .stepper-steps::after",
+            "property": "top",
+            "before": "calc(50% - 2px)",
+            "after": "50%"
+        },
+        {
+            "selector": ".stepper-steps::before, .stepper-steps::after",
+            "property": "height",
+            "before": "4px",
+            "after": "3px"
+        },
+        {
+            "selector": ".stepper-steps::before, .stepper-steps::after",
+            "property": "translate",
+            "before": null,
+            "after": "0px -50%"
+        },
+        {
+            "selector": ".stepper-steps-item",
+            "property": "height",
+            "before": "33px",
+            "after": "27px"
+        },
+        {
+            "selector": ".stepper-steps-item",
+            "property": "width",
+            "before": "33px",
+            "after": "27px"
+        },
+        {
+            "selector": ".stepper-steps-item .icon",
+            "property": "scale",
+            "before": "0.8",
+            "after": null
+        },
+        {
+            "selector": ".stepper-steps-item .icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".swipe-action",
+            "property": "padding-right",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".swipe-action",
+            "property": "padding-left",
+            "before": "18px",
+            "after": "12px"
+        },
+        {
+            "selector": ".tab",
+            "property": "row-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".tab",
+            "property": "column-gap",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".tab-bar-default",
+            "property": "--tab-padding",
+            "before": "12px",
+            "after": null
+        },
+        {
+            "selector": ".tab-bar-arrow",
+            "property": "top",
+            "before": "2px",
+            "after": "3px"
+        },
+        {
+            "selector": ".tab-bar-tabs-default",
+            "property": "row-gap",
+            "before": "27px",
+            "after": ""
+        },
+        {
+            "selector": ".tab-bar-tabs-default",
+            "property": "column-gap",
+            "before": "27px",
+            "after": ""
+        },
+        {
+            "selector": ".tab-bar-item-default",
+            "property": "row-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tab-bar-item-default",
+            "property": "column-gap",
+            "before": "9px",
+            "after": "6px"
+        },
+        {
+            "selector": ".tab-bar-item-default",
+            "property": "border-bottom-width",
+            "before": "2px",
+            "after": null
+        },
+        {
+            "selector": ".tab-bar-item-default",
+            "property": "border-bottom-style",
+            "before": "solid",
+            "after": null
+        },
+        {
+            "selector": ".tab-bar-item-default",
+            "property": "border-bottom-color",
+            "before": "transparent",
+            "after": null
+        },
+        {
+            "selector": ".tab-bar-item-default",
+            "property": "transition-property",
+            "before": "border-color, color",
+            "after": "box-shadow, color"
+        },
+        {
+            "selector": ".tab-bar-item-default",
+            "property": "box-shadow",
+            "before": null,
+            "after": "transparent 0px -2px inset"
+        },
+        {
+            "selector": "@media (hover: hover) | .tab-bar-item-default:hover",
+            "property": "border-top-color",
+            "before": "",
+            "after": null
+        },
+        {
+            "selector": "@media (hover: hover) | .tab-bar-item-default:hover",
+            "property": "border-right-color",
+            "before": "",
+            "after": null
+        },
+        {
+            "selector": "@media (hover: hover) | .tab-bar-item-default:hover",
+            "property": "border-bottom-color",
+            "before": "",
+            "after": null
+        },
+        {
+            "selector": "@media (hover: hover) | .tab-bar-item-default:hover",
+            "property": "border-left-color",
+            "before": "",
+            "after": null
+        },
+        {
+            "selector": "@media (hover: hover) | .tab-bar-item-default:hover",
+            "property": "box-shadow",
+            "before": null,
+            "after": "inset 0 -2px light-dark(oklch(0.4004 0.0403 269.6), oklch(from oklch(0.6411 0.0342 269.6) 0.845 calc(c * 0.3509) h))"
+        },
+        {
+            "selector": ".tab-bar-item-pills",
+            "property": "height",
+            "before": "36px",
+            "after": "30px"
+        },
+        {
+            "selector": ".tab-bar-item-pills",
+            "property": "padding-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tab-bar-item-pills",
+            "property": "padding-left",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tab-bar-item-pills",
+            "property": "font-size",
+            "before": null,
+            "after": "14px"
+        },
+        {
+            "selector": ".tab-bar-item-pills",
+            "property": "line-height",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": ".tabs-bar",
+            "property": "margin-bottom",
+            "before": "18px",
+            "after": "15px"
+        },
+        {
+            "selector": ".base-pane-structure > .tab-bar-default, .base-pane-structure > .tabs > .tab-bar-default, .base-pane-structure > .form > .tab-bar-default, .base-pane-structure > .form > .tabs > .tab-bar-default",
+            "property": "--tab-padding",
+            "before": "18px",
+            "after": null
+        },
+        {
+            "selector": ".base-pane-structure > .tab-bar-default, .base-pane-structure > .tabs > .tab-bar-default, .base-pane-structure > .form > .tab-bar-default, .base-pane-structure > .form > .tabs > .tab-bar-default",
+            "property": "padding-inline-start",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .tab-bar-default, .base-pane-structure > .tabs > .tab-bar-default, .base-pane-structure > .form > .tab-bar-default, .base-pane-structure > .form > .tabs > .tab-bar-default",
+            "property": "padding-inline-end",
+            "before": "18px",
+            "after": ""
+        },
+        {
+            "selector": ".base-pane-structure > .toolbar-flat",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".base-pane-structure > .toolbar-flat",
+            "property": "padding-right",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".base-pane-structure > .toolbar-flat",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".base-pane-structure > .toolbar-flat",
+            "property": "padding-left",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".tour-body",
+            "property": "padding-top",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".tour-body",
+            "property": "padding-bottom",
+            "before": "15px",
+            "after": "12px"
+        },
+        {
+            "selector": ".tour-footer",
+            "property": "padding-top",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tour-footer",
+            "property": "padding-bottom",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": ".tour-skip",
+            "property": "margin-right",
+            "before": "12px",
+            "after": "9px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--radius-control",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--radius-container",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-height-small",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-height-medium",
+            "before": null,
+            "after": "42px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-height-large",
+            "before": null,
+            "after": "48px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-height-xl",
+            "before": null,
+            "after": "54px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-line-height",
+            "before": null,
+            "after": "24px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-icon-size",
+            "before": null,
+            "after": "18px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--control-gap",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--field-height",
+            "before": null,
+            "after": "42px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--field-height-small",
+            "before": null,
+            "after": "33px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--field-padding",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--menu-item-height",
+            "before": null,
+            "after": "42px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--menu-item-height-large",
+            "before": null,
+            "after": "48px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--menu-padding",
+            "before": null,
+            "after": "9px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--table-cell-padding",
+            "before": null,
+            "after": "12px 15px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--table-spacing",
+            "before": null,
+            "after": "18px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--tab-padding",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--tab-gap",
+            "before": null,
+            "after": "27px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--tab-pill-height",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--segmented-height-small",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--segmented-height-medium",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--segmented-height-large",
+            "before": null,
+            "after": "48px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--chip-height",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--chip-padding",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--badge-height-small",
+            "before": null,
+            "after": "21px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--badge-height-medium",
+            "before": null,
+            "after": "28px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--badge-height-large",
+            "before": null,
+            "after": "33px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--badge-line-height-small",
+            "before": null,
+            "after": "21px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--badge-line-height-large",
+            "before": null,
+            "after": "21px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--badge-margin",
+            "before": null,
+            "after": "-2px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--pane-padding",
+            "before": null,
+            "after": "18px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--pane-header-gap",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--snackbar-padding",
+            "before": null,
+            "after": "15px 18px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--snackbar-width",
+            "before": null,
+            "after": "570px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--application-top-height",
+            "before": null,
+            "after": "66px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--application-menu-width",
+            "before": null,
+            "after": "300px"
+        },
+        {
+            "selector": "@layer flux-base | [comfortable]",
+            "property": "--application-menu-width-collapsed",
+            "before": null,
+            "after": "69px"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-small:has(> :is(.button-icon, .spinner):first-child)",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "calc(6px)"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-small:has(> :is(.button-icon, .spinner):last-child)",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "calc(6px)"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-medium:has(> :is(.button-icon, .spinner):first-child)",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "calc(9px)"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-medium:has(> :is(.button-icon, .spinner):last-child)",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "calc(9px)"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-large:has(> :is(.button-icon, .spinner):first-child)",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "calc(12px)"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-large:has(> :is(.button-icon, .spinner):last-child)",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "calc(12px)"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-xl:has(> :is(.button-icon, .spinner):first-child)",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "calc(15px)"
+        },
+        {
+            "selector": "@layer flux-base | .button.is-xl:has(> :is(.button-icon, .spinner):last-child)",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "calc(15px)"
+        },
+        {
+            "selector": "@layer flux-base | .button > .spinner",
+            "property": "flex-shrink",
+            "before": null,
+            "after": "0"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-small",
+            "property": "width",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-small",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-small",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-medium",
+            "property": "width",
+            "before": null,
+            "after": "36px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-medium",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-medium",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-large",
+            "property": "width",
+            "before": null,
+            "after": "42px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-large",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-large",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-xl",
+            "property": "width",
+            "before": null,
+            "after": "48px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-xl",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": "@layer flux-base | .button:has(> :is(.button-icon, .spinner):only-child).is-xl",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "0px"
+        },
+        {
+            "selector": ".button > .spinner",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".badge.is-large .badge-dot",
+            "property": "height",
+            "before": null,
+            "after": "9px"
+        },
+        {
+            "selector": ".badge.is-large .badge-dot",
+            "property": "width",
+            "before": null,
+            "after": "9px"
+        },
+        {
+            "selector": ".badge-close:focus-visible",
+            "property": "outline-color",
+            "before": null,
+            "after": "light-dark(oklch(0.5195 0.221 264), oklch(0.7199 0.14 263.9))"
+        },
+        {
+            "selector": ".badge-close:focus-visible",
+            "property": "outline-offset",
+            "before": null,
+            "after": "1px"
+        },
+        {
+            "selector": ".badge > .badge-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "var(--badge-icon-size)"
+        },
+        {
+            "selector": ".badge > .badge-icon",
+            "property": "margin-left",
+            "before": null,
+            "after": "-3px"
+        },
+        {
+            "selector": ".badge > .badge-icon",
+            "property": "color",
+            "before": null,
+            "after": "var(--intent-text)"
+        },
+        {
+            "selector": ".form-select.is-condensed",
+            "property": "height",
+            "before": null,
+            "after": "auto"
+        },
+        {
+            "selector": ".form-select.is-condensed",
+            "property": "min-height",
+            "before": null,
+            "after": "30px"
+        },
+        {
+            "selector": ".chip:has(> .chip-icon:first-child)",
+            "property": "padding-inline-start",
+            "before": null,
+            "after": "calc(9px - 3px)"
+        },
+        {
+            "selector": ".chip:has(> .chip-icon:last-child)",
+            "property": "padding-inline-end",
+            "before": null,
+            "after": "calc(9px - 3px)"
+        },
+        {
+            "selector": ".chip-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".expandable-header-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".expandable-header-toggle",
+            "property": "font-size",
+            "before": null,
+            "after": "12px"
+        },
+        {
+            "selector": ".segmented-control-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        },
+        {
+            "selector": ".segmented-control-item.is-small > .segmented-control-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "calc(15px - 3px)"
+        },
+        {
+            "selector": ".tab-bar-item-icon",
+            "property": "font-size",
+            "before": null,
+            "after": "15px"
+        }
+    ]
+}

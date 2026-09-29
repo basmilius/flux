@@ -24,7 +24,7 @@
                     :gap="6">
                     <FluxIcon
                         name="code-branch"
-                        :size="14"/>
+                        :size="12"/>
 
                     <FluxText
                         color="muted"

@@ -8,11 +8,11 @@
     overflow: hidden;
 
     .action {
-        margin: 12px 12px 12px 0;
+        margin: 9px 9px 9px 0;
     }
 
     .progressBar {
-        margin-top: 9px;
+        margin-top: 6px;
 
         &:not(:last-child) {
             margin-bottom: 6px;
@@ -22,10 +22,10 @@
 
 .snackbarContent {
     display: flex;
-    padding: 15px 18px;
+    padding: var(--snackbar-padding);
     align-items: flex-start;
     flex-grow: 1;
-    gap: 15px;
+    gap: 12px;
 
     > .icon,
     > .spinner {
@@ -59,7 +59,7 @@
     @include mixin.text(small);
 
     display: flex;
-    padding: 6px 15px;
+    padding: 6px 12px;
     min-width: 84px;
     align-items: center;
     justify-content: center;
@@ -120,18 +120,19 @@
     position: fixed;
     display: flex;
     flex-flow: column;
-    gap: 15px;
+    gap: 12px;
     z-index: 100000;
 
     @include mixin.breakpoint-down(sm) {
-        inset-inline: 15px;
+        inset-inline: 12px;
         bottom: 15px;
     }
 
     @include mixin.breakpoint-up(md) {
-        width: 570px;
+        width: min(var(--snackbar-width), calc(100dvw - 24px));
         top: 30px;
-        left: calc(50dvw - 285px);
+        left: 50%;
+        translate: -50% 0;
     }
 }
 

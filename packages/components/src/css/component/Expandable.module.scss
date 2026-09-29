@@ -11,10 +11,10 @@
 
 .expandableHeader {
     display: flex;
-    height: 54px;
-    padding-inline: 18px;
+    height: 42px;
+    padding-inline: var(--pane-padding);
     align-items: center;
-    gap: 12px;
+    gap: 9px;
     background: unset;
     border: 0;
     color: var(--foreground-prominent);
@@ -65,7 +65,7 @@
 }
 
 .expandableContent {
-    padding: 0 18px 18px;
+    padding: 0 var(--pane-padding) var(--pane-padding);
 }
 
 .basePane > .expandable {
@@ -142,7 +142,7 @@
     }
 
     .expandablePane + .expandablePane {
-        margin-top: 9px;
+        margin-top: 6px;
     }
 
     &:not(:first-child) {
@@ -155,11 +155,19 @@
 }
 
 .basePane > .expandableGroup:first-child .expandable:first-child .expandableHeader {
-    border-top-left-radius: var(--radius);
-    border-top-right-radius: var(--radius);
+    border-top-left-radius: var(--radius-container);
+    border-top-right-radius: var(--radius-container);
 }
 
 .basePane > .expandableGroup:last-child .expandable:not(.expandableOpened):last-child .expandableHeader {
-    border-bottom-left-radius: var(--radius);
-    border-bottom-right-radius: var(--radius);
+    border-bottom-left-radius: var(--radius-container);
+    border-bottom-right-radius: var(--radius-container);
+}
+
+.expandableHeaderIcon {
+    font-size: 15px;
+}
+
+.expandableHeaderToggle {
+    font-size: 12px;
 }

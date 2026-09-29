@@ -12,7 +12,7 @@
         <FluxIcon
             v-if="icon"
             :name="icon"
-            :size="16"/>
+            :size="15"/>
     </button>
 </template>
 

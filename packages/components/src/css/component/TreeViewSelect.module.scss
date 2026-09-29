@@ -3,13 +3,13 @@
 .treeViewSelectList {
     display: flex;
     flex-flow: column;
-    padding: 9px;
+    padding: 6px;
 }
 
 .treeViewSelectEmpty {
     @include mixin.text(small);
 
-    padding: 12px 6px;
+    padding: 9px 6px;
     color: var(--foreground-secondary);
     text-align: center;
 }

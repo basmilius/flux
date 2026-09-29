@@ -5,13 +5,14 @@
 
     @include mixin.intent('gray');
 
+    --badge-icon-size: 15px;
+
     display: inline-flex;
-    height: 28px;
+    height: var(--badge-height-medium);
     width: max-content;
 
-    // Pulls the margin-box back to exactly one line, so a badge never stretches the line
-    // it sits in.
-    margin-block: -2px;
+    // The comfortable preset keeps its 28px badge inside the 24px line box.
+    margin-block: var(--badge-margin);
     padding-inline: 9px;
     align-items: center;
     gap: 6px;
@@ -35,20 +36,22 @@
     }
 
     &.isSmall {
-        @include mixin.text(2xsmall);
+        @include mixin.text(2xsmall, $line-height: var(--badge-line-height-small));
 
-        height: 21px;
+        --badge-icon-size: 12px;
+
+        height: var(--badge-height-small);
         padding-inline: 6px;
+
+        .badgeIcon {
+            margin-inline-start: -3px;
+        }
 
         .badgeClose {
             height: 15px;
             width: 15px;
             margin-right: -3px;
-            padding: 3px;
-
-            .icon {
-                font-size: 12px;
-            }
+            padding: 0;
         }
 
         .badgeDot {
@@ -58,17 +61,24 @@
     }
 
     &.isLarge {
-        @include mixin.text(small);
+        @include mixin.text(small, $line-height: var(--badge-line-height-large));
 
-        height: 33px;
+        --badge-icon-size: var(--control-icon-size);
+
+        height: var(--badge-height-large);
         padding-inline: 12px;
+
+        .badgeDot {
+            height: 9px;
+            width: 9px;
+        }
 
         .badgeClose {
             height: 24px;
             width: 24px;
 
             .icon {
-                font-size: 18px;
+                font-size: 12px;
             }
         }
     }
@@ -80,10 +90,10 @@
 
 .badgeClose {
     display: flex;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     margin-right: -6px;
-    padding: 5px;
+    padding: 0;
     align-items: center;
     justify-content: center;
     background: unset;
@@ -91,6 +101,8 @@
     border-radius: var(--radius-full);
     color: var(--foreground-secondary);
     cursor: pointer;
+
+    @include mixin.focus-ring(1px);
 
     @include mixin.hover {
         background: var(--ink-hover);
@@ -103,7 +115,7 @@
     }
 
     .icon {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
@@ -114,14 +126,16 @@
 
 .badgeDot {
     display: block;
-    height: 9px;
-    width: 9px;
+    height: 6px;
+    width: 6px;
+    margin-inline-start: -3px;
     background: var(--intent-muted);
     border-radius: var(--radius-full);
 }
 
-.badgeIcon {
-    margin-left: -3px;
+.badge > .badgeIcon {
+    font-size: var(--badge-icon-size);
+    margin-inline-start: -6px;
     color: var(--intent-text);
 }
 
@@ -153,6 +167,10 @@
     composes: tag;
 
     padding-inline: 3px;
+
+    > :is(.tagIcon, .tagDot) {
+        margin-inline-start: 0;
+    }
 }
 
 .tagClose {
@@ -176,12 +194,12 @@
 .badgeGroup {
     composes: badge;
 
-    --badge-group-padding: 12px;
+    --badge-group-padding: 9px;
     --badge-group-border: var(--intent-border);
 
     height: auto;
     padding: 3px var(--badge-group-padding);
-    gap: 9px;
+    gap: 6px;
     border-color: var(--badge-group-border);
 
     .badge {
@@ -201,6 +219,7 @@
 .badgeGroupSmall {
     @include mixin.text(2xsmall);
 
+    --badge-icon-size: 12px;
     --badge-group-padding: 9px;
 
     gap: 6px;
@@ -209,11 +228,17 @@
 .badgeGroupLarge {
     @include mixin.text(small);
 
-    --badge-group-padding: 15px;
+    --badge-icon-size: var(--control-icon-size);
+    --badge-group-padding: 12px;
 }
 
 .badgeGroupIcon {
+    font-size: var(--badge-icon-size);
     color: var(--intent-text);
+
+    &:first-child {
+        margin-inline-start: -3px;
+    }
 }
 
 .badgeGroupLabel {

@@ -2,7 +2,7 @@
     --dz-fill: transparent;
     --dz-stroke: transparent;
     --dz-inset: -1px;
-    --dz-radius: var(--radius);
+    --dz-radius: var(--radius-container);
     --dz-height: calc(100% + 2px);
     --dz-width: calc(100% + 2px);
 
@@ -23,7 +23,7 @@
     position: relative;
     display: grid;
     align-items: center;
-    gap: 15px 30px;
+    gap: 12px 24px;
     grid-template-columns: 1fr;
 
     &:has(> .dropZoneActions) {
@@ -34,7 +34,7 @@
 .dropZoneActions {
     display: flex;
     flex-flow: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 .dropZoneBorder {

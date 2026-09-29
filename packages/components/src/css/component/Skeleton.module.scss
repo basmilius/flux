@@ -6,7 +6,7 @@
     height: 1em;
     width: 100%;
     background: var(--surface-sunken);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     overflow: hidden;
 
     &::after {
@@ -35,8 +35,8 @@
 }
 
 .skeleton.isCircle {
-    height: 40px;
-    width: 40px;
+    height: 33px;
+    width: 33px;
     flex-shrink: 0;
     border-radius: 50%;
 }
@@ -48,7 +48,7 @@
 
 .skeleton.isRounded {
     height: 120px;
-    border-radius: calc(var(--radius) * 2);
+    border-radius: calc(var(--radius-container) * 2);
 }
 
 @keyframes skeleton-shimmer {

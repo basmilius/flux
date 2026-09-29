@@ -2,11 +2,11 @@
 
 .chip {
     display: flex;
-    height: 36px;
-    padding: 0 12px;
+    height: var(--chip-height);
+    padding: 0 var(--chip-padding);
     align-items: center;
     flex-grow: 0;
-    gap: 9px;
+    gap: 6px;
     background: var(--gray-soft);
     border: 1px solid var(--gray-border);
     border-radius: var(--radius-full);
@@ -34,10 +34,23 @@
         }
     }
 
+    &:has(> .chipIcon:first-child) {
+        padding-inline-start: calc(var(--chip-padding) - 3px);
+    }
+
+    &:has(> .chipIcon:last-child) {
+        padding-inline-end: calc(var(--chip-padding) - 3px);
+    }
+
     :is(span) {
-        @include mixin.text(small);
+        font-size: var(--control-font-size);
+        line-height: var(--control-line-height);
 
         font-weight: 500;
         white-space: nowrap;
     }
+}
+
+.chipIcon {
+    font-size: 15px;
 }

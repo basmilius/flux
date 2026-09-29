@@ -7,7 +7,7 @@
                 <FluxSeparator v-if="index > 0"/>
 
                 <FluxSwipeActions>
-                    <FluxItem style="padding: 18px">
+                    <FluxItem style="padding: var(--pane-padding)">
                         <FluxItemMedia
                             is-center
                             :size="40">

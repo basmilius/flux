@@ -277,11 +277,42 @@ All spacing and dimension values are based on a **3px grid** - use multiples of 
 These follow their own scale and are **not** bound to the 3px grid:
 - Hairline borders / outlines (`1px`, `2px`)
 - `border-radius`
-- `font-size` (type scale, e.g. `13px`, `14px`, `15px`)
+- Text `font-size` (type scale, e.g. `13px`, `14px`, `15px`); icon and spinner sizes still follow the 3px grid.
+
+### Compact density (v4)
+
+For fixed-height text controls, height minus line-height must be even: a 36px button
+with a 24px line-height leaves 6px on each side. Buttons, menu items, tab pills and
+segmented items use 14/24; tooltips use `xsmall` (13/18). Native inputs
+keep 15/24 because the native control centers its own text. Body text stays 15/24;
+h1 is 27/36 and h2 is 21/30.
+
+Dimensions that apps may override belong to role tokens in `css/variables.scss`:
+control heights, field dimensions, menu rows, table cells, pane spacing and the app
+shell. Other spacing stays literal px on the 3px grid. Do not introduce a density
+prop or component injection. `[comfortable]` restores role dimensions as a migration
+aid until v5; internal spacing stays compact. Teleported overlays inherit from their
+target, so a subtree preset does not follow them. Touch sizing belongs to apps;
+Flux does not add a `pointer: coarse` override.
+
+Use `--radius-control` (9px) for controls and `--radius-container` (12px) for
+containers. Small corners keep `--radius-half` (6px). These radii stay on the 3px
+grid; circular shapes retain `--radius-full` or `50%`.
+
+Buttons use heights 30 / 36 / 42 / 48px. Keep inline padding 9 / 12 / 15 / 18px,
+subtracting 3px on each leading or trailing icon side. Icons have no added margin;
+icon-only buttons stay square. Loading spinners occupy the same slot as the icon.
+Built-in icon sizes use 12 / 15 / 18 / 21px (and larger multiples of 3). Compact
+control icons are 15px, Comfortable control icons 18px, standalone icons 18px.
+Pane headers stay 15px in both modes; their supporting chevrons are 12px.
+Menu panes keep a 9px inset in both modes. Preserve explicit app-provided sizes.
+
+`bun scripts/check-grid.ts --check` rejects off-grid px in spacing, dimensions,
+icon/spinner font sizes and icon-size tokens. Text typography is excluded.
 
 ### The 24px line box
 
-The base line height is **24px**: `line-height: 1.6` on `body` (`css/reset.scss`) x `--font-size: 15px` (`css/variables.scss`). Fixed-height components that must fit inside a line of text lean on this with a negative `margin-block` that pulls their margin box back to exactly 24px, e.g. `FluxBadge` (`height: 28px` + `margin-block: -2px`) and `FluxSkeleton.isText` (`margin-block: calc((1lh - 1em) / 2)`, self-adjusting).
+The base line height is **24px**: `line-height: 1.6` on `body` (`css/reset.scss`) x `--font-size: 15px` (`css/variables.scss`). Fixed-height components that must fit inside a line of text lean on this with a negative `margin-block` that pulls their margin box back to exactly 24px, e.g. the comfortable `FluxBadge` (`height: 28px` + `margin-block: -2px`; compact uses 24px without a negative margin) and `FluxSkeleton.isText` (`margin-block: calc((1lh - 1em) / 2)`, self-adjusting).
 
 Change the body line height and every one of those components silently stretches its line and falls off the 3px grid. Note that `reset.scss` sets it on `body` (so it inherits everywhere, including flex contexts like tab bar items and table cells) while `typography.scss` only sets it on `h1`-`h6` and `p`; editing typography therefore does not affect badges.
 

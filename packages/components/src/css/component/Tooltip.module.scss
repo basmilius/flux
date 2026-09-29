@@ -19,18 +19,18 @@
     --foreground-prominent: var(--foreground-inverse-prominent);
     --foreground-secondary: var(--foreground-inverse-secondary);
 
-    @include mixin.text(small);
+    @include mixin.text(xsmall);
 
     position: fixed;
     display: flex;
     top: 0;
     left: 0;
     max-width: 360px;
-    padding: 9px 15px;
+    padding: 6px 9px;
     flex-flow: column;
     background: var(--surface-inverse);
     backdrop-filter: blur(3px) saturate(180%);
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     color: var(--foreground);
     font-variant-numeric: tabular-nums;
     pointer-events: none;

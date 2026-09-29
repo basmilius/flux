@@ -16,7 +16,7 @@
                 @click="emit('toggle')">
                 <FluxIcon
                     name="angle-right"
-                    :size="14"/>
+                    :size="12"/>
             </button>
 
             <span

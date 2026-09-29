@@ -1,0 +1,856 @@
+{
+    "mode": "write",
+    "files": [
+        {
+            "file": "packages/ai/src/css/component/AiCodeBlock.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/ai/src/css/component/AiConversation.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/ai/src/css/component/AiMessage.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/ai/src/css/component/AiModelSelect.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/ai/src/css/component/AiPromptInput.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/ai/src/css/component/AiReasoning.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/ai/src/css/component/AiSuggestions.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/ai/src/css/component/AiToolCall.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/ai/src/css/component/AiUsage.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationContent.module.scss",
+            "lines": 12
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationHero.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+            "lines": 11
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationPageHeader.module.scss",
+            "lines": 5
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationSection.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationStatusPage.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationTop.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/components/src/css/component/Action.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/components/src/css/component/ActivityFeed.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/Avatar.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/components/src/css/component/Breadcrumb.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/Calendar.module.scss",
+            "lines": 5
+        },
+        {
+            "file": "packages/components/src/css/component/Chip.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/components/src/css/component/Comment.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/DatePicker.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/DescriptionList.module.scss",
+            "lines": 5
+        },
+        {
+            "file": "packages/components/src/css/component/DropZone.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/components/src/css/component/Expandable.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/Filter.module.scss",
+            "lines": 9
+        },
+        {
+            "file": "packages/components/src/css/component/Flyout.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Gallery.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/HoverCard.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/components/src/css/component/Info.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Kanban.module.scss",
+            "lines": 14
+        },
+        {
+            "file": "packages/components/src/css/component/LayerPane.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Link.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Menu.module.scss",
+            "lines": 18
+        },
+        {
+            "file": "packages/components/src/css/component/Notice.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/components/src/css/component/Overlay.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Pagination.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/components/src/css/component/Placeholder.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/PopConfirm.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Progress.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/Prose.module.scss",
+            "lines": 4
+        },
+        {
+            "file": "packages/components/src/css/component/Snackbar.module.scss",
+            "lines": 7
+        },
+        {
+            "file": "packages/components/src/css/component/SpeedDial.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/Tab.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/Table.module.scss",
+            "lines": 8
+        },
+        {
+            "file": "packages/components/src/css/component/Timeline.module.scss",
+            "lines": 6
+        },
+        {
+            "file": "packages/components/src/css/component/Toolbar.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Tooltip.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/components/src/css/component/Tour.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/components/src/css/component/TreeViewSelect.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/components/src/css/component/primitive/TreeNode.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowCard.module.scss",
+            "lines": 5
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowGate.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowGroup.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowNote.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowPanel.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowPill.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowStep.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/statistics/src/css/Base.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/statistics/src/css/Chart.module.scss",
+            "lines": 5
+        },
+        {
+            "file": "packages/statistics/src/css/Comparison.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/statistics/src/css/Empty.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/statistics/src/css/Legend.module.scss",
+            "lines": 7
+        },
+        {
+            "file": "packages/statistics/src/css/Meter.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/statistics/src/css/Metric.module.scss",
+            "lines": 3
+        },
+        {
+            "file": "packages/statistics/src/css/PercentageBar.module.scss",
+            "lines": 2
+        },
+        {
+            "file": "packages/statistics/src/css/Tracker.module.scss",
+            "lines": 8
+        },
+        {
+            "file": "packages/statistics/src/css/TrackerCard.module.scss",
+            "lines": 1
+        },
+        {
+            "file": "packages/visuals/src/css/component/BorderBeam.module.scss",
+            "lines": 1
+        }
+    ],
+    "changedLines": 255,
+    "manual": [
+        {
+            "file": "packages/visuals/src/css/component/Visual.module.scss",
+            "line": 50,
+            "selector": ".borderShine > &::before",
+            "property": "inset",
+            "value": "-1px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/visuals/src/css/component/Visual.module.scss",
+            "line": 51,
+            "selector": ".borderShine > &::before",
+            "property": "padding",
+            "value": "1px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/statistics/src/css/TrackerCard.module.scss",
+            "line": 5,
+            "selector": ".trackerCard",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/TrackerCard.module.scss",
+            "line": 7,
+            "selector": ".trackerCard",
+            "property": "gap",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Tracker.module.scss",
+            "line": 136,
+            "selector": "// The branches leaving and rejoining the rail need room above and below; their // height is the block margin. .trackerSteps",
+            "property": "margin",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Tracker.module.scss",
+            "line": 136,
+            "selector": "// The branches leaving and rejoining the rail need room above and below; their // height is the block margin. .trackerSteps",
+            "property": "margin",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Metric.module.scss",
+            "line": 50,
+            "selector": ".statisticsMetricContent > :global([data-sparkline])",
+            "property": "margin-inline",
+            "value": "-18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Metric.module.scss",
+            "line": 64,
+            "selector": ".statisticsMetricLabel",
+            "property": "padding-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Legend.module.scss",
+            "line": 14,
+            "selector": ":local(.statisticsChartPaneBody) .statisticsLegend",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Legend.module.scss",
+            "line": 91,
+            "selector": ".statisticsLegendCompact > &.isHorizontal",
+            "property": "gap",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Kpi.module.scss",
+            "line": 16,
+            "selector": ".statisticsKpiValue",
+            "property": "padding-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Empty.module.scss",
+            "line": 7,
+            "selector": ".statisticsEmpty",
+            "property": "padding",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Empty.module.scss",
+            "line": 7,
+            "selector": ".statisticsEmpty",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Core.module.scss",
+            "line": 2,
+            "selector": ":local(.statisticsBaseContent) .statisticsStackable + .statisticsStackable",
+            "property": "margin-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Comparison.module.scss",
+            "line": 5,
+            "selector": ".statisticsComparison",
+            "property": "margin-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/ChartPane.module.scss",
+            "line": 54,
+            "selector": ":local(.paneHeader) + .statisticsChartPaneContainer",
+            "property": "margin-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Chart.module.scss",
+            "line": 34,
+            "selector": ".statisticsChartTooltipTitle",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Chart.module.scss",
+            "line": 34,
+            "selector": ".statisticsChartTooltipTitle",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Chart.module.scss",
+            "line": 41,
+            "selector": ".statisticsChartTooltipBody",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Chart.module.scss",
+            "line": 91,
+            "selector": ".statisticsChartTooltipSection",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Base.module.scss",
+            "line": 16,
+            "selector": ".statisticsBaseContent",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Base.module.scss",
+            "line": 22,
+            "selector": ".statisticsBaseHeader",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/statistics/src/css/Base.module.scss",
+            "line": 22,
+            "selector": ".statisticsBaseHeader",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/flow/src/css/component/FlowTerminal.module.scss",
+            "line": 10,
+            "selector": "// Where a flow starts or stops. A pill names a step on a raised surface; a // terminal is the end of the line, so it reads as one solid tinted capsule. .flowTerminal",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Tour.module.scss",
+            "line": 50,
+            "selector": ".tourBody",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Tour.module.scss",
+            "line": 83,
+            "selector": ".tourFooter",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Table.module.scss",
+            "line": 510,
+            "selector": ".basePaneStructure > .table .tableCaption",
+            "property": "padding",
+            "value": "12px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/Tab.module.scss",
+            "line": 8,
+            "selector": ".tab",
+            "property": "gap",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Tab.module.scss",
+            "line": 223,
+            "selector": ".tabsBar",
+            "property": "margin-bottom",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Tab.module.scss",
+            "line": 232,
+            "selector": ".basePaneStructure > .tabBarDefault, .basePaneStructure > .tabs > .tabBarDefault, .basePaneStructure > .form > .tabBarDefault, .basePaneStructure > .form > .tabs > .tabBarDefault",
+            "property": "padding-inline",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/SwipeActions.module.scss",
+            "line": 79,
+            "selector": ".swipeAction",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/SpeedDial.module.scss",
+            "line": 19,
+            "selector": ".speedDial > &.isCornerStart",
+            "property": "inset-inline-start",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/SpeedDial.module.scss",
+            "line": 23,
+            "selector": ".speedDial > &.isCornerEnd",
+            "property": "inset-inline-end",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/SpeedDial.module.scss",
+            "line": 87,
+            "selector": ".speedDial.isStart .speedDialActions",
+            "property": "inset-inline-end",
+            "value": "12px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/SpeedDial.module.scss",
+            "line": 95,
+            "selector": ".speedDial.isEnd .speedDialActions",
+            "property": "inset-inline-start",
+            "value": "12px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/Snackbar.module.scss",
+            "line": 25,
+            "selector": ".snackbarContent",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Prose.module.scss",
+            "line": 45,
+            "selector": ".prose > > * + *",
+            "property": "margin-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Prose.module.scss",
+            "line": 59,
+            "selector": ".prose > > :where(ul, ol), > :where(ul, ol) :where(ul, ol)",
+            "property": "padding-left",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Prose.module.scss",
+            "line": 85,
+            "selector": ".prose > > blockquote",
+            "property": "padding-left",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Prose.module.scss",
+            "line": 111,
+            "selector": ".prose > > pre",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Placeholder.module.scss",
+            "line": 34,
+            "selector": ".placeholder > &.isSimple",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Overlay.module.scss",
+            "line": 56,
+            "selector": ".overlay > > .basePaneStructure > > .paneHeader",
+            "property": "padding-bottom",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Notice.module.scss",
+            "line": 145,
+            "selector": ".basePane > .notice",
+            "property": "padding-inline",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Menu.module.scss",
+            "line": 423,
+            "selector": ".expandableBody > .menu > > :where(.divider, .separator)",
+            "property": "margin-inline",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Item.module.scss",
+            "line": 6,
+            "selector": ".item",
+            "property": "gap",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Item.module.scss",
+            "line": 67,
+            "selector": ".itemStack > .item + .item",
+            "property": "margin-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Item.module.scss",
+            "line": 68,
+            "selector": ".itemStack > .item + .item",
+            "property": "padding-top",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Item.module.scss",
+            "line": 75,
+            "selector": ".basePaneStructure > .item, .basePaneStructure > .itemStack > .item",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Expandable.module.scss",
+            "line": 15,
+            "selector": ".expandableHeader",
+            "property": "padding-inline",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Expandable.module.scss",
+            "line": 68,
+            "selector": ".expandableContent",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Expandable.module.scss",
+            "line": 68,
+            "selector": ".expandableContent",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Divider.module.scss",
+            "line": 5,
+            "selector": ".divider",
+            "property": "margin-block",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Divider.module.scss",
+            "line": 41,
+            "selector": ".dividerContent > &::before",
+            "property": "inset-inline",
+            "value": "15px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/Divider.module.scss",
+            "line": 45,
+            "selector": ".dividerContent > &::after",
+            "property": "inset-inline",
+            "value": "15px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/DescriptionList.module.scss",
+            "line": 80,
+            "selector": ".descriptionListItems.hasLabelWidth",
+            "property": "gap",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/DescriptionList.module.scss",
+            "line": 103,
+            "selector": ".descriptionListItems.isHorizontal > .descriptionItem",
+            "property": "padding-inline",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/Comment.module.scss",
+            "line": 45,
+            "selector": ".commentContent",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 20,
+            "selector": ".commandPaletteDialog",
+            "property": "padding-top",
+            "value": "60px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 20,
+            "selector": ".commandPaletteDialog",
+            "property": "padding-top",
+            "value": "160px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 47,
+            "selector": ".commandPaletteSearch",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 161,
+            "selector": ".commandPaletteLoading",
+            "property": "padding",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/CommandPalette.module.scss",
+            "line": 170,
+            "selector": ".commandPaletteEmpty",
+            "property": "padding",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/BackToTop.module.scss",
+            "line": 13,
+            "selector": ".backToTop > &.isStart",
+            "property": "inset-inline-start",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/BackToTop.module.scss",
+            "line": 17,
+            "selector": ".backToTop > &.isEnd",
+            "property": "inset-inline-end",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/components/src/css/component/AdaptiveSlot.module.scss",
+            "line": 5,
+            "selector": ".adaptiveGroup",
+            "property": "gap",
+            "value": "9px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/components/src/css/component/Action.module.scss",
+            "line": 55,
+            "selector": ".basePaneStructure > .actionBar",
+            "property": "padding",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+            "line": 46,
+            "selector": ".applicationMenuFooter",
+            "property": "padding-bottom",
+            "value": "12px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/application/src/css/component/ApplicationMenu.module.scss",
+            "line": 58,
+            "selector": ".applicationMenuHeader",
+            "property": "padding-top",
+            "value": "12px",
+            "reason": "Coupled geometry or expression"
+        },
+        {
+            "file": "packages/ai/src/css/component/AiUsage.module.scss",
+            "line": 15,
+            "selector": ".usageFigures",
+            "property": "gap",
+            "value": "18px",
+            "reason": "Ambiguous spacing"
+        },
+        {
+            "file": "packages/ai/src/css/component/AiConversation.module.scss",
+            "line": 31,
+            "selector": ".conversationList",
+            "property": "gap",
+            "value": "24px",
+            "reason": "Ambiguous spacing"
+        }
+    ]
+}

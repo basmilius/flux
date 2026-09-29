@@ -32,7 +32,7 @@
                     @click="onRemoveAttachmentClick(index)">
                     <FluxIcon
                         name="xmark"
-                        :size="14"/>
+                        :size="12"/>
                 </button>
             </li>
         </ul>

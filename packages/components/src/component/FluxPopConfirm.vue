@@ -19,8 +19,7 @@
                             v-if="icon"
                             :class="$style.popConfirmIcon"
                             :color="isDestructive ? 'danger' : 'primary'"
-                            :name="icon"
-                            :size="20"/>
+                            :name="icon"/>
 
                         <div :class="$style.popConfirmCaption">
                             <strong v-if="title">

@@ -8,7 +8,7 @@
             <FluxIcon
                 v-if="state === 'done'"
                 name="circle-check"
-                :size="16"/>
+                :size="15"/>
 
             <span
                 v-else

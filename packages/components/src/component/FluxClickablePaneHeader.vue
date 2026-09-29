@@ -14,7 +14,6 @@
         <FluxIcon
             v-if="icon"
             :class="$style.paneHeaderIcon"
-            :size="20"
             :name="icon"/>
 
         <div
@@ -31,7 +30,6 @@
 
         <FluxIcon
             :class="$style.paneHeaderChevron"
-            :size="20"
             name="angle-right"/>
     </FluxPressable>
 </template>

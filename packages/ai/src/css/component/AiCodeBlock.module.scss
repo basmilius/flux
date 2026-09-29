@@ -11,10 +11,10 @@
 .codeBlockHeader {
     display: flex;
     height: 36px;
-    padding-inline: 12px;
+    padding-inline: 9px;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 9px;
     border-bottom: 1px solid var(--surface-stroke-muted);
 }
 
@@ -30,7 +30,7 @@
 
     display: flex;
     height: 24px;
-    padding-inline: 9px;
+    padding-inline: 6px;
     align-items: center;
     gap: 6px;
     background: unset;
@@ -52,7 +52,7 @@
 .codeBlockContent {
     @include mixin.text(xsmall);
 
-    padding: 12px 15px;
+    padding: 9px 12px;
     overflow-x: auto;
     font-family: var(--font-monospace);
     color: var(--foreground);

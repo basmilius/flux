@@ -6,7 +6,7 @@
 
     position: relative;
     display: block;
-    height: 39px;
+    height: var(--field-height);
     border-radius: var(--radius-half);
     cursor: grab;
     outline: 0;
@@ -69,7 +69,7 @@
     position: absolute;
     top: 50%;
     height: 21px;
-    width: 4px;
+    width: 3px;
     background: var(--fader-accent);
     border-radius: var(--radius-full);
     opacity: .85;
@@ -136,7 +136,7 @@
     align-items: center;
     justify-content: space-between;
     inset: 0;
-    padding: 0 12px;
+    padding: 0 9px;
     pointer-events: none;
 }
 
@@ -160,17 +160,17 @@
 .formFaderIconLeading {
     composes: formFaderIcon;
 
-    margin-right: 9px;
+    margin-right: 6px;
 }
 
 .formFaderIconTrailing {
     composes: formFaderIcon;
 
-    margin-left: 9px;
+    margin-left: 6px;
 }
 
 .formFaderLabel {
-    @include mixin.text(small);
+    @include mixin.text(small, $line-height: var(--control-line-height));
     @include mixin.truncate;
 
     flex: 0 1 auto;
@@ -180,11 +180,11 @@
 }
 
 .formFaderValue {
-    @include mixin.text(xsmall);
+    @include mixin.text(xsmall, $line-height: var(--control-line-height));
 
     flex: 0 0 auto;
     margin-left: auto;
-    padding-left: 12px;
+    padding-left: 9px;
     color: var(--foreground);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
@@ -192,7 +192,7 @@
 
 .formFader.isVertical {
     height: var(--flux-form-fader-length, 210px);
-    width: 39px;
+    width: var(--field-height);
     touch-action: pan-x;
 
     .formFaderFill {
@@ -203,7 +203,7 @@
     .formFaderBar {
         top: auto;
         left: 50%;
-        height: 4px;
+        height: 3px;
         width: 21px;
         translate: -50% 50%;
 
@@ -236,7 +236,7 @@
 
     .formFaderOverlay {
         flex-flow: column;
-        padding: 12px 0;
+        padding: 9px 0;
     }
 
     .formFaderIconLeading {
@@ -256,7 +256,7 @@
     .formFaderValue {
         margin-top: auto;
         margin-left: 0;
-        padding-top: 12px;
+        padding-top: 9px;
         padding-left: 0;
         writing-mode: vertical-rl;
     }

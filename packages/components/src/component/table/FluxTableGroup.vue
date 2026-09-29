@@ -23,13 +23,13 @@
                         v-if="isExpandable"
                         :class="clsx($style.tableGroupChevron, isExpanded && $style.isExpanded)"
                         name="angle-right"
-                        :size="16"/>
+                        :size="15"/>
 
                     <FluxIcon
                         v-if="icon"
                         :class="$style.tableGroupIcon"
                         :name="icon"
-                        :size="16"/>
+                        :size="15"/>
 
                     <span :class="$style.tableGroupLabel">{{ label }}</span>
 

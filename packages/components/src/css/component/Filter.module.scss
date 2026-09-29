@@ -5,8 +5,8 @@
 
     max-height: 50dvh;
     max-width: 100%;
-    padding: 9px;
-    width: 300px;
+    padding: 6px;
+    width: 270px;
     overflow: auto;
     overscroll-behavior: contain;
     transition: height 150ms var(--deceleration-curve);
@@ -14,15 +14,15 @@
 
     .menu {
         > :where(.divider, .separator) {
-            margin: 3px -9px;
+            margin: 3px -6px;
         }
 
         > .menuGroup > .menuSubHeader {
-            top: 51px;
+            top: calc(var(--menu-item-height) + 9px);
         }
 
         > .menuGroup:has(.filterSearch) > .menuSubHeader {
-            top: 105px;
+            top: calc(var(--menu-item-height) + var(--field-height) + 21px);
         }
 
         .menuItemLabel {
@@ -33,7 +33,7 @@
     }
 
     .paneBody {
-        margin: -9px;
+        margin: -6px;
     }
 }
 
@@ -54,22 +54,22 @@
 
     :local(.buttonIcon) {
         color: var(--primary-text);
-        font-size: 16px;
+        font-size: 15px;
     }
 }
 
 .filterHeader {
     position: sticky;
-    margin: -9px -9px 3px;
-    padding: 9px;
-    top: -9px;
+    margin: -6px -6px 3px;
+    padding: 6px;
+    top: -6px;
     background: var(--surface-current);
     border-bottom: 1px solid var(--surface-stroke);
     z-index: 2;
 
     &:first-child {
-        border-top-left-radius: var(--radius);
-        border-top-right-radius: var(--radius);
+        border-top-left-radius: var(--radius-container);
+        border-top-right-radius: var(--radius-container);
     }
 }
 
@@ -78,35 +78,35 @@
 }
 
 .filterHeader.menuGroup .filterAction {
-    min-width: 42px;
-    flex: 0 0 42px;
+    min-width: var(--menu-item-height);
+    flex: 0 0 var(--menu-item-height);
     justify-content: center;
 }
 
 .filterDatePicker {
-    margin: -9px;
+    margin: -6px;
 }
 
 .filterSearch {
     position: sticky;
-    top: -9px;
-    margin: -9px -9px 0;
-    padding: 9px;
+    top: -6px;
+    margin: -6px -6px 0;
+    padding: 6px;
     background: linear-gradient(to bottom, var(--surface-current) 75%, transparent);
     z-index: 1;
 }
 
 .filterHeader + .menuGroup .filterSearch {
-    top: 52px;
+    top: calc(var(--menu-item-height) + 9px + 1px);
 }
 
 .filterBar {
     display: flex;
     flex-flow: row nowrap;
     flex-grow: 1;
-    gap: 15px;
+    gap: 9px;
 }
 
 .filterBarSearch {
-    max-width: 300px;
+    max-width: 270px;
 }

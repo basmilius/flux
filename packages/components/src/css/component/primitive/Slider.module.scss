@@ -5,7 +5,7 @@
     display: flex;
     margin: 6px;
     flex-flow: column;
-    gap: 9px;
+    gap: 6px;
     touch-action: pan-y;
 
     &.isDisabled {
@@ -20,8 +20,8 @@
 .sliderThumb {
     position: absolute;
     top: 50%;
-    height: 24px;
-    width: 24px;
+    height: 18px;
+    width: 18px;
     padding: 0;
     background: var(--surface);
     background-clip: padding-box;
@@ -54,7 +54,7 @@
 
 .sliderTrack {
     position: relative;
-    height: 12px;
+    height: 6px;
     background: var(--surface-sunken);
     background-clip: padding-box;
     border-radius: var(--radius-half);
@@ -123,7 +123,7 @@
 
     .sliderTrack {
         height: auto;
-        width: 12px;
+        width: 6px;
         transform: scaleY(var(--slider-overdrag-scale, 1));
     }
 

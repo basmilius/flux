@@ -27,8 +27,7 @@
         <FluxIcon
             v-if="icon"
             :class="$style.formRadioIcon"
-            :name="icon"
-            :size="20"/>
+            :name="icon"/>
 
         <span :class="$style.formRadioText">
             <span :class="$style.formRadioLabel">

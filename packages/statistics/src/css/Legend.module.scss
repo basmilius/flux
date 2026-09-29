@@ -3,7 +3,7 @@
 .statisticsLegend {
     display: flex;
     min-width: 0;
-    padding: 0 9px;
+    padding: 0 6px;
     flex-flow: column;
     flex-grow: 1;
     gap: 3px;
@@ -11,7 +11,7 @@
 }
 
 :local(.statisticsChartPaneBody) .statisticsLegend {
-    padding: 9px 36px 9px 18px;
+    padding: 6px 21px 6px var(--pane-padding);
 }
 
 .statisticsLegendItem {
@@ -21,10 +21,10 @@
     appearance: none;
     display: flex;
     padding: 6px;
-    margin: 0 -9px;
+    margin: 0 -6px;
     align-items: flex-start;
     flex-flow: row nowrap;
-    gap: 9px;
+    gap: 6px;
     color: inherit;
     // font: inherit must stay ahead of the mixin; the shorthand resets the pair.
     font: inherit;
@@ -50,7 +50,7 @@
 .statisticsLegendItemColor {
     height: 12px;
     width: 12px;
-    margin: 4px;
+    margin: 3px;
     flex-shrink: 0;
     background: var(--color);
     border-radius: calc(var(--radius-half) / 2);
@@ -69,7 +69,7 @@
 
 .statisticsLegendItemValue {
     font-variant-numeric: tabular-nums;
-    margin-left: 15px;
+    margin-left: 12px;
     text-align: right;
 }
 
@@ -88,12 +88,12 @@
 
     &.isHorizontal {
         flex-flow: row wrap;
-        gap: 12px 18px;
+        gap: 6px 12px;
     }
 
     &.isVertical {
         flex-flow: column;
-        gap: 12px;
+        gap: 9px;
     }
 }
 

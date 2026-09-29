@@ -2,7 +2,7 @@
 
 $-levels: 'sunken', 'surface', 'raised';
 
-@mixin elevation($level: 'surface', $radius: var(--radius)) {
+@mixin elevation($level: 'surface', $radius: var(--radius-container)) {
     @if not list.index($-levels, $level) {
         @error 'Elevation level "#{$level}" not found in "#{$-levels}".';
     }
@@ -24,6 +24,6 @@ $-levels: 'sunken', 'surface', 'raised';
     border-radius: $radius;
 }
 
-@mixin surface($radius: var(--radius)) {
+@mixin surface($radius: var(--radius-container)) {
     @include elevation('surface', $radius);
 }

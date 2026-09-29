@@ -45,7 +45,7 @@
             <FluxSpinner
                 v-if="commandLoading"
                 :class="$style.menuItemCommandIcon"
-                :size="16"/>
+                :size="15"/>
 
             <template v-else>
                 <kbd

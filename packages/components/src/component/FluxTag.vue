@@ -22,8 +22,7 @@
         @mouseleave="$emit('mouseleave', $event)">
         <FluxSpinner
             v-if="isLoading"
-            :class="$style.tagIcon"
-            :size="iconSize"/>
+            :class="$style.tagIcon"/>
 
         <span
             v-else-if="dot"
@@ -32,8 +31,7 @@
         <FluxIcon
             v-else-if="icon"
             :class="$style.tagIcon"
-            :name="icon"
-            :size="iconSize"/>
+            :name="icon"/>
 
         <span :class="$style.tagLabel">
             {{ label }}
@@ -55,7 +53,6 @@
     setup>
     import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxSize, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { computed } from 'vue';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
@@ -87,15 +84,7 @@
         readonly to?: FluxTo;
     }>();
 
-    const ICON_SIZES = {
-        small: 12,
-        medium: 16,
-        large: 18
-    } as const;
-
     const translate = useTranslate();
-
-    const iconSize = computed(() => ICON_SIZES[size]);
 
     function onDeleteClick(): void {
         emit('delete');

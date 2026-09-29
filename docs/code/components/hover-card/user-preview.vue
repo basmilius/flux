@@ -35,7 +35,7 @@
                 :gap="6">
                 <FluxIcon
                     name="location-dot"
-                    :size="14"/>
+                    :size="12"/>
 
                 <FluxText
                     color="muted"

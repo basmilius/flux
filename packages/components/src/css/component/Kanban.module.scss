@@ -7,7 +7,7 @@
     grid-auto-flow: column;
     grid-auto-columns: minmax(300px, 1fr);
     grid-template-rows: auto 1fr auto;
-    gap: 0 15px;
+    gap: 0 12px;
     overflow-x: auto;
 }
 
@@ -31,7 +31,7 @@
     min-width: 0;
     background: var(--surface-canvas);
     border: 1px solid var(--surface-stroke);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     outline: 2px dashed transparent;
     outline-offset: -2px;
     overflow: hidden;
@@ -58,20 +58,20 @@
 .kanbanColumnHeader {
     display: flex;
     align-items: center;
-    gap: 9px;
-    padding: 12px 12px 0;
+    gap: 6px;
+    padding: 9px 9px 0;
 
     @include mixin.focus-ring(-2);
 }
 
 .kanbanColumnHeaderCaption {
     display: flex;
-    padding-left: 9px;
+    padding-left: 6px;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
 
     :local(.icon) {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     :global(span) {
@@ -91,8 +91,8 @@
     position: relative;
     display: flex;
     flex-flow: column;
-    gap: 12px;
-    padding: 12px;
+    gap: 9px;
+    padding: 9px;
     min-height: 60px;
     flex: 1;
     overflow-y: auto;
@@ -127,14 +127,14 @@
 }
 
 .kanbanColumnFooter {
-    padding: 9px 15px;
+    padding: 6px 12px;
     border-top: 1px solid var(--surface-stroke);
 }
 
 .kanbanDropIndicator {
     position: absolute;
     top: -2px;
-    inset-inline: 15px;
+    inset-inline: 12px;
     height: 2px;
     border-radius: 999px;
     background: var(--primary-solid);
@@ -198,7 +198,7 @@
     grid-template-rows: none;
     grid-template-columns: repeat(var(--flux-kanban-columns, 1), minmax(300px, 1fr));
     align-content: start;
-    gap: 15px;
+    gap: 12px;
     overflow: auto;
 }
 
@@ -216,7 +216,7 @@
     align-items: center;
     grid-column: 1 / -1;
     background: var(--intent-soft);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
 }
 
 .kanbanSwimlaneCaption {
@@ -224,18 +224,18 @@
     display: flex;
     inset-inline-start: 0;
     align-items: center;
-    gap: 9px;
-    padding: 6px 12px;
+    gap: 6px;
+    padding: 6px 9px;
 }
 
 .kanbanSwimlaneToggle {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     padding: 0;
     background: transparent;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     color: var(--intent-text);
     cursor: pointer;
 
@@ -271,7 +271,7 @@
 }
 
 .kanban > .kanbanSwimlane:first-child.isCollapsed .kanbanColumnHeader {
-    padding-bottom: 12px;
+    padding-bottom: 9px;
 }
 
 .kanban > .kanbanSwimlane:first-child.isCollapsed :is(.kanbanColumnBody, .kanbanColumnFooter) {

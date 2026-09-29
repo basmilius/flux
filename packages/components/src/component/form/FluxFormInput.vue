@@ -39,7 +39,7 @@
             v-if="iconLeading"
             :class="$style.formInputIconLeading"
             :name="iconLeading"
-            :size="18"/>
+            :size="15"/>
 
         <button
             v-if="type === 'password'"
@@ -51,19 +51,19 @@
             @click="passwordTypeToggle()">
             <FluxIcon
                 :name="nativeType === 'password' ? 'eye' : 'eye-slash'"
-                :size="18"/>
+                :size="15"/>
         </button>
 
         <FluxIcon
             v-else-if="iconTrailing"
             :class="$style.formInputIconTrailing"
             :name="iconTrailing"
-            :size="18"/>
+            :size="15"/>
 
         <FluxSpinner
             v-if="isLoading"
             :class="$style.formInputIconTrailing"
-            :size="18"/>
+            :size="15"/>
     </div>
 </template>
 

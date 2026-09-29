@@ -16,11 +16,11 @@ $-stagger-step: 45ms;
     z-index: 1000;
 
     &.isCornerStart {
-        inset-inline-start: 24px;
+        inset-inline-start: 18px;
     }
 
     &.isCornerEnd {
-        inset-inline-end: 24px;
+        inset-inline-end: 18px;
     }
 }
 
@@ -41,7 +41,7 @@ $-stagger-step: 45ms;
 .speedDialActions {
     position: absolute;
     display: flex;
-    gap: 12px;
+    gap: 9px;
     visibility: hidden;
     transition: visibility 0s linear $-close-duration;
 }
@@ -124,7 +124,7 @@ $-stagger-step: 45ms;
     display: flex;
     padding: 0;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     background: unset;
     border: 0;
     border-radius: var(--radius-full);
@@ -153,7 +153,7 @@ $-stagger-step: 45ms;
 .speedDialActionLabel {
     @include mixin.text(small);
 
-    padding: 3px 9px;
+    padding: 3px 6px;
     background: var(--surface);
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius-half);

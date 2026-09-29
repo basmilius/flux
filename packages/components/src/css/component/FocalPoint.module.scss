@@ -10,7 +10,7 @@
     max-height: 210px;
     max-width: 100%;
     aspect-ratio: var(--aspect-ratio);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     touch-action: none;
     user-select: none;
 
@@ -34,7 +34,7 @@
     display: block;
     height: 100%;
     width: 100%;
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     box-shadow: var(--shadow-lg);
     pointer-events: none;
 }
@@ -53,7 +53,7 @@
     max-height: 210px;
     max-width: 100%;
     background-size: cover;
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     box-shadow: var(--shadow-lg);
     transform: translate3d(-50%, -50%, 0);
     animation: focalPointPreview 6s var(--swift-out) infinite;

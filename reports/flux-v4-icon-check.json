@@ -1,0 +1,312 @@
+{
+    "checks": [
+        "c shortcut small keeps edge clearance",
+        "#c-Badge-small icon",
+        "#c-Badge-small loading",
+        "#c-Badge-small stable loading width",
+        "#c-Badge-small close",
+        "#c-Badge-small contained close",
+        "#c-Badge-small dot",
+        "#c-Badge-small leading inset",
+        "#c-Badge-small dot inset",
+        "#c-Tag-small icon",
+        "#c-Tag-small loading",
+        "#c-Tag-small stable loading width",
+        "#c-Tag-small close",
+        "#c-Tag-small contained close",
+        "#c-Tag-small dot",
+        "#c-Tag-small leading inset",
+        "#c-Tag-small dot inset",
+        "c group small",
+        "c group small leading inset",
+        "c segmented small",
+        "c shortcut medium keeps edge clearance",
+        "#c-Badge-medium icon",
+        "#c-Badge-medium loading",
+        "#c-Badge-medium stable loading width",
+        "#c-Badge-medium close",
+        "#c-Badge-medium contained close",
+        "#c-Badge-medium dot",
+        "#c-Badge-medium leading inset",
+        "#c-Badge-medium dot inset",
+        "#c-Tag-medium icon",
+        "#c-Tag-medium loading",
+        "#c-Tag-medium stable loading width",
+        "#c-Tag-medium close",
+        "#c-Tag-medium contained close",
+        "#c-Tag-medium dot",
+        "#c-Tag-medium leading inset",
+        "#c-Tag-medium dot inset",
+        "c group medium",
+        "c group medium leading inset",
+        "c segmented medium",
+        "c shortcut large keeps edge clearance",
+        "#c-Badge-large icon",
+        "#c-Badge-large loading",
+        "#c-Badge-large stable loading width",
+        "#c-Badge-large close",
+        "#c-Badge-large contained close",
+        "#c-Badge-large dot",
+        "#c-Badge-large leading inset",
+        "#c-Badge-large dot inset",
+        "#c-Tag-large icon",
+        "#c-Tag-large loading",
+        "#c-Tag-large stable loading width",
+        "#c-Tag-large close",
+        "#c-Tag-large contained close",
+        "#c-Tag-large dot",
+        "#c-Tag-large leading inset",
+        "#c-Tag-large dot inset",
+        "c group large",
+        "c group large leading inset",
+        "c segmented large",
+        "c chip",
+        "c selected chip stays stable",
+        "c heading",
+        "c heading center",
+        "c notice center",
+        "c wide respects size",
+        "c large-viewbox respects size",
+        "c explicit size preserved",
+        "w shortcut small keeps edge clearance",
+        "#w-Badge-small icon",
+        "#w-Badge-small loading",
+        "#w-Badge-small stable loading width",
+        "#w-Badge-small close",
+        "#w-Badge-small contained close",
+        "#w-Badge-small dot",
+        "#w-Badge-small leading inset",
+        "#w-Badge-small dot inset",
+        "#w-Tag-small icon",
+        "#w-Tag-small loading",
+        "#w-Tag-small stable loading width",
+        "#w-Tag-small close",
+        "#w-Tag-small contained close",
+        "#w-Tag-small dot",
+        "#w-Tag-small leading inset",
+        "#w-Tag-small dot inset",
+        "w group small",
+        "w group small leading inset",
+        "w segmented small",
+        "w shortcut medium keeps edge clearance",
+        "#w-Badge-medium icon",
+        "#w-Badge-medium loading",
+        "#w-Badge-medium stable loading width",
+        "#w-Badge-medium close",
+        "#w-Badge-medium contained close",
+        "#w-Badge-medium dot",
+        "#w-Badge-medium leading inset",
+        "#w-Badge-medium dot inset",
+        "#w-Tag-medium icon",
+        "#w-Tag-medium loading",
+        "#w-Tag-medium stable loading width",
+        "#w-Tag-medium close",
+        "#w-Tag-medium contained close",
+        "#w-Tag-medium dot",
+        "#w-Tag-medium leading inset",
+        "#w-Tag-medium dot inset",
+        "w group medium",
+        "w group medium leading inset",
+        "w segmented medium",
+        "w shortcut large keeps edge clearance",
+        "#w-Badge-large icon",
+        "#w-Badge-large loading",
+        "#w-Badge-large stable loading width",
+        "#w-Badge-large close",
+        "#w-Badge-large contained close",
+        "#w-Badge-large dot",
+        "#w-Badge-large leading inset",
+        "#w-Badge-large dot inset",
+        "#w-Tag-large icon",
+        "#w-Tag-large loading",
+        "#w-Tag-large stable loading width",
+        "#w-Tag-large close",
+        "#w-Tag-large contained close",
+        "#w-Tag-large dot",
+        "#w-Tag-large leading inset",
+        "#w-Tag-large dot inset",
+        "w group large",
+        "w group large leading inset",
+        "w segmented large",
+        "w chip",
+        "w selected chip stays stable",
+        "w heading",
+        "w heading center",
+        "w notice center",
+        "w wide respects size",
+        "w large-viewbox respects size",
+        "w explicit size preserved",
+        "delete event fires once",
+        "space deletes once",
+        "close has keyboard focus",
+        "wrapper Enter works",
+        "wrapper Space works",
+        "chip width stable at 10% animation speed",
+        "close hover has background",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "selector": "#c-Badge-small",
+            "icon": {
+                "width": 12,
+                "height": 12,
+                "font": 12
+            },
+            "loading": {
+                "width": 12.124603271484375,
+                "height": 12.124603271484375,
+                "font": 12
+            }
+        },
+        {
+            "selector": "#c-Tag-small",
+            "icon": {
+                "width": 12,
+                "height": 12,
+                "font": 12
+            },
+            "loading": {
+                "width": 12.4930419921875,
+                "height": 12.493034362792969,
+                "font": 12
+            }
+        },
+        {
+            "selector": "#c-Badge-medium",
+            "icon": {
+                "width": 15,
+                "height": 15,
+                "font": 15
+            },
+            "loading": {
+                "width": 15.91351318359375,
+                "height": 15.91351318359375,
+                "font": 15
+            }
+        },
+        {
+            "selector": "#c-Tag-medium",
+            "icon": {
+                "width": 15,
+                "height": 15,
+                "font": 15
+            },
+            "loading": {
+                "width": 16.0595703125,
+                "height": 16.0595703125,
+                "font": 15
+            }
+        },
+        {
+            "selector": "#c-Badge-large",
+            "icon": {
+                "width": 15,
+                "height": 15,
+                "font": 15
+            },
+            "loading": {
+                "width": 16.470184326171875,
+                "height": 16.470184326171875,
+                "font": 15
+            }
+        },
+        {
+            "selector": "#c-Tag-large",
+            "icon": {
+                "width": 15,
+                "height": 15,
+                "font": 15
+            },
+            "loading": {
+                "width": 16.47021484375,
+                "height": 16.470184326171875,
+                "font": 15
+            }
+        },
+        {
+            "selector": "#w-Badge-small",
+            "icon": {
+                "width": 12,
+                "height": 12,
+                "font": 12
+            },
+            "loading": {
+                "width": 12.1312255859375,
+                "height": 12.131202697753906,
+                "font": 12
+            }
+        },
+        {
+            "selector": "#w-Tag-small",
+            "icon": {
+                "width": 12,
+                "height": 12,
+                "font": 12
+            },
+            "loading": {
+                "width": 12.26025390625,
+                "height": 12.260223388671875,
+                "font": 12
+            }
+        },
+        {
+            "selector": "#w-Badge-medium",
+            "icon": {
+                "width": 15,
+                "height": 15,
+                "font": 15
+            },
+            "loading": {
+                "width": 15.6290283203125,
+                "height": 15.62908935546875,
+                "font": 15
+            }
+        },
+        {
+            "selector": "#w-Tag-medium",
+            "icon": {
+                "width": 15,
+                "height": 15,
+                "font": 15
+            },
+            "loading": {
+                "width": 15.7802734375,
+                "height": 15.78021240234375,
+                "font": 15
+            }
+        },
+        {
+            "selector": "#w-Badge-large",
+            "icon": {
+                "width": 18,
+                "height": 18,
+                "font": 18
+            },
+            "loading": {
+                "width": 19.440673828125,
+                "height": 19.440643310546875,
+                "font": 18
+            }
+        },
+        {
+            "selector": "#w-Tag-large",
+            "icon": {
+                "width": 18,
+                "height": 18,
+                "font": 18
+            },
+            "loading": {
+                "width": 19.440673828125,
+                "height": 19.440643310546875,
+                "font": 18
+            }
+        }
+    ],
+    "motion": {
+        "min": 103.390625,
+        "max": 103.390625,
+        "samples": 601
+    },
+    "errors": []
+}

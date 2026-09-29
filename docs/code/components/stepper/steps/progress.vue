@@ -1,6 +1,6 @@
 <template>
     <FluxPane>
-        <FluxPaneBody style="display: flex; flex-direction: column; gap: 24px">
+        <FluxPaneBody style="display: flex; flex-direction: column; gap: 18px">
             <FluxStepperSteps
                 :amount="4"
                 :current="1"/>

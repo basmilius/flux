@@ -2,12 +2,12 @@
 
 .applicationStatusPage {
     display: flex;
-    padding-block: 60px;
+    padding-block: 45px;
     align-items: center;
     flex-flow: column;
     flex-grow: 1;
     justify-content: center;
-    gap: 21px;
+    gap: 15px;
     text-align: center;
 }
 
@@ -77,12 +77,12 @@
     align-items: center;
     flex-flow: row wrap;
     justify-content: center;
-    gap: 9px;
+    gap: 6px;
 }
 
 @include mixin.breakpoint-down(md) {
     .applicationStatusPage {
-        padding-block: 42px;
+        padding-block: 33px;
     }
 
     .applicationStatusPageActions {

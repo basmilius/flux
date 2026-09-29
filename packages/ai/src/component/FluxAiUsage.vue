@@ -61,7 +61,7 @@
                 :class="clsx($style.usageLimitNotice, limitState === 'reached' && $style.isReached)">
                 <FluxIcon
                     name="triangle-exclamation"
-                    :size="14"/>
+                    :size="12"/>
 
                 {{ limitState === 'reached' ? translate('flux.ai.tokenLimitReached') : translate('flux.ai.tokenLimitNear') }}
             </p>

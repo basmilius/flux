@@ -2,7 +2,7 @@
     <FluxFlex
         align="center"
         direction="vertical"
-        :gap="18">
+        :gap="15">
         <FluxFormField label="Pin code">
             <FluxFormPinInput
                 :is-private="isPrivate"/>

@@ -3,8 +3,8 @@
 .action {
     composes: button from './base/Button.module.scss';
 
-    height: 30px;
-    width: 30px;
+    height: var(--control-height-small);
+    width: var(--control-height-small);
     padding-inline: 6px;
     border: 0;
     border-radius: var(--radius-half);
@@ -24,7 +24,7 @@
     composes: buttonIcon from './base/Button.module.scss';
 
     color: var(--foreground);
-    font-size: 18px;
+    font-size: var(--control-icon-size);
 }
 
 .action.isDestructive .actionIcon {
@@ -41,7 +41,7 @@
     flex-wrap: wrap;
 
     .separator {
-        margin-block: 9px;
+        margin-block: 6px;
     }
 
     @include mixin.breakpoint-up(sm) {
@@ -52,7 +52,7 @@
 }
 
 .basePaneStructure > .actionBar {
-    padding: 12px 18px;
+    padding: 9px var(--pane-padding);
     background: var(--surface-sunken);
     border: 1px solid var(--surface-stroke-muted);
     border-left: 0;
@@ -60,14 +60,14 @@
 
     &:first-child {
         border-top: 0;
-        border-top-left-radius: var(--radius);
-        border-top-right-radius: var(--radius);
+        border-top-left-radius: var(--radius-container);
+        border-top-right-radius: var(--radius-container);
     }
 
     &:last-child {
         border-bottom: 0;
-        border-bottom-left-radius: var(--radius);
-        border-bottom-right-radius: var(--radius);
+        border-bottom-left-radius: var(--radius-container);
+        border-bottom-right-radius: var(--radius-container);
     }
 }
 
@@ -79,8 +79,8 @@
 
 .actionPaneGrid {
     display: grid;
-    padding: 36px;
-    gap: 36px;
+    padding: 21px;
+    gap: 21px;
     grid-template-columns: 1fr auto;
 
     @container actionPane (max-width: 540px) {

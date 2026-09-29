@@ -12,7 +12,7 @@
                         <FluxIcon
                             v-if="item.icon"
                             :name="item.icon"
-                            :size="16"/>
+                            :size="15"/>
 
                         <span>{{ formatPercentage(item.value) }} {{ item.label }}</span>
                     </div>

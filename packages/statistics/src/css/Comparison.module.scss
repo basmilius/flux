@@ -2,8 +2,8 @@
 
 .statisticsComparison {
     display: grid;
-    margin-top: 18px;
-    gap: 12px;
+    margin-top: 12px;
+    gap: 9px;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
 }
@@ -46,9 +46,9 @@
 
 .statisticsComparisonBottom {
     display: flex;
-    margin-top: 9px;
+    margin-top: 6px;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     line-height: var(--line-height-xsmall);
 }
 

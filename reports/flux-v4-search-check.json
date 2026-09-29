@@ -1,0 +1,38 @@
+{
+    "checks": [
+        "search and option text aligned false",
+        "search text inset false",
+        "trailing icon clearance false",
+        "search height preserved false",
+        "custom menu inset aligns search false",
+        "custom search inset false",
+        "search filters false",
+        "keyboard selects Belgium false",
+        "search and option text aligned true",
+        "search text inset true",
+        "trailing icon clearance true",
+        "search height preserved true",
+        "custom menu inset aligns search true",
+        "custom search inset true",
+        "search filters true",
+        "keyboard selects Belgium true",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "comfortable": false,
+            "delta": 0,
+            "gap": 9,
+            "padding": 21,
+            "height": 36
+        },
+        {
+            "comfortable": true,
+            "delta": 0,
+            "gap": 9,
+            "padding": 21,
+            "height": 42
+        }
+    ],
+    "errors": []
+}

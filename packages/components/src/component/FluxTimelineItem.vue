@@ -23,7 +23,7 @@
                 :class="$style.timelineItemPhotoIcon">
                 <FluxIcon
                     :name="icon"
-                    :size="16"/>
+                    :size="15"/>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
             :class="$style.timelineItemIcon">
             <FluxIcon
                 :name="icon"
-                :size="20"/>
+                :size="15"/>
         </div>
 
         <span

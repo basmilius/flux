@@ -518,7 +518,7 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
 
     --beam-hue-range: 30;
     --beam-mono: 1;
-    --beam-radius: var(--radius);
+    --beam-radius: var(--radius-container);
     --beam-strength: 1;
 
     &::before,
@@ -958,7 +958,7 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
     &.isFading::before {
         position: absolute;
         z-index: -1;
-        inset: -10px;
+        inset: -9px;
         content: '';
         background: var(--beam-pulse-outer-core);
         border-radius: calc(var(--beam-radius) + 10px);
@@ -970,7 +970,7 @@ $line-bloom-window: string.unquote('radial-gradient(ellipse calc(84px * var(--be
 
     > .bloom {
         z-index: -1;
-        inset: -30px;
+        inset: -24px;
         background: var(--beam-pulse-outer-bloom);
         border-radius: calc(var(--beam-radius) + 30px);
         opacity: 0;

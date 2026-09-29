@@ -5,7 +5,7 @@
         tag="article">
         <h1>Flux playground</h1>
         <p>This whole page is a single <code>FluxProse</code> container. The headings, paragraphs, lists and tables sit at a readable measure and flow in the prose rhythm, while Flux components are dropped straight in between them. No wrappers, no resets: prose only styles its own HTML elements, so every component keeps its own look and still lines up in the vertical rhythm.</p>
-        <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page. It is also the sheet used to review the color tokens, so most components appear in every intent and in every state that changes their surface, border or text color. Switch the site between light and dark and scroll through once.</p>
+        <p>Use it to eyeball how the pieces look together and how the light element defaults and the rich prose styling coexist on one page. It is also the sheet used to review the color tokens, so most components appear in every intent and in every state that changes their surface, border or text color. Switch the site between light and dark and scroll through once. The Comfortable switch restores roomier control and container sizes for comparison.</p>
 
         <h2>Palette</h2>
         <p>The palette is a control surface rather than a lookup table: the semantic and intent tokens refer to <code>--palette-*</code> instead of holding a color of their own. The button in the bottom right corner opens the switcher and stays there while the page scrolls, so a scale can be swapped next to whatever component is on screen. <kbd>Shift</kbd> <kbd>G</kbd> and <kbd>Shift</kbd> <kbd>P</kbd> cycle the neutral and the primary scale without opening it at all. The two combine, so a brand can be checked as it would actually ship.</p>
@@ -617,15 +617,14 @@
                             label="Connected radios">
                             <FluxFormRadioGroup
                                 v-model="form.plan"
-                                is-connected
-                                is-inline>
-                                <FluxFormRadio
+                                is-connected>
+                                <FluxFormRadioTile
                                     label="Starter"
                                     value="starter"/>
-                                <FluxFormRadio
+                                <FluxFormRadioTile
                                     label="Team"
                                     value="team"/>
-                                <FluxFormRadio
+                                <FluxFormRadioTile
                                     label="Enterprise"
                                     value="enterprise"/>
                             </FluxFormRadioGroup>
@@ -856,7 +855,7 @@
                         :gap="15"
                         direction="vertical">
                         <FluxPersona
-                            :avatar-size="42"
+                            :avatar-size="33"
                             avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"
                             name="Bas Milius"
                             title="Flux engineer"/>
@@ -2560,6 +2559,7 @@ const article = FluxProse;</code></pre>
 
     <!-- Outside the prose container on purpose: its `container-type` would become
          the containing block and the fixed launcher would scroll away. -->
+    <DensitySwitcher/>
     <PaletteSwitcher/>
 </template>
 
@@ -2571,6 +2571,7 @@ const article = FluxProse;</code></pre>
     import { DateTime } from 'luxon';
     import { computed, reactive, ref, useTemplateRef } from 'vue';
     import ApplicationDemo from './playground/ApplicationDemo.vue';
+    import DensitySwitcher from './playground/DensitySwitcher.vue';
     import PaletteSwitcher from './playground/PaletteSwitcher.vue';
     import Patterns from './playground/Patterns.vue';
 
@@ -3034,7 +3035,7 @@ const article = FluxProse;</code></pre>
         background: var(--surface-raised);
         background-clip: padding-box;
         border: 1px solid var(--surface-stroke-out);
-        border-radius: var(--radius);
+        border-radius: var(--radius-container);
         color: var(--foreground-secondary);
     }
 </style>

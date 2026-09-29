@@ -8,7 +8,7 @@
             <FluxSwipeActions
                 :open="open && open.subject === mail.subject ? open.side : null"
                 @update:open="onOpen(mail.subject, $event)">
-                <FluxItem style="padding: 18px">
+                <FluxItem style="padding: var(--pane-padding)">
                     <FluxItemContent is-center>
                         <strong>{{ mail.from }}</strong>
                         <span style="font-size: .875rem; opacity: .6">{{ mail.subject }}</span>

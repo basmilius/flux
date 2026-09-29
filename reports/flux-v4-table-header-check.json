@@ -1,0 +1,74 @@
+{
+    "checks": [
+        "invoices header padding false",
+        "invoices centered control false",
+        "invoices header grows 6px false",
+        "invoices body row height unchanged false",
+        "invoices body padding unchanged false",
+        "deployments header padding false",
+        "deployments centered control false",
+        "deployments header grows 6px false",
+        "deployments body row height unchanged false",
+        "deployments body padding unchanged false",
+        "select all false",
+        "clear selection false",
+        "sticky header stays at top false",
+        "sticky height tracks new header false",
+        "sort menu works false",
+        "invoices header padding true",
+        "invoices centered control true",
+        "invoices header grows 6px true",
+        "invoices body row height unchanged true",
+        "invoices body padding unchanged true",
+        "deployments header padding true",
+        "deployments centered control true",
+        "deployments header grows 6px true",
+        "deployments body row height unchanged true",
+        "deployments body padding unchanged true",
+        "select all true",
+        "clear selection true",
+        "sticky header stays at top true",
+        "sticky height tracks new header true",
+        "sort menu works true",
+        "no runtime errors"
+    ],
+    "measurements": [
+        {
+            "comfortable": false,
+            "name": "invoices",
+            "height": 41,
+            "padding": 9,
+            "row": 36,
+            "bodyPadding": "6px",
+            "center": 0
+        },
+        {
+            "comfortable": false,
+            "name": "deployments",
+            "height": 41,
+            "padding": 9,
+            "row": 36,
+            "bodyPadding": "6px",
+            "center": 0
+        },
+        {
+            "comfortable": true,
+            "name": "invoices",
+            "height": 53,
+            "padding": 15,
+            "row": 48,
+            "bodyPadding": "12px",
+            "center": 0
+        },
+        {
+            "comfortable": true,
+            "name": "deployments",
+            "height": 53,
+            "padding": 15,
+            "row": 48,
+            "bodyPadding": "12px",
+            "center": 0
+        }
+    ],
+    "errors": []
+}

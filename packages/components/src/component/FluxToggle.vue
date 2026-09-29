@@ -13,13 +13,13 @@
             v-if="iconOff"
             :class="$style.formToggleIconOff"
             :name="iconOff"
-            :size="14"/>
+            :size="12"/>
 
         <FluxIcon
             v-if="iconOn"
             :class="$style.formToggleIconOn"
             :name="iconOn"
-            :size="14"/>
+            :size="12"/>
 
         <input
             :class="$style.formToggleInput"

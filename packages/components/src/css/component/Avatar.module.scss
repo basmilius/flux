@@ -134,10 +134,10 @@
     display: flex;
     padding: 6px;
     align-items: center;
-    gap: 12px;
+    gap: 9px;
     background: unset;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     cursor: pointer;
     text-align: left;
     transition: var(--transition-default);
@@ -152,7 +152,7 @@
 
 .personaDetails {
     display: flex;
-    margin-right: 9px;
+    margin-right: 6px;
     flex-flow: column;
     gap: 3px;
 

@@ -23,10 +23,10 @@
 .applicationTopBar {
     display: flex;
     height: var(--application-top-height);
-    padding-inline: 21px;
+    padding-inline: 15px;
     align-items: center;
     flex-flow: row;
-    gap: 15px;
+    gap: 12px;
     color: var(--foreground-prominent);
 }
 
@@ -54,11 +54,9 @@
     margin-top: -6px;
     margin-inline: auto;
     flex-flow: row;
-    gap: 21px;
+    gap: 15px;
 
     :local(.baseTabBar) {
-        --tab-padding: 18px;
-
         width: 100%;
         box-shadow: unset;
     }
@@ -80,7 +78,7 @@
 .applicationTopTabsMedium {
     composes: applicationTopTabs;
 
-    width: min(1280px, 100% - 42px);
+    width: min(1281px, 100% - 42px);
 }
 
 .applicationTopTabsNarrow {
@@ -97,10 +95,6 @@
 
     .applicationTopBar > :local(.icon) {
         display: none;
-    }
-
-    .applicationMenuToggle {
-        margin-inline: -12px -15px;
     }
 }
 

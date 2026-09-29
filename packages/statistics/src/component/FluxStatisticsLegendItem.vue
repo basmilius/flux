@@ -13,7 +13,7 @@
             v-if="icon"
             :class="$style.statisticsLegendItemIcon"
             :name="icon"
-            :size="16"/>
+            :size="15"/>
 
         <div
             v-else

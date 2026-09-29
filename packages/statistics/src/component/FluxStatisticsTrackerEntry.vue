@@ -8,7 +8,7 @@
             :class="$style.trackerEntryMarker">
             <FluxIcon
                 :name="icon"
-                :size="20"/>
+                :size="18"/>
         </div>
 
         <span

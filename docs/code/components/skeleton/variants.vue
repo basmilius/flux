@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap">
+    <div style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap">
         <FluxSkeleton
             variant="circle"
             :width="56"

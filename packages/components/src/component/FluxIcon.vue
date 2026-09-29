@@ -7,8 +7,7 @@
             color && ICON_COLOR_CLASS[color]
         )"
         :style="{
-            fontSize: typeof size === 'number' ? `${size}px` : size,
-            scale: definition.scale > 1 ? definition.scale : undefined
+            fontSize: typeof size === 'number' ? `${size}px` : size
         }"
         focusable="false"
         :role="ariaLabel ? 'img' : undefined"
@@ -105,8 +104,7 @@
         return {
             width: icon[0],
             height: icon[1],
-            paths: (Array.isArray(icon[4]) ? icon[4] : [icon[4]]) as string[],
-            scale: Math.max(1, icon[0] / 512)
+            paths: (Array.isArray(icon[4]) ? icon[4] : [icon[4]]) as string[]
         };
     });
 

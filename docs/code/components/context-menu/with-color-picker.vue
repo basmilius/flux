@@ -1,6 +1,6 @@
 <template>
     <FluxContextMenu>
-        <FluxPane style="padding: 36px; text-align: center">
+        <FluxPane style="padding: 27px; text-align: center">
             Right-click here
         </FluxPane>
 

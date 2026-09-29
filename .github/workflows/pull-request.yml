@@ -58,6 +58,9 @@ jobs:
             -   name: 🌍 Check translations
                 run: bun scripts/generate-translations.ts --check
 
+            -   name: Check density grid
+                run: bun scripts/check-grid.ts --check
+
             -   name: 🚀 Publish Docs
                 uses: cloudflare/wrangler-action@v3
                 id: publish

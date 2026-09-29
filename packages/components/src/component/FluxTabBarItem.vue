@@ -21,7 +21,7 @@
         <FluxIcon
             v-if="icon"
             :name="icon"
-            :size="16"/>
+            :class="$style.tabBarItemIcon"/>
 
         <span v-if="label">{{ label }}</span>
 

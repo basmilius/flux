@@ -2,8 +2,8 @@
     <Preview>
         <FluxFlex
             direction="vertical"
-            :gap="18"
-            style="width: min(100%, 320px)">
+            :gap="15"
+            style="width: min(100%, 321px)">
             <FluxFormField label="Price">
                 <FluxFormInputGroup>
                     <FluxFormInputAddition label="€"/>

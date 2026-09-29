@@ -26,9 +26,11 @@
     --vp-c-text-3: var(--foreground-secondary);
 }
 
-button {
-    font-size: inherit;
-    font-weight: inherit;
+@layer flux-reset {
+    button {
+        font-size: inherit;
+        font-weight: inherit;
+    }
 }
 
 .vp-code-group .blocks > div:first-child:has(p) {

@@ -1,0 +1,1240 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flux · Compacter in v4</title>
+<style>
+:root {
+  color-scheme: light;
+  --brand: #1f4fc4;
+  --accent: var(--brand);
+  --paper: #fff;
+  --page: color-mix(in srgb, var(--accent) 6%, var(--paper));
+  --ink: color-mix(in srgb, var(--accent) 28%, #252b29);
+  --muted: color-mix(in srgb, var(--accent) 24%, #626762);
+  --line: color-mix(in srgb, var(--accent) 18%, var(--paper));
+  --line-strong: color-mix(in srgb, var(--accent) 30%, var(--paper));
+  --panel: color-mix(in srgb, var(--accent) 4%, var(--paper));
+  --highlight: color-mix(in srgb, var(--accent) 10%, var(--paper));
+  --on-accent: #fff;
+  --focus: var(--accent);
+  --success: #236746;
+  --success-bg: #e7f0e0;
+  --warning: #765311;
+  --warning-bg: #f7f0e0;
+  --danger: #913f35;
+  --danger-bg: #f8e9e6;
+  --info: #365573;
+  --info-bg: #e8edf4;
+  --reference: color-mix(in srgb, var(--muted) 55%, var(--paper));
+  --image-outline: rgb(0 0 0 / 10%);
+  --shadow-border: 0 0 0 1px rgb(0 0 0 / 6%), 0 1px 2px -1px rgb(0 0 0 / 6%), 0 2px 4px rgb(0 0 0 / 4%);
+  --shadow-border-hover: 0 0 0 1px rgb(0 0 0 / 14%), 0 1px 2px -1px rgb(0 0 0 / 8%), 0 2px 4px rgb(0 0 0 / 6%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--page);
+  line-height: 1.65;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+header, main, footer { max-width: 1120px; margin: auto; padding: 32px; }
+header { padding-top: 64px; }
+h1 { font-size: clamp(36px, 5.5vw, 62px); line-height: 1.07; letter-spacing: -.04em; max-width: 850px; margin: 18px 0 24px; }
+h2 { font-size: 28px; line-height: 1.2; letter-spacing: -.025em; margin: 0 0 20px; }
+h3 { font-size: 19px; margin: 26px 0 10px; }
+h1, h2, h3 { text-wrap: balance; overflow-wrap: anywhere; }
+p { margin: 0 0 16px; text-wrap: pretty; }
+li, figcaption, blockquote { text-wrap: pretty; }
+a { color: var(--accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+a:focus-visible, summary:focus-visible, input:focus-visible, button:focus-visible, select:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+a:hover { text-decoration-thickness: 2px; }
+.intro { font-size: 21px; max-width: 850px; }
+.eyebrow, footer, .caption, figcaption { font-size: 13px; color: var(--muted); }
+.eyebrow { letter-spacing: .04em; }
+.status { display: inline-block; background: var(--highlight); padding: 7px 14px; border-radius: 20px; font-size: 14px; }
+nav { display: flex; flex-wrap: wrap; gap: 4px 22px; margin-top: 24px; }
+nav a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; }
+nav a:hover, summary:hover { background: var(--panel); }
+nav a:active, summary:active { background: var(--highlight); }
+section { padding: 32px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; margin-bottom: 24px; scroll-margin-top: 20px; }
+.recommendation { background: var(--highlight); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 24px; margin: 26px 0; padding: 24px 0; border-block: 1px solid var(--line); }
+.stats strong { display: block; color: var(--accent); font-size: 38px; line-height: 1.2; letter-spacing: -.03em; }
+.stats span { display: block; font-size: 13px; margin-top: 7px; }
+.stats strong, table, output, .bar-label { font-variant-numeric: tabular-nums; }
+.table { overflow-x: auto; margin: 20px 0; }
+table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+caption { text-align: left; margin-bottom: 12px; font-weight: 600; }
+th, td { padding: 13px 12px; vertical-align: top; border-bottom: 1px solid var(--line); }
+th { background: var(--panel); }
+.wide { min-width: 680px; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+td .src { display: block; font-size: 12px; color: var(--muted); }
+li { margin-bottom: 10px; }
+ul, ol { padding-left: 23px; }
+.note { padding: 18px 20px; background: var(--warning-bg); border-left: 3px solid var(--warning); }
+.split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.split > * { min-width: 0; }
+.panel { background: var(--panel); padding: 24px; border-radius: 12px; }
+.panel h3 { margin-top: 0; }
+.badge { display: inline-block; font-size: 12px; color: var(--muted); background: var(--panel); padding: 3px 8px; border-radius: 5px; }
+.badge.confirmed { color: var(--success); background: var(--success-bg); }
+.badge.warning { color: var(--warning); background: var(--warning-bg); }
+.badge.danger { color: var(--danger); background: var(--danger-bg); }
+.badge.info { color: var(--info); background: var(--info-bg); }
+figure { margin: 20px 0; }
+figcaption { margin-top: 10px; }
+.steps { list-style: none; padding: 0; counter-reset: step; }
+.step { counter-increment: step; display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding-top: 24px; border-top: 1px solid var(--line); margin-top: 24px; }
+.step::before { content: counter(step); font-size: 26px; color: var(--accent); }
+.step h3 { margin: 0 0 10px; }
+.step p:last-child { margin-bottom: 0; }
+code { font-family: ui-monospace, SFMono-Regular, monospace; font-size: .88em; overflow-wrap: anywhere; }
+pre { overflow-x: auto; padding: 18px; background: var(--panel); border-radius: 8px; font-size: 12px; line-height: 1.6; }
+pre code { overflow-wrap: normal; font-size: inherit; }
+details { border-top: 1px solid var(--line); margin-top: 16px; }
+summary { cursor: pointer; min-height: 44px; padding: 10px 0; color: var(--accent); font-weight: 600; }
+.bar { height: 26px; background: var(--line); border-radius: 5px; overflow: hidden; margin: 8px 0 18px; }
+.bar span { display: block; height: 100%; background: var(--accent); }
+.bar.reference span { background: var(--reference); }
+.bar-label { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; }
+button { min-width: 44px; min-height: 40px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--paper); font: inherit; cursor: pointer; transition: background-color 120ms ease, scale 120ms ease; }
+button:hover { background: var(--highlight); }
+button:active { scale: 0.96; }
+.copy-row { display: flex; align-items: center; gap: 12px; }
+#copy-status { font-size: 13px; color: var(--muted); }
+pre.prompt { white-space: pre-wrap; font-size: 13px; line-height: 1.6; }
+.skip { position: absolute; left: 16px; top: -100px; padding: 12px; background: var(--paper); }
+.skip:focus { top: 16px; }
+
+/* Before/after stages: every mock reads its sizes from the v3 or v4 variable set below. */
+.compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 16px 0 6px; }
+.compare.stacked { grid-template-columns: 1fr; }
+.stage { min-width: 0; overflow-x: auto; padding: 20px; background: var(--page); border: 1px solid var(--line); border-radius: 12px; }
+.stage-label { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 14px; font-size: 13px; color: var(--muted); }
+.stage-label strong { color: var(--ink); }
+.mock {
+  --fs: 15px; --lh: 24px; --fs-sm: 14px; --lh-sm: 21px; --fs-xs: 13px; --lh-xs: 18px; --fs-lg: 16px; --lh-lg: 24px;
+  font-family: inter-variable, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: var(--fs); line-height: var(--lh); color: var(--ink);
+}
+.mock.v3 {
+  --ctl: 42px; --btn-px: 12px; --btn-fs: 15px; --btn-lh: 24px; --btn-gap: 12px; --icon: 18px; --row-gap: 12px;
+  --r-ctl: 12px; --r-pane: 12px;
+  --field-h: 42px; --field-px: 12px; --label-gap: 6px; --form-gap: 18px;
+  --menu-h: 42px; --menu-px: 12px; --menu-gap: 15px; --menu-pad: 9px; --menu-fs: 15px; --menu-lh: 24px;
+  --cell-py: 12px; --cell-px: 15px;
+  --badge-h: 28px; --badge-mb: -2px; --badge-px: 9px;
+  --pane-pad: 18px; --pane-gap: 15px;
+  --tab-py: 12px; --tab-gap: 27px;
+  --seg-h: 36px; --seg-px: 15px; --seg-pad: 2px 3px; --seg-fs: 15px; --seg-lh: 24px;
+  --cb: 20px; --cb-gap: 12px; --cb-row-gap: 12px;
+  --tip-py: 9px; --tip-px: 15px; --tip-fs: 14px; --tip-lh: 21px;
+  --snack-py: 15px; --snack-px: 18px; --snack-gap: 15px; --snack-w: 570px;
+  --chip-h: 36px; --chip-px: 12px; --chip-gap: 9px;
+  --nav-w: 300px; --nav-pad: 12px; --top-h: 66px; --top-px: 21px;
+}
+.mock.v4 {
+  --ctl: 33px; --btn-px: 12px; --btn-fs: 14px; --btn-lh: 21px; --btn-gap: 6px; --icon: 16px; --row-gap: 9px;
+  --r-ctl: 8px; --r-pane: 12px;
+  --field-h: 33px; --field-px: 9px; --label-gap: 6px; --form-gap: 15px;
+  --menu-h: 33px; --menu-px: 9px; --menu-gap: 9px; --menu-pad: 3px; --menu-fs: 14px; --menu-lh: 21px;
+  --cell-py: 6px; --cell-px: 12px;
+  --badge-h: 24px; --badge-mb: 0; --badge-px: 9px;
+  --pane-pad: 15px; --pane-gap: 12px;
+  --tab-py: 6px; --tab-gap: 18px;
+  --seg-h: 27px; --seg-px: 12px; --seg-pad: 3px; --seg-fs: 14px; --seg-lh: 21px;
+  --cb: 18px; --cb-gap: 9px; --cb-row-gap: 6px;
+  --tip-py: 6px; --tip-px: 9px; --tip-fs: 13px; --tip-lh: 18px;
+  --snack-py: 12px; --snack-px: 15px; --snack-gap: 12px; --snack-w: 480px;
+  --chip-h: 27px; --chip-px: 9px; --chip-gap: 6px;
+  --nav-w: 240px; --nav-pad: 9px; --top-h: 48px; --top-px: 15px;
+}
+.m-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--row-gap); }
+.m-stack { display: flex; flex-direction: column; gap: 18px; }
+.m-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--btn-gap); height: var(--ctl); padding: 0 var(--btn-px); border: 1px solid var(--line-strong); border-radius: var(--r-ctl); background: var(--paper); font-size: var(--btn-fs); line-height: var(--btn-lh); font-weight: 500; white-space: nowrap; }
+.m-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.m-btn.square { width: var(--ctl); padding: 0; }
+/* v4 only: the glyph carries its own side bearing, so the icon side takes 3px less padding. */
+.mock.v4 .m-btn:not(.square):has(> .m-icon:first-child) { padding-left: calc(var(--btn-px) - 3px); }
+.mock.v4 .m-btn:not(.square):has(> .m-icon:last-child) { padding-right: calc(var(--btn-px) - 3px); }
+.m-icon { flex: none; width: var(--icon); height: var(--icon); }
+.m-form { display: flex; flex-direction: column; gap: var(--form-gap); max-width: 340px; }
+.m-field { display: flex; flex-direction: column; gap: var(--label-gap); }
+.m-label { font-weight: 500; }
+.m-input { display: flex; align-items: center; height: var(--field-h); padding: 0 var(--field-px); border: 1px solid var(--line-strong); border-radius: var(--r-ctl); background: var(--paper); color: var(--muted); }
+.m-help { font-size: var(--fs-sm); line-height: var(--lh-sm); color: var(--muted); }
+.m-menu { display: flex; flex-direction: column; gap: 1px; width: 250px; max-width: 100%; padding: var(--menu-pad); border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--paper); }
+.m-item { display: flex; align-items: center; gap: var(--menu-gap); min-height: var(--menu-h); padding: 0 var(--menu-px); border-radius: var(--r-ctl); font-size: var(--menu-fs); line-height: var(--menu-lh); white-space: nowrap; }
+.m-item.active { background: var(--highlight); }
+.m-item .kbd { margin-left: auto; font-size: var(--fs-xs); color: var(--muted); }
+.m-sep { height: 1px; margin: var(--menu-pad) 0; background: var(--line); }
+table.m-table { font-size: var(--fs); line-height: var(--lh); background: var(--paper); border: 1px solid var(--line); }
+table.m-table th, table.m-table td { padding: var(--cell-py) var(--cell-px); border-bottom: 1px solid var(--line); background: none; vertical-align: middle; white-space: nowrap; }
+table.m-table th { font-size: var(--fs-sm); line-height: var(--lh-sm); font-weight: 500; color: var(--muted); }
+table.m-table tr:last-child td { border-bottom: 0; }
+.m-badge { display: inline-flex; align-items: center; height: var(--badge-h); margin-block: var(--badge-mb); padding: 0 var(--badge-px); border-radius: var(--r-ctl); background: var(--info-bg); color: var(--info); font-size: var(--fs-xs); line-height: var(--lh-xs); font-weight: 500; vertical-align: middle; white-space: nowrap; }
+.m-badge.success { background: var(--success-bg); color: var(--success); }
+.m-badge.warning { background: var(--warning-bg); color: var(--warning); }
+.m-badge.danger { background: var(--danger-bg); color: var(--danger); }
+.m-pane { max-width: 360px; border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--paper); }
+.m-pane-head { display: flex; align-items: center; gap: var(--pane-gap); padding: var(--pane-pad) var(--pane-pad) 0; font-size: var(--fs-lg); line-height: var(--lh-lg); font-weight: 600; }
+.m-pane-body { padding: var(--pane-pad); color: var(--muted); }
+.m-pane-foot { display: flex; justify-content: flex-end; gap: var(--row-gap); padding: 0 var(--pane-pad) var(--pane-pad); }
+.m-tabs { display: flex; gap: var(--tab-gap); border-bottom: 1px solid var(--line); }
+.m-tab { padding: var(--tab-py) 0; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.m-tab.active { color: var(--ink); box-shadow: inset 0 -2px 0 var(--accent); }
+.m-seg { display: inline-flex; gap: 3px; padding: var(--seg-pad); border-radius: calc(var(--r-ctl) + 3px); background: var(--panel); border: 1px solid var(--line); }
+.m-seg span { display: inline-flex; align-items: center; height: var(--seg-h); padding: 0 var(--seg-px); border-radius: var(--r-ctl); font-size: var(--seg-fs); line-height: var(--seg-lh); font-weight: 500; color: var(--muted); white-space: nowrap; }
+.m-seg span.active { background: var(--paper); color: var(--ink); box-shadow: var(--shadow-border); }
+.m-checks { display: flex; flex-direction: column; gap: var(--cb-row-gap); }
+.m-check { display: flex; align-items: flex-start; gap: var(--cb-gap); line-height: 21px; }
+.m-box { flex: none; display: grid; place-items: center; width: var(--cb); height: var(--cb); margin-top: calc((21px - var(--cb)) / 2); border: 1px solid var(--line-strong); border-radius: 4px; background: var(--paper); color: var(--on-accent); }
+.m-box.on { background: var(--accent); border-color: var(--accent); }
+.m-box svg { width: calc(var(--cb) - 6px); height: calc(var(--cb) - 6px); }
+.m-check small { display: block; font-size: var(--fs-sm); line-height: var(--lh-sm); color: var(--muted); }
+.m-tip-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; }
+.m-tip { max-width: 260px; padding: var(--tip-py) var(--tip-px); border-radius: var(--r-ctl); background: var(--ink); color: var(--paper); font-size: var(--tip-fs); line-height: var(--tip-lh); }
+.m-snack { display: flex; align-items: center; gap: var(--snack-gap); width: min(100%, var(--snack-w)); padding: var(--snack-py) var(--snack-px); border-radius: var(--r-pane); background: var(--ink); color: var(--paper); }
+.m-snack .m-icon { color: var(--paper); }
+.m-snack-text { flex: 1; min-width: 0; }
+.m-snack-text small { display: block; font-size: var(--fs-sm); line-height: var(--lh-sm); opacity: .75; }
+.m-snack-action { flex: none; font-size: var(--fs-sm); line-height: var(--lh-sm); font-weight: 600; }
+.m-chip { display: inline-flex; align-items: center; gap: var(--chip-gap); height: var(--chip-h); padding: 0 var(--chip-px); border: 1px solid var(--line-strong); border-radius: var(--r-ctl); background: var(--paper); font-size: var(--fs-sm); line-height: var(--lh-sm); white-space: nowrap; }
+.m-chip.active { background: var(--highlight); border-color: var(--accent); color: var(--accent); }
+.m-app { display: grid; grid-template-columns: var(--nav-w) minmax(420px, 1fr); border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--paper); overflow: hidden; }
+.m-nav { display: flex; flex-direction: column; gap: 1px; padding: 0 var(--nav-pad) var(--nav-pad); background: var(--panel); border-right: 1px solid var(--line); }
+.m-brand { display: flex; align-items: center; gap: var(--menu-gap); height: var(--top-h); padding: 0 var(--menu-px); font-size: var(--fs-lg); line-height: var(--lh-lg); font-weight: 600; }
+.m-top { display: flex; align-items: center; gap: var(--pane-gap); height: var(--top-h); padding: 0 var(--top-px); border-bottom: 1px solid var(--line); font-size: var(--fs-lg); line-height: var(--lh-lg); font-weight: 600; }
+.m-top .m-btn { margin-left: auto; }
+.m-main-body { padding: var(--top-px); }
+.m-main-body table.m-table { width: 100%; }
+
+.mock.v3 {
+  --notice-py: 12px; --notice-px: 15px; --notice-gap: 12px; --notice-icon: 20px;
+  --crumb-h: 30px; --crumb-gap: 9px; --page-h: 36px;
+  --tb-pad: 6px;
+  --step-size: 33px; --step-line: 4px; --bar-h: 9px; --bar-gap: 21px;
+  --tl-gap: 15px; --tl-item-gap: 21px; --tl-icon: 36px; --tl-body-py: 9px;
+  --exp-h: 54px; --exp-px: 18px; --exp-gap: 12px;
+  --dl-row: 12px; --dl-col: 24px;
+  --persona-pad: 6px; --persona-gap: 12px; --avatar: 42px;
+  --tree-h: 42px; --tree-px: 12px; --tree-gap: 15px; --tree-indent: 24px; --tree-fs: 15px; --tree-lh: 24px;
+  --cp-w: 600px; --cp-search-h: 54px; --cp-search-gap: 12px; --cp-tab-h: 30px; --cp-tabs-pad: 6px 15px; --cp-res-pad: 6px;
+  --kb-pad: 12px; --kb-gap: 12px;
+  --cm-py: 12px; --cm-px: 18px; --cm-gap: 15px; --cm-foot-gap: 12px;
+  --kpi-top: 18px; --grid-gap: 12px;
+  --flt-gap: 15px;
+  --radio: 20px; --radio-gap: 12px; --radio-row: 12px; --slider-track: 12px; --slider-thumb: 24px;
+}
+.mock.v4 {
+  --notice-py: 9px; --notice-px: 12px; --notice-gap: 9px; --notice-icon: 16px;
+  --crumb-h: 24px; --crumb-gap: 6px; --page-h: 30px;
+  --tb-pad: 6px;
+  --step-size: 27px; --step-line: 3px; --bar-h: 6px; --bar-gap: 15px;
+  --tl-gap: 12px; --tl-item-gap: 15px; --tl-icon: 27px; --tl-body-py: 3px;
+  --exp-h: 42px; --exp-px: 15px; --exp-gap: 9px;
+  --dl-row: 9px; --dl-col: 18px;
+  --persona-pad: 6px; --persona-gap: 9px; --avatar: 33px;
+  --tree-h: 33px; --tree-px: 9px; --tree-gap: 9px; --tree-indent: 21px; --tree-fs: 14px; --tree-lh: 21px;
+  --cp-w: 540px; --cp-search-h: 42px; --cp-search-gap: 9px; --cp-tab-h: 24px; --cp-tabs-pad: 6px 12px; --cp-res-pad: 6px;
+  --kb-pad: 9px; --kb-gap: 9px;
+  --cm-py: 9px; --cm-px: 12px; --cm-gap: 9px; --cm-foot-gap: 9px;
+  --kpi-top: 12px; --grid-gap: 9px;
+  --flt-gap: 9px;
+  --radio: 18px; --radio-gap: 9px; --radio-row: 6px; --slider-track: 6px; --slider-thumb: 18px;
+}
+.m-notice { display: flex; align-items: flex-start; gap: var(--notice-gap); max-width: 420px; padding: var(--notice-py) var(--notice-px); border-radius: var(--r-ctl); background: var(--info-bg); }
+.m-notice > .m-icon { width: var(--notice-icon); height: var(--notice-icon); margin-top: calc((var(--lh) - var(--notice-icon)) / 2); color: var(--info); }
+.m-notice strong { font-weight: 600; }
+.m-crumbs { display: flex; align-items: center; gap: 3px; font-size: var(--fs-sm); line-height: 1; color: var(--muted); }
+.m-crumb { display: inline-flex; align-items: center; gap: var(--crumb-gap); height: var(--crumb-h); }
+.m-crumb.current { color: var(--ink); font-weight: 500; }
+.m-crumbs .m-icon { width: 12px; height: 12px; }
+.m-pages { display: flex; gap: 1px; }
+.m-page { display: grid; place-items: center; min-width: var(--page-h); height: var(--page-h); border-radius: var(--r-ctl); font-size: 12px; line-height: 18px; font-variant-numeric: tabular-nums; }
+.m-page.active { background: var(--accent); color: var(--on-accent); }
+.m-toolbar { display: inline-flex; align-items: center; gap: 3px; padding: var(--tb-pad); border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--paper); }
+.m-toolbar .m-btn { border-color: transparent; background: none; }
+.m-toolbar .m-btn.on { background: var(--highlight); }
+.m-vsep { align-self: stretch; width: 1px; margin: 6px 3px; background: var(--line); }
+.m-stepper { display: flex; align-items: center; max-width: 360px; }
+.m-step { flex: none; display: grid; place-items: center; width: var(--step-size); height: var(--step-size); border: 1px solid var(--line-strong); border-radius: 50%; background: var(--paper); font-size: var(--fs-sm); line-height: var(--lh-sm); font-weight: 500; }
+.m-step.done { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.m-step-line { flex: 1; height: var(--step-line); background: var(--line); }
+.m-step-line.done { background: var(--accent); }
+.m-progress { max-width: 360px; }
+.m-progress-row { display: flex; justify-content: space-between; gap: var(--bar-gap); margin-bottom: 6px; font-size: var(--fs-sm); line-height: var(--lh-sm); }
+.m-progress-row span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+.m-track { height: var(--bar-h); border-radius: 99px; background: var(--line); overflow: hidden; }
+.m-track span { display: block; width: 64%; height: 100%; background: var(--accent); }
+.m-tl { display: flex; flex-direction: column; gap: var(--tl-gap); max-width: 420px; }
+.m-tl-item { display: grid; grid-template-columns: var(--tl-icon) 1fr; gap: var(--tl-item-gap); }
+.m-tl-icon { display: grid; place-items: center; width: var(--tl-icon); height: var(--tl-icon); border-radius: 50%; background: var(--highlight); color: var(--accent); }
+.m-tl-icon .m-icon { width: calc(var(--tl-icon) * .45); height: calc(var(--tl-icon) * .45); }
+.m-tl-body { padding-block: var(--tl-body-py); }
+.m-tl-body small { display: block; font-size: var(--fs-sm); line-height: var(--lh-sm); color: var(--muted); }
+.m-exp { max-width: 420px; border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--paper); overflow: hidden; }
+.m-exp-head { display: flex; align-items: center; gap: var(--exp-gap); height: var(--exp-h); padding: 0 var(--exp-px); border-top: 1px solid var(--line); font-weight: 500; }
+.m-exp-head:first-child { border-top: 0; }
+.m-exp-head .m-icon { margin-left: auto; color: var(--muted); }
+.m-exp-body { padding: 0 var(--exp-px) var(--exp-px); color: var(--muted); }
+.m-dl { display: grid; grid-template-columns: max-content 1fr; gap: var(--dl-row) var(--dl-col); max-width: 420px; }
+.m-dl dt { color: var(--muted); }
+.m-dl dd { margin: 0; }
+.m-personas { display: flex; flex-direction: column; gap: 3px; }
+.m-persona { display: inline-flex; align-items: center; gap: var(--persona-gap); padding: var(--persona-pad); border-radius: var(--r-ctl); }
+.m-avatar { flex: none; display: grid; place-items: center; width: var(--avatar); height: var(--avatar); border-radius: 50%; background: var(--highlight); color: var(--accent); font-size: calc(var(--avatar) * .4); font-weight: 600; line-height: 1; }
+.m-persona-name { font-size: var(--fs); line-height: 18px; font-weight: 500; }
+.m-persona-sub { margin-top: 3px; font-size: var(--fs-sm); line-height: 18px; color: var(--muted); }
+.m-tree { display: flex; flex-direction: column; gap: 1px; width: 280px; max-width: 100%; }
+.m-tree-row { display: flex; align-items: center; gap: var(--tree-gap); min-height: var(--tree-h); padding: 0 var(--tree-px) 0 calc(var(--tree-px) + var(--depth, 0) * var(--tree-indent)); border-radius: var(--r-ctl); font-size: var(--tree-fs); line-height: var(--tree-lh); white-space: nowrap; }
+.m-tree-row.active { background: var(--highlight); }
+.m-tree-row .m-icon { color: var(--muted); }
+.m-cp { width: min(100%, var(--cp-w)); border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--paper); box-shadow: var(--shadow-border); overflow: hidden; }
+.m-cp-search { display: flex; align-items: center; gap: var(--cp-search-gap); height: var(--cp-search-h); padding: 0 var(--pane-pad); border-bottom: 1px solid var(--line); font-size: var(--fs-lg); line-height: var(--lh-lg); color: var(--muted); }
+.m-cp-tabs { display: flex; gap: 3px; padding: var(--cp-tabs-pad); border-bottom: 1px solid var(--line); }
+.m-cp-tab { display: inline-flex; align-items: center; height: var(--cp-tab-h); padding: 0 9px; border-radius: var(--r-ctl); font-size: var(--fs-xs); line-height: var(--lh-xs); color: var(--muted); }
+.m-cp-tab.active { background: var(--highlight); color: var(--ink); }
+.m-cp-res { display: flex; flex-direction: column; gap: 1px; padding: var(--cp-res-pad); }
+.m-kb { display: grid; grid-template-columns: repeat(2, minmax(190px, 1fr)); gap: var(--kb-gap); }
+.m-kb-col { border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--panel); }
+.m-kb-head { display: flex; align-items: center; gap: 9px; padding: var(--kb-pad) var(--kb-pad) 0; font-size: 16px; line-height: 24px; font-weight: 600; }
+.m-kb-body { display: flex; flex-direction: column; gap: var(--kb-gap); padding: var(--kb-pad); }
+.m-kb-card { padding: var(--kb-pad); border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--paper); }
+.m-kb-card small { display: block; margin-top: 3px; font-size: var(--fs-sm); line-height: var(--lh-sm); color: var(--muted); }
+.m-comments { display: flex; flex-direction: column; gap: var(--cm-gap); max-width: 440px; }
+.m-comment { display: grid; grid-template-columns: var(--avatar) 1fr; gap: 3px var(--cm-gap); }
+.m-comment-bubble { padding: var(--cm-py) var(--cm-px); border-radius: var(--r-pane); background: var(--panel); }
+.m-comment-foot { display: flex; gap: var(--cm-foot-gap); grid-column: 2; font-size: 12px; line-height: 18px; color: var(--muted); }
+.m-kpis { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: var(--grid-gap); }
+.m-kpi { padding: var(--pane-pad); border: 1px solid var(--line); border-radius: var(--r-pane); background: var(--paper); }
+.m-kpi-label { font-size: var(--fs-sm); line-height: var(--lh-sm); color: var(--muted); }
+.m-kpi-value { padding-top: var(--kpi-top); font-size: 21px; line-height: 30px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.m-kpi-foot { font-size: var(--fs-sm); line-height: var(--lh-sm); color: var(--success); }
+.m-filterbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--flt-gap); }
+.m-filterbar .m-input { width: 210px; gap: var(--btn-gap); }
+.m-filterbar .m-btn .m-icon:last-child { width: 12px; height: 12px; color: var(--muted); }
+.m-choices { display: flex; flex-direction: column; gap: 18px; max-width: 360px; }
+.m-radios { display: flex; flex-direction: column; gap: var(--radio-row); }
+.m-radio { display: flex; align-items: center; gap: var(--radio-gap); line-height: 21px; }
+.m-radio i { flex: none; width: var(--radio); height: var(--radio); border: 1px solid var(--line-strong); border-radius: 50%; background: var(--paper); }
+.m-radio i.on { border: calc(var(--radio) * .3) solid var(--accent); }
+.m-slider { position: relative; display: flex; align-items: center; height: var(--slider-thumb); }
+.m-slider-track { flex: 1; height: var(--slider-track); border-radius: 99px; background: var(--line); }
+.m-slider-track span { display: block; width: 40%; height: 100%; border-radius: inherit; background: var(--accent); }
+.m-slider-thumb { position: absolute; left: calc(40% - var(--slider-thumb) / 2); width: var(--slider-thumb); height: var(--slider-thumb); border: 2px solid var(--accent); border-radius: 50%; background: var(--paper); }
+.vn-nav { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 8px; padding: 0; list-style: none; font-size: 14px; }
+.vn-nav li { margin: 0; }
+.vn-nav a { display: inline-flex; align-items: center; min-height: 40px; }
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --accent: oklch(from var(--brand) 0.78 calc(c * 1.2) h);
+    --paper: color-mix(in srgb, var(--accent) 6%, #1c1c1e);
+    --page: color-mix(in srgb, var(--accent) 4%, #121213);
+    --ink: color-mix(in srgb, var(--accent) 12%, #e8e8ea);
+    --muted: color-mix(in srgb, var(--accent) 16%, #a6a6aa);
+    --line: color-mix(in srgb, var(--accent) 14%, #2e2e32);
+    --line-strong: color-mix(in srgb, var(--accent) 22%, #3c3c42);
+    --panel: color-mix(in srgb, var(--accent) 8%, var(--paper));
+    --highlight: color-mix(in srgb, var(--accent) 14%, var(--paper));
+    --on-accent: #121213;
+    --reference: color-mix(in srgb, var(--muted) 60%, var(--paper));
+    --success: #8fd0a8;
+    --success-bg: #1c3326;
+    --warning: #e3bd6a;
+    --warning-bg: #3a2e14;
+    --danger: #f0a397;
+    --danger-bg: #3d211d;
+    --info: #9dbbe0;
+    --info-bg: #1f2a3a;
+    --image-outline: rgb(255 255 255 / 10%);
+    --shadow-border: 0 0 0 1px rgb(255 255 255 / 8%);
+    --shadow-border-hover: 0 0 0 1px rgb(255 255 255 / 13%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (max-width: 700px) {
+  header, main, footer { padding: 24px 16px; }
+  header { padding-top: 40px; }
+  section { padding: 24px 18px; }
+  .split, .compare { grid-template-columns: 1fr; }
+  .stats { gap: 12px; }
+  .stats strong { font-size: 30px; }
+}
+@media (max-width: 420px) {
+  .stats { grid-template-columns: 1fr; }
+  .step { grid-template-columns: 30px 1fr; }
+}
+@media print {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  :root { background: var(--paper); }
+  header, main, footer { max-width: none; padding: 16px 0; }
+  nav, .skip, .copy-row { display: none; }
+  section { border-radius: 0; border: 0; border-top: 1px solid var(--line); padding: 24px 0; }
+  .table { overflow: visible; }
+  .wide { min-width: 0; }
+  th, td { overflow-wrap: anywhere; }
+  .split { grid-template-columns: 1fr; }
+  figure, tr, .panel, .compare { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .recommendation, .panel, .bar, .badge, .stage, .m-btn, .m-badge, .m-item { print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v8a2 2 0 0 1-2 2h-3v-6H9v6H6a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l2.5-8h11L20 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 13h5l1 2h4l1-2h5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 20V10M12 20V4M19 20v-7"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .8 3 3 3 6"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="4"/><rect x="3" y="13" width="8" height="8" rx="4"/><rect x="13" y="13" width="8" height="8" rx="2"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+  <symbol id="i-bold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M7 5h6a3.5 3.5 0 0 1 0 7H7zM7 12h7a3.5 3.5 0 0 1 0 7H7z"/></symbol>
+  <symbol id="i-italic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M10 5h8M6 19h8M14 5l-4 14"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></symbol>
+</svg>
+<a class="skip" href="#samenvatting">Naar de samenvatting</a>
+<header>
+  <p class="eyebrow">Flux / plan v4 / 28 september 2026</p>
+  <h1>Flux v4: compacter in één sweep</h1>
+  <p class="intro">Breng Flux naar de dichtheid van react-ui zonder het 3px-grid los te laten: controls van 42 naar 33 pixels, tabelrijen van 48 naar 36 en kleinere binnenafstanden. De basistekst blijft 15/24. Een kleine laag roltokens maakt een opt-in <code>comfortable</code>-preset mogelijk die de v3-maten grotendeels terugzet, zonder density-prop.</p>
+  <p class="status">Voorstel, wacht op drie besluiten</p>
+  <p class="caption">Gemeten op <code>feat/filter-package</code> @ <code>51786407</code> (Flux) en <code>main</code> @ <code>edda9e4</code> (react-ui). react-ui-waarden zijn uitgerekend bij de 15px root die AfterMotion zet (<code>apps/client/src/styles.css:65</code>).</p>
+  <nav aria-label="Inhoud">
+    <a href="#samenvatting">Samenvatting</a>
+    <a href="#nu">Waar Flux nu staat</a>
+    <a href="#grid">Grid</a>
+    <a href="#schaal">Nieuwe schaal</a>
+    <a href="#voor-na">Voor en na</a>
+    <a href="#compat">Compatibiliteit</a>
+    <a href="#aanpak">Aanpak</a>
+    <a href="#werkwijze">Werkwijze</a>
+    <a href="#besluiten">Besluiten</a>
+  </nav>
+</header>
+<main>
+  <section id="samenvatting" class="recommendation">
+    <h2>Samenvatting</h2>
+    <p>Flux is gebouwd rond controls van 42px en ruime binnenafstanden. Dat geeft een ruim, bijna touch-achtig gevoel. react-ui draait op 32px controls, en dat is de dichtheid die je wilt. Die is op het 3px-grid te halen: 33px in plaats van 32 is een verschil dat niemand ziet.</p>
+    <div class="stats">
+      <div><strong>42 → 33</strong><span>px, knop, invoerveld en menu-item</span></div>
+      <div><strong>48 → 36</strong><span>px, tabelrij</span></div>
+      <div><strong>15/24</strong><span>basistekst en regelhoogte blijven</span></div>
+      <div><strong>≈ 1.000</strong><span>hard-coded maten om te herzien</span></div>
+    </div>
+    <p>Het advies in vier punten:</p>
+    <ol>
+      <li>Houd het 3px-grid, zonder uitzonderingen buiten de hairlines van 1 en 2px. Voeg één regel toe: bij een control is hoogte min regelhoogte een even getal, zodat tekst op een hele pixel centreert.</li>
+      <li>Laat de typetokens staan. Controls kiezen een stap kleinere tekst (knop en menu-item <code>small</code>, tooltip <code>xsmall</code>) en koppen krijgen een strakkere regelhoogte.</li>
+      <li>Voeg zo'n 25 roltokens toe voor controlhoogtes, veld, menu-item, tabelcel, pane en app-shell. De rest van de spacing blijft letterlijke px op het grid, bewaakt door een CI-check.</li>
+      <li>Geen density-prop. Lever wel een opt-in preset die de roltokens terugzet naar v3, als overgangshulp die in v5 weer weg kan.</li>
+    </ol>
+  </section>
+
+  <section id="nu">
+    <h2>Waar Flux nu staat</h2>
+    <p>Flux kent geen spacingtokens. Alle marges, paddings en hoogtes staan als letterlijke pixels in de CSS-modules. Een telling over <code>packages/*/src/css/**/*.scss</code> vindt in padding, margin, gap, inset, height en width ruim 1.160 px-waarden. Zonder de hairlines van 1 en 2px blijven er ongeveer 1.000 over. De top vijf: 9px (153), 6px (139), 12px (133), 3px (92) en 15px (87).</p>
+    <p>Tekst is beter georganiseerd: 167 plekken gebruiken <code>mixin.text()</code> of een <code>--font-size-*</code>-token, tegenover 48 hard-coded <code>font-size</code>-waarden (vooral iconen van 16, 18 en 20px). <code>small</code> is met 71 plekken de meest gebruikte stap.</p>
+    <div class="table">
+      <table class="wide">
+        <caption>Flux v3 tegenover react-ui, bij gelijke 15px root</caption>
+        <thead><tr><th>Element</th><th>Flux v3</th><th>react-ui</th></tr></thead>
+        <tbody>
+          <tr><td>Basistekst</td><td>15/24<span class="src">variables.scss:24</span></td><td>body 14/21, UI-tekst 13/19<span class="src">theme.css:158, 232</span></td></tr>
+          <tr><td>Knop, standaard</td><td>42 hoog, 12 padding, 15px, icoon 18, gap 12<span class="src">base/Button.module.scss:6, 13, 19, 81</span></td><td>32 hoog, 12 padding, 13px medium, icoon 16, gap 6<span class="src">Button.tsx:24, 37</span></td></tr>
+          <tr><td>Knop, klein</td><td>36 hoog, 9 padding</td><td>28 hoog, 10 padding (xs: 24)</td></tr>
+          <tr><td>Invoerveld</td><td>42 hoog, 12 padding, 15px<span class="src">Form.module.scss:226</span></td><td>32 hoog, 10 padding, 14px, radius 8<span class="src">theme.css:282</span></td></tr>
+          <tr><td>Label tot veld</td><td>6 gap, label 24 hoog</td><td>6 gap, hint 13px<span class="src">Field.tsx:64</span></td></tr>
+          <tr><td>Menu-item</td><td>min. 42 hoog, 15px, gap 15<span class="src">Menu.module.scss:91</span></td><td>6/10 padding, 14/21, dus 33 hoog, gap 10<span class="src">theme.css:341</span></td></tr>
+          <tr><td>Menu-paneel</td><td>9 padding</td><td>4 padding, radius 10</td></tr>
+          <tr><td>Tabelcel</td><td>12/15 padding, rij ≈ 48<span class="src">Table.module.scss:74</span></td><td>geen tabel; <code>ListRow</code> 28 of 32<span class="src">ListRow.tsx:8</span></td></tr>
+          <tr><td>Segmented control</td><td>30 / 36 / 48<span class="src">SegmentedControl.module.scss:66</span></td><td>track 32, items 28<span class="src">Segmented.tsx:28</span></td></tr>
+          <tr><td>Tooltip</td><td>14px, 9/15 padding<span class="src">Tooltip.module.scss:29</span></td><td>13px, 5/9 padding<span class="src">Tooltip.tsx:52</span></td></tr>
+          <tr><td>Badge</td><td>28 hoog, -2 margin-block<span class="src">Badge.module.scss:9</span></td><td>n.v.t.</td></tr>
+          <tr><td>Pane / dialog</td><td>18 padding, dialog max. 420<span class="src">Pane.module.scss:65</span></td><td>dialog 420 breed, 20 padding<span class="src">dialog/parts.tsx:13</span></td></tr>
+          <tr><td>Kop van een paneel</td><td>app-topbar 66<span class="src">Application.module.scss:12</span></td><td><code>PanelHeader</code> 48<span class="src">PanelHeader.tsx:22</span></td></tr>
+          <tr><td>Radius</td><td>12 voor bijna alles (127 keer <code>var(--radius)</code>)</td><td>6 knop, 8 veld, 10 menu, 14 dialog</td></tr>
+          <tr><td>Grid</td><td>3px</td><td>4px-eenheid (<code>round(.25rem, 1px)</code>), met 6 en 10 binnen controls</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Het verschil zit dus vooral in de controlhoogte (10px per control) en de binnenafstanden. De tekst verschilt 1 tot 2px per stap, en dat laat dit plan grotendeels zo. Pane-padding scheelt maar 2px; de ruimte die je als "te groot" ervaart, komt uit de optelsom van hoge rijen en de 24px regelhoogte.</p>
+  </section>
+
+  <section id="grid">
+    <h2>Grid: 3px blijft</h2>
+    <p>De 24px-regel van 15px tekst is een veelvoud van 3, en de react-ui-maten liggen er steeds hooguit 1px naast. Het 3px-grid blijft dus één regel zonder uitzonderingen, en een check kan hem controleren. Een 4px-grid zou halve stappen van 2, 6 en 10 nodig hebben om op dezelfde maten uit te komen, en dan is het geen systeem meer.</p>
+    <div class="split">
+      <div class="panel">
+        <h3>Wat het oplevert</h3>
+        <p>Controls van 27, 33, 39 en 45 tegenover react-ui's 28, 32, 36 en 40. Tabelrij 36 = 24 + 2 × 6. Segmented-tracks van 27, 33 en 39 lijnen uit met de knoppen ernaast.</p>
+        <p><code>CLAUDE.md</code>, de flux-ui-skill en de memory blijven kloppen, net als de sectie over de 24px line box.</p>
+      </div>
+      <div class="panel">
+        <h3>De ene nieuwe regel</h3>
+        <p>Hoogte min regelhoogte moet even zijn, anders staat de tekst een halve pixel uit het midden. 33 met 14/21 geeft 6 boven en onder; 33 met 15/24 geeft 4,5.</p>
+        <p>Daarom krijgen knoppen, menu-items en tab-pills in v4 14/21-tekst. Invoervelden blijven 15px: daar centreert het native <code>input</code>-element zelf.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="schaal">
+    <h2>Nieuwe schaal</h2>
+    <h3>Typografie</h3>
+    <p>De typetokens blijven zoals ze zijn. De 167 aanroepen van <code>mixin.text()</code> veranderen niet, en <code>rem</code> in consumerende apps ook niet. Compacter worden de componenten doordat ze een kleinere stap kiezen, en koppen krijgen een strakkere regelhoogte.</p>
+    <div class="table">
+      <table>
+        <thead><tr><th>Token</th><th class="num">v3</th><th class="num">v4</th><th>Gebruikt door, nieuw in v4</th></tr></thead>
+        <tbody>
+          <tr><td><code>2xsmall</code></td><td class="num">12/18</td><td class="num">12/18</td><td></td></tr>
+          <tr><td><code>xsmall</code></td><td class="num">13/18</td><td class="num">13/18</td><td>tooltip, badge</td></tr>
+          <tr><td><code>small</code></td><td class="num">14/21</td><td class="num">14/21</td><td>knop, menu-item, tab-pill, segmented, chip</td></tr>
+          <tr><td><code>default</code></td><td class="num">15/24</td><td class="num">15/24</td><td>lopende tekst, velden, tabelcellen</td></tr>
+          <tr><td><code>large</code></td><td class="num">16/24</td><td class="num">16/24</td><td>pane-kop, app-topbar</td></tr>
+          <tr><td><code>xlarge</code></td><td class="num">18/27</td><td class="num">18/27</td><td></td></tr>
+          <tr><td><code>h2</code></td><td class="num">21/33</td><td class="num">21/30</td><td>typography.scss</td></tr>
+          <tr><td><code>h1</code></td><td class="num">27/42</td><td class="num">27/36</td><td>typography.scss</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Controls en containers</h3>
+    <p>Deze maten worden roltokens: één plek per maat, en het aangrijpingspunt voor de preset in <a href="#compat">Compatibiliteit</a>.</p>
+    <div class="table">
+      <table class="wide">
+        <thead><tr><th>Rol</th><th>v3</th><th>v4</th></tr></thead>
+        <tbody>
+          <tr><td>Knop small / medium / large / xl</td><td>36 / 42 / 48 / 54, 15/24</td><td>27 / 33 / 39 / 45, 14/21</td></tr>
+          <tr><td>Knop: padding, icoon, gap</td><td>9 / 12 / 15 / 18, 18, 12</td><td>9 / 12 / 15 / 18, 3 minder aan de icoonkant; 16, 6</td></tr>
+          <tr><td>Invoerveld</td><td>42 (klein 34), padding 12</td><td>33 (klein 27), padding 9</td></tr>
+          <tr><td>Formulier: rij / sectie / form</td><td>18 / 18 / 42</td><td>15 / 15 / 24</td></tr>
+          <tr><td>Checkbox, gap, tussen opties</td><td>20, 12, 12</td><td>18, 9, 6</td></tr>
+          <tr><td>Menu-item, large</td><td>42, 48; gap 15</td><td>33, 39; gap 9</td></tr>
+          <tr><td>Menu-paneel padding</td><td>9</td><td>3</td></tr>
+          <tr><td>Tabelcel, <code>--table-spacing</code></td><td>12/15 (rij 48), 18</td><td>6/12 (rij 36), 15</td></tr>
+          <tr><td>Tabs: padding, gap, pill</td><td>12, 27, 36</td><td>6, 18, 27</td></tr>
+          <tr><td>Segmented item small / medium / large</td><td>30 / 36 / 48</td><td>21 / 27 / 33, track 27 / 33 / 39</td></tr>
+          <tr><td>Chip</td><td>36, padding 12</td><td>27, padding 9</td></tr>
+          <tr><td>Badge small / medium / large</td><td>21 / 28 / 33</td><td>21 / 24 / 30; medium zonder negatieve marge</td></tr>
+          <tr><td>Tooltip</td><td>14/21, 9/15</td><td>13/18, 6/9</td></tr>
+          <tr><td>Pane padding, kop-gap</td><td>18, 15</td><td>15, 12</td></tr>
+          <tr><td>Snackbar padding, breedte</td><td>15/18, 570</td><td>12/15, 480</td></tr>
+          <tr><td>App-topbar, menu, ingeklapt</td><td>66, 300, 69</td><td>48, 240, 54</td></tr>
+          <tr><td>Radius control / container / klein</td><td>12 / 12 / 6</td><td>8 / 12 / 4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Radius valt buiten het grid, net als font-size. De split is nieuw: vandaag dekt <code>--radius</code> zowel knoppen als panes. Een pane met 8px radius oogt te hoekig, een knop van 33px met 12px te rond. Welke van de 127 plekken container zijn, moet in de sweep per component blijken.</p>
+
+    <h3>Overige componenten</h3>
+    <p>Geen roltokens, wel dezelfde mapping. Deze maten staan achter de extra voorbeelden in <a href="#voor-na">Voor en na</a>.</p>
+    <div class="table">
+      <table class="wide">
+        <thead><tr><th>Component</th><th>v3</th><th>v4</th></tr></thead>
+        <tbody>
+          <tr><td>Notice: padding, gap, icoon</td><td>12/15, 12, 20</td><td>9/12, 9, 16</td></tr>
+          <tr><td>Breadcrumb-link, paginering</td><td>30, 36</td><td>24, 30</td></tr>
+          <tr><td>Stepper-stap, voortgangsbalk</td><td>33, 9</td><td>27, 6</td></tr>
+          <tr><td>Timeline: icoon, gap, tussen items</td><td>36, 21, 15</td><td>27, 15, 12</td></tr>
+          <tr><td>Expandable-kop, padding</td><td>54, 18</td><td>42, 15</td></tr>
+          <tr><td>Description list, rij / kolom</td><td>12 / 24</td><td>9 / 18</td></tr>
+          <tr><td>Tree view: rij, inspringing</td><td>42, 24</td><td>33, 21</td></tr>
+          <tr><td>Command palette: breedte, zoekveld, tab</td><td>600, 54, 30</td><td>540, 42, 24</td></tr>
+          <tr><td>Kanban: padding, gap</td><td>12, 12</td><td>9, 9</td></tr>
+          <tr><td>Comment-ballon, gap</td><td>12/18, 15</td><td>9/12, 9</td></tr>
+          <tr><td>KPI: ruimte boven de waarde</td><td>18</td><td>12</td></tr>
+          <tr><td>Filterbalk gap, filtermenu breedte</td><td>15, 300</td><td>9, 270</td></tr>
+          <tr><td>Radio, slider-track, slider-duim</td><td>20, 12, 24</td><td>18, 6, 18</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Mappingtabel voor de overige spacing</h3>
+    <p>Voor de ruim 1.000 binnenafstanden die geen roltoken worden. Alles blijft binnen het 3px-systeem, ruwweg een stap kleiner. Iconen, avatars en afbeeldingen vallen erbuiten.</p>
+    <div class="table">
+      <table>
+        <thead><tr><th class="num">v3</th><th class="num">v4</th><th>Opmerking</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1, 2</td><td class="num">1, 2</td><td>hairlines, blijven</td></tr>
+          <tr><td class="num">3, 6</td><td class="num">3, 6</td><td>al klein, blijven</td></tr>
+          <tr><td class="num">9</td><td class="num">6</td><td></td></tr>
+          <tr><td class="num">12</td><td class="num">9</td><td></td></tr>
+          <tr><td class="num">15</td><td class="num">12</td><td></td></tr>
+          <tr><td class="num">18</td><td class="num">12 of 15</td><td>handmatig: binnen een component 12, containerrand 15</td></tr>
+          <tr><td class="num">21</td><td class="num">15</td><td></td></tr>
+          <tr><td class="num">24</td><td class="num">24 of 18</td><td>handmatig: regelhoogte en icoon blijven 24, afstand wordt 18</td></tr>
+          <tr><td class="num">27, 30</td><td class="num">21, 24</td><td></td></tr>
+          <tr><td class="num">36, 42, 48</td><td class="num">27, 33, 36</td><td>meestal hoogtes, vaak al roltoken</td></tr>
+          <tr><td class="num">54, 60</td><td class="num">42, 45</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="voor-na">
+    <h2>Voor en na</h2>
+    <p>Dezelfde markup, gerenderd met de v3- en de v4-maten uit de tabellen hierboven. Kleuren en vormen zijn vereenvoudigd; alleen de maten tellen. Het lettertype is Inter als dat lokaal is geïnstalleerd, anders de systeemletter.</p>
+    <ul class="vn-nav" aria-label="Componenten in deze sectie">
+      <li><a href="#vn-shell">Applicatie-shell</a></li>
+      <li><a href="#vn-knoppen">Knoppen</a></li>
+      <li><a href="#vn-tabs">Tabs en segmented control</a></li>
+      <li><a href="#vn-formulier">Formulier</a></li>
+      <li><a href="#vn-checkbox">Checkboxen</a></li>
+      <li><a href="#vn-menu">Menu</a></li>
+      <li><a href="#vn-chips">Chips en badges</a></li>
+      <li><a href="#vn-tooltip">Tooltip</a></li>
+      <li><a href="#vn-pane">Pane met badge in lopende tekst</a></li>
+      <li><a href="#vn-snackbar">Snackbar</a></li>
+      <li><a href="#vn-notice">Notice</a></li>
+      <li><a href="#vn-navigatie">Breadcrumb en paginering</a></li>
+      <li><a href="#vn-toolbar">Toolbar</a></li>
+      <li><a href="#vn-voortgang">Stepper en voortgang</a></li>
+      <li><a href="#vn-timeline">Timeline</a></li>
+      <li><a href="#vn-expandable">Expandable</a></li>
+      <li><a href="#vn-descriptionlist">Description list</a></li>
+      <li><a href="#vn-persona">Avatar en persona</a></li>
+      <li><a href="#vn-tree">Tree view</a></li>
+      <li><a href="#vn-palette">Command palette</a></li>
+      <li><a href="#vn-kanban">Kanban</a></li>
+      <li><a href="#vn-comment">Comment</a></li>
+      <li><a href="#vn-kpi">KPI-tegels (statistics)</a></li>
+      <li><a href="#vn-filter">Filterbalk</a></li>
+      <li><a href="#vn-keuzes">Radio en slider</a></li>
+    </ul>
+
+    <h3 id="vn-shell">Applicatie-shell</h3>
+    <div class="compare stacked">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>menu 300, topbar 66, item 42, rij 48</span></p>
+        <div class="mock v3"><div class="m-app">
+          <div class="m-nav">
+            <div class="m-brand"><svg class="m-icon"><use href="#i-logo"/></svg>Acme</div>
+            <div class="m-item active"><svg class="m-icon"><use href="#i-home"/></svg>Overzicht</div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-inbox"/></svg>Facturen<span class="kbd">12</span></div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-users"/></svg>Klanten</div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-chart"/></svg>Rapportages</div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-gear"/></svg>Instellingen</div>
+          </div>
+          <div>
+            <div class="m-top">Facturen<span class="m-btn primary"><svg class="m-icon"><use href="#i-plus"/></svg>Nieuwe factuur</span></div>
+            <div class="m-main-body"><table class="m-table">
+              <thead><tr><th>Klant</th><th>Status</th><th>Bedrag</th></tr></thead>
+              <tbody>
+                <tr><td>De Vries B.V.</td><td><span class="m-badge success">Betaald</span></td><td>€ 1.240</td></tr>
+                <tr><td>Jansen &amp; Zn.</td><td><span class="m-badge">Open</span></td><td>€ 860</td></tr>
+                <tr><td>Bakker Media</td><td><span class="m-badge danger">Te laat</span></td><td>€ 2.115</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>menu 240, topbar 48, item 33, rij 36</span></p>
+        <div class="mock v4"><div class="m-app">
+          <div class="m-nav">
+            <div class="m-brand"><svg class="m-icon"><use href="#i-logo"/></svg>Acme</div>
+            <div class="m-item active"><svg class="m-icon"><use href="#i-home"/></svg>Overzicht</div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-inbox"/></svg>Facturen<span class="kbd">12</span></div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-users"/></svg>Klanten</div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-chart"/></svg>Rapportages</div>
+            <div class="m-item"><svg class="m-icon"><use href="#i-gear"/></svg>Instellingen</div>
+          </div>
+          <div>
+            <div class="m-top">Facturen<span class="m-btn primary"><svg class="m-icon"><use href="#i-plus"/></svg>Nieuwe factuur</span></div>
+            <div class="m-main-body"><table class="m-table">
+              <thead><tr><th>Klant</th><th>Status</th><th>Bedrag</th></tr></thead>
+              <tbody>
+                <tr><td>De Vries B.V.</td><td><span class="m-badge success">Betaald</span></td><td>€ 1.240</td></tr>
+                <tr><td>Jansen &amp; Zn.</td><td><span class="m-badge">Open</span></td><td>€ 860</td></tr>
+                <tr><td>Bakker Media</td><td><span class="m-badge danger">Te laat</span></td><td>€ 2.115</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <p class="caption">In de tabelrij van v3 steekt de badge van 28px 2px boven en onder de regel uit, opgevangen door de negatieve marge. In v4 past de badge van 24px precies.</p>
+
+    <h3 id="vn-knoppen">Knoppen</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>42px, 15/24</span></p>
+        <div class="mock v3"><div class="m-row">
+          <span class="m-btn primary"><svg class="m-icon"><use href="#i-plus"/></svg>Nieuw project</span>
+          <span class="m-btn">Annuleren</span>
+          <span class="m-btn square" aria-label="Meer"><svg class="m-icon"><use href="#i-more"/></svg></span>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>33px, 14/21, icoonkant 9</span></p>
+        <div class="mock v4"><div class="m-row">
+          <span class="m-btn primary"><svg class="m-icon"><use href="#i-plus"/></svg>Nieuw project</span>
+          <span class="m-btn">Annuleren</span>
+          <span class="m-btn square" aria-label="Meer"><svg class="m-icon"><use href="#i-more"/></svg></span>
+        </div></div>
+      </div>
+    </div>
+
+    <p class="caption">Een glyph heeft binnen zijn box eigen lucht (het plusje ruim 2px per kant), dus bij gelijke padding oogt de icoonkant breder. v4 haalt daar 3px padding weg, zodat icoon en tekst optisch even ver van de rand staan. Flux v3 compenseert niet en duwt het icoon met <code>margin: 1px</code> op <code>.buttonIcon</code> zelfs iets verder naar binnen (<code>base/Button.module.scss:79</code>).</p>
+
+    <h3 id="vn-tabs">Tabs en segmented control</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>tab 48, segmented 36</span></p>
+        <div class="mock v3"><div class="m-stack">
+          <div class="m-tabs"><span class="m-tab active">Algemeen</span><span class="m-tab">Leden</span><span class="m-tab">Facturatie</span></div>
+          <div><span class="m-seg"><span class="active">Lijst</span><span>Bord</span><span>Kalender</span></span></div>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>tab 36, segmented 33</span></p>
+        <div class="mock v4"><div class="m-stack">
+          <div class="m-tabs"><span class="m-tab active">Algemeen</span><span class="m-tab">Leden</span><span class="m-tab">Facturatie</span></div>
+          <div><span class="m-seg"><span class="active">Lijst</span><span>Bord</span><span>Kalender</span></span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-formulier">Formulier</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>2 velden: 189px</span></p>
+        <div class="mock v3"><div class="m-form">
+          <div class="m-field"><span class="m-label">Naam</span><span class="m-input">Kwartaalrapport</span></div>
+          <div class="m-field"><span class="m-label">E-mailadres</span><span class="m-input">naam@voorbeeld.nl</span><span class="m-help">We sturen hier de export naartoe.</span></div>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>2 velden: 168px</span></p>
+        <div class="mock v4"><div class="m-form">
+          <div class="m-field"><span class="m-label">Naam</span><span class="m-input">Kwartaalrapport</span></div>
+          <div class="m-field"><span class="m-label">E-mailadres</span><span class="m-input">naam@voorbeeld.nl</span><span class="m-help">We sturen hier de export naartoe.</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-checkbox">Checkboxen</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>vak 20, gap 12</span></p>
+        <div class="mock v3"><div class="m-checks">
+          <div class="m-check"><span class="m-box on"><svg><use href="#i-check"/></svg></span><span>E-mail bij nieuwe factuur<small>Eén bericht per factuur, direct na het versturen.</small></span></div>
+          <div class="m-check"><span class="m-box on"><svg><use href="#i-check"/></svg></span><span>Wekelijkse samenvatting</span></div>
+          <div class="m-check"><span class="m-box"></span><span>Herinnering bij te late betaling</span></div>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>vak 18, gap 9</span></p>
+        <div class="mock v4"><div class="m-checks">
+          <div class="m-check"><span class="m-box on"><svg><use href="#i-check"/></svg></span><span>E-mail bij nieuwe factuur<small>Eén bericht per factuur, direct na het versturen.</small></span></div>
+          <div class="m-check"><span class="m-box on"><svg><use href="#i-check"/></svg></span><span>Wekelijkse samenvatting</span></div>
+          <div class="m-check"><span class="m-box"></span><span>Herinnering bij te late betaling</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-menu">Menu</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>item 42, paneel 9</span></p>
+        <div class="mock v3"><div class="m-menu">
+          <div class="m-item"><svg class="m-icon"><use href="#i-doc"/></svg>Openen<span class="kbd">⌘O</span></div>
+          <div class="m-item active"><svg class="m-icon"><use href="#i-copy"/></svg>Dupliceren<span class="kbd">⌘D</span></div>
+          <div class="m-item"><svg class="m-icon"><use href="#i-share"/></svg>Delen</div>
+          <div class="m-sep"></div>
+          <div class="m-item"><svg class="m-icon"><use href="#i-trash"/></svg>Verwijderen</div>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>item 33, paneel 3</span></p>
+        <div class="mock v4"><div class="m-menu">
+          <div class="m-item"><svg class="m-icon"><use href="#i-doc"/></svg>Openen<span class="kbd">⌘O</span></div>
+          <div class="m-item active"><svg class="m-icon"><use href="#i-copy"/></svg>Dupliceren<span class="kbd">⌘D</span></div>
+          <div class="m-item"><svg class="m-icon"><use href="#i-share"/></svg>Delen</div>
+          <div class="m-sep"></div>
+          <div class="m-item"><svg class="m-icon"><use href="#i-trash"/></svg>Verwijderen</div>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-chips">Chips en badges</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>chip 36, badge 28</span></p>
+        <div class="mock v3"><div class="m-stack">
+          <div class="m-row"><span class="m-chip active">Alle</span><span class="m-chip">Open</span><span class="m-chip">Betaald</span><span class="m-chip">Te laat</span></div>
+          <div class="m-row"><span class="m-badge">Concept</span><span class="m-badge success">Actief</span><span class="m-badge warning">Wacht</span><span class="m-badge danger">Mislukt</span></div>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>chip 27, badge 24</span></p>
+        <div class="mock v4"><div class="m-stack">
+          <div class="m-row"><span class="m-chip active">Alle</span><span class="m-chip">Open</span><span class="m-chip">Betaald</span><span class="m-chip">Te laat</span></div>
+          <div class="m-row"><span class="m-badge">Concept</span><span class="m-badge success">Actief</span><span class="m-badge warning">Wacht</span><span class="m-badge danger">Mislukt</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-tooltip">Tooltip</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>14/21, padding 9/15</span></p>
+        <div class="mock v3"><span class="m-tip-wrap"><span class="m-tip">Kopieer de link naar deze factuur</span><span class="m-btn square" aria-label="Kopiëren"><svg class="m-icon"><use href="#i-copy"/></svg></span></span></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>13/18, padding 6/9</span></p>
+        <div class="mock v4"><span class="m-tip-wrap"><span class="m-tip">Kopieer de link naar deze factuur</span><span class="m-btn square" aria-label="Kopiëren"><svg class="m-icon"><use href="#i-copy"/></svg></span></span></div>
+      </div>
+    </div>
+
+    <h3 id="vn-pane">Pane met badge in lopende tekst</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>padding 18, badge 28 in regel van 24</span></p>
+        <div class="mock v3"><div class="m-pane">
+          <div class="m-pane-head">Synchronisatie</div>
+          <div class="m-pane-body">De koppeling met Exact is <span class="m-badge">actief</span> en draait elk uur. De laatste run verwerkte 214 facturen zonder fouten.</div>
+          <div class="m-pane-foot"><span class="m-btn">Logboek</span><span class="m-btn primary">Nu synchroniseren</span></div>
+        </div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>padding 15, badge 24 in regel van 24</span></p>
+        <div class="mock v4"><div class="m-pane">
+          <div class="m-pane-head">Synchronisatie</div>
+          <div class="m-pane-body">De koppeling met Exact is <span class="m-badge">actief</span> en draait elk uur. De laatste run verwerkte 214 facturen zonder fouten.</div>
+          <div class="m-pane-foot"><span class="m-btn">Logboek</span><span class="m-btn primary">Nu synchroniseren</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-snackbar">Snackbar</h3>
+    <div class="compare stacked">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>570 breed, padding 15/18</span></p>
+        <div class="mock v3"><div class="m-snack"><svg class="m-icon"><use href="#i-info"/></svg><span class="m-snack-text">Factuur verstuurd<small>De Vries B.V. ontvangt hem binnen een paar minuten.</small></span><span class="m-snack-action">Ongedaan maken</span></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>480 breed, padding 12/15</span></p>
+        <div class="mock v4"><div class="m-snack"><svg class="m-icon"><use href="#i-info"/></svg><span class="m-snack-text">Factuur verstuurd<small>De Vries B.V. ontvangt hem binnen een paar minuten.</small></span><span class="m-snack-action">Ongedaan maken</span></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-notice">Notice</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>padding 12/15, icoon 20</span></p>
+        <div class="mock v3"><div class="m-notice"><svg class="m-icon"><use href="#i-info"/></svg><div><strong>Nieuwe btw-tarieven.</strong> Vanaf 1 januari rekent Flux facturen automatisch met de nieuwe tarieven door.</div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>padding 9/12, icoon 16</span></p>
+        <div class="mock v4"><div class="m-notice"><svg class="m-icon"><use href="#i-info"/></svg><div><strong>Nieuwe btw-tarieven.</strong> Vanaf 1 januari rekent Flux facturen automatisch met de nieuwe tarieven door.</div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-navigatie">Breadcrumb en paginering</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>link 30, pagina 36</span></p>
+        <div class="mock v3"><div class="m-stack"><div class="m-crumbs"><span class="m-crumb"><svg class="m-icon"><use href="#i-home"/></svg>Home</span><svg class="m-icon"><use href="#i-chev-r"/></svg><span class="m-crumb">Klanten</span><svg class="m-icon"><use href="#i-chev-r"/></svg><span class="m-crumb current">De Vries B.V.</span></div><div class="m-pages"><span class="m-page"><svg class="m-icon"><use href="#i-chev-l"/></svg></span><span class="m-page">1</span><span class="m-page active">2</span><span class="m-page">3</span><span class="m-page">…</span><span class="m-page">12</span><span class="m-page"><svg class="m-icon"><use href="#i-chev-r"/></svg></span></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>link 24, pagina 30</span></p>
+        <div class="mock v4"><div class="m-stack"><div class="m-crumbs"><span class="m-crumb"><svg class="m-icon"><use href="#i-home"/></svg>Home</span><svg class="m-icon"><use href="#i-chev-r"/></svg><span class="m-crumb">Klanten</span><svg class="m-icon"><use href="#i-chev-r"/></svg><span class="m-crumb current">De Vries B.V.</span></div><div class="m-pages"><span class="m-page"><svg class="m-icon"><use href="#i-chev-l"/></svg></span><span class="m-page">1</span><span class="m-page active">2</span><span class="m-page">3</span><span class="m-page">…</span><span class="m-page">12</span><span class="m-page"><svg class="m-icon"><use href="#i-chev-r"/></svg></span></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-toolbar">Toolbar</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>54 hoog</span></p>
+        <div class="mock v3"><div class="m-toolbar"><span class="m-btn square on" aria-label="Vet"><svg class="m-icon"><use href="#i-bold"/></svg></span><span class="m-btn square" aria-label="Cursief"><svg class="m-icon"><use href="#i-italic"/></svg></span><span class="m-btn square" aria-label="Link"><svg class="m-icon"><use href="#i-link"/></svg></span><span class="m-vsep"></span><span class="m-btn square" aria-label="Lijst"><svg class="m-icon"><use href="#i-list"/></svg></span><span class="m-vsep"></span><span class="m-btn">Voorbeeld</span></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>45 hoog</span></p>
+        <div class="mock v4"><div class="m-toolbar"><span class="m-btn square on" aria-label="Vet"><svg class="m-icon"><use href="#i-bold"/></svg></span><span class="m-btn square" aria-label="Cursief"><svg class="m-icon"><use href="#i-italic"/></svg></span><span class="m-btn square" aria-label="Link"><svg class="m-icon"><use href="#i-link"/></svg></span><span class="m-vsep"></span><span class="m-btn square" aria-label="Lijst"><svg class="m-icon"><use href="#i-list"/></svg></span><span class="m-vsep"></span><span class="m-btn">Voorbeeld</span></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-voortgang">Stepper en voortgang</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>stap 33, balk 9</span></p>
+        <div class="mock v3"><div class="m-stack"><div class="m-stepper"><span class="m-step done">1</span><span class="m-step-line done"></span><span class="m-step done">2</span><span class="m-step-line"></span><span class="m-step">3</span><span class="m-step-line"></span><span class="m-step">4</span></div><div class="m-progress"><div class="m-progress-row"><span>Import van klanten</span><span>64%</span></div><div class="m-track"><span></span></div></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>stap 27, balk 6</span></p>
+        <div class="mock v4"><div class="m-stack"><div class="m-stepper"><span class="m-step done">1</span><span class="m-step-line done"></span><span class="m-step done">2</span><span class="m-step-line"></span><span class="m-step">3</span><span class="m-step-line"></span><span class="m-step">4</span></div><div class="m-progress"><div class="m-progress-row"><span>Import van klanten</span><span>64%</span></div><div class="m-track"><span></span></div></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-timeline">Timeline</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>icoon 36, gap 21</span></p>
+        <div class="mock v3"><div class="m-tl"><div class="m-tl-item"><span class="m-tl-icon"><svg class="m-icon"><use href="#i-mail"/></svg></span><div class="m-tl-body"><small>Vandaag, 09:12</small>Factuur verstuurd naar De Vries B.V.</div></div><div class="m-tl-item"><span class="m-tl-icon"><svg class="m-icon"><use href="#i-doc"/></svg></span><div class="m-tl-body"><small>Gisteren, 16:40</small>Concept aangemaakt door Sanne</div></div><div class="m-tl-item"><span class="m-tl-icon"><svg class="m-icon"><use href="#i-users"/></svg></span><div class="m-tl-body"><small>12 september</small>Klant toegevoegd</div></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>icoon 27, gap 15</span></p>
+        <div class="mock v4"><div class="m-tl"><div class="m-tl-item"><span class="m-tl-icon"><svg class="m-icon"><use href="#i-mail"/></svg></span><div class="m-tl-body"><small>Vandaag, 09:12</small>Factuur verstuurd naar De Vries B.V.</div></div><div class="m-tl-item"><span class="m-tl-icon"><svg class="m-icon"><use href="#i-doc"/></svg></span><div class="m-tl-body"><small>Gisteren, 16:40</small>Concept aangemaakt door Sanne</div></div><div class="m-tl-item"><span class="m-tl-icon"><svg class="m-icon"><use href="#i-users"/></svg></span><div class="m-tl-body"><small>12 september</small>Klant toegevoegd</div></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-expandable">Expandable</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>kop 54, padding 18</span></p>
+        <div class="mock v3"><div class="m-exp"><div class="m-exp-head">Betaalgegevens<svg class="m-icon"><use href="#i-chev-d"/></svg></div><div class="m-exp-body">IBAN, betaaltermijn en de standaard btw-code voor deze klant.</div><div class="m-exp-head">Contactpersonen<svg class="m-icon"><use href="#i-chev-r"/></svg></div><div class="m-exp-head">Notities<svg class="m-icon"><use href="#i-chev-r"/></svg></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>kop 42, padding 15</span></p>
+        <div class="mock v4"><div class="m-exp"><div class="m-exp-head">Betaalgegevens<svg class="m-icon"><use href="#i-chev-d"/></svg></div><div class="m-exp-body">IBAN, betaaltermijn en de standaard btw-code voor deze klant.</div><div class="m-exp-head">Contactpersonen<svg class="m-icon"><use href="#i-chev-r"/></svg></div><div class="m-exp-head">Notities<svg class="m-icon"><use href="#i-chev-r"/></svg></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-descriptionlist">Description list</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>gap 12 / 24</span></p>
+        <div class="mock v3"><dl class="m-dl"><dt>Klantnummer</dt><dd>K-10482</dd><dt>Contactpersoon</dt><dd>Sanne de Vries</dd><dt>Betaaltermijn</dt><dd>30 dagen</dd><dt>Btw-nummer</dt><dd>NL001234567B01</dd></dl></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>gap 9 / 18</span></p>
+        <div class="mock v4"><dl class="m-dl"><dt>Klantnummer</dt><dd>K-10482</dd><dt>Contactpersoon</dt><dd>Sanne de Vries</dd><dt>Betaaltermijn</dt><dd>30 dagen</dd><dt>Btw-nummer</dt><dd>NL001234567B01</dd></dl></div>
+      </div>
+    </div>
+
+    <h3 id="vn-persona">Avatar en persona</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>avatar 42, gap 12</span></p>
+        <div class="mock v3"><div class="m-personas"><div class="m-persona"><span class="m-avatar">SV</span><div><div class="m-persona-name">Sanne de Vries</div><div class="m-persona-sub">Boekhouding</div></div></div><div class="m-persona"><span class="m-avatar">TJ</span><div><div class="m-persona-name">Tom Jansen</div><div class="m-persona-sub">Verkoop</div></div></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>avatar 33, gap 9</span></p>
+        <div class="mock v4"><div class="m-personas"><div class="m-persona"><span class="m-avatar">SV</span><div><div class="m-persona-name">Sanne de Vries</div><div class="m-persona-sub">Boekhouding</div></div></div><div class="m-persona"><span class="m-avatar">TJ</span><div><div class="m-persona-name">Tom Jansen</div><div class="m-persona-sub">Verkoop</div></div></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-tree">Tree view</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>rij 42, inspringing 24</span></p>
+        <div class="mock v3"><div class="m-tree"><div class="m-tree-row"><svg class="m-icon"><use href="#i-chev-d"/></svg><svg class="m-icon"><use href="#i-folder"/></svg>Administratie</div><div class="m-tree-row" style="--depth: 1"><svg class="m-icon"><use href="#i-chev-d"/></svg><svg class="m-icon"><use href="#i-folder"/></svg>2026</div><div class="m-tree-row active" style="--depth: 2"><svg class="m-icon"><use href="#i-doc"/></svg>Kwartaal 3.pdf</div><div class="m-tree-row" style="--depth: 2"><svg class="m-icon"><use href="#i-doc"/></svg>Kwartaal 2.pdf</div><div class="m-tree-row" style="--depth: 1"><svg class="m-icon"><use href="#i-chev-r"/></svg><svg class="m-icon"><use href="#i-folder"/></svg>2025</div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>rij 33, inspringing 21</span></p>
+        <div class="mock v4"><div class="m-tree"><div class="m-tree-row"><svg class="m-icon"><use href="#i-chev-d"/></svg><svg class="m-icon"><use href="#i-folder"/></svg>Administratie</div><div class="m-tree-row" style="--depth: 1"><svg class="m-icon"><use href="#i-chev-d"/></svg><svg class="m-icon"><use href="#i-folder"/></svg>2026</div><div class="m-tree-row active" style="--depth: 2"><svg class="m-icon"><use href="#i-doc"/></svg>Kwartaal 3.pdf</div><div class="m-tree-row" style="--depth: 2"><svg class="m-icon"><use href="#i-doc"/></svg>Kwartaal 2.pdf</div><div class="m-tree-row" style="--depth: 1"><svg class="m-icon"><use href="#i-chev-r"/></svg><svg class="m-icon"><use href="#i-folder"/></svg>2025</div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-palette">Command palette</h3>
+    <div class="compare stacked">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>600 breed, zoekveld 54, item 42</span></p>
+        <div class="mock v3"><div class="m-cp"><div class="m-cp-search"><svg class="m-icon"><use href="#i-search"/></svg>Zoek of typ een opdracht</div><div class="m-cp-tabs"><span class="m-cp-tab active">Alles</span><span class="m-cp-tab">Klanten</span><span class="m-cp-tab">Facturen</span><span class="m-cp-tab">Opdrachten</span></div><div class="m-cp-res"><div class="m-item active"><svg class="m-icon"><use href="#i-doc"/></svg>Nieuwe factuur<span class="kbd">⌘N</span></div><div class="m-item"><svg class="m-icon"><use href="#i-users"/></svg>Klant zoeken</div><div class="m-item"><svg class="m-icon"><use href="#i-chart"/></svg>Omzetrapport openen</div><div class="m-item"><svg class="m-icon"><use href="#i-gear"/></svg>Instellingen</div></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>540 breed, zoekveld 42, item 33</span></p>
+        <div class="mock v4"><div class="m-cp"><div class="m-cp-search"><svg class="m-icon"><use href="#i-search"/></svg>Zoek of typ een opdracht</div><div class="m-cp-tabs"><span class="m-cp-tab active">Alles</span><span class="m-cp-tab">Klanten</span><span class="m-cp-tab">Facturen</span><span class="m-cp-tab">Opdrachten</span></div><div class="m-cp-res"><div class="m-item active"><svg class="m-icon"><use href="#i-doc"/></svg>Nieuwe factuur<span class="kbd">⌘N</span></div><div class="m-item"><svg class="m-icon"><use href="#i-users"/></svg>Klant zoeken</div><div class="m-item"><svg class="m-icon"><use href="#i-chart"/></svg>Omzetrapport openen</div><div class="m-item"><svg class="m-icon"><use href="#i-gear"/></svg>Instellingen</div></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-kanban">Kanban</h3>
+    <div class="compare stacked">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>padding en gap 12</span></p>
+        <div class="mock v3"><div class="m-kb"><div class="m-kb-col"><div class="m-kb-head">Te doen <span class="m-badge">3</span></div><div class="m-kb-body"><div class="m-kb-card">Offerte Bakker Media<small>Deadline vrijdag</small></div><div class="m-kb-card">Contract verlengen<small>De Vries B.V.</small></div></div></div><div class="m-kb-col"><div class="m-kb-head">Bezig <span class="m-badge">1</span></div><div class="m-kb-body"><div class="m-kb-card">Jaarafsluiting 2025<small>Sanne</small></div></div></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>padding en gap 9</span></p>
+        <div class="mock v4"><div class="m-kb"><div class="m-kb-col"><div class="m-kb-head">Te doen <span class="m-badge">3</span></div><div class="m-kb-body"><div class="m-kb-card">Offerte Bakker Media<small>Deadline vrijdag</small></div><div class="m-kb-card">Contract verlengen<small>De Vries B.V.</small></div></div></div><div class="m-kb-col"><div class="m-kb-head">Bezig <span class="m-badge">1</span></div><div class="m-kb-body"><div class="m-kb-card">Jaarafsluiting 2025<small>Sanne</small></div></div></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-comment">Comment</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>ballon 12/18, gap 15</span></p>
+        <div class="mock v3"><div class="m-comments"><div class="m-comment"><span class="m-avatar">SV</span><div class="m-comment-bubble">Kun je de betaaltermijn op 14 dagen zetten? Dat hebben we vorige week afgesproken.</div><div class="m-comment-foot"><span>Sanne</span><span>10 min geleden</span></div></div><div class="m-comment"><span class="m-avatar">TJ</span><div class="m-comment-bubble">Staat erin, gaat vanaf de volgende factuur mee.</div><div class="m-comment-foot"><span>Tom</span><span>2 min geleden</span></div></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>ballon 9/12, gap 9</span></p>
+        <div class="mock v4"><div class="m-comments"><div class="m-comment"><span class="m-avatar">SV</span><div class="m-comment-bubble">Kun je de betaaltermijn op 14 dagen zetten? Dat hebben we vorige week afgesproken.</div><div class="m-comment-foot"><span>Sanne</span><span>10 min geleden</span></div></div><div class="m-comment"><span class="m-avatar">TJ</span><div class="m-comment-bubble">Staat erin, gaat vanaf de volgende factuur mee.</div><div class="m-comment-foot"><span>Tom</span><span>2 min geleden</span></div></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-kpi">KPI-tegels (statistics)</h3>
+    <div class="compare stacked">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>padding 18, waarde 18 lager</span></p>
+        <div class="mock v3"><div class="m-kpis"><div class="m-kpi"><div class="m-kpi-label">Omzet</div><div class="m-kpi-value">€ 48.210</div><div class="m-kpi-foot">+12% t.o.v. vorige maand</div></div><div class="m-kpi"><div class="m-kpi-label">Open facturen</div><div class="m-kpi-value">23</div><div class="m-kpi-foot">+3 deze week</div></div><div class="m-kpi"><div class="m-kpi-label">Betaaltijd</div><div class="m-kpi-value">17 dagen</div><div class="m-kpi-foot">-2 dagen</div></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>padding 15, waarde 12 lager</span></p>
+        <div class="mock v4"><div class="m-kpis"><div class="m-kpi"><div class="m-kpi-label">Omzet</div><div class="m-kpi-value">€ 48.210</div><div class="m-kpi-foot">+12% t.o.v. vorige maand</div></div><div class="m-kpi"><div class="m-kpi-label">Open facturen</div><div class="m-kpi-value">23</div><div class="m-kpi-foot">+3 deze week</div></div><div class="m-kpi"><div class="m-kpi-label">Betaaltijd</div><div class="m-kpi-value">17 dagen</div><div class="m-kpi-foot">-2 dagen</div></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-filter">Filterbalk</h3>
+    <div class="compare stacked">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>gap 15, knoppen 42</span></p>
+        <div class="mock v3"><div class="m-filterbar"><span class="m-input"><svg class="m-icon"><use href="#i-search"/></svg>Zoeken</span><span class="m-btn">Status<svg class="m-icon"><use href="#i-chev-d"/></svg></span><span class="m-btn">Klant<svg class="m-icon"><use href="#i-chev-d"/></svg></span><span class="m-btn">Periode<svg class="m-icon"><use href="#i-chev-d"/></svg></span><span class="m-chip active">Te laat</span></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>gap 9, knoppen 33</span></p>
+        <div class="mock v4"><div class="m-filterbar"><span class="m-input"><svg class="m-icon"><use href="#i-search"/></svg>Zoeken</span><span class="m-btn">Status<svg class="m-icon"><use href="#i-chev-d"/></svg></span><span class="m-btn">Klant<svg class="m-icon"><use href="#i-chev-d"/></svg></span><span class="m-btn">Periode<svg class="m-icon"><use href="#i-chev-d"/></svg></span><span class="m-chip active">Te laat</span></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-keuzes">Radio en slider</h3>
+    <div class="compare">
+      <div class="stage">
+        <p class="stage-label"><strong>v3</strong><span>radio 20, track 12, duim 24</span></p>
+        <div class="mock v3"><div class="m-choices"><div class="m-radios"><div class="m-radio"><i class="on"></i>Maandelijks factureren</div><div class="m-radio"><i></i>Per kwartaal</div><div class="m-radio"><i></i>Per project</div></div><div class="m-slider"><div class="m-slider-track"><span></span></div><span class="m-slider-thumb"></span></div></div></div>
+      </div>
+      <div class="stage">
+        <p class="stage-label"><strong>v4</strong><span>radio 18, track 6, duim 18</span></p>
+        <div class="mock v4"><div class="m-choices"><div class="m-radios"><div class="m-radio"><i class="on"></i>Maandelijks factureren</div><div class="m-radio"><i></i>Per kwartaal</div><div class="m-radio"><i></i>Per project</div></div><div class="m-slider"><div class="m-slider-track"><span></span></div><span class="m-slider-thumb"></span></div></div></div>
+      </div>
+    </div>
+
+    <h3 id="vn-scherm">Wat er op een scherm past</h3>
+    <p>Hoogte van vier veelvoorkomende blokken, v3 als referentie (grijs), v4 in blauw.</p>
+    <div class="bar-label"><span>Tabel, 10 rijen</span><span>480 → 360 px (-25%)</span></div>
+    <div class="bar reference"><span style="width: 100%"></span></div>
+    <div class="bar"><span style="width: 75%"></span></div>
+    <div class="bar-label"><span>Menu, 8 items</span><span>361 → 277 px (-23%)</span></div>
+    <div class="bar reference"><span style="width: 100%"></span></div>
+    <div class="bar"><span style="width: 77%"></span></div>
+    <div class="bar-label"><span>Formulier, 6 velden</span><span>522 → 453 px (-13%)</span></div>
+    <div class="bar reference"><span style="width: 100%"></span></div>
+    <div class="bar"><span style="width: 87%"></span></div>
+    <div class="bar-label"><span>App-topbar</span><span>66 → 48 px (-27%)</span></div>
+    <div class="bar reference"><span style="width: 100%"></span></div>
+    <div class="bar"><span style="width: 73%"></span></div>
+    <p class="caption">Rekensom: tabelrij = regelhoogte + 2 × celpadding; menu = 2 × paneelpadding + items + 1px gaps; formulierveld = label 24 + 6 + veld, velden 18 of 15 uit elkaar.</p>
+  </section>
+
+  <section id="compat">
+    <h2>Backwards compatibility en density</h2>
+    <p>Drie routes. Ze verschillen in hoeveel een bestaande app moet doen, en in hoeveel Flux blijvend moet onderhouden.</p>
+    <div class="table">
+      <table class="wide">
+        <thead><tr><th>Route</th><th>Voor apps</th><th>Voor Flux</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><strong>A.</strong> Harde switch, alleen compact</td><td>Alles wordt in één keer kleiner, eigen layouts rond Flux kunnen schuiven</td><td>Simpelst; geen extra laag</td><td><span class="badge">mogelijk</span></td></tr>
+          <tr><td><strong>B.</strong> Harde switch + opt-in preset op roltokens</td><td>Eén attribuut zet controls en containers terug naar v3-maten; binnenafstanden blijven compact</td><td>Eén stylesheet met ~30 overrides, geen componentcode</td><td><span class="badge confirmed">advies</span></td></tr>
+          <tr><td><strong>C.</strong> <code>density</code>-prop per component</td><td>Fijnmazig per scherm of component</td><td>Prop en injection in elke component, elke maat in twee varianten, docs en tests verdubbelen</td><td><span class="badge danger">nu niet</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Route B levert het meeste op voor het minste werk, en het is precies de fundering die C later nodig zou hebben. Omdat custom properties overerven, werkt het attribuut ook op een subtree, bijvoorbeeld één oud formulier. Eén beperking: geteleporteerde overlays erven van hun teleport-doel, niet van de subtree. Een preset op een subtree geldt dus niet voor de menu's en tooltips die daaruit openen.</p>
+    <pre><code>// packages/components/src/css/variables.scss
+@mixin defaults {
+    --control-height-small: 27px;
+    --control-height-medium: 33px;
+    --control-height-large: 39px;
+    --control-height-xl: 45px;
+    --control-font-size: var(--font-size-small);
+    --control-line-height: var(--line-height-small);
+    --field-height: 33px;
+    --menu-item-height: 33px;
+    --table-cell-padding: 6px 12px;
+    --pane-padding: 15px;
+    --radius-control: 8px;
+    --radius-container: 12px;
+    // ...
+}
+
+// packages/components/src/css/comfortable.scss, opt-in
+[comfortable] {
+    --control-height-medium: 42px;
+    --control-font-size: var(--font-size-default);
+    --control-line-height: var(--line-height-default);
+    --field-height: 42px;
+    --menu-item-height: 42px;
+    --table-cell-padding: 12px 15px;
+    --pane-padding: 18px;
+    // ...
+}</code></pre>
+    <p>Het attribuut volgt de bestaande conventie van <code>[light]</code> en <code>[dark]</code>. De naam is een voorstel.</p>
+    <p>De preset zet v3 niet pixel-exact terug. Binnenafstanden die geen roltoken worden (de 9px-gap in een badge-groep, de 3px tussen menugroepen) blijven compact. Wie exact v3 wil, blijft op v3.</p>
+    <h3>Touch zonder prop</h3>
+    <p>33px is kleiner dan het aanbevolen touch-doel van 44px, en de application-package ondersteunt al safe areas, dus Flux draait ook op telefoons. Met roltokens kan dat zonder density-prop, en nog steeds op het grid:</p>
+    <pre><code>@media (pointer: coarse) {
+    :root {
+        --control-height-medium: 42px;
+        --field-height: 42px;
+        --menu-item-height: 45px;
+    }
+}</code></pre>
+  </section>
+
+  <section id="aanpak">
+    <h2>Aanpak</h2>
+    <ol class="steps">
+      <li class="step"><div>
+        <h3>Besluiten vastleggen</h3>
+        <p>Preset, touch en radius-split (zie <a href="#besluiten">Besluiten</a>). Voeg de even-regel en de roltokens toe aan <code>CLAUDE.md</code> en de flux-ui-skill; de secties over het 3px-grid en de 24px line box blijven.</p>
+        <p class="caption">Klaar als: de nieuwe regels staan in CLAUDE.md voordat er één CSS-regel verandert.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Tokenlaag</h3>
+        <p>Roltokens, radius-split en de nieuwe kopregelhoogtes in <code>variables.scss</code> en <code>typography.scss</code>. <code>$-sizes</code> in <code>base/Button.module.scss</code> en de size-maps van segmented control en badge lezen de roltokens. De knop krijgt 3px minder padding aan de kant van een leidend of volgend icoon, en de <code>margin: 1px</code> op <code>.buttonIcon</code> verdwijnt.</p>
+        <p class="caption">Klaar als: alle packages bouwen, en een override op <code>:root</code> de knophoogte overal verandert.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Gridcheck als CI-poort</h3>
+        <p><code>scripts/check-grid.ts</code>, naast <code>check-palette-refs.ts</code>. Hij meldt px-waarden in padding, margin, gap, inset, height en width die geen veelvoud van 3 zijn, met 1 en 2px als enige uitzondering. Eerst draait hij alleen als rapport. Hij vindt ook de ongeveer 50 plekken die nu al naast het grid liggen, vooral 20, 4, 16 en 8px.</p>
+        <p class="caption">Klaar als: de check in CI draait en aan het eind van de sweep groen is.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Codemod voor de eenduidige waarden</h3>
+        <p>Een script past de mappingtabel toe op 9, 12, 15, 21, 27, 30, 36, 42, 48, 54 en 60. De dubbelzinnige waarden 18 en 24 (samen 117 plekken) gaan naar een lijst voor handwerk. Icoon- en avatarmaten slaat het over.</p>
+        <p class="caption">Klaar als: alleen de handmatige lijst nog openstaat.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Handmatige pass per cluster</h3>
+        <p>In volgorde van impact: knop en formulier, dan menu, tabel en tabs, dan pane, overlay en snackbar, dan de application-shell. Daarna statistics, inclusief de ECharts-fonts in TypeScript (<code>util/series/defaults.ts:192</code> en <code>css/token/chart.scss</code>), en tot slot flow, ai, filter en visuals. Controleer per control de even-regel. De tree-geometrie staat dubbel: <code>TREE_STEP = 24</code> en <code>TREE_MARKER_SIZE = 22</code> in <code>composable/private/useTableTree.ts:4</code> moeten meebewegen met de CSS, en de marker van 22 ligt nu al naast het grid.</p>
+        <p class="caption">Klaar als: elke cluster een eigen commit heeft, zodat een terugdraai per cluster kan.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Visuele en technische controle</h3>
+        <p>Diff de effectieve waarde per selector uit de gebouwde dist-CSS, zoals bij eerdere CSS-refactors. Leg screenshots van de docs-previews in v3 en v4 naast elkaar, met de nadruk op overlays, tabellen en formulieren. <code>check-contrast.ts</code> en <code>check-palette-refs.ts</code> blijven groen.</p>
+        <p class="caption">Klaar als: geen preview overlapt of afgekapt is, in light en dark.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Docs en migratiegids</h3>
+        <p>Een v4-migratiepagina met de mappingtabel, de roltokens, de preset en de nieuwe kopregelhoogtes. Docs-voorbeelden die zelf px-maten zetten, gaan mee.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Beta en dogfooden</h3>
+        <p>Een <code>4.0.0-beta</code> in minstens één echte Flux-app, met en zonder preset, voordat v4 stable uitkomt.</p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section id="werkwijze">
+    <h2>Werkwijze</h2>
+    <p>Wat een script kan, doet een script. Het contract en de pilot doen Bas en de hoofdsessie samen. Pas de handmatige pass per cluster wordt een workflow; losse subagents die ieder hun eigen interpretatie van het plan maken, vallen af.</p>
+    <div class="table">
+      <table class="wide">
+        <thead><tr><th>Fase</th><th>Wie</th><th>Waarom</th></tr></thead>
+        <tbody>
+          <tr><td>1. Contract: regels in <code>CLAUDE.md</code>, tokenlaag, <code>base/Button</code>, <code>base/Pane</code></td><td>hoofdsessie met Bas</td><td>Eén hand. Daarna staat het vast en mag geen agent eraan komen.</td></tr>
+          <tr><td>2. <code>check-grid.ts</code> en de codemod</td><td>scripts</td><td>Ongeveer 900 van de 1.000 waarden zijn een mechanische mapping. Een tabel en een regex zijn voorspelbaarder dan een agent.</td></tr>
+          <tr><td>3. Pilot: knop en formulier</td><td>hoofdsessie met Bas</td><td>Laat zien welke afwegingen terugkomen. Die gaan als regels met voorbeelden in <code>reports/flux-v4-sweep-brief.md</code>.</td></tr>
+          <tr><td>4. Handmatige pass, negen clusters</td><td>workflow</td><td>Losse stukken, dezelfde brief, dezelfde controle. Na een aanpassing aan de brief draaien alleen de geraakte clusters opnieuw.</td></tr>
+          <tr><td>5. Build, dist-CSS-diff, screenshots, review</td><td>hoofdsessie met Bas</td><td>Agents zien niets; het visuele oordeel blijft bij Bas. Eén commit per cluster, na akkoord.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Clusters voor fase 4</h3>
+    <p>Elk cluster bezit zijn bestanden exclusief. <code>variables.scss</code>, <code>typography.scss</code>, de mixins en <code>base/*</code> liggen na fase 1 vast; alleen cluster 2 krijgt <code>mixin/tree-node.scss</code>, omdat die geometrie met <code>useTableTree.ts</code> samen moet bewegen.</p>
+    <div class="table">
+      <table class="wide">
+        <thead><tr><th>Cluster</th><th>Bestanden</th></tr></thead>
+        <tbody>
+          <tr><td>1. Menu en commando's</td><td>Menu, MenuFlyout, ContextMenu, CommandPalette, Action, Breadcrumb, Link, SpeedDial</td></tr>
+          <tr><td>2. Tabel, tree en tabs</td><td>Table, TreeView, TreeViewSelect, primitive/TreeNode, <code>mixin/tree-node.scss</code>, <code>useTableTree.ts</code>, Pagination, Tab, SegmentedControl, Toolbar, OverflowBar</td></tr>
+          <tr><td>3. Overlays en panes</td><td>Pane, LayerPane, Overlay, Sheet, Snackbar, Notice, Tooltip, PopConfirm, Flyout, HoverCard, Tour, Expandable, Info, Placeholder</td></tr>
+          <tr><td>4. Data en inhoud</td><td>Badge, Chip, Avatar, AvatarGroup, ActivityFeed, Timeline, Stepper, Progress, ProgressRing, Kanban, Calendar, DatePicker, Comment, DescriptionList, DropZone</td></tr>
+          <tr><td>5. Layout en overig</td><td>Gallery, Masonry, Grid, Flex, Layout, SplitView, SwipeActions, Remove, ReadMore, Prose, Text, Divider, Skeleton, Spinner, Color, FocalPoint, primitive/CoordinatePicker, Icon, BackToTop, Item, Fader, AdaptiveSlot, Root</td></tr>
+          <tr><td>6. Application</td><td><code>packages/application/src/css</code></td></tr>
+          <tr><td>7. Statistics</td><td><code>packages/statistics/src/css</code>, <code>util/series/defaults.ts</code></td></tr>
+          <tr><td>8. Flow en AI</td><td><code>packages/flow/src/css</code>, <code>packages/ai/src/css</code></td></tr>
+          <tr><td>9. Filter en visuals</td><td><code>packages/filter/src/css</code>, <code>packages/visuals/src/css</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Negen editors en één reviewer die de gridcheck, de even-regel en de afwegingslijsten van alle clusters naast de brief legt: tien agents. Een reviewer per cluster maakt er achttien van; dat loont pas als de eerste ronde veel afwijkingen oplevert.</p>
+
+    <h3>Randvoorwaarden</h3>
+    <ul>
+      <li>Agents bouwen niet. Parallelle <code>vite build</code>s van hetzelfde package schrijven in dezelfde <code>dist</code>. Ze draaien alleen <code>check-grid.ts</code> op hun eigen bestanden; de hoofdsessie bouwt één keer na afloop en leest de volledige output, ook de <code>unplugin:dts</code>-regels.</li>
+      <li>Elke agent levert naast zijn wijzigingen een lijst van afwegingen: selector, oude waarde, nieuwe waarde, welke regel uit de brief. Wat niet in de brief past, komt als open vraag terug in plaats van als gok.</li>
+      <li>Een workflow start alleen als Bas er op dat moment expliciet om vraagt.</li>
+      <li>Screenshots van de docs-previews hebben geserveerde docs nodig. De hoofdsessie start zelf geen dev server; <code>bun run --cwd docs dev</code> moet dan bij Bas draaien.</li>
+    </ul>
+
+    <h3 id="startprompt">Startprompt voor fase 1 tot en met 3</h3>
+    <p>Voor een verse sessie in de Flux-repo. De prompt voor fase 4 volgt uit de brief die de pilot oplevert.</p>
+    <p class="copy-row"><button type="button" id="copy-prompt">Kopieer de prompt</button> <span id="copy-status" role="status" aria-live="polite"></span></p>
+    <pre class="prompt"><code id="prompt-text">We gaan Flux v4 compacter maken. Het plan staat in reports/flux-v4-density.html (opgesteld 28 september 2026, gemeten op commit 51786407). Lees het helemaal, vooral "Nieuwe schaal", "Compatibiliteit", "Aanpak" en "Werkwijze". Het plan is leidend; wijk je ervan af, zeg dat dan en waarom.
+
+Deze sessie doet fase 1 tot en met 3: het contract, de scripts en de pilot. De handmatige pass over de negen clusters is fase 4 en is niet voor deze sessie. Gebruik geen subagents of workflow, tenzij ik erom vraag.
+
+Vast staat:
+- Het 3px-grid blijft. Elke padding, margin, gap, inset, height en width is een veelvoud van 3; alleen hairlines van 1 en 2px zijn een uitzondering. Font-size en border-radius vallen buiten het grid.
+- De even-regel: bij een control met vaste hoogte is hoogte min regelhoogte een even getal, zodat tekst op een hele pixel centreert.
+- De typetokens blijven gelijk (15/24 als basis). Alleen h2 wordt 21/30 en h1 27/36. Knoppen, menu-items, tab-pills en segmented items gebruiken small (14/21), tooltips xsmall.
+- Controls: knop 27 / 33 / 39 / 45, invoerveld 33 (klein 27), menu-item 33, tabelcel 6/12. Alle v4-maten staan in de tabellen van het rapport.
+- Een knop met een leidend of volgend icoon krijgt aan die kant 3px minder padding. De margin: 1px op .buttonIcon verdwijnt.
+- Maten die een app zou willen terugzetten worden roltokens (CSS custom properties in variables.scss). Alle andere spacing blijft een letterlijke px-waarde op het grid.
+
+Nog open, vraag het mij voordat je aan stap 3 begint: de comfortable-preset (wel of niet), automatisch groter onder pointer: coarse (wel of niet), en de radius-split (controls 8, containers 12, of één radius).
+
+Stappen:
+1. Controleer of de CSS sinds de meting veranderd is: git log --oneline 51786407..HEAD -- 'packages/*/src/css'. Noem wat relevant is.
+2. Stel de aanpassingen aan CLAUDE.md voor (even-regel, roltokens, icoonkant) en laat ze mij zien voordat je CSS aanraakt.
+3. Tokenlaag: variables.scss, typography.scss, base/Button.module.scss, base/Pane.module.scss en de size-maps van SegmentedControl en Badge.
+4. scripts/check-grid.ts naast scripts/check-palette-refs.ts, eerst in rapportmodus. Meld de telling per package, inclusief de plekken die nu al naast het grid liggen.
+5. Een codemod met de mappingtabel uit het rapport. Hij past alleen padding, margin, gap, inset en de hoogtes van controls aan. Width en height van iconen, avatars, afbeeldingen en vaste layoutbreedtes laat hij staan. De waarden 18 en 24 zet hij niet om maar schrijft hij naar een lijst voor handwerk. Laat mij de diffstat zien voordat je hem over alle packages draait.
+6. Pilot, met de hand: knop en formulier (base/Button, Button, Form, FormFader, FormRating, FormRepeater, primitive/Slider) plus de docs-voorbeelden die daar px-maten zetten. Bouw daarna components en lees de volledige output, ook de unplugin:dts-regels. Diff de effectieve waarde per selector uit de dist-CSS tegen main.
+7. Schrijf reports/flux-v4-sweep-brief.md: de afwegingen uit de pilot als regels met een voorbeeld, de clusterindeling uit het rapport, de bestanden die niemand mag aanraken en het uitvoerformaat per agent (selector, oud, nieuw, regel).
+8. Stop en rapporteer: diffstat, gridcheck-telling voor en na, de brief en de open vragen.
+
+Commit niets. Start geen dev server. Volg .editorconfig, de code-comments-skill en de flux-ui-skill.</code></pre>
+  </section>
+
+  <section id="besluiten">
+    <h2>Besluiten die bij jou liggen</h2>
+    <ol>
+      <li><strong>Preset.</strong> <code>[comfortable]</code> meeleveren als overgangshulp met een einddatum in v5 (advies), of harde switch zonder vangnet.</li>
+      <li><strong>Touch.</strong> Automatisch groter onder <code>pointer: coarse</code> (advies), of dat aan apps overlaten.</li>
+      <li><strong>Radius-split.</strong> Controls naar 8px en containers op 12px (advies), of één radius houden en die op 9 of 12 zetten.</li>
+    </ol>
+  </section>
+</main>
+<footer>
+  <p>Hoe gemeten: tellingen met <code>grep</code> over alle <code>.scss</code> in <code>packages/*/src/css</code>; een waarde telt per voorkomen in padding-, margin-, gap-, inset-, height- en width-eigenschappen, dus ook in calc() en selectors met meerdere waarden. De react-ui-maten zijn uitgerekend uit <code>theme.css</code> en de Tailwind-klassen in de componenten, bij een root van 15px en met de afronding van <code>round(…, 1px)</code>. De voor-en-na-voorbeelden zijn nagebouwd met de maten uit dit rapport, niet gerenderd met Flux zelf; kleuren, randen en de v3-knopafstand in rijen zijn benaderd. Niet gecontroleerd: welke van de 127 <code>var(--radius)</code>-plekken containers zijn, en hoe Flux-apps met eigen layouts rond de nieuwe maten uitvallen.</p>
+</footer>
+<script>
+document.getElementById('copy-prompt').addEventListener('click', async () => {
+  const status = document.getElementById('copy-status');
+  try {
+    await navigator.clipboard.writeText(document.getElementById('prompt-text').textContent);
+    status.textContent = 'Gekopieerd';
+  } catch {
+    status.textContent = 'Kopiëren lukte niet; selecteer de tekst handmatig';
+  }
+});
+</script>
+</body>
+</html>

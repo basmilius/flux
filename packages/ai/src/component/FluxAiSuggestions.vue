@@ -15,7 +15,7 @@
                     v-if="suggestion.icon"
                     :class="$style.aiSuggestionIcon"
                     :name="suggestion.icon"
-                    :size="16"/>
+                    :size="15"/>
 
                 <span :class="$style.aiSuggestionLabel">
                     {{ suggestion.label }}

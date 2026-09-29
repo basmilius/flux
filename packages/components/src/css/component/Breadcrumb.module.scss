@@ -37,17 +37,17 @@
 }
 
 .breadcrumbLink {
-    @include mixin.text(small, $line-height: 1);
+    @include mixin.text(small, $line-height: 18px);
 
     display: inline-flex;
-    height: 30px;
+    height: 24px;
     max-width: 100%;
-    padding: 0 9px;
+    padding: 0 6px;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     background: transparent;
     border: 0;
-    border-radius: var(--radius);
+    border-radius: var(--radius-control);
     color: var(--foreground);
     text-decoration: none;
     white-space: nowrap;

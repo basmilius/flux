@@ -11,6 +11,8 @@
     --font-sans: inter-variable, sans-serif;
     --font-serif: serif;
     --radius: 12px;
+    --radius-control: 9px;
+    --radius-container: 12px;
     --radius-double: 24px;
     --radius-full: 9999px;
     --radius-half: 6px;
@@ -27,6 +29,45 @@
     --line-height-large: 24px;
     --font-size-xlarge: 18px;
     --line-height-xlarge: 27px;
+
+    --control-height-small: 30px;
+    --control-height-medium: 36px;
+    --control-height-large: 42px;
+    --control-height-xl: 48px;
+    --control-font-size: var(--font-size-small);
+    --control-line-height: var(--line-height-default);
+    --control-icon-size: 15px;
+    --control-gap: 6px;
+    --field-height: 36px;
+    --field-height-small: 30px;
+    --field-padding: 9px;
+    --menu-item-height: 36px;
+    --menu-item-height-large: 42px;
+    --menu-padding: 9px;
+    --table-cell-padding: 6px 12px;
+    --table-header-padding-block: 9px;
+    --table-spacing: 15px;
+    --tab-padding: 9px;
+    --tab-gap: 18px;
+    --tab-pill-height: 36px;
+    --segmented-height-small: 24px;
+    --segmented-height-medium: 30px;
+    --segmented-height-large: 36px;
+    --chip-height: 30px;
+    --chip-padding: 9px;
+    --badge-height-small: 21px;
+    --badge-height-medium: 24px;
+    --badge-height-large: 30px;
+    --badge-line-height-small: 21px;
+    --badge-line-height-large: 24px;
+    --badge-margin: 0px;
+    --pane-padding: 15px;
+    --pane-header-gap: 12px;
+    --snackbar-padding: 12px 15px;
+    --snackbar-width: 480px;
+    --application-top-height: 48px;
+    --application-menu-width: 240px;
+    --application-menu-width-collapsed: 54px;
 
     --transition-default: 180ms var(--swift-out);
 }

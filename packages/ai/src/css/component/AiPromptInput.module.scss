@@ -6,9 +6,9 @@
     position: relative;
     display: flex;
     width: 100%;
-    padding: 12px;
+    padding: 9px;
     flex-direction: column;
-    gap: 9px;
+    gap: 6px;
     transition: var(--transition-default);
     transition-property: border-color, mixin.focus-ring-transition-properties();
 
@@ -41,8 +41,8 @@
 .aiPromptInputAttachment {
     display: flex;
     max-width: 240px;
-    height: 27px;
-    padding-inline: 9px 3px;
+    height: var(--chip-height);
+    padding-inline: 6px 3px;
     align-items: center;
     gap: 6px;
     background: var(--gray-soft);

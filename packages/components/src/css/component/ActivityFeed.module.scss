@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     flex-flow: column;
-    gap: 15px;
+    gap: 12px;
     // Safari drops the list semantics when the marker is removed, hence role="list" in the template.
     list-style: none;
 }
@@ -26,7 +26,7 @@
     display: grid;
     margin: 0;
     align-items: start;
-    gap: 15px;
+    gap: 12px;
     grid-template-columns: 30px minmax(0, 1fr);
 }
 
@@ -81,7 +81,7 @@
     @include mixin.elevation('sunken');
     @include mixin.text(small);
 
-    padding: 9px 12px;
+    padding: 6px 9px;
     color: var(--foreground-secondary);
 }
 

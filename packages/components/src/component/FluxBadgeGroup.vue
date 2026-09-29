@@ -26,8 +26,7 @@
         <FluxIcon
             v-if="iconLeading"
             :class="$style.badgeGroupIcon"
-            :name="iconLeading"
-            :size="iconSize"/>
+            :name="iconLeading"/>
 
         <span :class="$style.badgeGroupLabel">
             {{ label }}
@@ -36,8 +35,7 @@
         <FluxIcon
             v-if="iconTrailing"
             :class="$style.badgeGroupIcon"
-            :name="iconTrailing"
-            :size="iconSize"/>
+            :name="iconTrailing"/>
 
         <component :is="renderEnd"/>
     </FluxPressable>
@@ -49,7 +47,7 @@
     import { flattenVNodeTree, getComponentProps } from '@flux-ui/internals';
     import type { FluxButtonEmits, FluxColor, FluxIconName, FluxPressableType, FluxSize, FluxTo } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { cloneVNode, computed, type VNode } from 'vue';
+    import { cloneVNode, type VNode } from 'vue';
     import FluxIcon from './FluxIcon.vue';
     import FluxPressable from './FluxPressable.vue';
     import $style from '~flux/components/css/component/Badge.module.scss';
@@ -78,14 +76,6 @@
         start?(): VNode[];
         end?(): VNode[];
     }>();
-
-    const ICON_SIZES = {
-        small: 12,
-        medium: 16,
-        large: 18
-    } as const;
-
-    const iconSize = computed(() => ICON_SIZES[size]);
 
     function renderBadges(nodes: VNode[] | undefined): VNode[] {
         return flattenVNodeTree(nodes ?? [])

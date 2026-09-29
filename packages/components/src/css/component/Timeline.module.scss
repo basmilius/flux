@@ -4,7 +4,7 @@
     position: relative;
     display: flex;
     flex-flow: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 .timelineLine {
@@ -22,8 +22,8 @@
 .timelineItem {
     position: relative;
     display: grid;
-    gap: 21px;
-    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 15px;
+    grid-template-columns: 33px minmax(0, 1fr);
 }
 
 .timelineItemIcon,
@@ -37,14 +37,14 @@
 
 .timelineItemIcon {
     margin: 3px;
-    height: 36px;
-    width: 36px;
+    height: 27px;
+    width: 27px;
 }
 
 .timelineItemDot {
     grid-column: 1;
     justify-self: center;
-    margin-top: 15px;
+    margin-top: 12px;
     height: 12px;
     width: 12px;
     background: var(--surface-stroke-hover);
@@ -52,8 +52,8 @@
 }
 
 .timelineItemPhoto {
-    height: 42px;
-    width: 42px;
+    height: 33px;
+    width: 33px;
 }
 
 .timelineItemPhotoIcon {
@@ -61,8 +61,8 @@
     display: flex;
     right: -9px;
     bottom: -9px;
-    height: 30px;
-    width: 30px;
+    height: 24px;
+    width: 24px;
     align-items: center;
     justify-content: center;
     background: var(--surface);
@@ -82,17 +82,17 @@
 .timelineItemBody {
     position: relative;
     display: flex;
-    padding-block: 9px;
+    padding-block: 3px;
     align-items: flex-start;
     align-self: center;
     flex-flow: column;
-    gap: 15px;
+    gap: 12px;
     grid-column: 2;
 }
 
 .timelineItemHeader {
     display: flex;
-    margin-bottom: -9px;
+    margin-bottom: -6px;
     flex-flow: column;
 
     :is(strong) {

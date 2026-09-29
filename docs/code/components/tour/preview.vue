@@ -1,7 +1,7 @@
 <template>
     <div
         ref="root"
-        style="display: flex; flex-flow: column; gap: 18px; align-items: flex-start">
+        style="display: flex; flex-flow: column; gap: 12px; align-items: flex-start">
         <div style="display: flex; gap: 9px">
             <span id="tour-create">
                 <FluxPrimaryButton label="Create"/>

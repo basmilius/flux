@@ -22,7 +22,7 @@
             @click="onExpandClick($event)">
             <FluxIcon
                 name="angle-right"
-                :size="14"/>
+                :size="12"/>
         </button>
 
         <span
@@ -35,7 +35,7 @@
         v-if="node.icon"
         :class="$style.treeNodeIcon"
         :name="node.icon"
-        :size="16"/>
+        :size="15"/>
 
     <span :class="$style.treeNodeLabel">{{ node.label }}</span>
 

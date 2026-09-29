@@ -1,6 +1,6 @@
 <template>
     <FluxContextMenu @open="onOpen">
-        <FluxPane style="padding: 36px; text-align: center">
+        <FluxPane style="padding: 27px; text-align: center">
             Right-click for actions
         </FluxPane>
 

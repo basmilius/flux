@@ -13,14 +13,14 @@
 .statisticsBaseContent {
     position: relative;
     display: flex;
-    padding: 18px;
+    padding: var(--pane-padding);
     flex-flow: column;
 }
 
 .statisticsBaseHeader {
     display: flex;
-    padding: 18px 18px 0;
-    gap: 9px;
+    padding: var(--pane-padding) var(--pane-padding) 0;
+    gap: 6px;
     align-items: flex-start;
 }
 
@@ -34,15 +34,15 @@
 
 .statisticsBaseHeaderIcon,
 .statisticsBaseHeaderInfo {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 15px;
+    margin-top: calc((var(--line-height-default) - 1em) / 2);
 }
 
 .statisticsBaseHeaderInfo {
+    font-size: 12px;
     margin-left: auto;
     color: var(--foreground-secondary);
     cursor: help;
-    scale: .75;
     transition: color .2s var(--swift-out);
 
     @include mixin.hover {
@@ -67,10 +67,11 @@
 }
 
 .statisticsBaseSmall .statisticsBaseHeaderInfo {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 12px;
+    margin-top: 3px;
 }
 
 .statisticsBaseSmall .statisticsBaseHeaderIcon {
-    font-size: 18px;
+    font-size: 12px;
+    margin-top: 3px;
 }

@@ -8,9 +8,9 @@
 .reasoningHeader {
     display: flex;
     height: 42px;
-    padding-inline: 15px;
+    padding-inline: 12px;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     background: unset;
     border: 0;
     border-radius: inherit;
@@ -56,7 +56,7 @@
 .reasoningBody {
     @include mixin.text(small);
 
-    padding: 0 15px 15px;
+    padding: 0 12px 12px;
     color: var(--foreground-secondary);
 }
 

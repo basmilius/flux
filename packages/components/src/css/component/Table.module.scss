@@ -71,7 +71,7 @@
 
     display: flex;
     align-items: flex-start;
-    padding: 12px 15px;
+    padding: var(--table-cell-padding);
     word-break: break-word;
 
     :global(p):only-child {
@@ -95,6 +95,7 @@
 
     @include mixin.text(small);
 
+    padding-block: var(--table-header-padding-block);
     font-weight: 700;
     align-items: center;
     color: var(--foreground-prominent);
@@ -222,7 +223,7 @@
 }
 
 .tableActions {
-    margin: -4px 0 -4px -3px;
+    margin: -3px 0 -3px -3px;
 }
 
 .tableCellSelection {
@@ -316,9 +317,9 @@
     align-items: flex-start;
     flex-flow: row nowrap;
     flex-grow: 1;
-    gap: 15px;
+    gap: 12px;
     max-width: 100cqw;
-    padding: 12px 15px;
+    padding: var(--table-cell-padding);
     word-break: break-word;
 }
 
@@ -350,7 +351,7 @@
     composes: tableBarContent;
 
     align-items: center;
-    gap: 12px;
+    gap: 9px;
 
     background: color-mix(in srgb, var(--surface), var(--surface-hover));
 
@@ -396,7 +397,7 @@
 .tableGroupAfter {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
 }
 
 .tableCaption {
@@ -482,14 +483,6 @@
     }
 }
 
-.basePaneStructure:has(.table) {
-    --table-spacing: 18px;
-}
-
-.basePaneStructure .basePaneStructure {
-    --table-spacing: 15px;
-}
-
 .basePaneStructure > .table .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):first-child {
     padding-left: var(--table-spacing);
 }
@@ -512,7 +505,7 @@
 }
 
 .basePaneStructure > .table .tableLoader {
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
 }
 
 .tableCellExpand {
@@ -528,7 +521,7 @@
 }
 
 .tableExpandContent {
-    padding: 12px 15px;
+    padding: var(--table-cell-padding);
 }
 
 .tableTreeCell {
@@ -542,7 +535,7 @@
     position: relative;
     align-self: stretch;
     flex-shrink: 0;
-    margin-right: 12px;
+    margin-right: 9px;
 }
 
 .tableTreeLines {
@@ -552,7 +545,7 @@
     height: 100%;
     fill: none;
     stroke: var(--surface-active);
-    stroke-width: 2;
+    stroke-width: 1;
     stroke-linecap: round;
     pointer-events: none;
 }
@@ -566,8 +559,8 @@
     top: 50%;
     display: flex;
     box-sizing: border-box;
-    width: 22px;
-    height: 22px;
+    width: 21px;
+    height: 21px;
     align-items: center;
     justify-content: center;
     background: var(--tree-marker-fill);
@@ -614,7 +607,7 @@
 
 .tableEmpty {
     display: flex;
-    padding: 45px 15px;
+    padding: 45px 12px;
     align-items: center;
     justify-content: center;
     color: var(--foreground-secondary);

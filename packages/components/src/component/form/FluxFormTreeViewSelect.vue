@@ -49,13 +49,13 @@
         <FluxSpinner
             v-if="isLoading"
             :class="$formStyle.formSelectIcon"
-            :size="16"/>
+            :size="15"/>
 
         <FluxIcon
             v-else
             :class="$formStyle.formSelectIcon"
             name="angles-up-down"
-            :size="16"/>
+            :size="15"/>
     </Anchor>
 
     <Teleport to="body">

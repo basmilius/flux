@@ -28,7 +28,7 @@
     padding: 0;
     flex: none;
     flex-flow: column;
-    gap: 24px;
+    gap: 18px;
     // Safari drops the list semantics when the marker is removed, hence role="list" in the template.
     list-style: none;
 }
@@ -39,7 +39,7 @@
     display: flex;
     margin: 0;
     align-items: center;
-    gap: 12px;
+    gap: 9px;
     color: var(--foreground-secondary);
     font-weight: 500;
 
@@ -62,7 +62,7 @@
 
 .conversationJump {
     position: absolute;
-    inset-block-end: 12px;
+    inset-block-end: 9px;
     inset-inline-start: 50%;
     translate: -50% 0;
     border-radius: var(--radius-full);

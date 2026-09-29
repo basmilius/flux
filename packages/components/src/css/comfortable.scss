@@ -1,0 +1,45 @@
+// Migration preset until v5; internal spacing stays compact.
+@layer flux-base {
+    [comfortable] {
+        --radius-control: 12px;
+        --radius-container: 12px;
+        --control-height-small: 36px;
+        --control-height-medium: 42px;
+        --control-height-large: 48px;
+        --control-height-xl: 54px;
+        --control-font-size: var(--font-size-default);
+        --control-line-height: var(--line-height-default);
+        --control-icon-size: 18px;
+        --control-gap: 12px;
+        --field-height: 42px;
+        --field-height-small: 33px;
+        --field-padding: 12px;
+        --menu-item-height: 42px;
+        --menu-item-height-large: 48px;
+        --menu-padding: 9px;
+        --table-cell-padding: 12px 15px;
+        --table-header-padding-block: 15px;
+        --table-spacing: 18px;
+        --tab-padding: 12px;
+        --tab-gap: 27px;
+        --tab-pill-height: 42px;
+        --segmented-height-small: 30px;
+        --segmented-height-medium: 36px;
+        --segmented-height-large: 48px;
+        --chip-height: 36px;
+        --chip-padding: 12px;
+        --badge-height-small: 21px;
+        --badge-height-medium: 28px;
+        --badge-height-large: 33px;
+        --badge-line-height-small: 21px;
+        --badge-line-height-large: 21px;
+        --badge-margin: -2px;
+        --pane-padding: 18px;
+        --pane-header-gap: 15px;
+        --snackbar-padding: 15px 18px;
+        --snackbar-width: 570px;
+        --application-top-height: 66px;
+        --application-menu-width: 300px;
+        --application-menu-width-collapsed: 69px;
+    }
+}

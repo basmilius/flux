@@ -10,7 +10,7 @@
                 v-if="icon"
                 :class="$style.statisticsMeterHeaderIcon"
                 :name="icon"
-                :size="16"/>
+                :size="15"/>
 
             <span
                 v-if="title"

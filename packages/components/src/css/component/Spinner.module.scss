@@ -9,7 +9,7 @@
     width: 1em;
     flex: 0 0 1em;
     animation: spinner 5s linear infinite;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 @include mixin.color-variants(spinner) using ($color) {

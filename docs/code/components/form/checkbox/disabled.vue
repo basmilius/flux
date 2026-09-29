@@ -1,6 +1,6 @@
 <template>
     <FluxPane style="max-width: 390px">
-        <FluxPaneBody style="display: flex; flex-direction: column; gap: 12px">
+        <FluxPaneBody style="display: flex; flex-direction: column; gap: 9px">
             <FluxFormCheckbox
                 :model-value="true"
                 disabled

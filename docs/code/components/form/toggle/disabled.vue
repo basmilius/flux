@@ -1,5 +1,5 @@
 <template>
-    <FluxFlex :gap="18">
+    <FluxFlex :gap="15">
         <FluxToggle
             :model-value="false"
             disabled/>

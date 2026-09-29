@@ -16,7 +16,7 @@
                 :gap="9">
                 <FluxIcon
                     name="code-branch"
-                    :size="16"/>
+                    :size="15"/>
 
                 <FluxText weight="600">
                     basmilius/flux
@@ -37,7 +37,7 @@
                     :gap="6">
                     <FluxIcon
                         name="star"
-                        :size="14"/>
+                        :size="12"/>
 
                     <FluxText
                         color="muted"
@@ -51,7 +51,7 @@
                     :gap="6">
                     <FluxIcon
                         name="circle"
-                        :size="14"/>
+                        :size="12"/>
 
                     <FluxText
                         color="muted"

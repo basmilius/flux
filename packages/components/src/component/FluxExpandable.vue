@@ -14,6 +14,7 @@
                     <FluxIcon
                         v-if="icon"
                         :key="icon"
+                        :class="$style.expandableHeaderIcon"
                         :name="icon"/>
                 </FluxFadeTransition>
 
@@ -23,7 +24,7 @@
                     <FluxIcon
                         :key="expandIcon"
                         :name="expandIcon"
-                        :size="16"/>
+                        :class="$style.expandableHeaderToggle"/>
                 </FluxFadeTransition>
             </button>
         </slot>

@@ -17,7 +17,7 @@
     position: fixed;
     inset: 0;
     display: flex;
-    padding-top: clamp(60px, 15vh, 160px);
+    padding-top: clamp(60px, 15vh, 159px);
     align-items: flex-start;
     justify-content: center;
     animation: commandPaletteIn 300ms var(--swift-out) both;
@@ -34,8 +34,8 @@
 
     display: flex;
     overflow: hidden;
-    width: min(600px, calc(100dvw - 48px));
-    max-height: min(480px, calc(100dvh - 120px - clamp(60px, 15vh, 160px)));
+    width: min(540px, calc(100dvw - 36px));
+    max-height: min(480px, calc(100dvh - 120px - clamp(60px, 15vh, 159px)));
     flex-flow: column nowrap;
     box-shadow: var(--shadow-lg);
     transition: height 120ms var(--deceleration-curve);
@@ -43,18 +43,18 @@
 
 .commandPaletteSearch {
     display: flex;
-    height: 54px;
-    padding: 0 18px;
+    height: 42px;
+    padding: 0 12px;
     align-items: center;
     flex-shrink: 0;
-    gap: 12px;
+    gap: 9px;
     border-bottom: 1px solid var(--surface-stroke-muted);
 }
 
 .commandPaletteSearchIcon {
     flex-shrink: 0;
     color: var(--foreground-secondary);
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .commandPaletteSearchInput {
@@ -102,7 +102,7 @@
 
     display: flex;
     overflow-x: auto;
-    padding: 6px 15px;
+    padding: 6px 12px;
     flex-shrink: 0;
     gap: 3px;
     border-bottom: 1px solid var(--surface-stroke-muted);
@@ -112,8 +112,8 @@
     @include mixin.text(xsmall);
 
     display: flex;
-    height: 30px;
-    padding: 0 10px;
+    height: 24px;
+    padding: 0 9px;
     align-items: center;
     gap: 6px;
     background: transparent;
@@ -144,7 +144,7 @@
 }
 
 .commandPaletteTabIcon {
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .commandPaletteResults {
@@ -158,7 +158,7 @@
 
 .commandPaletteLoading {
     display: flex;
-    padding: 24px;
+    padding: 18px;
     align-items: center;
     justify-content: center;
 }
@@ -167,7 +167,7 @@
     @include mixin.text(small);
 
     display: flex;
-    padding: 24px;
+    padding: 18px;
     align-items: center;
     justify-content: center;
     color: var(--foreground-secondary);
@@ -177,7 +177,7 @@
     @include mixin.text(2xsmall);
 
     display: flex;
-    padding: 9px 10px 3px;
+    padding: 6px 9px 3px;
     align-items: center;
     gap: 6px;
     color: var(--foreground-secondary);
@@ -196,9 +196,9 @@
 
     display: flex;
     width: 100%;
-    padding: 8px 10px;
+    padding: 6px 9px;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
     background: transparent;
     border: 0;
     border-radius: var(--radius-half);
@@ -228,8 +228,8 @@
 
 .commandPaletteItemIcon {
     display: flex;
-    width: 30px;
-    height: 30px;
+    width: 27px;
+    height: 27px;
     align-items: center;
     align-self: flex-start;
     flex-shrink: 0;
@@ -240,7 +240,7 @@
     transition: background 100ms, color 100ms;
 
     :local(.icon) {
-        font-size: 16px;
+        font-size: 15px;
     }
 }
 

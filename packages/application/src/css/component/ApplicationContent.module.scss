@@ -5,10 +5,10 @@
     display: flex;
     container: applicationContent / inline-size;
     margin-inline: auto;
-    padding-block: 21px 42px;
+    padding-block: 15px 33px;
     flex-flow: column;
     flex-grow: 1;
-    gap: 21px;
+    gap: 15px;
 }
 
 .applicationContentDefault,
@@ -32,7 +32,7 @@
 .applicationContentMedium {
     composes: applicationContent;
 
-    width: min(1280px, 100% - 42px);
+    width: min(1281px, 100% - 42px);
 }
 
 .applicationContentNarrow {
@@ -62,21 +62,21 @@
         border-radius: 0;
 
         :local(.calendarActions) {
-            padding-inline: 21px;
+            padding-inline: 15px;
         }
     }
 
     > :local(.table) {
         :local(.tableCell):not(:local(.tableBar)):not(:local(.tableGroup)):not(:local(.isRaw)):first-child {
-            padding-left: 21px;
+            padding-left: 15px;
         }
 
         :local(.tableCell):not(:local(.tableBar)):not(:local(.tableGroup)):not(:local(.isRaw)):last-child {
-            padding-right: 21px;
+            padding-right: 15px;
         }
 
         :is(:local(.tableBarContent), :local(.tableGroupContent)) {
-            padding-inline: 21px;
+            padding-inline: 15px;
         }
     }
 }
@@ -85,11 +85,11 @@
     .applicationContentDefault,
     .applicationContentMedium,
     .applicationContentNarrow {
-        gap: 15px;
+        gap: 12px;
     }
 
     .applicationContentDashboard {
-        gap: 30px;
+        gap: 24px;
     }
 
     .applicationContentFull {
@@ -103,20 +103,20 @@
         }
 
         > .calendar .calendarActions {
-            padding-inline: 12px;
+            padding-inline: 9px;
         }
 
         > .table {
             .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):first-child {
-                padding-left: 12px;
+                padding-left: 9px;
             }
 
             .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):last-child {
-                padding-right: 12px;
+                padding-right: 9px;
             }
 
             :is(.tableBarContent, .tableGroupContent) {
-                padding-inline: 12px;
+                padding-inline: 9px;
             }
         }
     }

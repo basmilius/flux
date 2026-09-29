@@ -9,7 +9,7 @@
     justify-content: center;
     background: var(--gray-soft);
     border: 2px dashed var(--gray-border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     text-align: center;
     user-select: none;
 
@@ -22,8 +22,8 @@
     }
 
     &.isExtended {
-        padding: 27px;
-        gap: 9px;
+        padding: 21px;
+        gap: 6px;
 
         .placeholderIcon {
             font-size: 24px;
@@ -31,13 +31,13 @@
     }
 
     &.isSimple {
-        padding: 18px;
+        padding: 15px;
     }
 
     &.isSmall {
         @include mixin.text(2xsmall);
 
-        padding: 12px;
+        padding: 9px;
 
         .placeholderCaption :is(strong) {
             color: var(--foreground-secondary);
@@ -70,5 +70,5 @@
 
 .placeholderIcon {
     color: var(--primary-text);
-    font-size: 20px;
+    font-size: 18px;
 }

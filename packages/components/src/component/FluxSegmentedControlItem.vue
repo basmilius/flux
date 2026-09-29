@@ -13,7 +13,7 @@
             <FluxIcon
                 v-if="icon"
                 :name="icon"
-                :size="iconSize"/>
+                :class="$style.segmentedControlIcon"/>
 
             <span v-if="label">{{ label }}</span>
         </slot>
@@ -48,11 +48,6 @@
         medium: $style.isMedium,
         large: $style.isLarge
     };
-    const ICON_SIZES = {
-        small: 14,
-        medium: 16,
-        large: 18
-    };
 
     const itemRef = useTemplateRef<HTMLButtonElement>('item');
     const isFirstEnabled = ref(false);
@@ -61,7 +56,6 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
 
     const isActive = computed(() => control.modelValue.value === value);
-    const iconSize = computed(() => ICON_SIZES[unref(control.size)]);
     const itemClass = computed(() => clsx(
         $style.segmentedControlItem,
         SIZE_CLASSES[unref(control.size)],

@@ -3,7 +3,7 @@
 .comment {
     display: grid;
     max-width: 100%;
-    gap: 3px 15px;
+    gap: 3px 9px;
     grid-template-columns: 1fr auto;
     grid-template-rows: repeat(2, auto);
 
@@ -42,21 +42,21 @@
 
 .commentContent {
     min-width: 0;
-    padding: 12px 18px;
+    padding: 9px 12px;
     background: var(--primary-soft);
     border: 1px solid var(--primary-border);
-    border-radius: calc(var(--radius) * 2);
+    border-radius: calc(var(--radius-container) * 2);
     box-shadow: var(--shadow-xs);
 }
 
 .comment:not(.isReceived) .commentContent {
-    border-bottom-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius-container);
 }
 
 .comment.isReceived .commentContent {
     background: var(--gray-soft);
     border-color: var(--gray-border);
-    border-bottom-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius-container);
 }
 
 .comment.isTyping .commentContent {
@@ -77,7 +77,7 @@
 
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 9px;
     justify-content: flex-end;
     font-weight: 500;
 

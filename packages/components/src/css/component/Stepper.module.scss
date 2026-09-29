@@ -15,15 +15,16 @@
 
     &::before,
     &::after {
-        --margin: 15px;
+        --margin: 12px;
         --max: calc(100% - var(--margin) * 2);
 
         position: absolute;
         display: block;
-        top: calc(50% - 2px);
+        top: 50%;
+        translate: 0 -50%;
         left: 0;
         margin-inline: var(--margin);
-        height: 4px;
+        height: 3px;
         content: '';
         z-index: -1;
     }
@@ -45,8 +46,8 @@
 
     position: relative;
     display: flex;
-    height: 33px;
-    width: 33px;
+    height: 27px;
+    width: 27px;
     align-items: center;
     justify-content: center;
     background: var(--gray-soft-hover);
@@ -62,7 +63,7 @@
 
     .icon {
         overflow: visible;
-        scale: .8;
+        font-size: 15px;
 
         :is(path) {
             stroke: currentColor;

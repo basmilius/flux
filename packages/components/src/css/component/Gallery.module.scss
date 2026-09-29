@@ -4,14 +4,14 @@
     --dz-fill: transparent;
     --dz-stroke: transparent;
     --dz-inset: -3px;
-    --dz-radius: calc(var(--radius) + 3px);
+    --dz-radius: calc(var(--radius-container) + 3px);
     --dz-height: calc(100% + 6px);
     --dz-width: calc(100% + 6px);
 }
 
 .galleryGrid {
     display: grid;
-    gap: 9px;
+    gap: 6px;
     grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
 }
 
@@ -46,7 +46,7 @@
     inset: 0;
     height: 100%;
     width: 100%;
-    border-radius: var(--radius);
+    border-radius: var(--radius-container);
     object-fit: cover;
     object-position: center;
     outline: 1px solid var(--surface-stroke-out);
@@ -61,7 +61,7 @@
     justify-content: center;
     backdrop-filter: blur(3px) saturate(180%);
     background: var(--overlay-secondary);
-    border-radius: calc(var(--radius) - 1px);
+    border-radius: calc(var(--radius-container) - 1px);
     z-index: 0;
 
     .spinner {

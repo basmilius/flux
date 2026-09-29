@@ -47,7 +47,7 @@
 
 .tourBody {
     display: flex;
-    padding: 15px 18px;
+    padding: 12px 18px;
     flex-flow: column;
     gap: 6px;
     transition: opacity .15s var(--swift-out);
@@ -80,7 +80,7 @@
 
 .tourFooter {
     display: flex;
-    padding: 12px 18px;
+    padding: 9px 18px;
     gap: 6px;
     align-items: center;
     border-top: 1px solid var(--surface-stroke);
@@ -95,7 +95,7 @@
 .tourSkip {
     @include mixin.text(xsmall);
 
-    margin-right: 12px;
+    margin-right: 9px;
     padding: 0;
     cursor: pointer;
     transition: color .15s var(--swift-out);

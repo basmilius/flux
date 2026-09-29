@@ -10,14 +10,15 @@
 }
 
 .aiSuggestion {
-    @include mixin.text(small);
+    font-size: var(--control-font-size);
+    line-height: var(--control-line-height);
 
     display: flex;
     max-width: 100%;
-    height: 33px;
-    padding-inline: 12px;
+    height: var(--control-height-medium);
+    padding-inline: 9px;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     background: var(--gray-soft);
     border: 1px solid var(--gray-border);
     border-radius: var(--radius-full);
