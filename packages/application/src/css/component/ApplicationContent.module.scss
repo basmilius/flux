@@ -15,7 +15,7 @@
 .applicationContentDashboard {
     composes: applicationContent;
 
-    width: min(1620px, 100% - 42px);
+    width: min(1620px, 100% - 36px);
 }
 
 .applicationContentDashboard {
@@ -26,19 +26,19 @@
     composes: applicationContent;
 
     padding-block: 0;
-    width: calc(100% - 42px);
+    width: calc(100% - 36px);
 }
 
 .applicationContentMedium {
     composes: applicationContent;
 
-    width: min(1280px, 100% - 42px);
+    width: min(1280px, 100% - 36px);
 }
 
 .applicationContentNarrow {
     composes: applicationContent;
 
-    width: min(840px, 100% - 42px);
+    width: min(840px, 100% - 36px);
 }
 
 .applicationContentFull {
@@ -62,21 +62,21 @@
         border-radius: 0;
 
         :local(.calendarActions) {
-            padding-inline: 21px;
+            padding-inline: 18px;
         }
     }
 
     > :local(.table) {
         :local(.tableCell):not(:local(.tableBar)):not(:local(.tableGroup)):not(:local(.isRaw)):first-child {
-            padding-left: 21px;
+            padding-left: 18px;
         }
 
         :local(.tableCell):not(:local(.tableBar)):not(:local(.tableGroup)):not(:local(.isRaw)):last-child {
-            padding-right: 21px;
+            padding-right: 18px;
         }
 
         :is(:local(.tableBarContent), :local(.tableGroupContent)) {
-            padding-inline: 21px;
+            padding-inline: 18px;
         }
     }
 }

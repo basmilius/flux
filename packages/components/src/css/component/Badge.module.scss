@@ -1,18 +1,15 @@
 @use '~flux/components/css/mixin';
 
 .badge {
-    @include mixin.text(xsmall);
+    @include mixin.text(2xsmall);
 
     @include mixin.intent('gray');
 
     display: inline-flex;
-    height: 28px;
+    height: 24px;
     width: max-content;
 
-    // Pulls the margin-box back to exactly one line, so a badge never stretches the line
-    // it sits in.
-    margin-block: -2px;
-    padding-inline: 9px;
+    padding-inline: 6px;
     align-items: center;
     gap: 6px;
     background: var(--surface);

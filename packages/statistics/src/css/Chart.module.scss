@@ -31,14 +31,14 @@
 .statisticsChartTooltipTitle {
     @include mixin.text(default, $line-height: 1);
 
-    padding: 18px 18px 0;
+    padding: var(--pane-padding) var(--pane-padding) 0;
     color: var(--foreground-prominent);
     font-weight: 700;
 }
 
 .statisticsChartTooltipBody {
     display: grid;
-    padding: 12px 18px 15px;
+    padding: 12px var(--pane-padding) var(--pane-padding);
     align-items: center;
     gap: 6px 15px;
     grid-template-columns: repeat(3, auto);
@@ -88,7 +88,7 @@
 }
 
 .statisticsChartTooltipSection {
-    padding: 12px 18px;
+    padding: var(--pane-padding);
     transition: opacity .15s ease-out;
 
     & + & {

@@ -51,5 +51,5 @@
 }
 
 :local(.paneHeader) + .statisticsChartPaneContainer {
-    margin-top: 18px;
+    margin-top: var(--pane-padding);
 }

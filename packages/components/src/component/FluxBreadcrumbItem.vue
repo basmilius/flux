@@ -32,7 +32,7 @@
                 v-if="icon"
                 :class="$style.breadcrumbIcon"
                 :name="icon"
-                :size="16"/>
+                :size="15"/>
 
             <span
                 v-if="label || $slots.default"

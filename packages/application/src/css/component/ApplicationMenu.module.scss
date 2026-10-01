@@ -272,7 +272,7 @@
 }
 
 .applicationMenuPromo > :local(.icon) {
-    margin: 2px;
+    margin: 3px;
     color: var(--foreground-secondary);
     font-size: 16px;
 }
@@ -349,7 +349,7 @@
 
 @include mixin.breakpoint-down(md) {
     .applicationMenu {
-        width: min(300px, calc(100dvw - 42px));
+        width: min(300px, calc(100dvw - 36px));
         z-index: 2000;
     }
 

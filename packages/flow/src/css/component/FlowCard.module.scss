@@ -14,23 +14,21 @@
     }
 }
 
-// A card on a canvas runs on tighter padding than a pane in a page. Scoped
-// under the surface to outrank the pane's own single-class rules.
 .flowCardSurface .flowCardHeader {
-    padding: 15px 15px 0;
+    padding: var(--pane-padding) var(--pane-padding) 0;
 
     &:not(:has(+ .flowCardBody)) {
-        padding: 15px;
+        padding: var(--pane-padding);
     }
 }
 
 .flowCardSurface .flowCardBody {
     display: flex;
-    padding: 15px;
+    padding: var(--pane-padding);
     flex-direction: column;
     gap: 9px;
 }
 
 .flowCardSurface .flowCardFooter {
-    padding: 15px;
+    padding: var(--pane-padding);
 }

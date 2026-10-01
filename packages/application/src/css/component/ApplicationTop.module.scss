@@ -23,7 +23,7 @@
 .applicationTopBar {
     display: flex;
     height: var(--application-top-height);
-    padding-inline: 21px;
+    padding-inline: 18px;
     align-items: center;
     flex-flow: row;
     gap: 15px;
@@ -54,7 +54,7 @@
     margin-top: -6px;
     margin-inline: auto;
     flex-flow: row;
-    gap: 21px;
+    gap: 18px;
 
     :local(.baseTabBar) {
         --tab-padding: 18px;
@@ -68,25 +68,25 @@
 .applicationTopTabsDashboard {
     composes: applicationTopTabs;
 
-    width: min(1620px, 100% - 42px);
+    width: min(1620px, 100% - 36px);
 }
 
 .applicationTopTabsFull {
     composes: applicationTopTabs;
 
-    width: calc(100% - 42px);
+    width: calc(100% - 36px);
 }
 
 .applicationTopTabsMedium {
     composes: applicationTopTabs;
 
-    width: min(1280px, 100% - 42px);
+    width: min(1280px, 100% - 36px);
 }
 
 .applicationTopTabsNarrow {
     composes: applicationTopTabs;
 
-    width: min(840px, 100% - 42px);
+    width: min(840px, 100% - 36px);
 }
 
 @include mixin.breakpoint-down(md) {

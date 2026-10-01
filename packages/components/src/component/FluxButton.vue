@@ -28,8 +28,7 @@
 
         <slot name="iconLeading">
             <FluxSpinner
-                v-if="isLoading && (iconLeading || !iconTrailing)"
-                :size="20"/>
+                v-if="isLoading && (iconLeading || !iconTrailing)"/>
 
             <FluxIcon
                 v-else-if="iconLeading"
@@ -49,8 +48,7 @@
 
         <slot name="iconTrailing">
             <FluxSpinner
-                v-if="isLoading && iconTrailing && !iconLeading"
-                :size="20"/>
+                v-if="isLoading && iconTrailing && !iconLeading"/>
 
             <FluxIcon
                 v-else-if="iconTrailing"

@@ -25,6 +25,7 @@ $-stagger-step: 45ms;
 }
 
 .speedDialOpener {
+    min-height: $-opener-size;
     min-width: $-opener-size;
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-lg);

@@ -227,9 +227,7 @@
 .basePaneStructure > .tabs > .tabBarDefault,
 .basePaneStructure > .form > .tabBarDefault,
 .basePaneStructure > .form > .tabs > .tabBarDefault {
-    --tab-padding: 18px;
-
-    padding-inline: 18px;
+    padding-inline: var(--pane-padding);
     background: var(--surface-sunken);
 
     &:first-child {

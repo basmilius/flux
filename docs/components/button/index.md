@@ -11,7 +11,6 @@ The button is a clickable element that triggers an action, such as starting a ne
 - [Primary](./primary)
 - [Secondary](./secondary)
 - [Destructive](./destructive)
-- [Publish](./publish)
 - [Group](./group)
 - [Split](./split)
 - [Primary link](./primary-link)

@@ -8,8 +8,8 @@
 .paginationButton {
     composes: secondaryButton from './Button.module.scss';
 
-    height: 36px;
-    min-width: 36px;
+    height: 30px;
+    min-width: 30px;
     padding: 0 6px;
     background: unset;
 
@@ -20,7 +20,7 @@
 }
 
 .paginationButtonArrow {
-    width: 36px;
+    width: 30px;
 
     &:local(.secondaryButton) {
         border-color: var(--surface-stroke);
@@ -47,8 +47,8 @@
     align-items: center;
     justify-content: center;
 
-    height: 36px;
-    min-width: 36px;
+    height: 30px;
+    min-width: 30px;
     padding: 0 6px;
 
     color: var(--foreground-secondary);
@@ -60,7 +60,7 @@
 .paginationButtonIcon {
     composes: secondaryButtonIcon from './Button.module.scss';
 
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .paginationButtonLabel {
@@ -82,7 +82,7 @@
     display: flex;
     align-items: center;
     flex-flow: row;
-    gap: 15px;
+    gap: 12px;
 }
 
 .paginationBarLimitDisplayingOf {
@@ -92,11 +92,11 @@
 }
 
 .paginationBarLimitSelect {
-    min-height: 36px;
+    min-height: 30px;
     width: 120px;
 
     .menuItem {
-        min-height: 36px;
+        min-height: 30px;
     }
 
     .menuItemLabel {
@@ -109,6 +109,6 @@
 @include mixin.breakpoint-down(sm) {
     .paginationBar {
         flex-flow: column;
-        gap: 9px;
+        gap: 6px;
     }
 }

@@ -22,7 +22,7 @@
 .timelineItem {
     position: relative;
     display: grid;
-    gap: 21px;
+    gap: 15px;
     grid-template-columns: 42px minmax(0, 1fr);
 }
 
@@ -86,13 +86,12 @@
     align-items: flex-start;
     align-self: center;
     flex-flow: column;
-    gap: 15px;
+    gap: 12px;
     grid-column: 2;
 }
 
 .timelineItemHeader {
     display: flex;
-    margin-bottom: -9px;
     flex-flow: column;
 
     :is(strong) {

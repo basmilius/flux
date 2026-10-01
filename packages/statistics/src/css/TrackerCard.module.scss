@@ -2,7 +2,7 @@
 
 .trackerCard {
     display: flex;
-    padding: 18px;
+    padding: var(--pane-padding);
     flex-flow: column;
     gap: 18px;
 }

@@ -15,6 +15,29 @@ This major rebuilds the color layer, puts every package behind the same `vue-i18
 | [Package exports](#a-package-hands-out-less)              | The injection keys and English dictionaries of `application` and `flow` are internal. | You import one of them by name.                            |
 | [New keys](#eighteen-new-translation-keys)                | 18 keys were added, none were removed or renamed.                                   | You keep a translation map of your own.                    |
 
+## Control sizes and pane spacing
+
+Standard buttons and single-line form fields are now 36px high. Button sizes
+small, medium, large and xl use 30, 36, 42 and 48px respectively; condensed fields
+use 30px. Segmented control items follow the same small, medium and large heights;
+the surrounding control adds 6px for padding and borders.
+Multi-value fields can grow when their contents wrap.
+
+Menu items and menu controls use a 36px minimum height, or 42px in large menus.
+This also applies to application menus and select options. Taller content can
+still expand the row.
+
+Pane headers, bodies, footers and inset media use 15px spacing. Tables and tab bars
+inside panes share that horizontal inset. Action panes use twice the pane padding
+(30px by default). These dimensions can be overridden with
+`--control-height-small`, `--control-height-medium`, `--control-height-large`,
+`--control-height-xl` and `--pane-padding`.
+
+Form fields use 9px horizontal text padding, table cells use 9px vertical padding,
+and buttons have a 9px gap. The default icon size is 18px. Application top bars
+are 60px high, with 18px horizontal insets shared by content, tabs and full-width
+tables.
+
 ## Colors
 
 The color layer was rebuilt. Components look after themselves, so what changed is the part you were allowed to reach into: the palette custom properties, and how dark mode arrives at its values.

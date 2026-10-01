@@ -47,7 +47,7 @@
 
 .tourBody {
     display: flex;
-    padding: 15px 18px;
+    padding: var(--pane-padding);
     flex-flow: column;
     gap: 6px;
     transition: opacity .15s var(--swift-out);
@@ -80,7 +80,7 @@
 
 .tourFooter {
     display: flex;
-    padding: 12px 18px;
+    padding: var(--pane-padding);
     gap: 6px;
     align-items: center;
     border-top: 1px solid var(--surface-stroke);

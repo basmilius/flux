@@ -93,6 +93,8 @@
 }
 
 .trackerEntryDescription {
+    @include mixin.text(small);
+
     color: var(--foreground);
 }
 

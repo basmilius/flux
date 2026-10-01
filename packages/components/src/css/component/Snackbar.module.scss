@@ -22,7 +22,7 @@
 
 .snackbarContent {
     display: flex;
-    padding: 15px 18px;
+    padding: var(--pane-padding);
     align-items: flex-start;
     flex-grow: 1;
     gap: 15px;

@@ -107,7 +107,7 @@
                 disabled
                 label="Disabled"/>
         </FluxButtonStack>
-        <p>Buttons also come as a connected group, as a publish button that settles into a done state, and as bare icon actions in a stack.</p>
+        <p>Buttons also come as a connected group and as bare icon actions in a stack.</p>
         <FluxFlex
             :gap="18"
             align="center"
@@ -120,11 +120,6 @@
                 <FluxSecondaryButton icon-leading="align-right"/>
                 <FluxSecondaryButton icon-leading="align-justify"/>
             </FluxButtonGroup>
-
-            <FluxPublishButton
-                :is-done="isPublished"
-                label="Publish"
-                @click="isPublished = !isPublished"/>
 
             <FluxActionStack>
                 <FluxAction icon="pen"/>
@@ -2350,17 +2345,13 @@
         <p>The smallest building blocks: boxed icons, dividers and loading skeletons.</p>
         <FluxFlex :gap="15">
             <FluxBoxedIcon
-                name="circle-check"
-                :size="60"/>
+                name="circle-check"/>
             <FluxBoxedIcon
-                name="lock"
-                :size="60"/>
+                name="lock"/>
             <FluxBoxedIcon
-                name="rocket"
-                :size="60"/>
+                name="rocket"/>
             <FluxBoxedIcon
-                name="bolt"
-                :size="60"/>
+                name="bolt"/>
         </FluxFlex>
         <p>The boxed icon takes an intent, and so does the icon itself.</p>
         <FluxFlex
@@ -2370,8 +2361,7 @@
                 v-for="color of colors"
                 :key="color"
                 :color="color"
-                name="bolt"
-                :size="48"/>
+                name="bolt"/>
         </FluxFlex>
         <FluxFlex
             :gap="15"
@@ -2381,8 +2371,7 @@
                 :key="color"
                 :color="color"
                 name="heart"
-                rounded
-                :size="48"/>
+                rounded/>
         </FluxFlex>
         <FluxFlex
             :gap="18"
@@ -2566,7 +2555,7 @@ const article = FluxProse;</code></pre>
 <script
     lang="ts"
     setup>
-    import { FluxAction, FluxActionBar, FluxActionPane, FluxActionStack, FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbFlyout, FluxBreadcrumbItem, FluxButtonGroup, FluxButtonStack, FluxCalendar, FluxCalendarItem, FluxChip, FluxClickablePane, FluxClickablePaneHeader, FluxColorPicker, FluxColorSelect, FluxCommandPalette, FluxComment, FluxContextMenu, FluxDataTable, FluxDatePicker, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDisabled, FluxDivider, FluxDropZone, FluxExpandable, FluxExpandableGroup, FluxFilterBar, FluxFilterDate, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFlex, FluxFlyout, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormCheckboxTile, FluxFormColumn, FluxFormCombobox, FluxFormDateInput, FluxFormFader, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormNumberInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRadioTile, FluxFormRangeSlider, FluxFormRating, FluxFormSelect, FluxFormSlider, FluxFormTagsInput, FluxFormTextArea, FluxFormTreeViewSelect, FluxGallery, FluxIcon, FluxInfo, FluxInfoStack, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxLayerPane, FluxLink, FluxMasonry, FluxMenu, FluxMenuCollapsible, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuOptions, FluxMenuPane, FluxMenuSubHeader, FluxMenuTitle, FluxNotice, FluxNoticeStack, FluxOverlay, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneGroup, FluxPaneHeader, FluxPaneMedia, FluxPersona, FluxPlaceholder, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxPublishButton, FluxQuantitySelector, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSheet, FluxSkeleton, FluxSlideOver, FluxSnackbar, FluxSpacer, FluxSpinner, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableGroup, FluxTableHeader, FluxTableRow, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTicks, FluxTimeline, FluxTimelineItem, FluxToggle, FluxToolbar, FluxToolbarGroup, FluxTooltip, FluxTreeView, showAlert, showConfirm, showPrompt, showSnackbar } from '@flux-ui/components';
+    import { FluxAction, FluxActionBar, FluxActionPane, FluxActionStack, FluxAvatar, FluxAvatarGroup, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxBreadcrumb, FluxBreadcrumbFlyout, FluxBreadcrumbItem, FluxButtonGroup, FluxButtonStack, FluxCalendar, FluxCalendarItem, FluxChip, FluxClickablePane, FluxClickablePaneHeader, FluxColorPicker, FluxColorSelect, FluxCommandPalette, FluxComment, FluxContextMenu, FluxDataTable, FluxDatePicker, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDisabled, FluxDivider, FluxDropZone, FluxExpandable, FluxExpandableGroup, FluxFilterBar, FluxFilterDate, FluxFilterOption, FluxFilterOptions, FluxFilterRange, FluxFlex, FluxFlyout, FluxForm, FluxFormCheckbox, FluxFormCheckboxGroup, FluxFormCheckboxTile, FluxFormColumn, FluxFormCombobox, FluxFormDateInput, FluxFormFader, FluxFormField, FluxFormInput, FluxFormInputAddition, FluxFormInputGroup, FluxFormNumberInput, FluxFormPinInput, FluxFormRadio, FluxFormRadioGroup, FluxFormRadioTile, FluxFormRangeSlider, FluxFormRating, FluxFormSelect, FluxFormSlider, FluxFormTagsInput, FluxFormTextArea, FluxFormTreeViewSelect, FluxGallery, FluxIcon, FluxInfo, FluxInfoStack, FluxInlineEdit, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxItemStack, FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxLayerPane, FluxLink, FluxMasonry, FluxMenu, FluxMenuCollapsible, FluxMenuFlyout, FluxMenuGroup, FluxMenuItem, FluxMenuOptions, FluxMenuPane, FluxMenuSubHeader, FluxMenuTitle, FluxNotice, FluxNoticeStack, FluxOverlay, FluxPagination, FluxPaginationBar, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneGroup, FluxPaneHeader, FluxPaneMedia, FluxPersona, FluxPlaceholder, FluxPrimaryButton, FluxProgressBar, FluxProse, FluxQuantitySelector, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSheet, FluxSkeleton, FluxSlideOver, FluxSnackbar, FluxSpacer, FluxSpinner, FluxSplitButton, FluxStepper, FluxStepperStep, FluxTab, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableGroup, FluxTableHeader, FluxTableRow, FluxTabs, FluxTag, FluxTagStack, FluxText, FluxTicks, FluxTimeline, FluxTimelineItem, FluxToggle, FluxToolbar, FluxToolbarGroup, FluxTooltip, FluxTreeView, showAlert, showConfirm, showPrompt, showSnackbar } from '@flux-ui/components';
     import type { FluxColor, FluxCommandSource, FluxFilterState, FluxFormSelectOption, FluxIconName, FluxTreeViewOption } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { computed, reactive, ref, useTemplateRef } from 'vue';
@@ -2808,7 +2797,6 @@ const article = FluxProse;</code></pre>
     const toggleIcon = ref(false);
     const view = ref('grid');
     const inlineValue = ref('Project Apollo');
-    const isPublished = ref(false);
     const isOverlayOpen = ref(false);
     const isSlideOverOpen = ref(false);
     const openedSheet = ref<OpenedSheet>(null);

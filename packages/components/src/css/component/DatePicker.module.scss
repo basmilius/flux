@@ -14,7 +14,7 @@
 .datePickerMonths,
 .datePickerYears,
 .datePickerHeader {
-    padding: 15px;
+    padding: var(--pane-padding);
 }
 
 .datePickerHeader {

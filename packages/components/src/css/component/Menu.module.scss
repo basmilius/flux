@@ -48,7 +48,7 @@
 // the sub header; a row that is nothing but the control lines up on both sides.
 .menuControl {
     display: flex;
-    min-height: 42px;
+    min-height: var(--control-height-medium);
     padding: 0 0 0 12px;
     align-items: center;
     gap: 15px;
@@ -92,7 +92,7 @@
     composes: button from './base/Button.module.scss';
 
     height: unset;
-    min-height: 42px;
+    min-height: var(--control-height-medium);
     gap: 15px;
     justify-content: flex-start;
     border: 0;
@@ -343,7 +343,7 @@
 }
 
 .menuLarge .menuControl {
-    min-height: 48px;
+    min-height: var(--control-height-large);
     padding-left: 15px;
 }
 
@@ -366,7 +366,7 @@
 }
 
 .menuLarge .menuItem:not(.menuItemIndented) {
-    min-height: 48px;
+    min-height: var(--control-height-large);
 
     &::after {
         background: var(--primary-on-solid);

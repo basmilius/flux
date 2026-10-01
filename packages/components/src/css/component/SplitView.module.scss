@@ -49,9 +49,9 @@
     &::before {
         position: absolute;
         top: 0;
-        left: calc(50% - 1px);
+        left: calc(50% - .5px);
         height: 100%;
-        width: 2px;
+        width: 1px;
         content: '';
         background: var(--surface-stroke);
         transition: background .15s var(--swift-out);
@@ -79,9 +79,9 @@
     cursor: row-resize;
 
     &::before {
-        top: calc(50% - 1px);
+        top: calc(50% - .5px);
         left: 0;
-        height: 2px;
+        height: 1px;
         width: 100%;
     }
 }
