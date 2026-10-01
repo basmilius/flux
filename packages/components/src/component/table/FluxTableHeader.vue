@@ -213,10 +213,6 @@
             style.textAlign = align;
         }
 
-        if (verticalAlign) {
-            style.alignItems = verticalAlign;
-        }
-
         if (pinnedSide.value) {
             const offset = pinnedOffsets.value.get(columnIndex.value) ?? 0;
 

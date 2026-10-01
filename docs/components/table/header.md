@@ -68,7 +68,7 @@ props:
         optional: true
 
     -   name: vertical-align
-        description: Vertical alignment of the header content, and of every cell in the column that does not set its own `vertical-align`. Cells fill the height of their row, so this decides where their content sits when a row is taller than one line.
+        description: Vertical alignment of every cell in the column that does not set its own `vertical-align`. The header itself stays centered. Cells fill the height of their row, so this decides where their content sits when a row is taller than one line.
         type: [ '"start"', '"center"', '"end"' ]
         optional: true
 

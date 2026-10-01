@@ -84,7 +84,7 @@ example=../../code/components/table/cell/basic.vue
 example=../../code/components/table/cell/column.vue
 :::
 
-::: example Vertical align || Long notes make the row taller than its neighbours. The version and notes columns keep their content at the top, the status column is centered through its header, and the author cell aligns itself to the bottom.
+::: example Vertical align || Long notes make the row taller than its neighbors. The version and notes columns keep their content at the top, the status column is centered through its header, and the author cell aligns itself to the bottom.
 example=../../code/components/table/cell/vertical-align.vue
 :::
 
