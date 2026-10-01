@@ -11,7 +11,7 @@ emits:
         type: [ number ]
 
     -   name: row-click
-        description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item, the index of the clicked column and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set, since there the row activation toggles the selection instead. The column index is the raw cell index (the selection and expand cells are counted), or `-1` when the row is activated by keyboard.
+        description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item, the index of the clicked column and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set, since there the row activation toggles the selection instead. It is also not triggered for an expandable row when `expand-trigger` is `row`, since the activation expands that row. The column index is the raw cell index (the selection and expand cells are counted), or `-1` when the row is activated by keyboard.
         type: [ "T", "number", "MouseEvent" ]
 
     -   name: update:selected
@@ -83,6 +83,12 @@ props:
         type: "'single' | 'multiple'"
         optional: true
         default: multiple
+
+    -   name: expand-trigger
+        description: Use `button` for an expand toggle in a leading column. Use `row` to drop that column and expand a row when the user clicks it or presses `Enter`/`Space` on it. Requires the `expandable` slot.
+        type: "'button' | 'row'"
+        optional: true
+        default: button
 
     -   name: can-expand
         description: A predicate that decides whether a row shows its expand toggle. Return `false` to hide the toggle for rows without detail content. Requires the `expandable` slot.
@@ -274,6 +280,10 @@ example=../code/components/data-table/expand-single.vue
 
 ::: example Conditional expansion || A data table where only rows with detail content show an expand toggle.
 example=../code/components/data-table/expand-conditional.vue
+:::
+
+::: example Expand on row click || A data table without expand toggles, where clicking a row expands it.
+example=../code/components/data-table/expand-row.vue
 :::
 
 ::: example Grouped rows || A data table whose rows are grouped under collapsible headers.

@@ -7,7 +7,7 @@
         :is-loading="isLoading"
         :is-sticky="isSticky">
         <template
-            v-if="'header' in slots || 'filter' in slots || selectionMode || hasExpandable"
+            v-if="'header' in slots || 'filter' in slots || selectionMode || hasExpandColumn"
             #header>
             <FluxTableBar v-if="hasSelectionBar">
                 <slot
@@ -33,7 +33,7 @@
                 </FluxTableHeader>
 
                 <FluxTableHeader
-                    v-if="hasExpandable"
+                    v-if="hasExpandColumn"
                     is-shrinking
                     :pinned="leadingPinned ? 'start' : undefined"
                     :class="$style.tableCellExpand"/>
@@ -92,8 +92,9 @@
                 :key="entry.key">
                 <FluxTableRow
                     :aria-rowindex="(page - 1) * perPage + entry.index + 2"
+                    :aria-expanded="rowStates.get(entry.key)?.isToggle ? rowStates.get(entry.key)?.isExpanded : undefined"
                     :color="rowStates.get(entry.key)?.color"
-                    :is-clickable="isRowInteractive"
+                    :is-clickable="rowStates.get(entry.key)?.isClickable"
                     :is-hidden="chunk.isCollapsed"
                     :is-selected="rowStates.get(entry.key)?.isSelected"
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
@@ -106,7 +107,7 @@
                     </FluxTableCell>
 
                     <FluxTableCell
-                        v-if="hasExpandable"
+                        v-if="hasExpandColumn"
                         :class="$style.tableCellExpand">
                         <FluxTableActions v-if="rowStates.get(entry.key)?.isExpandable">
                             <FluxAction
@@ -196,6 +197,14 @@
         readonly index: number;
         readonly item: T;
     };
+    type RowState = {
+        readonly color: FluxColor | undefined;
+        readonly isClickable: boolean;
+        readonly isExpandable: boolean;
+        readonly isExpanded: boolean;
+        readonly isSelected: boolean;
+        readonly isToggle: boolean;
+    };
     type RenderChunk = {
         readonly kind: 'group' | 'plain';
         readonly key: SelectionId;
@@ -224,6 +233,7 @@
         canExpand,
         collapseMode = 'unmount',
         expandMode = 'multiple',
+        expandTrigger = 'button',
         groupBy,
         isFilled = false,
         isHoverable = false,
@@ -240,6 +250,7 @@
         readonly canExpand?: (item: T) => boolean;
         readonly collapseMode?: 'hide' | 'unmount';
         readonly expandMode?: 'single' | 'multiple';
+        readonly expandTrigger?: 'button' | 'row';
         readonly groupBy?: (item: T) => SelectionId;
         readonly isFilled?: boolean;
         readonly isHoverable?: boolean;
@@ -340,8 +351,9 @@
     const limitedItems = computed(() => items.slice(0, perPage));
 
     const hasExpandable = computed(() => 'expandable' in slots);
+    const hasExpandColumn = computed(() => unref(hasExpandable) && expandTrigger === 'button');
 
-    const leadingColumnCount = computed(() => (selectionMode ? 1 : 0) + (unref(hasExpandable) ? 1 : 0));
+    const leadingColumnCount = computed(() => (selectionMode ? 1 : 0) + (unref(hasExpandColumn) ? 1 : 0));
 
     const leadingPinned = computed(() => {
         const columns = unref(table)?.columns;
@@ -350,7 +362,7 @@
     });
     const columnCount = computed(() => {
         const userColumns = Object.keys(slots).filter(name => !IGNORED_SLOTS.includes(name)).length;
-        return userColumns + (selectionMode ? 1 : 0) + (unref(hasExpandable) ? 1 : 0);
+        return userColumns + unref(leadingColumnCount);
     });
 
     const renderChunks = computed<RenderChunk[]>(() => {
@@ -428,15 +440,22 @@
     const collapsedGroupSet = computed<ReadonlySet<SelectionId>>(() => new Set(unref(collapsedGroups)));
 
     const rowStates = computed(() => {
-        const states = new Map<SelectionId, { color: FluxColor | undefined; isExpandable: boolean; isExpanded: boolean; isSelected: boolean }>();
+        const states = new Map<SelectionId, RowState>();
+        const isDisabled = unref(treeDisabled);
+        const isInteractive = unref(isRowInteractive);
 
         for (const chunk of unref(renderChunks)) {
             for (const entry of chunk.entries) {
+                const isExpandable = isRowExpandable(entry.item);
+                const isToggle = expandTrigger === 'row' && isExpandable;
+
                 states.set(entry.key, {
                     color: rowColor?.(entry.item),
-                    isExpandable: isRowExpandable(entry.item),
+                    isClickable: isInteractive || (isToggle && !isDisabled),
+                    isExpandable,
                     isExpanded: isItemExpanded(entry.item),
-                    isSelected: isItemSelected(entry.item)
+                    isSelected: isItemSelected(entry.item),
+                    isToggle
                 });
             }
         }
@@ -502,6 +521,11 @@
 
     function onRowClick(item: T, columnIndex: number, event: MouseEvent): void {
         if (unref(treeDisabled)) {
+            return;
+        }
+
+        if (expandTrigger === 'row' && isRowExpandable(item)) {
+            toggleExpand(item);
             return;
         }
 
