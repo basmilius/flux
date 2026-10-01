@@ -2,7 +2,7 @@
 
 Mounts an [Apache ECharts](https://echarts.apache.org) instance on an element and keeps it alive: it applies the option when the element mounts, replaces it whenever the option changes, resizes the chart when the element does, and disposes the instance when the component unmounts.
 
-Every chart in this package is built on it. Reach for it directly when you need a chart type Flux Statistics does not ship.
+It registers all chart types supported by Flux Statistics. The dedicated chart components register only the types they need, so unused chart implementations can be removed from your bundle. Reach for this composable directly when you need custom chart options; register any additional ECharts extensions yourself.
 
 ## Usage
 

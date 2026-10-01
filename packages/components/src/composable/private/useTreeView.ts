@@ -75,12 +75,19 @@ export function collectExpandedIds<TOption extends TreeBaseOption>(
         : []);
 }
 
-function subtreeMatches(node: TreeBaseOption, query: string): boolean {
-    if (node.label.toLowerCase().includes(query)) {
-        return true;
+function subtreeMatches(node: TreeBaseOption, query: string, matches: WeakMap<TreeBaseOption, boolean>): boolean {
+    const cached = matches.get(node);
+
+    if (cached !== undefined) {
+        return cached;
     }
 
-    return (node.children ?? []).some(child => subtreeMatches(child, query));
+    const matched = node.label.toLowerCase().includes(query)
+        || (node.children ?? []).some(child => subtreeMatches(child, query, matches));
+
+    matches.set(node, matched);
+
+    return matched;
 }
 
 // Ancestor-preserving search: keep a node when it (or a descendant) matches, so a match and its
@@ -94,12 +101,23 @@ export function flattenSearch<TOption extends TreeBaseOption>(
     parentGuides: boolean[] = [],
     ancestorIds: (string | number)[] = []
 ): TreeFlatNode<TOption>[] {
-    const kept = nodes.filter(node => subtreeMatches(node, query));
+    return flattenMatchingNodes(nodes, query, new WeakMap(), depth, parentGuides, ancestorIds);
+}
+
+function flattenMatchingNodes<TOption extends TreeBaseOption>(
+    nodes: TOption[],
+    query: string,
+    matches: WeakMap<TreeBaseOption, boolean>,
+    depth: number,
+    parentGuides: boolean[],
+    ancestorIds: (string | number)[]
+): TreeFlatNode<TOption>[] {
+    const kept = nodes.filter(node => subtreeMatches(node, query, matches));
 
     return kept.flatMap((node, index) => {
         const isLast = index === kept.length - 1;
         const children = node.children?.length
-            ? flattenSearch(node.children as TOption[], query, depth + 1, childGuides(depth, parentGuides, isLast), [...ancestorIds, node.id])
+            ? flattenMatchingNodes(node.children as TOption[], query, matches, depth + 1, childGuides(depth, parentGuides, isLast), [...ancestorIds, node.id])
             : [];
         const flatNode = {...node, depth, isLast, hasChildren: children.length > 0, lineGuides: parentGuides, ancestorIds} as TreeFlatNode<TOption>;
 

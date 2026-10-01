@@ -1,6 +1,6 @@
 import { useDebouncedRef } from '@basmilius/common';
 import type { FluxCommandSource, FluxCommandSourceItem, FluxCommandSubAction } from '@flux-ui/types';
-import { computed, nextTick, ref, type Ref, shallowRef, unref, watch } from 'vue';
+import { computed, nextTick, onScopeDispose, ref, type Ref, shallowRef, unref, watch } from 'vue';
 
 export type CommandPaletteResultItem = {
     readonly globalIndex: number;
@@ -48,7 +48,7 @@ export function useCommandPalette(params: {
     const savedState = ref<{ readonly search: string; readonly highlightedIndex: number; } | null>(null);
     const asyncResults = shallowRef<Map<string, FluxCommandSourceItem[]>>(new Map());
     const debouncedSearch = useDebouncedRef(search, 300) as unknown as Ref<string>;
-    let fetchGeneration = 0;
+    const fetchGeneration = ref(0);
 
     const filteredItems = computed<CommandPaletteResultItem[]>(() => {
         const query = unref(search).toLowerCase().trim();
@@ -150,12 +150,6 @@ export function useCommandPalette(params: {
     function setSearch(value: string): void {
         search.value = value;
         highlightedIndex.value = value.trim() ? 0 : -1;
-
-        if (value.trim() && !unref(subActionTarget) && unref(params.sources).some(s => s.fetchSearch)) {
-            isLoading.value = true;
-        } else {
-            isLoading.value = false;
-        }
     }
 
     function setActiveTab(key: string | null): void {
@@ -305,15 +299,30 @@ export function useCommandPalette(params: {
         subActionTarget.value = null;
         asyncResults.value = new Map();
         isLoading.value = false;
-        fetchGeneration++;
+        fetchGeneration.value++;
     }
 
-    watch(debouncedSearch, async (query) => {
+    watch([search, activeTab, subActionTarget, params.sources], () => {
+        fetchGeneration.value++;
+        asyncResults.value = new Map();
+
+        const tab = unref(activeTab);
+        isLoading.value = !!unref(search).trim() && !unref(subActionTarget)
+            && unref(params.sources).some(source => source.fetchSearch && (!tab || source.key === tab));
+    }, {flush: 'sync'});
+
+    onScopeDispose(() => fetchGeneration.value++);
+
+    watch([debouncedSearch, fetchGeneration], async ([query, generation]) => {
         if (unref(subActionTarget)) {
             return;
         }
 
         const trimmed = query.trim();
+
+        if (trimmed !== unref(search).trim()) {
+            return;
+        }
 
         if (!trimmed) {
             asyncResults.value = new Map();
@@ -336,7 +345,6 @@ export function useCommandPalette(params: {
             return;
         }
 
-        const generation = ++fetchGeneration;
         isLoading.value = true;
 
         try {
@@ -347,7 +355,7 @@ export function useCommandPalette(params: {
                 }))
             );
 
-            if (generation !== fetchGeneration) {
+            if (generation !== unref(fetchGeneration)) {
                 return;
             }
 
@@ -359,7 +367,7 @@ export function useCommandPalette(params: {
 
             asyncResults.value = map;
         } finally {
-            if (generation === fetchGeneration) {
+            if (generation === unref(fetchGeneration)) {
                 isLoading.value = false;
             }
         }
@@ -378,7 +386,9 @@ export function useCommandPalette(params: {
     watch(totalItems, (total) => {
         const current = unref(highlightedIndex);
 
-        if (current >= total) {
+        if (total > 0 && current < 0 && unref(search).trim()) {
+            highlightedIndex.value = 0;
+        } else if (current >= total) {
             highlightedIndex.value = Math.max(-1, total - 1);
         }
     });

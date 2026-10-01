@@ -8,10 +8,12 @@
     lang="ts"
     setup>
     import type { FluxStatisticsChartMixedSeries } from '@flux-ui/types';
+    import { BarChart, LineChart } from 'echarts/charts';
+    import { use } from 'echarts/core';
     import { computed } from 'vue';
     import { type EChartsOption, useChartSeriesSetup } from '~flux/statistics/composable';
     import { buildMixedChartOptions, type ChartTooltipValueFormatter } from '~flux/statistics/util';
-    import Chart from './FluxStatisticsChart.vue';
+    import { Chart } from './primitive';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
@@ -33,6 +35,8 @@
         readonly xAxisLabels?: boolean;
         readonly yAxisLabels?: boolean;
     }>();
+
+    use([BarChart, LineChart]);
 
     const {t, palette} = useChartSeriesSetup(() => series);
 

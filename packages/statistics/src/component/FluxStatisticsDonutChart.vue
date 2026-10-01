@@ -8,10 +8,12 @@
     lang="ts"
     setup>
     import type { FluxStatisticsChartPieSlice } from '@flux-ui/types';
+    import { PieChart } from 'echarts/charts';
+    import { use } from 'echarts/core';
     import { computed } from 'vue';
     import { type EChartsOption, useChartSlicesSetup } from '~flux/statistics/composable';
     import { buildDonutChartOptions, type ChartTooltipValueFormatter } from '~flux/statistics/util';
-    import Chart from './FluxStatisticsChart.vue';
+    import { Chart } from './primitive';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
@@ -27,6 +29,8 @@
         readonly tooltip?: boolean;
         readonly tooltipValueFormatter?: ChartTooltipValueFormatter;
     }>();
+
+    use([PieChart]);
 
     const {t, palette, tooltipItems} = useChartSlicesSetup(() => slices);
 

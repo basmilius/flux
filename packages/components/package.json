@@ -22,6 +22,7 @@
         "flux"
     ],
     "scripts": {
+        "test": "bun test --tsconfig-override ./tsconfig.app.json tests",
         "build": "vue-tsc --build && vite build",
         "dev": "vite build --watch --mode development"
     },

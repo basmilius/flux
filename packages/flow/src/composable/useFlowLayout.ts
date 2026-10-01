@@ -149,9 +149,10 @@ function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge
 
     const settled = new Set<string>();
     const queue = order.filter(id => indegree.get(id) === 0);
+    let queueHead = 0;
 
     while (settled.size < order.length) {
-        if (queue.length === 0) {
+        if (queueHead === queue.length) {
             // Everything left is caught in a cycle. Release the node closest to
             // being ready and carry on, rather than stalling on it.
             const next = order.filter(id => !settled.has(id)).reduce((best, id) => (indegree.get(id)! < indegree.get(best)! ? id : best));
@@ -159,7 +160,7 @@ function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge
             queue.push(next);
         }
 
-        const id = queue.shift()!;
+        const id = queue[queueHead++];
 
         if (settled.has(id)) {
             continue;
@@ -190,7 +191,14 @@ function layerNodes(order: readonly string[], edges: readonly FluxFlowLayoutEdge
 
     for (const id of order) {
         const index = layer.get(id)!;
-        grouped.set(index, [...(grouped.get(index) ?? []), id]);
+        let group = grouped.get(index);
+
+        if (!group) {
+            group = [];
+            grouped.set(index, group);
+        }
+
+        group.push(id);
     }
 
     const layers = [...grouped.keys()]

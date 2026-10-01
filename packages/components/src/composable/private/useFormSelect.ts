@@ -2,10 +2,23 @@ import type { FluxFormSelectEntry, FluxFormSelectOption, FluxFormSelectOptions, 
 import { computed, type Ref, unref } from 'vue';
 import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
 
-export default function (modelValue: Ref<FluxFormSelectValue>, isMultiple: boolean, options: Ref<FluxFormSelectEntry[]>, searchQuery?: Ref<string>) {
+export default function (modelValue: Ref<FluxFormSelectValue>, isMultiple: boolean, options: Ref<FluxFormSelectEntry[]>, searchQuery?: Ref<string>, selectionOptions: Ref<FluxFormSelectEntry[]> = options) {
     const values = computed(() => {
         const model = unref(modelValue);
         return Array.isArray(model) ? model : [model];
+    });
+
+    const selectedValues = computed(() => new Set(unref(values)));
+    const optionByValue = computed(() => {
+        const index = new Map<FluxFormSelectOption['value'], FluxFormSelectOption>();
+
+        for (const option of unref(selectionOptions)) {
+            if (isFluxFormSelectOption(option) && !index.has(option.value)) {
+                index.set(option.value, option);
+            }
+        }
+
+        return index;
     });
 
     const groups = computed(() => {
@@ -14,7 +27,7 @@ export default function (modelValue: Ref<FluxFormSelectValue>, isMultiple: boole
 
         const available = unref(options)
             .filter(o => isFluxFormSelectGroup(o) || (!search || o.label.toLowerCase().includes(search)))
-            .filter(o => isFluxFormSelectGroup(o) || !isMultiple || !unref(selected).find(s => s.value === o.value));
+            .filter(o => isFluxFormSelectGroup(o) || !isMultiple || !unref(selectedValues).has(o.value));
 
         if (available.length === 0) {
             return [];
@@ -54,7 +67,7 @@ export default function (modelValue: Ref<FluxFormSelectValue>, isMultiple: boole
     });
 
     const selected = computed(() => unref(values)
-        .map(v => unref(options).find(o => isFluxFormSelectOption(o) && o.value === v))
+        .map(v => unref(optionByValue).get(v))
         .filter(isFluxFormSelectOption));
 
     return {

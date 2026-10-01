@@ -65,29 +65,31 @@
     const disabled = useDisabled(toRef(() => componentDisabled));
 
     const options = computed(() => {
-        const options: FluxFormSelectEntry[] = [];
-        const search = unref(modelSearch);
-        const selected = unref(selectedOptions);
         const visible = unref(visibleOptions);
+        const visibleValues = new Set(visible.filter(isFluxFormSelectOption).map(option => option.value));
+        const options = [...visible];
 
-        visible.forEach(vo => options.push(vo));
-
-        selected.forEach(so => {
-            if (isFluxFormSelectOption(so) && visible.find(vo => isFluxFormSelectOption(vo) && vo.value === so.value)) {
-                return;
+        for (const option of unref(selectedOptions)) {
+            if (isFluxFormSelectOption(option) && visibleValues.has(option.value)) {
+                continue;
             }
 
-            if (isFluxFormSelectOption(so) && !so.label.toLowerCase().includes(search.toLowerCase())) {
-                return;
-            }
-
-            options.push(so);
-        });
+            options.push(option);
+        }
 
         return options;
     });
 
-    const {groups, selected, values} = useFormSelect(modelValue, isMultiple, options);
+    const searchOptions = computed(() => {
+        const search = unref(modelSearch).toLowerCase();
+        const visibleValues = new Set(unref(visibleOptions).filter(isFluxFormSelectOption).map(option => option.value));
+
+        return unref(options).filter(option => !isFluxFormSelectOption(option)
+            || visibleValues.has(option.value)
+            || option.label.toLowerCase().includes(search));
+    });
+
+    const {groups, selected, values} = useFormSelect(modelValue, isMultiple, searchOptions, undefined, options);
     const {isLoading: isFetchingLoading, loaded} = useLoaded();
     const debouncedModelSearch = useDebouncedRef(modelSearch, 300) as unknown as Ref<string>;
 
