@@ -8,6 +8,11 @@ props:
         optional: true
         default: vertical
 
+    -   name: is-label-small
+        description: Sets the labels in the small font size, keeping the values at the default size. The `horizontal` direction already uses small labels.
+        type: boolean
+        optional: true
+
     -   name: label-width
         description: The maximum width of the label column. Setting this switches the vertical layout to aligned columns, where the label column shrinks to fit the widest label and values are aligned to the leading edge. A number is interpreted as pixels. Only applies when `direction` is `vertical`; `is-stacked` on items has no effect in this layout.
         type: [ number, string ]

@@ -74,6 +74,10 @@
     overflow-wrap: anywhere;
 }
 
+.descriptionListItems.isLabelSmall .descriptionItemTerm {
+    @include mixin.text(small);
+}
+
 .descriptionListItems.hasLabelWidth {
     display: grid;
     align-items: center;

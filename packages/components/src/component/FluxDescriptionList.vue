@@ -10,6 +10,7 @@
             :class="clsx(
                 $style.descriptionListItems,
                 direction === 'horizontal' && $style.isHorizontal,
+                isLabelSmall && $style.isLabelSmall,
                 isAligned && $style.hasLabelWidth
             )"
             :style="isAligned ? {'--label-width': typeof labelWidth === 'number' ? `${labelWidth}px` : labelWidth} : undefined">
@@ -30,6 +31,7 @@
         labelWidth
     } = defineProps<{
         readonly direction?: 'horizontal' | 'vertical';
+        readonly isLabelSmall?: boolean;
         readonly labelWidth?: number | string;
         readonly title?: string;
     }>();
