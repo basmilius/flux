@@ -1,0 +1,5 @@
+# Ruimte writes this folder. Everything here is meant to be committed,
+# except what belongs to one person or to one machine.
+private/
+*.corrupt-*
+*.tmp
