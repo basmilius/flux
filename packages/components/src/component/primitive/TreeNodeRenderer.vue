@@ -22,7 +22,7 @@
             @click="onExpandClick($event)">
             <FluxIcon
                 name="angle-right"
-                :size="14"/>
+                :size="12"/>
         </button>
 
         <span
@@ -93,13 +93,7 @@
 
     const colorValue = computed(() => node.color ?? levelColors?.[node.depth]);
     const isFluxColor = computed(() => FLUX_COLORS.includes(colorValue.value as FluxColor));
-    const markerColorClass = computed(() => {
-        if (colorValue.value == null) {
-            return undefined;
-        }
-
-        return isFluxColor.value ? MARKER_COLOR_CLASS[colorValue.value as FluxColor] : $style.treeNodeMarkerCustom;
-    });
+    const markerColorClass = computed(() => isFluxColor.value ? MARKER_COLOR_CLASS[colorValue.value as FluxColor] : undefined);
     const markerStyle = computed(() => (!isFluxColor.value && colorValue.value != null ? {'--tree-marker-color': colorValue.value} : undefined) as CSSProperties | undefined);
 
     function onExpandClick(evt: MouseEvent): void {
