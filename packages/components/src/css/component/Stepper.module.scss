@@ -15,7 +15,7 @@
 
     &::before,
     &::after {
-        --margin: 15px;
+        --margin: 12px;
         --max: calc(100% - var(--margin) * 2);
 
         position: absolute;
@@ -41,12 +41,12 @@
 }
 
 .stepperStepsItem {
-    @include mixin.text(small);
+    @include mixin.text(2xsmall);
 
     position: relative;
     display: flex;
-    height: 30px;
-    width: 30px;
+    height: 24px;
+    width: 24px;
     align-items: center;
     justify-content: center;
     background: var(--gray-soft-hover);
@@ -62,7 +62,6 @@
 
     .icon {
         overflow: visible;
-        scale: .8;
 
         :is(path) {
             stroke: currentColor;
@@ -83,7 +82,8 @@
 
     color: var(--foreground-prominent);
     outline-color: var(--primary-solid);
-    outline-width: 2px;
+    outline-width: 1.5px;
+    outline-offset: -1.5px;
     transition-delay: 75ms;
 }
 

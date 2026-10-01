@@ -5,7 +5,7 @@
             ref="marker"
             :class="$style.activityFeedItemAvatar"
             :fallback-initials="avatarFallbackInitials"
-            :size="30"
+            :size="24"
             :src="avatarSrc"
             aria-hidden="true"/>
 
