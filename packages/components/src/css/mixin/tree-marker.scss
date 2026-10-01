@@ -1,0 +1,29 @@
+@use 'color' as color;
+
+@mixin tree-marker-classes($prefix) {
+    .#{$prefix} {
+        --tree-marker-color: var(--foreground-subtle);
+        --tree-marker-fill: color-mix(in srgb, var(--tree-marker-color) 25%, var(--surface));
+        --tree-marker-foreground: var(--tree-marker-color);
+
+        display: flex;
+        box-sizing: border-box;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        background: var(--tree-marker-fill);
+        border: 1.5px solid var(--tree-marker-color);
+        border-radius: 50%;
+        color: var(--tree-marker-foreground);
+    }
+
+    @include color.color-variants($prefix) using ($color) {
+        @if $color == 'gray' {
+            --tree-marker-color: var(--foreground-subtle);
+        } @else {
+            --tree-marker-color: var(--#{$color}-solid);
+        }
+    }
+}

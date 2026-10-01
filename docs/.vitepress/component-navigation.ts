@@ -317,6 +317,14 @@ const navigation: SidebarItem[] = [
                     {text: 'Item', link: '/components/timeline/item'}
                 ]
             },
+            {
+                text: 'Tree',
+                link: '/components/tree/',
+                collapsed: true,
+                items: [
+                    {text: 'Item', link: '/components/tree/item'}
+                ]
+            },
             {text: 'Tree view', link: '/components/tree-view'}
         ]
     },

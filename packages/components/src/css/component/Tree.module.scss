@@ -1,0 +1,102 @@
+@use '~flux/components/css/mixin';
+
+.tree[role=list],
+.tree .treeItemChildren {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tree {
+    --tree-step: 24px;
+    --tree-line-color: var(--surface-stroke);
+
+    min-width: 0;
+    width: 100%;
+    color: var(--foreground);
+    font-weight: 400;
+    text-align: left;
+}
+
+.tree .treeItem {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    list-style: none;
+}
+
+.treeItemRow {
+    position: relative;
+    display: flex;
+    padding-bottom: 6px;
+    gap: 9px;
+    align-items: flex-start;
+}
+
+.treeItem:has(> .treeItemChildren > .treeItem) > .treeItemRow::after {
+    position: absolute;
+    top: calc(var(--line-height-default) / 2 + 12px);
+    bottom: 0;
+    left: 8px;
+    width: 2px;
+    content: '';
+    background: var(--tree-line-color);
+    pointer-events: none;
+}
+
+.treeItem:last-child:not(:has(> .treeItemChildren > .treeItem)) > .treeItemRow {
+    padding-bottom: 0;
+}
+
+.tree .treeItemChildren {
+    margin-left: var(--tree-step);
+
+    &:not(:has(> .treeItem)) {
+        display: none;
+    }
+
+    > .treeItem::after {
+        position: absolute;
+        top: 0;
+        left: calc(8px - var(--tree-step));
+        height: calc(var(--line-height-default) / 2 + 1px);
+        width: calc(var(--tree-step) - 11px);
+        content: '';
+        border-left: 2px solid var(--tree-line-color);
+        border-bottom: 2px solid var(--tree-line-color);
+        border-bottom-left-radius: 9px;
+        pointer-events: none;
+    }
+
+    > .treeItem:not(:last-child)::before {
+        position: absolute;
+        inset-block: 0;
+        left: calc(8px - var(--tree-step));
+        width: 2px;
+        content: '';
+        background: var(--tree-line-color);
+        pointer-events: none;
+    }
+}
+
+@include mixin.tree-marker-classes(treeItemMarker);
+
+.treeItemMarker {
+    position: relative;
+    margin-top: calc((var(--line-height-default) - 18px) / 2);
+    z-index: 1;
+}
+
+.treeItemLabel {
+    min-width: 0;
+    flex: 1;
+    line-height: var(--line-height-default);
+    overflow-wrap: anywhere;
+}
+
+.treeItemRow.isHighlighted .treeItemLabel {
+    color: var(--foreground-prominent);
+    font-weight: 600;
+}
