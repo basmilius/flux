@@ -41,6 +41,8 @@
 }
 
 .commentContent {
+    @include mixin.text(small);
+
     min-width: 0;
     padding: 9px 12px;
     background: var(--primary-soft);

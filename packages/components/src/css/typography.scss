@@ -40,8 +40,9 @@
         align-self: start;
         color: var(--primary-text);
         text-decoration: underline;
-        text-decoration-color: currentColor;
+        text-decoration-color: var(--foreground);
         text-decoration-skip: auto;
+        text-decoration-style: dotted;
         text-decoration-thickness: 1px;
         text-underline-offset: 2px;
 

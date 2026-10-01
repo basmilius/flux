@@ -74,6 +74,7 @@
     background: transparent;
     border: 0;
     cursor: default;
+    font-size: var(--font-size-2xsmall);
     text-align: left;
 
     @include mixin.focus-ring;

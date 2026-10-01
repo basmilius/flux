@@ -649,7 +649,7 @@
     position: sticky;
     top: 0;
     padding: 9px;
-    background: linear-gradient(to bottom, var(--surface-current) 75%, transparent);
+    background: linear-gradient(to bottom, var(--surface-current) calc(100% - 9px), transparent);
     z-index: 2;
 }
 
