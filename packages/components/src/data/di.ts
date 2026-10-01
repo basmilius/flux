@@ -309,6 +309,7 @@ export type FluxTableColumnDef = {
     readonly minWidth?: number;
     readonly noWrap?: boolean;
     readonly pinned: 'start' | 'end' | null;
+    readonly verticalAlign?: 'start' | 'center' | 'end';
     readonly width?: number;
 };
 
