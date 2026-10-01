@@ -17,7 +17,7 @@
 
             <FluxPersona
                 :avatar-fallback-initials="person.initials"
-                :avatar-size="42"
+                :avatar-size="36"
                 :avatar-src="person.avatar"
                 :name="person.name"
                 :title="person.title"/>

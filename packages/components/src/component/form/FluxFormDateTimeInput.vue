@@ -3,33 +3,34 @@
         :class="$style.formDateTimeInput"
         :gap="15"
         :aria-disabled="disabled ? true : undefined">
-        <FluxFlyout
-            ref="flyout"
-            :width="300">
-            <template #opener="{open}">
-                <FluxFormInputGroup>
-                    <FluxFormInput
-                        :="{autoComplete, autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
-                        :class="$style.formDateInput"
-                        :disabled="disabled"
-                        :model-value="localValue"
-                        type="date"
-                        @update:model-value="setDate"
-                        @show-picker="open"/>
+        <FluxFormInputGroup>
+            <FluxFormInput
+                :="{autoComplete, autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
+                :class="$style.formDateInput"
+                :disabled="disabled"
+                :model-value="localValue"
+                type="date"
+                @update:model-value="setDate"
+                @show-picker="flyoutRef?.open()"/>
 
+            <FluxFlyout
+                ref="flyout"
+                :width="300">
+                <template #opener="{open}">
                     <FluxSecondaryButton
+                        :class="$style.formDateInputButton"
                         :disabled="disabled || isReadonly"
                         icon-leading="calendar"
                         @click.prevent="open"/>
-                </FluxFormInputGroup>
-            </template>
+                </template>
 
-            <FluxDatePicker
-                :max="max"
-                :min="min"
-                :model-value="localValue"
-                @update:model-value="setDate"/>
-        </FluxFlyout>
+                <FluxDatePicker
+                    :max="max"
+                    :min="min"
+                    :model-value="localValue"
+                    @update:model-value="setDate"/>
+            </FluxFlyout>
+        </FluxFormInputGroup>
 
         <FluxFormInput
             :="{error, isCondensed, isLoading, isReadonly, isSecondary, placeholder}"
@@ -72,7 +73,7 @@
         readonly min?: DateTime;
     }>();
 
-    const flyoutRef = useTemplateRef<{ close(): void; }>('flyout');
+    const flyoutRef = useTemplateRef('flyout');
     const disabled = useDisabled(toRef(() => componentDisabled));
 
     const localValue = useDateFlyout(modelValue, flyoutRef, {

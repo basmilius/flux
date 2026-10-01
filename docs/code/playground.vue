@@ -851,7 +851,7 @@
                         :gap="15"
                         direction="vertical">
                         <FluxPersona
-                            :avatar-size="42"
+                            :avatar-size="36"
                             avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"
                             name="Bas Milius"
                             title="Flux engineer"/>
@@ -2390,23 +2390,23 @@
             align="center"
             wrap="wrap">
             <FluxAvatar
-                :size="42"
+                :size="36"
                 src="https://avatars.githubusercontent.com/u/978257?v=4"/>
             <FluxAvatar
                 fallback-initials="AL"
-                :size="42"/>
+                :size="36"/>
             <FluxAvatar
                 fallback="neutral"
                 fallback-icon="user"
-                :size="42"/>
+                :size="36"/>
             <FluxAvatar
                 is-loading
-                :size="42"/>
+                :size="36"/>
             <FluxAvatar
                 v-for="color of colors"
                 :key="color"
                 fallback-initials="BM"
-                :size="42"
+                :size="36"
                 :status="color"
                 status-icon="check"/>
         </FluxFlex>
@@ -2545,6 +2545,22 @@ const article = FluxProse;</code></pre>
             alt=""
             data-prose-wide
             src="https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
+
+        <h2>Service desk: quick actions</h2>
+        <p>A speed dial gives a dispatcher a short list of things to create. Open the dial to add a request, incident or site visit to the queue.</p>
+        <ServiceDesk data-prose-wide/>
+
+        <h2>Order details: description lists</h2>
+        <p>One order combines a horizontal summary, aligned record fields and a stacked delivery address. Mark it as dispatched to update the status.</p>
+        <OrderDetails data-prose-wide/>
+
+        <h2>Invoice approval: context and history</h2>
+        <p>A progress ring tracks the approval checklist. Hover over the supplier for contact details, expand the delivery note, then confirm approval to add an entry to the activity feed.</p>
+        <InvoiceApproval data-prose-wide/>
+
+        <h2>Site visit: planning and attendees</h2>
+        <p>A numbered form brings together a date range, a start time, a time zone and a repeatable attendee list. Add, remove or reorder attendees, then save the visit to see a summary.</p>
+        <VisitPlanner data-prose-wide/>
     </FluxProse>
 
     <!-- Outside the prose container on purpose: its `container-type` would become
@@ -2562,6 +2578,7 @@ const article = FluxProse;</code></pre>
     import ApplicationDemo from './playground/ApplicationDemo.vue';
     import PaletteSwitcher from './playground/PaletteSwitcher.vue';
     import Patterns from './playground/Patterns.vue';
+    import { InvoiceApproval, OrderDetails, ServiceDesk, VisitPlanner } from './playground/real-world';
 
     type OpenedSheet = 'fitted' | 'scrolling' | 'snap' | 'static' | null;
     type SheetPosition = 'bottom' | 'left' | 'right' | 'top';

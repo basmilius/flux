@@ -17,7 +17,7 @@
     display: flex;
     margin: 0;
     flex-flow: column;
-    gap: 6px;
+    gap: 9px;
 }
 
 .descriptionItem {
@@ -77,7 +77,7 @@
 .descriptionListItems.hasLabelWidth {
     display: grid;
     align-items: center;
-    gap: 6px 24px;
+    gap: 9px 24px;
     grid-template-columns: fit-content(var(--label-width)) 1fr;
 
     .descriptionItem {

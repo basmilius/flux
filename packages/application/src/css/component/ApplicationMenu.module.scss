@@ -118,15 +118,7 @@
     overflow: hidden;
     interpolate-size: allow-keywords;
     transition: var(--application-duration) var(--swift-out);
-    transition-property: height, margin, opacity, padding, display;
-    transition-behavior: allow-discrete;
-
-    @starting-style {
-        height: 0;
-        margin-block: -9px -3px;
-        padding-block: 0;
-        opacity: 0;
-    }
+    transition-property: height, margin, opacity, padding, visibility;
 }
 
 .applicationMenu :local(.menuItem) {
@@ -205,7 +197,7 @@
 
 .applicationMenuAccount {
     position: relative;
-
+    min-width: 0;
     pointer-events: none;
 }
 
@@ -226,16 +218,21 @@
 
 .applicationMenuContext {
     display: flex;
+    // Keep text wrapping stable while the menu rail animates its width.
+    width: calc(var(--application-menu-width) - 1px);
     margin-top: -12px;
     margin-inline: -12px;
     padding: 15px 16px;
     flex-flow: row nowrap;
+    flex-shrink: 0;
     gap: 15px;
     border-bottom: 1px solid var(--application-menu-surface-stroke);
 }
 
 .applicationMenuContextContent {
     display: grid;
+    min-width: 0;
+    flex: 1;
     align-self: center;
     grid-template-rows: 1fr;
     transition: var(--application-duration) var(--swift-out);
@@ -246,7 +243,7 @@
     display: flex;
     flex-flow: column;
     min-height: 0;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
     overflow: hidden;
 
     :global(strong) {
@@ -318,6 +315,10 @@
     .applicationMenu[data-collapsed][data-collapsible] {
         width: var(--application-menu-width-collapsed);
 
+        :local(.menuItem):has(> .menuItemIcon:not(:only-child)) {
+            padding-inline: calc((var(--control-height-medium) - 15px) / 2);
+        }
+
         :local(.menuItemLabel) {
             filter: blur(3px);
             opacity: 0;
@@ -325,11 +326,23 @@
         }
 
         :local(.menuSubHeader) {
-            display: none;
             height: 0;
-            margin-block: -9px -3px;
+            margin-block: 0;
             padding-block: 0;
             opacity: 0;
+            visibility: hidden;
+        }
+
+        .applicationMenuAccount:local(.menuItem) {
+            width: var(--control-height-medium);
+            padding-inline: 0;
+            flex: 0 0 var(--control-height-medium);
+            justify-content: center;
+
+            :local(.menuItemLabel),
+            :local(.menuItemIcon):last-child:not(:first-child) {
+                display: none;
+            }
         }
 
         .applicationMenuPromo {
@@ -355,6 +368,10 @@
 
     .applicationMenu[data-collapsed] {
         translate: -100% 0;
+    }
+
+    .applicationMenuContext {
+        width: calc(min(300px, 100dvw - 36px) - 1px);
     }
 }
 

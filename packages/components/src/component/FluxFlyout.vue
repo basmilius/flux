@@ -1,40 +1,43 @@
 <template>
     <div
         ref="mount"
-        :class="$style.flyout"
-        :style="{
-            '--opener-width': `${openerWidth}px`,
-            '--pane-mx': `${paneMarginX}px`,
-            '--pane-my': `${paneMarginY}px`,
-            '--pane-x': `${paneX - 30}px`,
-            '--pane-y': `${paneY - 30}px`
-        }">
+        :class="$style.flyout">
         <slot
             name="opener"
             v-bind="{close, open, toggle, isOpen: isOpen || isOpening || isClosing}"/>
 
-        <dialog
-            ref="dialog"
-            :aria-label="label"
-            :class="$style.flyoutDialog"
-            @click="onDialogBackdropClick">
-            <FluxPane
-                v-if="isOpen"
-                ref="pane"
+        <Teleport to="body">
+            <dialog
+                ref="dialog"
                 :aria-label="label"
-                role="dialog"
-                :class="clsx(
-                    $style.flyoutPane,
-                    isAutoWidth && $style.isAutoWidth,
-                    isClosing && $style.isClosing,
-                    isOpening && $style.isOpening
-                )"
+                :class="$style.flyoutDialog"
                 :style="{
-                    width: `${width}px`
-                }">
-                <slot v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
-            </FluxPane>
-        </dialog>
+                    '--opener-width': `${openerWidth}px`,
+                    '--pane-mx': `${paneMarginX}px`,
+                    '--pane-my': `${paneMarginY}px`,
+                    '--pane-x': `${paneX - 30}px`,
+                    '--pane-y': `${paneY - 30}px`
+                }"
+                @click="onDialogBackdropClick"
+                @keydown="onDialogKeyDown">
+                <FluxPane
+                    v-if="isOpen"
+                    ref="pane"
+                    :aria-label="label"
+                    role="dialog"
+                    :class="clsx(
+                        $style.flyoutPane,
+                        isAutoWidth && $style.isAutoWidth,
+                        isClosing && $style.isClosing,
+                        isOpening && $style.isOpening
+                    )"
+                    :style="{
+                        width: typeof width === 'number' ? `${width}px` : width
+                    }">
+                    <slot v-bind="{close, paneX, paneY, openerWidth, openerHeight}"/>
+                </FluxPane>
+            </dialog>
+        </Teleport>
     </div>
 </template>
 
@@ -42,11 +45,11 @@
     lang="ts"
     setup>
     import { unwrapElement, useEventListener, useHotKey } from '@basmilius/common';
-    import { useFocusTrap } from '@flux-ui/internals';
+    import { getFocusableElements } from '@flux-ui/internals';
     import type { FluxDirection } from '@flux-ui/types';
     import { clsx } from 'clsx';
     import { onUnmounted, provide, ref, unref, useTemplateRef, type VNode, watch } from 'vue';
-    import { FluxFlyoutInjectionKey } from '~flux/components/data';
+    import { FluxFlyoutInjectionKey, FluxMenuFlyoutInjectionKey } from '~flux/components/data';
     import FluxPane from './FluxPane.vue';
     import $style from '~flux/components/css/component/Flyout.module.scss';
 
@@ -100,7 +103,6 @@
     const paneMarginY = ref(0);
 
     useEventListener(() => window, 'resize', () => unref(isOpen) && reposition());
-    useFocusTrap(paneRef);
 
     useHotKey('esc', () => close(), {
         enabled: isOpen,
@@ -123,7 +125,7 @@
             dialog.close();
             emit('close');
         }
-    });
+    }, {flush: 'post'});
 
     onUnmounted(() => {
         const pane = unwrapElement(paneRef);
@@ -265,6 +267,25 @@
         }
     }
 
+    function onDialogKeyDown(evt: KeyboardEvent): void {
+        const pane = unwrapElement(paneRef);
+
+        if (evt.key !== 'Tab' || evt.defaultPrevented || !pane) {
+            return;
+        }
+
+        // A menu can expose just one roving tab stop; Tab must stay inside the flyout.
+        const elements = getFocusableElements(pane).filter(element => element.tabIndex >= 0);
+        const boundary = evt.shiftKey ? elements[0] : elements.at(-1);
+
+        if (document.activeElement !== boundary) {
+            return;
+        }
+
+        evt.preventDefault();
+        (evt.shiftKey ? elements.at(-1) : elements[0])?.focus();
+    }
+
     function onDialogBackdropClick(evt: Event): void {
         evt.stopPropagation();
 
@@ -276,6 +297,9 @@
 
         close();
     }
+
+    // A flyout owns its menu tree, even when its opener lives inside another menu.
+    provide(FluxMenuFlyoutInjectionKey, null);
 
     provide(FluxFlyoutInjectionKey, {
         isClosing,

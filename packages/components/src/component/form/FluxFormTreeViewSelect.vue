@@ -63,21 +63,24 @@
             <AnchorPopup
                 v-if="isPopupOpen && !disabled"
                 ref="anchorPopup"
-                :class="$formStyle.formSelectPopup"
+                :class="clsx($formStyle.formSelectPopup, isSearchable && $formStyle.isSearchable)"
                 :anchor="anchorRef"
                 direction="vertical"
                 use-anchor-width>
 
-                <FluxFormInput
+                <div
                     v-if="isSearchable"
-                    v-model="searchQuery"
-                    ref="searchInput"
-                    auto-complete="off"
-                    :class="$formStyle.formSelectInput"
-                    type="search"
-                    icon-trailing="magnifying-glass"
-                    :placeholder="translate('flux.search')"
-                    @keydown="onKeyDown"/>
+                    :class="$formStyle.formSelectSearch">
+                    <FluxFormInput
+                        v-model="searchQuery"
+                        ref="searchInput"
+                        auto-complete="off"
+                        is-secondary
+                        type="search"
+                        icon-leading="magnifying-glass"
+                        :placeholder="translate('flux.search')"
+                        @keydown="onKeyDown"/>
+                </div>
 
                 <div
                     :id="listId"

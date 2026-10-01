@@ -11,7 +11,7 @@
             :fallback="avatarFallback"
             :fallback-icon="avatarFallbackIcon"
             :fallback-initials="avatarFallbackInitials"
-            :size="42"
+            :size="36"
             :src="avatarSrc"/>
 
         <div :class="$style.commentContent">

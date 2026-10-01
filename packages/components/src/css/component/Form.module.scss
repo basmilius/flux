@@ -39,7 +39,13 @@
 .formColumn,
 .formSection {
     composes: formStructureElement;
+}
 
+.formColumn {
+    gap: 12px;
+}
+
+.formSection {
     gap: 18px;
 }
 
@@ -153,7 +159,7 @@
     display: flex;
     flex: 1 1 0;
     flex-flow: column;
-    gap: 6px;
+    gap: 3px;
 }
 
 .formFieldHeader {
@@ -166,6 +172,8 @@
 }
 
 .formFieldLabel {
+    @include mixin.text(small);
+
     min-height: var(--line-height-default);
     color: var(--foreground-prominent);
     font-weight: 600;
@@ -364,7 +372,7 @@
 }
 
 .formInputNativeHasIconLeading {
-    padding-left: 36px;
+    padding-left: 33px;
 }
 
 .formInputNativeHasIconTrailing {
@@ -564,12 +572,23 @@
 }
 
 .formDateTimeInput {
-    .formInput:last-child {
+    > .formInput:last-child {
         max-width: 99px;
     }
 
-    .inputGroup {
+    > .formInputGroup {
         flex-grow: 1;
+    }
+}
+
+.formDateInputButton {
+    @extend %-form-input-group-inner-styles;
+
+    border-left: 1px solid var(--surface-stroke);
+
+    &:first-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 }
 
@@ -626,29 +645,12 @@
     translate: 0 -50%;
 }
 
-.formSelectInput {
+.formSelectSearch {
     position: sticky;
     top: 0;
-    height: var(--control-height-medium);
-    margin-bottom: 9px;
-    background: var(--surface-current);
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
-    outline: 0;
+    padding: 9px;
+    background: linear-gradient(to bottom, var(--surface-current) 75%, transparent);
     z-index: 2;
-
-    @include mixin.focus-ring-remove;
-
-    .formInputIcon {
-        right: 18px;
-        font-size: 18px;
-    }
-
-    .formInputNative {
-        padding-inline: 18px;
-    }
 }
 
 .formSelectPlaceholder {
@@ -681,8 +683,12 @@
         transition: 0s;
     }
 
-    &.isSearchable .menuSubHeader {
-        top: var(--control-height-medium);
+    &.isSearchable {
+        scroll-padding-top: calc(var(--control-height-medium) + 18px);
+
+        .menuSubHeader {
+            top: calc(var(--control-height-medium) + 18px);
+        }
     }
 }
 
@@ -848,7 +854,7 @@
 
 .formCheckboxElement,
 .formCheckboxNative {
-    margin: 3px 0 0;
+    margin: 2px 0 0;
     height: 18px;
     width: 18px;
 }
@@ -942,7 +948,7 @@
 
     width: 100%;
     align-items: flex-start;
-    padding: 15px;
+    padding: 12px;
     background: var(--surface);
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
@@ -978,7 +984,7 @@
     > .formCheckboxIcon {
         order: 1;
         flex-shrink: 0;
-        margin-top: 1px;
+        margin-top: calc((var(--line-height-default) - 15px) / 2);
         color: var(--primary-text);
     }
 
@@ -1112,7 +1118,7 @@
 
 .formRadioElement,
 .formRadioNative {
-    margin: 3px 0 0;
+    margin: 2px 0 0;
     height: 18px;
     width: 18px;
 }
@@ -1203,7 +1209,7 @@
 
     width: 100%;
     align-items: flex-start;
-    padding: 15px;
+    padding: 12px;
     background: var(--surface);
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
@@ -1239,7 +1245,7 @@
     > .formRadioIcon {
         order: 1;
         flex-shrink: 0;
-        margin-top: 1px;
+        margin-top: calc((var(--line-height-default) - 15px) / 2);
         color: var(--primary-text);
     }
 
@@ -1322,6 +1328,8 @@
 }
 
 .formPinInput {
+    @include mixin.text(2xlarge);
+
     display: grid;
     width: min-content;
     gap: .4ch;
@@ -1329,18 +1337,17 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 24px;
     font-weight: 700;
 }
 
 .formPinInputField {
     padding: 0;
+    height: 3ch;
     width: 2.7ch;
     border: 1px solid var(--surface-stroke);
     border-radius: var(--radius);
     box-shadow: var(--shadow-px);
     font: inherit;
-    line-height: 3.3ch;
     outline: 0;
     text-align: center;
     transition: var(--transition-default);

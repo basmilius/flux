@@ -112,6 +112,12 @@
     :local(.badge):last-child {
         margin-right: -6px;
     }
+
+    &:has(> :is(.menuItemIcon, :local(.spinner), svg):only-child) {
+        width: var(--control-height-medium);
+        padding-inline: 0;
+        justify-content: center;
+    }
 }
 
 .menuItemIcon {
@@ -367,6 +373,11 @@
 
 .menuLarge .menuItem:not(.menuItemIndented) {
     min-height: var(--control-height-large);
+
+    &:has(> :is(.menuItemIcon, :local(.spinner), svg):only-child) {
+        width: var(--control-height-large);
+        padding-inline: 0;
+    }
 
     &::after {
         background: var(--primary-on-solid);

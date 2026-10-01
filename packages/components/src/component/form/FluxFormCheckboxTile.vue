@@ -31,7 +31,7 @@
             v-if="icon"
             :class="$style.formCheckboxIcon"
             :name="icon"
-            :size="20"/>
+            :size="15"/>
 
         <span :class="$style.formCheckboxText">
             <span :class="$style.formCheckboxLabel">

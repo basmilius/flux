@@ -39,6 +39,12 @@
                             </FluxMenuGroup>
                         </template>
 
+                        <FluxApplicationMenuContext
+                            v-if="activePage === 'clients'"
+                            subtitle="Client"
+                            title="Riverside Supply — Rotterdam office"
+                            @click="activePage = 'dashboard'"/>
+
                         <FluxMenuGroup>
                             <FluxMenuItem
                                 v-for="item of primaryNavigation"
@@ -120,22 +126,19 @@
 
                             <template #fallback>
                                 <FluxSecondaryLinkButton
-                                    icon-leading="magnifying-glass"
-                                    size="small"/>
+                                    icon-leading="magnifying-glass"/>
                             </template>
                         </FluxAdaptiveSlot>
 
                         <FluxButtonStack :gap="0">
                             <FluxTooltip content="Notifications">
                                 <FluxSecondaryLinkButton
-                                    icon-leading="bell"
-                                    size="small"/>
+                                    icon-leading="bell"/>
                             </FluxTooltip>
 
                             <FluxTooltip content="Support">
                                 <FluxSecondaryLinkButton
-                                    icon-leading="circle-question"
-                                    size="small"/>
+                                    icon-leading="circle-question"/>
                             </FluxTooltip>
                         </FluxButtonStack>
 
@@ -224,8 +227,7 @@
                         <template #end>
                             <FluxSecondaryButton
                                 icon-trailing="angle-right"
-                                label="View all"
-                                size="small"/>
+                                label="View all"/>
                         </template>
 
                         <FluxPane>
@@ -297,7 +299,7 @@
 <script
     lang="ts"
     setup>
-    import { FluxApplication, FluxApplicationContent, FluxApplicationHero, FluxApplicationMenu, FluxApplicationMenuAccount, FluxApplicationMenuPromo, FluxApplicationSection, FluxApplicationTop } from '@flux-ui/application';
+    import { FluxApplication, FluxApplicationContent, FluxApplicationHero, FluxApplicationMenu, FluxApplicationMenuAccount, FluxApplicationMenuContext, FluxApplicationMenuPromo, FluxApplicationSection, FluxApplicationTop } from '@flux-ui/application';
     import { FluxAction, FluxAdaptiveSlot, FluxAvatar, FluxBadge, FluxButtonStack, FluxDivider, FluxFlex, FluxFlyout, FluxFormInput, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxMenuSubHeader, FluxPane, FluxPaneBody, FluxPaneHeader, FluxPrimaryButton, FluxSecondaryButton, FluxSecondaryLinkButton, FluxSeparator, FluxSpacer, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTableRow, FluxTooltip } from '@flux-ui/components';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
     import { computed, ref } from 'vue';

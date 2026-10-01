@@ -35,9 +35,14 @@
     }
 
     &:has(.statisticsEmpty) {
+        align-content: stretch;
+
         .statisticsChartPaneContainer {
+            display: flex;
             height: auto;
             min-height: var(--min-height, 240px);
+            flex-flow: column;
+            align-self: stretch;
         }
     }
 }

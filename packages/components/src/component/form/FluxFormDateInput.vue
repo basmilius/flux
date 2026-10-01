@@ -1,33 +1,34 @@
 <template>
-    <FluxFlyout
-        ref="flyout"
-        :width="300">
-        <template #opener="{open}">
-            <FluxFormInputGroup>
-                <FluxFormInput
-                    :="{autoComplete, autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
-                    v-model="localValue"
-                    :class="$style.formDateInput"
-                    :disabled="disabled"
-                    :max="max?.toISO()?.substring(0, 10)"
-                    :min="min?.toISO()?.substring(0, 10)"
-                    type="date"
-                    @blur="onBlur()"
-                    @focus="onFocus()"
-                    @show-picker="open"/>
+    <FluxFormInputGroup>
+        <FluxFormInput
+            :="{autoComplete, autoFocus, error, isCondensed, isLoading, isReadonly, isSecondary, name, placeholder}"
+            v-model="localValue"
+            :class="$style.formDateInput"
+            :disabled="disabled"
+            :max="max?.toISO()?.substring(0, 10)"
+            :min="min?.toISO()?.substring(0, 10)"
+            type="date"
+            @blur="onBlur()"
+            @focus="onFocus()"
+            @show-picker="flyoutRef?.open()"/>
 
+        <FluxFlyout
+            ref="flyout"
+            :width="300">
+            <template #opener="{open}">
                 <FluxSecondaryButton
+                    :class="$style.formDateInputButton"
                     :disabled="disabled || isReadonly"
                     icon-leading="calendar"
                     @click.prevent="open"/>
-            </FluxFormInputGroup>
-        </template>
+            </template>
 
-        <FluxDatePicker
-            v-model="localValue"
-            :max="max"
-            :min="min"/>
-    </FluxFlyout>
+            <FluxDatePicker
+                v-model="localValue"
+                :max="max"
+                :min="min"/>
+        </FluxFlyout>
+    </FluxFormInputGroup>
 </template>
 
 <script

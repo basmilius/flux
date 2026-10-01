@@ -105,8 +105,8 @@
 
 .colorSelectItem {
     display: flex;
-    height: 30px;
-    width: 30px;
+    height: 24px;
+    width: 24px;
     padding: 0;
     align-items: center;
     justify-content: center;
@@ -148,23 +148,24 @@
     composes: colorSelectColor;
 
     background: transparent;
-    border: 3px solid var(--color);
+    border: 2px solid var(--color);
 }
 
 .colorSelectCustom {
     composes: colorSelectItem;
 
     background: var(--surface-sunken);
-    border: 1px solid var(--surface-stroke);
+    border: 2px solid var(--surface-stroke);
 }
 
 .colorSelectCustomPicker {
-    width: 330px;
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
 }
 
 .colorSelectButtons {
     display: flex;
-    padding-top: 0;
     gap: 9px;
 
     .button:first-child {

@@ -7,7 +7,7 @@
     position: relative;
     display: block;
     height: var(--control-height-medium);
-    border-radius: var(--radius-half);
+    border-radius: var(--radius);
     cursor: grab;
     outline: 0;
     touch-action: pan-y;
@@ -36,7 +36,7 @@
     inset: 0;
     background: var(--surface-sunken);
     background-clip: padding-box;
-    border-radius: var(--radius-half);
+    border-radius: var(--radius);
     box-shadow: inset 0 0 0 1px var(--surface-stroke-out);
     overflow: hidden;
     will-change: transform;
@@ -47,22 +47,23 @@
     top: 0;
     left: 0;
     height: 100%;
-    background: color-mix(in srgb, var(--fader-accent) 15%, transparent);
-    border: 1px solid color-mix(in srgb, var(--fader-accent) 20%, transparent);
-    border-radius: var(--radius-half);
-    transition: background-color 150ms var(--standard-curve);
+    background: var(--surface-raised);
+    border: 1px solid var(--surface-stroke);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-xs);
+    transition: border-color 150ms var(--standard-curve);
 }
 
 .formFader:not(.isDisabled):not(.isDragging) {
     @include mixin.hover {
         .formFaderFill {
-            background: color-mix(in srgb, var(--fader-accent) 20%, transparent);
+            border-color: var(--surface-stroke-hover);
         }
     }
 }
 
 .formFader.isDragging .formFaderFill {
-    background: color-mix(in srgb, var(--fader-accent) 25%, transparent);
+    border-color: var(--surface-stroke-hover);
 }
 
 .formFaderBar {
@@ -140,21 +141,9 @@
     pointer-events: none;
 }
 
-.formFaderOverlayFill {
-    composes: formFaderOverlay;
-
-    z-index: 2;
-
-    .formFaderLabel,
-    .formFaderValue,
-    .formFaderIcon {
-        color: var(--fader-strong);
-    }
-}
-
 .formFaderIcon {
     flex: 0 0 auto;
-    color: var(--foreground);
+    color: var(--fader-strong);
 }
 
 .formFaderIconLeading {

@@ -7,13 +7,13 @@
             wrap="wrap">
             <FluxAvatar
                 alt="Bas"
-                :size="42"
+                :size="36"
                 src="https://avatars.githubusercontent.com/u/978257?v=4"
                 status="success"/>
 
             <FluxAvatar
                 alt="Bas"
-                :size="42"
+                :size="36"
                 src="https://avatars.githubusercontent.com/u/978257?v=4"
                 status="success"
                 status-icon="circle-check"/>
@@ -21,23 +21,23 @@
             <FluxAvatar
                 alt="Bas"
                 fallback-initials="BM"
-                :size="42"
+                :size="36"
                 status="danger"/>
 
             <FluxAvatar
                 alt="Bas"
                 fallback="neutral"
                 fallback-initials="BM"
-                :size="42"/>
+                :size="36"/>
 
             <FluxAvatar
                 alt="Bas"
-                :size="42"/>
+                :size="36"/>
 
             <FluxAvatar
                 alt="Bas"
                 fallback="neutral"
-                :size="42"/>
+                :size="36"/>
         </FluxFlex>
     </Preview>
 </template>

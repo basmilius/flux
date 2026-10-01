@@ -6,6 +6,7 @@ props:
         description: The gap in pixels between grid items.
         type: number
         optional: true
+        default: 15
 
     -   name: xs
         description: The number of columns on extra small screens.

@@ -28,7 +28,7 @@
             v-if="icon"
             :class="$style.formRadioIcon"
             :name="icon"
-            :size="20"/>
+            :size="15"/>
 
         <span :class="$style.formRadioText">
             <span :class="$style.formRadioLabel">

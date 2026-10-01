@@ -170,9 +170,10 @@ Every size is paired with a line-height, and the two are always set together. Th
 | <kbd>--font-size-2xsmall</kbd> <kbd>--line-height-2xsmall</kbd> | `12px` `18px` | Fine print: pagination, meta rows, calendar entries.                           |
 | <kbd>--font-size-xsmall</kbd> <kbd>--line-height-xsmall</kbd>   | `13px` `18px` | Compact labels, such as `FluxBadge` and `FluxText` at `small`.                 |
 | <kbd>--font-size-small</kbd> <kbd>--line-height-small</kbd>     | `14px` `21px` | Interface text: tables, menus, tooltips, snackbars.                            |
-| <kbd>--font-size-default</kbd> <kbd>--line-height-default</kbd> | `15px` `24px` | Body text. Inherited from `body`, so this is what you get when nothing is set. |
+| <kbd>--font-size-default</kbd> <kbd>--line-height-default</kbd> | `15px` `22px` | Body text. Inherited from `body`, so this is what you get when nothing is set. |
 | <kbd>--font-size-large</kbd> <kbd>--line-height-large</kbd>     | `16px` `24px` | Prominent single lines: pane captions, section headers.                        |
 | <kbd>--font-size-xlarge</kbd> <kbd>--line-height-xlarge</kbd>   | `18px` `27px` | Titles below heading level, such as `FluxText` at `large`.                     |
+| <kbd>--font-size-2xlarge</kbd> <kbd>--line-height-2xlarge</kbd> | `21px` `30px` | Large numeric inputs, such as PIN digits.                                    |
 
 Headings sit outside this scale and carry their own pair: `h1` is 27/42, `h2` is 21/33. The remaining levels line up with the scale, so `h3` is `xlarge`, `h4` is `large`, `h5` is `default` and `h6` is `small`.
 

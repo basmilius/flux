@@ -1,6 +1,8 @@
 <template>
-    <FluxFlyout is-auto-width>
-        <template #opener="{open}">
+    <FluxFlyout
+        :label="label"
+        width="max(var(--opener-width), calc(var(--application-menu-width) - 25px))">
+        <template #opener="{open, isOpen}">
             <FluxMenuItem
                 :class="slots.switcher ? $style.applicationMenuAccountSwitcher : $style.applicationMenuAccount"
                 :icon-leading="icon"
@@ -8,6 +10,9 @@
                 :image-alt="imageAlt"
                 :image-src="imageSrc"
                 :label="label"
+                :aria-label="label"
+                :aria-haspopup="slots.switcher ? 'dialog' : undefined"
+                :aria-expanded="slots.switcher ? isOpen : undefined"
                 @click="slots.switcher && open()">
                 <template
                     v-if="slots.avatar"

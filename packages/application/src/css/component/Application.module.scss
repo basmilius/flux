@@ -6,7 +6,7 @@
     --application-menu-surface: var(--surface-canvas);
     --application-menu-surface-stroke: var(--surface-stroke);
     --application-menu-width: 300px;
-    --application-menu-width-collapsed: 69px;
+    --application-menu-width-collapsed: calc(var(--control-height-medium) + 25px);
     --application-side-width: 300px;
     --application-surface: var(--surface);
     --application-top-height: 60px;

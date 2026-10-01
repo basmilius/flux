@@ -10,7 +10,7 @@
 
             <FluxPersona
                 avatar-fallback-initials="BM"
-                :avatar-size="42"
+                :avatar-size="36"
                 avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"
                 name="Bas Milius"
                 title="Flux engineer"/>
@@ -25,7 +25,7 @@
 
             <FluxPersona
                 avatar-fallback-initials="JD"
-                :avatar-size="42"
+                :avatar-size="36"
                 name="Jane Doe"
                 title="Product designer"/>
         </FluxHoverCard>

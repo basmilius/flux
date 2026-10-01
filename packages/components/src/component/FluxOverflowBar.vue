@@ -86,13 +86,15 @@
             .map(item => {
                 const {display} = getComputedStyle(item);
 
-                if (display === 'contents') {
-                    item = item.children[0] as HTMLElement;
+                const content = display === 'contents' ? item.firstElementChild : item;
+
+                if (!(content instanceof HTMLElement)) {
+                    return 0;
                 }
 
                 return direction === 'horizontal'
-                    ? item.offsetWidth
-                    : item.offsetHeight;
+                    ? content.offsetWidth
+                    : content.offsetHeight;
             });
 
         let size = 0;

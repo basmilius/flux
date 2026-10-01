@@ -8,7 +8,7 @@
                 </template>
 
                 <FluxPersona
-                    :avatar-size="42"
+                    :avatar-size="36"
                     avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"
                     name="Bas Milius"
                     title="Flux engineer"/>
