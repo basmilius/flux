@@ -11,6 +11,8 @@
     --tree-step: 24px;
     --tree-line-color: var(--surface-stroke);
 
+    @include mixin.text(small);
+
     min-width: 0;
     width: 100%;
     color: var(--foreground);
@@ -37,7 +39,7 @@
 
 .treeItem:has(> .treeItemChildren > .treeItem) > .treeItemRow::after {
     position: absolute;
-    top: calc(var(--line-height-default) / 2 + 12px);
+    top: calc(var(--line-height-small) / 2 + 12px);
     bottom: 0;
     left: 8px;
     width: 2px;
@@ -61,7 +63,7 @@
         position: absolute;
         top: 0;
         left: calc(8px - var(--tree-step));
-        height: calc(var(--line-height-default) / 2 + 1px);
+        height: calc(var(--line-height-small) / 2 + 1px);
         width: calc(var(--tree-step) - 11px);
         content: '';
         border-left: 2px solid var(--tree-line-color);
@@ -85,14 +87,14 @@
 
 .treeItemMarker {
     position: relative;
-    margin-top: calc((var(--line-height-default) - 18px) / 2);
+    margin-top: calc((var(--line-height-small) - 18px) / 2);
     z-index: 1;
 }
 
 .treeItemLabel {
     min-width: 0;
     flex: 1;
-    line-height: var(--line-height-default);
+    line-height: var(--line-height-small);
     overflow-wrap: anywhere;
 }
 
