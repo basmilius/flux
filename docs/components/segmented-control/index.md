@@ -54,6 +54,10 @@ example=../../code/components/segmented-control/basic.vue
 example=../../code/components/segmented-control/icon.vue
 :::
 
+::: example Badges || Use the default slot to pair segment labels with [badges](../badge).
+example=../../code/components/segmented-control/badges.vue
+:::
+
 ::: example With tabs || A segmented control driving the tab bar of [Tabs](../tabs/) to switch content.
 example=../../code/components/segmented-control/tabs.vue
 :::
@@ -77,4 +81,5 @@ example=../../code/components/segmented-control/disabled.vue
 ## Used components
 
 - [Segmented control item](./item)
+- [Badge](../badge)
 - [Icon](../icon)
