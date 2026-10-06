@@ -73,10 +73,14 @@
 }
 
 .activityFeedItemWhen {
-    @include mixin.text(small);
+    @include mixin.text(xsmall);
 
     color: var(--foreground-secondary);
     white-space: nowrap;
+}
+
+.activityFeedItemWhen.isDateBelow {
+    flex-basis: 100%;
 }
 
 .activityFeedItemDetails {
