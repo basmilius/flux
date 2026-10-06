@@ -1,26 +1,39 @@
 <template>
-    <FluxTimeline role="presentation">
-        <ul
-            :class="$style.activityFeedList"
-            role="list">
-            <template v-if="isGrouped">
-                <template
-                    v-for="(entry, index) of entries()"
-                    :key="entry.vnode.key ?? index">
-                    <li
-                        v-if="entry.day"
-                        :class="$style.activityFeedDay"
-                        role="presentation">
-                        <span>{{ entry.day }}</span>
-                    </li>
+    <div :class="$style.activityFeed">
+        <template v-if="isGrouped">
+            <div
+                v-for="(group, index) of groups()"
+                :key="group.entries[0].key ?? index"
+                :class="$style.activityFeedGroup">
+                <div
+                    v-if="group.day"
+                    :class="$style.activityFeedDay">
+                    <span>{{ group.day }}</span>
+                </div>
 
-                    <FluxDynamicView :vnode="entry.vnode"/>
-                </template>
-            </template>
+                <FluxTimeline role="presentation">
+                    <ul
+                        :class="$style.activityFeedList"
+                        role="list">
+                        <FluxDynamicView
+                            v-for="(entry, entryIndex) of group.entries"
+                            :key="entry.key ?? entryIndex"
+                            :vnode="entry"/>
+                    </ul>
+                </FluxTimeline>
+            </div>
+        </template>
 
-            <slot v-else/>
-        </ul>
-    </FluxTimeline>
+        <FluxTimeline
+            v-else
+            role="presentation">
+            <ul
+                :class="$style.activityFeedList"
+                role="list">
+                <slot/>
+            </ul>
+        </FluxTimeline>
+    </div>
 </template>
 
 <script
@@ -32,9 +45,9 @@
     import FluxTimeline from './FluxTimeline.vue';
     import $style from '~flux/components/css/component/ActivityFeed.module.scss';
 
-    type ActivityFeedEntry = {
-        readonly day: string | null;
-        readonly vnode: VNode;
+    type ActivityFeedGroup = {
+        readonly day?: string;
+        readonly entries: VNode[];
     };
 
     defineProps<{
@@ -45,21 +58,24 @@
         default(): VNode[];
     }>();
 
-    function entries(): ActivityFeedEntry[] {
-        let previousDay: string | undefined;
+    function groups(): ActivityFeedGroup[] {
+        const groups: ActivityFeedGroup[] = [];
 
-        return flattenVNodeTree(slots.default?.() ?? [])
-            .filter(vnode => vnode.type !== Comment && vnode.type !== Text)
-            .map(vnode => {
-                const {day} = getComponentProps<{readonly day?: string}>(vnode);
-                const separator = day && day !== previousDay ? day : null;
+        for (const vnode of flattenVNodeTree(slots.default?.() ?? [])) {
+            if (vnode.type === Comment || vnode.type === Text) {
+                continue;
+            }
 
-                previousDay = day ?? previousDay;
+            const {day} = getComponentProps<{readonly day?: string}>(vnode);
+            const previousGroup = groups.at(-1);
 
-                return {
-                    day: separator,
-                    vnode
-                };
-            });
+            if (!previousGroup || day && day !== previousGroup.day) {
+                groups.push({day, entries: [vnode]});
+            } else {
+                previousGroup.entries.push(vnode);
+            }
+        }
+
+        return groups;
     }
 </script>

@@ -1,5 +1,17 @@
 @use '~flux/components/css/mixin';
 
+.activityFeed {
+    display: flex;
+    flex-flow: column;
+    gap: 30px;
+}
+
+.activityFeedGroup {
+    display: flex;
+    flex-flow: column;
+    gap: 6px;
+}
+
 .activityFeedList {
     display: flex;
     margin: 0;

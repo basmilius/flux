@@ -1,0 +1,209 @@
+/* VitePress' native element styles also reach component previews without these exclusions. */
+.custom-block:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 16px 16px 8px;
+    line-height: 24px;
+    font-size: var(--vp-custom-block-font-size);
+    color: var(--vp-c-text-2);
+}
+
+.custom-block.info:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-info-border);
+    color: var(--vp-custom-block-info-text);
+    background-color: var(--vp-custom-block-info-bg);
+}
+
+.custom-block.info a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.info code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-brand-1);
+}
+
+.custom-block.info a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.info a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-brand-2);
+}
+
+.custom-block.info code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-info-code-bg);
+}
+
+.custom-block.note:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-note-border);
+    color: var(--vp-custom-block-note-text);
+    background-color: var(--vp-custom-block-note-bg);
+}
+
+.custom-block.note a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.note code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-brand-1);
+}
+
+.custom-block.note a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.note a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-brand-2);
+}
+
+.custom-block.note code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-note-code-bg);
+}
+
+.custom-block.tip:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-tip-border);
+    color: var(--vp-custom-block-tip-text);
+    background-color: var(--vp-custom-block-tip-bg);
+}
+
+.custom-block.tip a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.tip code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-tip-1);
+}
+
+.custom-block.tip a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.tip a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-tip-2);
+}
+
+.custom-block.tip code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-tip-code-bg);
+}
+
+.custom-block.important:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-important-border);
+    color: var(--vp-custom-block-important-text);
+    background-color: var(--vp-custom-block-important-bg);
+}
+
+.custom-block.important a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.important code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-important-1);
+}
+
+.custom-block.important a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.important a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-important-2);
+}
+
+.custom-block.important code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-important-code-bg);
+}
+
+.custom-block.warning:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-warning-border);
+    color: var(--vp-custom-block-warning-text);
+    background-color: var(--vp-custom-block-warning-bg);
+}
+
+.custom-block.warning a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.warning code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-warning-1);
+}
+
+.custom-block.warning a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.warning a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-warning-2);
+}
+
+.custom-block.warning code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-warning-code-bg);
+}
+
+.custom-block.danger:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-danger-border);
+    color: var(--vp-custom-block-danger-text);
+    background-color: var(--vp-custom-block-danger-bg);
+}
+
+.custom-block.danger a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.danger code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-danger-1);
+}
+
+.custom-block.danger a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.danger a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-danger-2);
+}
+
+.custom-block.danger code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-danger-code-bg);
+}
+
+.custom-block.caution:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-caution-border);
+    color: var(--vp-custom-block-caution-text);
+    background-color: var(--vp-custom-block-caution-bg);
+}
+
+.custom-block.caution a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.caution code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-caution-1);
+}
+
+.custom-block.caution a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.caution a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-caution-2);
+}
+
+.custom-block.caution code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-caution-code-bg);
+}
+
+.custom-block.details:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    border-color: var(--vp-custom-block-details-border);
+    color: var(--vp-custom-block-details-text);
+    background-color: var(--vp-custom-block-details-bg);
+}
+
+.custom-block.details a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-brand-1);
+}
+
+.custom-block.details a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover,
+.custom-block.details a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover > code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: var(--vp-c-brand-2);
+}
+
+.custom-block.details code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    background-color: var(--vp-custom-block-details-code-bg);
+}
+
+.custom-block-title:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    font-weight: 600;
+}
+
+.custom-block p:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) + p:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    margin: 8px 0;
+}
+
+.custom-block.details summary:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    margin: 0 0 8px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+
+.custom-block.details summary:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) + p:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    margin: 8px 0;
+}
+
+.custom-block a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.25s;
+}
+
+.custom-block a:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)):hover {
+    opacity: 0.75;
+}
+
+.custom-block code:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    font-size: var(--vp-custom-block-code-font-size);
+}
+
+.custom-block.custom-block th:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)),
+.custom-block.custom-block blockquote:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) > p:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
+    font-size: var(--vp-custom-block-font-size);
+    color: inherit;
+}
