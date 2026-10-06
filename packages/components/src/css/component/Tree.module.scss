@@ -39,9 +39,9 @@
 
 .treeItem:has(> .treeItemChildren > .treeItem) > .treeItemRow::after {
     position: absolute;
-    top: calc(var(--line-height-small) / 2 + 12px);
+    top: calc(var(--line-height-small) / 2 + 9px);
     bottom: 0;
-    left: 8px;
+    left: 5px;
     width: 2px;
     content: '';
     background: var(--tree-line-color);
@@ -62,9 +62,9 @@
     > .treeItem::after {
         position: absolute;
         top: 0;
-        left: calc(8px - var(--tree-step));
+        left: calc(5px - var(--tree-step));
         height: calc(var(--line-height-small) / 2 + 1px);
-        width: calc(var(--tree-step) - 11px);
+        width: calc(var(--tree-step) - 8px);
         content: '';
         border-left: 2px solid var(--tree-line-color);
         border-bottom: 2px solid var(--tree-line-color);
@@ -75,7 +75,7 @@
     > .treeItem:not(:last-child)::before {
         position: absolute;
         inset-block: 0;
-        left: calc(8px - var(--tree-step));
+        left: calc(5px - var(--tree-step));
         width: 2px;
         content: '';
         background: var(--tree-line-color);
@@ -83,11 +83,11 @@
     }
 }
 
-@include mixin.tree-marker-classes(treeItemMarker);
+@include mixin.tree-marker-classes(treeItemMarker, 12px);
 
 .treeItemMarker {
     position: relative;
-    margin-top: calc((var(--line-height-small) - 18px) / 2);
+    margin-top: calc((var(--line-height-small) - 12px) / 2);
     z-index: 1;
 }
 
