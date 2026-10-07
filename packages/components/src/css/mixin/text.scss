@@ -1,6 +1,6 @@
 @use 'sass:list';
 
-$-sizes: 2xsmall, xsmall, small, default, large, xlarge;
+$-sizes: 2xsmall, xsmall, small, default, large, xlarge, 2xlarge;
 
 @mixin text($size, $line-height: null) {
     @if not list.index($-sizes, $size) {

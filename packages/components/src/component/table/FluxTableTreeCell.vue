@@ -16,7 +16,7 @@
                 @click="emit('toggle')">
                 <FluxIcon
                     name="angle-right"
-                    :size="14"/>
+                    :size="12"/>
             </button>
 
             <span
@@ -75,7 +75,7 @@
     const {registerTreeNode} = useTableInjection();
 
     const isFluxColor = computed(() => FLUX_COLORS.includes(color as FluxColor));
-    const markerColorClass = computed(() => isFluxColor.value ? MARKER_COLOR_CLASS[color as FluxColor] : $style.treeMarkerCustom);
+    const markerColorClass = computed(() => isFluxColor.value ? MARKER_COLOR_CLASS[color as FluxColor] : undefined);
 
     const branchWidth = computed(() => `${(level + 1) * TREE_STEP}px`);
 

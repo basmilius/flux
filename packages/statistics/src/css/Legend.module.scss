@@ -11,7 +11,7 @@
 }
 
 :local(.statisticsChartPaneBody) .statisticsLegend {
-    padding: 9px 36px 9px 18px;
+    padding: 15px;
 }
 
 .statisticsLegendItem {
@@ -57,7 +57,7 @@
 }
 
 .statisticsLegendItemIcon {
-    margin: 2px;
+    margin: 3px;
     color: var(--color);
 }
 

@@ -87,8 +87,8 @@ export default function (containerRef: TemplateRef<HTMLElement>, options: UseFoc
         }
 
         onCleanup(() => {
-            attach.removeEventListener('focusin', onFocusIn as EventListener);
-            attach.removeEventListener('focusout', onFocusOut as EventListener);
+            attach.removeEventListener('focusin', onFocusIn as EventListener, {capture: true});
+            attach.removeEventListener('focusout', onFocusOut as EventListener, {capture: true});
         });
     }, {immediate: true});
 

@@ -13,20 +13,20 @@
             <FluxIcon
                 :key="selectableIcon"
                 :name="selectableIcon"
-                :size="16"/>
+                :size="15"/>
         </FluxFadeTransition>
 
         <FluxIcon
             v-else-if="iconLeading"
             :name="iconLeading"
-            :size="16"/>
+            :size="15"/>
 
         <span>{{ label }}</span>
 
         <FluxIcon
             v-if="iconTrailing"
             :name="iconTrailing"
-            :size="16"/>
+            :size="15"/>
     </Component>
 </template>
 
@@ -55,5 +55,5 @@
         readonly label: string;
     }>();
 
-    const selectableIcon = computed<FluxIconName>(() => isSelected ? 'check' : (iconLeading ?? 'plus'));
+    const selectableIcon = computed<FluxIconName>(() => isSelected ? 'circle-check' : (iconLeading ?? 'plus'));
 </script>

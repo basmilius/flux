@@ -1,5 +1,17 @@
 @use '~flux/components/css/mixin';
 
+.activityFeed {
+    display: flex;
+    flex-flow: column;
+    gap: 30px;
+}
+
+.activityFeedGroup {
+    display: flex;
+    flex-flow: column;
+    gap: 6px;
+}
+
 .activityFeedList {
     display: flex;
     margin: 0;
@@ -15,7 +27,7 @@
 
     display: flex;
     margin: 0;
-    padding-inline-start: 45px;
+    padding-inline-start: 39px;
     align-items: center;
     color: var(--foreground-secondary);
     font-weight: 500;
@@ -27,21 +39,20 @@
     margin: 0;
     align-items: start;
     gap: 15px;
-    grid-template-columns: 30px minmax(0, 1fr);
+    grid-template-columns: 24px minmax(0, 1fr);
 }
 
-.activityFeedItemAvatar,
-.activityFeedItemIcon {
-    margin-block-start: -3px;
+.activityFeedItemAvatar {
+    justify-self: center;
 }
 
 .activityFeedItemIcon {
     display: flex;
-    height: 30px;
-    width: 30px;
+    height: 24px;
+    width: 24px;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-full);
+    justify-self: center;
 }
 
 .activityFeedItemDot {
@@ -60,7 +71,10 @@
 }
 
 .activityFeedItemAction {
+    @include mixin.text(small);
+
     display: flex;
+    padding-block: max(0px, calc((24px - var(--line-height-small)) / 2));
     align-items: baseline;
     flex-wrap: wrap;
     gap: 0 6px;
@@ -71,10 +85,14 @@
 }
 
 .activityFeedItemWhen {
-    @include mixin.text(small);
+    @include mixin.text(xsmall);
 
     color: var(--foreground-secondary);
     white-space: nowrap;
+}
+
+.activityFeedItemWhen.isDateBelow {
+    flex-basis: 100%;
 }
 
 .activityFeedItemDetails {
@@ -91,7 +109,6 @@
     @include mixin.intent($color);
 
     .activityFeedItemIcon {
-        background: var(--intent-soft-hover);
         color: var(--intent-text);
     }
 

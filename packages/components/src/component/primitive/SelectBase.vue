@@ -52,13 +52,13 @@
         <FluxSpinner
             v-if="isLoading"
             :class="$style.formSelectIcon"
-            :size="16"/>
+            :size="15"/>
 
         <FluxIcon
             v-else
             :class="$style.formSelectIcon"
             name="angles-up-down"
-            :size="16"/>
+            :size="15"/>
     </Anchor>
 
     <Teleport to="body">
@@ -75,18 +75,21 @@
                 :anchor="anchorRef"
                 direction="vertical"
                 use-anchor-width>
-                <FluxFormInput
+                <div
                     v-if="isSearchable"
-                    v-model="modelSearch"
-                    ref="searchInputElement"
-                    auto-complete="off"
-                    :class="$style.formSelectInput"
-                    type="search"
-                    icon-trailing="magnifying-glass"
-                    :placeholder="translate('flux.search')"
-                    :aria-activedescendant="activeDescendant || undefined"
-                    :aria-controls="popupId"
-                    @keydown="onKeyDown"/>
+                    :class="$style.formSelectSearch">
+                    <FluxFormInput
+                        v-model="modelSearch"
+                        ref="searchInputElement"
+                        auto-complete="off"
+                        is-secondary
+                        type="search"
+                        icon-leading="magnifying-glass"
+                        :placeholder="translate('flux.search')"
+                        :aria-activedescendant="activeDescendant || undefined"
+                        :aria-controls="popupId"
+                        @keydown="onKeyDown"/>
+                </div>
 
                 <FluxMenu v-if="canCreate">
                     <FluxMenuItem

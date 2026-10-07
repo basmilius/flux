@@ -106,6 +106,7 @@
         noWrap,
         pinned,
         sort,
+        verticalAlign,
         width
     } = defineProps<{
         readonly align?: 'start' | 'center' | 'end';
@@ -119,6 +120,7 @@
         readonly noWrap?: boolean;
         readonly pinned?: boolean | 'start' | 'end';
         readonly sort?: 'ascending' | 'descending';
+        readonly verticalAlign?: 'start' | 'center' | 'end';
         readonly width?: number;
     }>();
 
@@ -189,6 +191,7 @@
         minWidth,
         noWrap,
         pinned: pinnedSide.value,
+        verticalAlign,
         width: resizedWidth.value ?? width
     }));
 

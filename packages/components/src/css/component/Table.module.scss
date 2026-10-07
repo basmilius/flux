@@ -71,7 +71,7 @@
 
     display: flex;
     align-items: flex-start;
-    padding: 12px 15px;
+    padding: 9px 15px;
     word-break: break-word;
 
     :global(p):only-child {
@@ -318,7 +318,7 @@
     flex-grow: 1;
     gap: 15px;
     max-width: 100cqw;
-    padding: 12px 15px;
+    padding: 9px 15px;
     word-break: break-word;
 }
 
@@ -483,11 +483,11 @@
 }
 
 .basePaneStructure:has(.table) {
-    --table-spacing: 18px;
+    --table-spacing: var(--pane-padding);
 }
 
 .basePaneStructure .basePaneStructure {
-    --table-spacing: 15px;
+    --table-spacing: var(--pane-padding);
 }
 
 .basePaneStructure > .table .tableCell:not(.tableBar):not(.tableGroup):not(.isRaw):first-child {
@@ -507,7 +507,7 @@
 }
 
 .basePaneStructure > .table .tableCaption {
-    padding: 12px var(--table-spacing);
+    padding: 9px var(--table-spacing);
     border-top: 1px solid var(--surface-stroke-muted);
 }
 
@@ -528,7 +528,7 @@
 }
 
 .tableExpandContent {
-    padding: 12px 15px;
+    padding: 9px 15px;
 }
 
 .tableTreeCell {
@@ -557,23 +557,11 @@
     pointer-events: none;
 }
 
-.treeMarker {
-    --tree-marker-fill: var(--surface-sunken);
-    --tree-marker-stroke: var(--surface-stroke);
-    --tree-marker-foreground: var(--foreground-prominent);
+@include mixin.tree-marker-classes(treeMarker);
 
+.treeMarker {
     position: absolute;
     top: 50%;
-    display: flex;
-    box-sizing: border-box;
-    width: 22px;
-    height: 22px;
-    align-items: center;
-    justify-content: center;
-    background: var(--tree-marker-fill);
-    border: 1px solid var(--tree-marker-stroke);
-    border-radius: 50%;
-    color: var(--tree-marker-foreground);
     translate: 0 -50%;
     z-index: 1;
 }
@@ -596,20 +584,6 @@
 
 .treeMarker.isToggle.isExpanded :global(svg) {
     rotate: 90deg;
-}
-
-@include mixin.color-variants(treeMarker) using ($color) {
-    @include mixin.intent($color);
-
-    --tree-marker-fill: var(--intent-soft-hover);
-    --tree-marker-stroke: var(--intent-border);
-    --tree-marker-foreground: var(--intent-text);
-}
-
-.treeMarkerCustom {
-    --tree-marker-fill: color-mix(in srgb, var(--tree-marker-color) 15%, var(--surface));
-    --tree-marker-stroke: color-mix(in srgb, var(--tree-marker-color) 35%, var(--surface));
-    --tree-marker-foreground: color-mix(in srgb, var(--tree-marker-color) 75%, var(--foreground));
 }
 
 .tableEmpty {

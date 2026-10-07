@@ -53,7 +53,7 @@
                 v-if="iconLeading"
                 :class="$style.formFaderIconLeading"
                 :name="iconLeading"
-                :size="16"/>
+                :size="15"/>
 
             <span
                 v-if="label"
@@ -69,32 +69,7 @@
                 v-if="iconTrailing"
                 :class="$style.formFaderIconTrailing"
                 :name="iconTrailing"
-                :size="16"/>
-        </div>
-
-        <div
-            :class="$style.formFaderOverlayFill"
-            :style="{clipPath: fillClip}"
-            aria-hidden="true">
-            <FluxIcon
-                v-if="iconLeading"
-                :class="$style.formFaderIconLeading"
-                :name="iconLeading"
-                :size="16"/>
-
-            <span
-                v-if="label"
-                :class="$style.formFaderLabel">{{ label }}</span>
-
-            <span
-                v-if="!isValueHidden"
-                :class="$style.formFaderValue">{{ displayValue }}</span>
-
-            <FluxIcon
-                v-if="iconTrailing"
-                :class="$style.formFaderIconTrailing"
-                :name="iconTrailing"
-                :size="16"/>
+                :size="15"/>
         </div>
     </div>
 </template>
@@ -197,9 +172,6 @@
     const percentage = computed(() => unref(isRangeValid) ? (unref(animated) - min) / unref(span) : 0);
     const displayValue = computed(() => formatter(faderRoundToDecimals(unref(animated), unref(decimals)), unref(decimals)));
     const ariaValueText = computed(() => formatter(unref(modelValue), unref(decimals)));
-    const fillClip = computed(() => direction === 'vertical'
-        ? `inset(calc(100% - ${unref(percentage) * 100}%) 0 0 0)`
-        : `inset(0 calc(100% - ${unref(percentage) * 100}%) 0 0)`);
 
     const fillStyle = computed<CSSProperties>(() => direction === 'vertical'
         ? {height: `${unref(percentage) * 100}%`}

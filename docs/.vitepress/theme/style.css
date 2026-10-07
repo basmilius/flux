@@ -26,17 +26,13 @@
     --vp-c-text-3: var(--foreground-secondary);
 }
 
-button {
+button:not(:where([data-prose] *, [data-flux] *, .vite-render *, .vp-code-group *)) {
     font-size: inherit;
     font-weight: inherit;
 }
 
 .vp-code-group .blocks > div:first-child:has(p) {
     padding: 18px;
-}
-
-.vp-adaptive-theme p:not(:where([data-prose] *)) {
-    margin: unset;
 }
 
 .spacer-example,
@@ -81,32 +77,9 @@ button {
     content: "Column";
 }
 
-.language-vue > p > :is(h1, h2, h3, h4, h5, h6) {
-    margin-top: unset;
-    border-top: unset;
-}
-
-.language-vue > p > p + p {
-    margin-top: 10px;
-}
-
-.language-vue:has(> p > blockquote) {
-    padding-left: 45px !important;
-}
-
 .vp-code-group .blocks {
     position: relative;
     z-index: 0;
-}
-
-.vp-code-group .blocks :where(h1, h2, h3, h4, h5, h6):not(:where([data-prose] *)) {
-    margin: unset;
-    line-height: 1.6;
-}
-
-.vp-code-group .blocks p:not(:where([data-prose] *)) {
-    margin: unset;
-    line-height: 1.6;
 }
 
 .vp-code-group .blocks .button,

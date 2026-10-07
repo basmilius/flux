@@ -10,6 +10,19 @@
         </FluxActivityFeedItem>
 
         <FluxActivityFeedItem
+            actor="Thomas de Vries"
+            avatar-fallback-initials="TV"
+            date-time="2026-03-13T11:42:00+01:00"
+            day="Today"
+            when="11:42">
+            left a comment.
+
+            <template #details>
+                Everything is ready for handover. The deployment notes are attached to the final task.
+            </template>
+        </FluxActivityFeedItem>
+
+        <FluxActivityFeedItem
             actor="Sarah Jansen"
             avatar-fallback-initials="SJ"
             date-time="2026-03-13T09:05:00+01:00"
@@ -25,6 +38,28 @@
             icon="rocket"
             when="18:44">
             Version 2.4.0 was deployed to production.
+        </FluxActivityFeedItem>
+
+        <FluxActivityFeedItem
+            color="success"
+            date-time="2026-03-12T17:58:00+01:00"
+            day="Yesterday"
+            icon="circle-check"
+            when="17:58">
+            All checks passed.
+        </FluxActivityFeedItem>
+
+        <FluxActivityFeedItem
+            actor="Sarah Jansen"
+            avatar-fallback-initials="SJ"
+            date-time="2026-03-12T14:30:00+01:00"
+            day="Yesterday"
+            when="14:30">
+            approved the release.
+
+            <template #details>
+                I checked the migration on staging. We can deploy after the afternoon backup.
+            </template>
         </FluxActivityFeedItem>
 
         <FluxActivityFeedItem

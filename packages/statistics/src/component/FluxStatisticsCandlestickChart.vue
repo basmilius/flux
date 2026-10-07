@@ -8,10 +8,12 @@
     lang="ts"
     setup>
     import type { FluxStatisticsChartCandlestickSeries } from '@flux-ui/types';
+    import { CandlestickChart } from 'echarts/charts';
+    import { use } from 'echarts/core';
     import { computed } from 'vue';
     import { type EChartsOption, useChartSeriesSetup } from '~flux/statistics/composable';
     import { buildCandlestickChartOptions, candlestickLegendItemBuilder } from '~flux/statistics/util';
-    import Chart from './FluxStatisticsChart.vue';
+    import { Chart } from './primitive';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
@@ -31,6 +33,8 @@
         readonly xAxisLabels?: boolean;
         readonly yAxisLabels?: boolean;
     }>();
+
+    use([CandlestickChart]);
 
     const {t} = useChartSeriesSetup(() => series, {
         getLegendItem: candlestickLegendItemBuilder

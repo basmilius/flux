@@ -32,7 +32,7 @@ props:
         type: string
 
 requiredIcons:
-    - check
+    - circle-check
     - plus
 ---
 

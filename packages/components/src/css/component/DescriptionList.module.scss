@@ -3,7 +3,7 @@
 .descriptionList {
     display: flex;
     flex-flow: column;
-    gap: 12px;
+    gap: 6px;
 }
 
 .descriptionListHeader {
@@ -17,17 +17,17 @@
     display: flex;
     margin: 0;
     flex-flow: column;
-    gap: 12px;
+    gap: 9px;
 }
 
 .descriptionItem {
     display: flex;
-    gap: 12px;
+    gap: 3px;
     align-items: center;
 }
 
 .descriptionItem.isStacked {
-    gap: 2px;
+    gap: 3px;
     align-items: stretch;
     flex-flow: column;
 }
@@ -74,10 +74,14 @@
     overflow-wrap: anywhere;
 }
 
+.descriptionListItems.isLabelSmall .descriptionItemTerm {
+    @include mixin.text(small);
+}
+
 .descriptionListItems.hasLabelWidth {
     display: grid;
     align-items: center;
-    gap: 12px 24px;
+    gap: 9px 24px;
     grid-template-columns: fit-content(var(--label-width)) 1fr;
 
     .descriptionItem {
@@ -92,21 +96,24 @@
 }
 
 .descriptionListItems.isHorizontal {
-    gap: 0;
+    gap: 30px;
     flex-flow: row;
 
     .descriptionItem {
-        gap: 6px;
+        position: relative;
+        min-width: 0;
+        gap: 3px;
         align-items: stretch;
         flex: 1 1 0;
         flex-flow: column;
-        padding-inline: 24px;
-        border-left: 1px solid var(--surface-stroke-muted);
-    }
 
-    .descriptionItem:first-child {
-        padding-left: 0;
-        border-left: 0;
+        & + .descriptionItem::before {
+            position: absolute;
+            inset-block: 0;
+            inset-inline-start: -15px;
+            border-inline-start: 1px solid var(--surface-stroke-muted);
+            content: '';
+        }
     }
 
     .descriptionItemTerm {

@@ -63,19 +63,23 @@
     }
 
     &.isSmall {
-        height: 30px;
+        @include mixin.text(xsmall);
+
+        height: var(--control-height-small);
         padding: 0 12px;
         gap: 9px;
     }
 
     &.isMedium {
-        height: 36px;
+        @include mixin.text(small);
+
+        height: var(--control-height-medium);
         padding: 0 15px;
         gap: 9px;
     }
 
     &.isLarge {
-        height: 48px;
+        height: var(--control-height-large);
         padding: 0 21px;
         gap: 12px;
     }
@@ -88,6 +92,16 @@
     > * {
         position: relative;
         z-index: 1;
+    }
+
+    > .badge {
+        &:first-child {
+            margin-inline-start: -6px;
+        }
+
+        &:last-child {
+            margin-inline-end: -6px;
+        }
     }
 
     & + &::before {

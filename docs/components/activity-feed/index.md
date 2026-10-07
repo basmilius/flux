@@ -3,7 +3,7 @@ outline: deep
 
 props:
     -   name: is-grouped
-        description: Renders a day separator above every entry whose `day` differs from the entry before it.
+        description: Groups consecutive entries by `day`, with a separate connecting line for each group.
         type: boolean
         default: false
         optional: true
@@ -45,7 +45,7 @@ example=../../code/components/activity-feed/system.vue
 example=../../code/components/activity-feed/details.vue
 :::
 
-::: example Grouped by day || Set `is-grouped` and give each entry a `day` label to separate the feed into days. The label is yours to format, the feed only compares it with the entry above.
+::: example Grouped by day || Set `is-grouped` and give each entry a `day` label. Entries connect within each day, with extra space between groups. The application formats the labels.
 example=../../code/components/activity-feed/grouped.vue
 :::
 

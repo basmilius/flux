@@ -62,22 +62,22 @@
     composes: basePaneElement from './base/Pane.module.scss';
 
     display: flex;
-    padding: 18px 18px 0;
+    padding: var(--pane-padding) var(--pane-padding) 0;
     gap: 15px;
     text-align: left;
 
     &:only-child {
-        padding: 18px;
+        padding: var(--pane-padding);
     }
 
     &:not(:has(+ .paneBody)) {
-        padding: 18px;
+        padding: var(--pane-padding);
     }
 }
 
 .paneHeaderCaption {
     display: flex;
-    align-self: center;
+    align-self: flex-start;
     flex-flow: column;
     flex-grow: 1;
 
@@ -96,11 +96,13 @@
 }
 
 .paneHeaderIcon {
-    margin-top: 2px;
+    margin-top: 3px;
     color: var(--primary-text);
 }
 
 .paneHeaderClickable {
+    background: none;
+    border: 0;
     color: inherit;
     cursor: pointer;
     text-decoration: none;
@@ -133,7 +135,7 @@
 }
 
 .paneHeaderChevron {
-    margin-top: 2px;
+    margin-top: 3px;
     flex-shrink: 0;
     color: var(--foreground-secondary);
     transition: 210ms var(--swift-out);
@@ -143,7 +145,7 @@
 .paneBody {
     composes: basePaneElement from './base/Pane.module.scss';
 
-    padding: 18px;
+    padding: var(--pane-padding);
 }
 
 .paneBody + .paneBody {
@@ -154,7 +156,7 @@
     composes: basePaneElement from './base/Pane.module.scss';
 
     display: flex;
-    padding: 18px;
+    padding: var(--pane-padding);
     gap: 9px;
     background: var(--surface-sunken);
     border-top: 1px solid var(--surface-stroke-muted);
@@ -216,7 +218,7 @@
 .paneMediaInset {
     composes: paneMedia;
 
-    margin: 18px;
+    margin: var(--pane-padding);
     border-radius: var(--radius-half);
 
     &:not(:first-child) {

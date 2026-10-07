@@ -3,6 +3,9 @@
 .filter {
     @include mixin.hide-scrollbar;
 
+    --filter-header-offset: calc(var(--control-height-medium) + 9px);
+    --filter-search-height: calc(var(--control-height-medium) + 18px);
+
     max-height: 50dvh;
     max-width: 100%;
     padding: 9px;
@@ -18,11 +21,11 @@
         }
 
         > .menuGroup > .menuSubHeader {
-            top: 51px;
+            top: var(--filter-header-offset);
         }
 
         > .menuGroup:has(.filterSearch) > .menuSubHeader {
-            top: 105px;
+            top: calc(var(--filter-header-offset) + var(--filter-search-height));
         }
 
         .menuItemLabel {
@@ -92,12 +95,12 @@
     top: -9px;
     margin: -9px -9px 0;
     padding: 9px;
-    background: linear-gradient(to bottom, var(--surface-current) 75%, transparent);
+    background: linear-gradient(to bottom, var(--surface-current) calc(100% - 9px), transparent);
     z-index: 1;
 }
 
 .filterHeader + .menuGroup .filterSearch {
-    top: 52px;
+    top: calc(var(--filter-header-offset) + 1px);
 }
 
 .filterBar {

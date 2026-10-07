@@ -16,7 +16,7 @@
     max-width: min(360px, calc(100dvw - 30px));
     max-height: min(420px, calc(100dvh - 30px));
     margin: 0;
-    padding: 15px;
+    padding: var(--pane-padding);
     flex-flow: column;
     gap: 9px;
     color: var(--foreground);

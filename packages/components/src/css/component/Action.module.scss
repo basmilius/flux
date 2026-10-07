@@ -1,10 +1,12 @@
 @use '~flux/components/css/mixin';
 
 .action {
+    --button-icon-size: 15px;
+
     composes: button from './base/Button.module.scss';
 
-    height: 30px;
-    width: 30px;
+    height: 27px;
+    width: 27px;
     padding-inline: 6px;
     border: 0;
     border-radius: var(--radius-half);
@@ -24,7 +26,7 @@
     composes: buttonIcon from './base/Button.module.scss';
 
     color: var(--foreground);
-    font-size: 18px;
+    font-size: var(--button-icon-size);
 }
 
 .action.isDestructive .actionIcon {
@@ -52,7 +54,7 @@
 }
 
 .basePaneStructure > .actionBar {
-    padding: 12px 18px;
+    padding: var(--pane-padding);
     background: var(--surface-sunken);
     border: 1px solid var(--surface-stroke-muted);
     border-left: 0;
@@ -79,7 +81,7 @@
 
 .actionPaneGrid {
     display: grid;
-    padding: 36px;
+    padding: calc(2 * var(--pane-padding));
     gap: 36px;
     grid-template-columns: 1fr auto;
 

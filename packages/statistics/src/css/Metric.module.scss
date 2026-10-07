@@ -47,8 +47,8 @@
     }
 
     :global([data-sparkline]) {
-        margin-inline: -18px;
-        width: calc(100% + 36px);
+        margin-inline: calc(-1 * var(--pane-padding));
+        width: calc(100% + 2 * var(--pane-padding));
         max-width: none;
     }
 }

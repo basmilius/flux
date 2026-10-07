@@ -1,60 +1,11 @@
-import { useResizeObserver } from '@basmilius/common';
-import { type EChartsCoreOption, init } from 'echarts/core';
-import { markRaw, type MaybeRefOrGetter, onBeforeUnmount, onMounted, ref, type Ref, toValue, watch } from 'vue';
-import '~flux/statistics/echarts';
+import { type MaybeRefOrGetter, type Ref } from 'vue';
+import { registerAllCharts } from '~flux/statistics/echarts';
+import { type EChartsOption, useEChartsCore, type UseEChartsReturn } from './private';
 
-export type EChartsOption = EChartsCoreOption;
-export type EChartsInstance = ReturnType<typeof init>;
+export type { EChartsInstance, EChartsOption, UseEChartsReturn } from './private';
 
-export interface UseEChartsReturn {
-    readonly chartInstance: Ref<EChartsInstance | null>;
+export default function useECharts(target: Ref<HTMLElement | null>, options: MaybeRefOrGetter<EChartsOption>): UseEChartsReturn {
+    registerAllCharts();
 
-    resize(): void;
-}
-
-export default function useECharts(
-    target: Ref<HTMLElement | null>,
-    options: MaybeRefOrGetter<EChartsOption>
-): UseEChartsReturn {
-    const chartInstance = ref<EChartsInstance | null>(null);
-    let pendingResize: number | null = null;
-
-    onMounted(() => {
-        if (!target.value) {
-            return;
-        }
-
-        chartInstance.value = markRaw(init(target.value));
-        chartInstance.value.setOption(toValue(options));
-    });
-
-    watch(() => toValue(options), value => {
-        chartInstance.value?.setOption(value, {notMerge: true});
-    });
-
-    onBeforeUnmount(() => {
-        if (pendingResize !== null) {
-            cancelAnimationFrame(pendingResize);
-            pendingResize = null;
-        }
-
-        chartInstance.value?.dispose();
-        chartInstance.value = null;
-    });
-
-    useResizeObserver(target, () => {
-        if (pendingResize !== null) {
-            return;
-        }
-
-        pendingResize = requestAnimationFrame(() => {
-            pendingResize = null;
-            chartInstance.value?.resize();
-        });
-    });
-
-    return {
-        chartInstance: chartInstance as Ref<EChartsInstance | null>,
-        resize: () => chartInstance.value?.resize()
-    };
+    return useEChartsCore(target, options);
 }

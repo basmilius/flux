@@ -25,7 +25,7 @@
         readonly rangeMode?: 'range' | 'week' | 'month';
     };
 
-    defineFilter<Props>(p => ({
+    defineFilter<Props>((p, {translate}) => ({
         ...pickFilterCommon(p),
         type: 'dateRange',
         async getValueLabel(value) {
@@ -39,7 +39,7 @@
                 return null;
             }
 
-            return createLabelForDateRange(start, end);
+            return createLabelForDateRange(start, end, translate);
         }
     }));
 

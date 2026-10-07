@@ -274,8 +274,7 @@
                 </FluxTooltip>
 
                 <FluxSecondaryButton
-                    icon-leading="xmark"
-                    size="small"/>
+                    icon-leading="xmark"/>
             </template>
         </FluxPaneHeader>
 
@@ -778,24 +777,30 @@
         data-prose-full
         :sm="2"
         :lg="3">
-        <FluxStatisticsMeter
-            icon="circle-check"
-            sub-title="of 1,284 orders"
-            title="Completed"
-            :value="0.872"/>
+        <FluxStatisticsBase>
+            <FluxStatisticsMeter
+                icon="circle-check"
+                sub-title="of 1,284 orders"
+                title="Completed"
+                :value="0.872"/>
+        </FluxStatisticsBase>
 
-        <FluxStatisticsMeter
-            icon="hourglass-clock"
-            sub-title="waiting on approval"
-            title="Pending"
-            :value="0.094"
-            variant="blocks"/>
+        <FluxStatisticsBase>
+            <FluxStatisticsMeter
+                icon="hourglass-clock"
+                sub-title="waiting on approval"
+                title="Pending"
+                :value="0.094"
+                variant="blocks"/>
+        </FluxStatisticsBase>
 
-        <FluxStatisticsMeter
-            icon="circle-xmark"
-            sub-title="rejected this month"
-            title="Rejected"
-            :value="0.034"/>
+        <FluxStatisticsBase>
+            <FluxStatisticsMeter
+                icon="circle-xmark"
+                sub-title="rejected this month"
+                title="Rejected"
+                :value="0.034"/>
+        </FluxStatisticsBase>
     </FluxStatisticsGrid>
 </template>
 
@@ -803,7 +808,7 @@
     lang="ts"
     setup>
     import { FluxAction, FluxAvatar, FluxBadge, FluxBadgeStack, FluxBoxedIcon, FluxButtonStack, FluxClickablePane, FluxClickablePaneHeader, FluxDataTable, FluxDescriptionItem, FluxDescriptionList, FluxDestructiveButton, FluxDivider, FluxFilterBar, FluxFilterDateRange, FluxFilterOption, FluxFilterOptions, FluxFlex, FluxFlexItem, FluxFlyout, FluxForm, FluxFormColumn, FluxFormDateInput, FluxFormField, FluxFormGrid, FluxFormInput, FluxFormNumberInput, FluxFormRow, FluxFormSection, FluxFormSelect, FluxFormTextArea, FluxIcon, FluxItem, FluxItemActions, FluxItemContent, FluxItemMedia, FluxLayerPane, FluxMenu, FluxMenuGroup, FluxMenuItem, FluxNotice, FluxNoticeStack, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneGroup, FluxPaneHeader, FluxPlaceholder, FluxPrimaryButton, FluxSecondaryButton, FluxSegmentedControl, FluxSegmentedControlItem, FluxSeparator, FluxSpacer, FluxTabBar, FluxTabBarItem, FluxTable, FluxTableActions, FluxTableBar, FluxTableCell, FluxTableHeader, FluxTableRow, FluxText, FluxToggle, FluxTooltip, showConfirm, showSnackbar } from '@flux-ui/components';
-    import { FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsMeter } from '@flux-ui/statistics';
+    import { FluxStatisticsBase, FluxStatisticsGrid, FluxStatisticsKpi, FluxStatisticsMeter } from '@flux-ui/statistics';
     import type { FluxColor, FluxFilterOptionRow, FluxFilterState, FluxFormSelectOption, FluxIconName } from '@flux-ui/types';
     import { DateTime } from 'luxon';
     import { reactive, ref } from 'vue';

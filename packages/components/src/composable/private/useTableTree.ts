@@ -2,7 +2,7 @@ import { animationFrameDebounce } from '@basmilius/utils';
 import { onMounted, onUnmounted, ref, type Ref, watch } from 'vue';
 
 export const TREE_STEP = 24;
-export const TREE_MARKER_SIZE = 22;
+export const TREE_MARKER_SIZE = 18;
 
 const CORNER_RADIUS = 9;
 const MARKER_RADIUS = TREE_MARKER_SIZE / 2;

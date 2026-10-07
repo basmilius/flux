@@ -5,7 +5,7 @@
             ref="marker"
             :class="$style.activityFeedItemAvatar"
             :fallback-initials="avatarFallbackInitials"
-            :size="30"
+            :size="24"
             :src="avatarSrc"
             aria-hidden="true"/>
 
@@ -31,7 +31,10 @@
 
                 <time
                     v-if="when"
-                    :class="$style.activityFeedItemWhen"
+                    :class="clsx(
+                        $style.activityFeedItemWhen,
+                        isDateBelow && $style.isDateBelow
+                    )"
                     :datetime="dateTime">{{ when }}</time>
             </div>
 
@@ -49,6 +52,7 @@
     setup>
     import { unwrapElement } from '@basmilius/common';
     import type { FluxColor, FluxIconName } from '@flux-ui/types';
+    import { clsx } from 'clsx';
     import { computed, inject, onUnmounted, useTemplateRef, type VNode } from 'vue';
     import { FluxTimelineInjectionKey } from '~flux/components/data';
     import FluxAvatar from './FluxAvatar.vue';
@@ -65,6 +69,7 @@
         readonly dateTime?: string;
         readonly day?: string;
         readonly icon?: FluxIconName;
+        readonly isDateBelow?: boolean;
         readonly when?: string;
     }>();
 

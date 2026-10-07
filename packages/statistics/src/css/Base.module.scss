@@ -13,13 +13,17 @@
 .statisticsBaseContent {
     position: relative;
     display: flex;
-    padding: 18px;
+    padding: var(--pane-padding);
     flex-flow: column;
+
+    &:has(> :local(.statisticsEmpty)) {
+        flex-grow: 1;
+    }
 }
 
 .statisticsBaseHeader {
     display: flex;
-    padding: 18px 18px 0;
+    padding: var(--pane-padding) var(--pane-padding) 0;
     gap: 9px;
     align-items: flex-start;
 }

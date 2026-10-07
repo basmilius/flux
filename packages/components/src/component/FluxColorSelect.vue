@@ -21,10 +21,12 @@
             <FluxIcon
                 :class="$style.colorSelectCheck"
                 name="check"
-                :size="14"/>
+                :size="12"/>
         </button>
 
-        <FluxFlyout v-if="isCustomAllowed">
+        <FluxFlyout
+            v-if="isCustomAllowed"
+            :width="300">
             <template #opener="{open}">
                 <button
                     :class="$style.colorSelectCustom"
@@ -40,18 +42,18 @@
             </template>
 
             <template #default="{close}">
-                <FluxColorPicker
-                    v-model="customColor"
-                    :class="$style.colorSelectCustomPicker"/>
+                <FluxPaneBody :class="$style.colorSelectCustomPicker">
+                    <FluxColorPicker v-model="customColor"/>
 
-                <FluxPaneBody :class="$style.colorSelectButtons">
-                    <FluxSecondaryButton
-                        :label="translate('flux.cancel')"
-                        @click="close()"/>
+                    <div :class="$style.colorSelectButtons">
+                        <FluxSecondaryButton
+                            :label="translate('flux.cancel')"
+                            @click="close()"/>
 
-                    <FluxPrimaryButton
-                        :label="translate('flux.ok')"
-                        @click="select(customColor, close)"/>
+                        <FluxPrimaryButton
+                            :label="translate('flux.ok')"
+                            @click="select(customColor, close)"/>
+                    </div>
                 </FluxPaneBody>
             </template>
         </FluxFlyout>

@@ -1,8 +1,7 @@
-@use 'color' as color;
 @use 'focus-ring' as focus;
 @use 'hover' as hover;
-@use 'intent' as intent;
 @use 'text' as text;
+@use 'tree-marker' as marker;
 
 @mixin tree-node-classes() {
     .treeNodeLineArea {
@@ -15,7 +14,7 @@
 
     .treeNodeLineArea.hasDropLine::after {
         position: absolute;
-        inset-block: calc(50% + 14px) 0;
+        inset-block: calc(50% + 12px) 0;
         left: calc(var(--tree-marker-column) * 24px + 11px);
         width: 2px;
         content: '';
@@ -60,7 +59,7 @@
         &::after {
             position: absolute;
             inset-block: 0 50%;
-            inset-inline: 11px 2px;
+            inset-inline: 11px 0;
             content: '';
             border-left: 2px solid var(--surface-active);
             border-bottom: 2px solid var(--surface-active);
@@ -68,23 +67,10 @@
         }
     }
 
-    .treeNodeMarker {
-        --tree-marker-fill: var(--surface-sunken);
-        --tree-marker-stroke: var(--surface-stroke);
-        --tree-marker-foreground: var(--foreground-prominent);
+    @include marker.tree-marker-classes(treeNodeMarker);
 
-        display: flex;
-        box-sizing: border-box;
-        width: 22px;
-        height: 22px;
-        flex-shrink: 0;
-        align-items: center;
-        justify-content: center;
-        margin-inline: 1px;
-        background: var(--tree-marker-fill);
-        border: 1px solid var(--tree-marker-stroke);
-        border-radius: 50%;
-        color: var(--tree-marker-foreground);
+    .treeNodeMarker {
+        margin-inline: 3px;
     }
 
     .treeNodeMarker.isToggle {
@@ -105,20 +91,6 @@
 
     .treeNodeMarker.isToggle.isExpanded :global(svg) {
         rotate: 90deg;
-    }
-
-    @include color.color-variants(treeNodeMarker) using ($color) {
-        @include intent.intent($color);
-
-        --tree-marker-fill: var(--intent-soft-hover);
-        --tree-marker-stroke: var(--intent-border);
-        --tree-marker-foreground: var(--intent-text);
-    }
-
-    .treeNodeMarkerCustom {
-        --tree-marker-fill: color-mix(in srgb, var(--tree-marker-color) 15%, var(--surface));
-        --tree-marker-stroke: color-mix(in srgb, var(--tree-marker-color) 35%, var(--surface));
-        --tree-marker-foreground: color-mix(in srgb, var(--tree-marker-color) 75%, var(--foreground));
     }
 
     .treeNodeIcon {

@@ -2,10 +2,10 @@
 @use '~flux/components/css/mixin';
 
 $-sizes: (
-    isSmall: (height: 36px, padding: 9px),
-    isMedium: (height: 42px, padding: 12px),
-    isLarge: (height: 48px, padding: 15px),
-    isXl: (height: 54px, padding: 18px)
+    isSmall: (height: var(--control-height-small), padding: 9px),
+    isMedium: (height: var(--control-height-medium), padding: 12px),
+    isLarge: (height: var(--control-height-large), padding: 15px),
+    isXl: (height: var(--control-height-xl), padding: 18px)
 );
 
 @layer flux-base {
@@ -16,7 +16,7 @@ $-sizes: (
         align-items: center;
         flex-grow: 0;
         flex-shrink: 0;
-        gap: 12px;
+        gap: 9px;
         justify-content: center;
         background: unset;
         border: 1px solid;
@@ -49,6 +49,14 @@ $-sizes: (
             &.#{$-class} {
                 height: map.get($-size, height);
                 padding: 0 map.get($-size, padding);
+
+                &:not(:local(.menuItem)):has(> :is(.buttonIcon, :local(.spinner)):first-child:not(:only-child)) {
+                    padding-inline-start: calc(#{map.get($-size, padding)} - 3px);
+                }
+
+                &:not(:local(.menuItem)):has(> :is(.buttonIcon, :local(.spinner)):last-child:not(:only-child)) {
+                    padding-inline-end: calc(#{map.get($-size, padding)} - 3px);
+                }
             }
         }
 
@@ -56,15 +64,15 @@ $-sizes: (
             align-self: stretch;
         }
 
-        :local(.spinner) {
+        > :local(.spinner) {
             flex-shrink: 0;
-
-            &:only-child {
-                margin-inline: -2px;
-            }
         }
 
-        &:has(.buttonIcon:only-child) {
+        &:not(:local(.menuItem)) > :is(.buttonIcon, :local(.spinner)) {
+            margin: 0;
+        }
+
+        &:has(> :is(.buttonIcon, :local(.spinner)):only-child) {
             padding-inline: 0;
 
             @each $-class, $-size in $-sizes {
@@ -76,9 +84,8 @@ $-sizes: (
     }
 
     .buttonIcon {
-        margin: 1px;
         flex-shrink: 0;
-        font-size: 18px;
+        font-size: 15px;
 
         &:only-child {
             margin-inline: -1px;
@@ -91,7 +98,6 @@ $-sizes: (
         text-align: center;
 
         &:only-child {
-            margin-inline: 6px;
             min-width: 42px;
         }
     }
@@ -105,4 +111,9 @@ $-sizes: (
             margin-right: -6px;
         }
     }
+}
+
+// The spinner's unlayered default would override the button icon size in flux-base.
+.button > :local(.spinner) {
+    font-size: var(--button-icon-size, 15px);
 }

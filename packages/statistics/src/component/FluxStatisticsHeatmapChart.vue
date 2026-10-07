@@ -7,10 +7,13 @@
     lang="ts"
     setup>
     import type { FluxStatisticsChartHeatmapSeries } from '@flux-ui/types';
+    import { HeatmapChart } from 'echarts/charts';
+    import { VisualMapComponent } from 'echarts/components';
+    import { use } from 'echarts/core';
     import { computed } from 'vue';
     import { type EChartsOption, useChartBaseSetup } from '~flux/statistics/composable';
     import { buildHeatmapChartOptions } from '~flux/statistics/util';
-    import Chart from './FluxStatisticsChart.vue';
+    import { Chart } from './primitive';
     import $style from '~flux/statistics/css/Chart.module.scss';
 
     const {
@@ -30,6 +33,8 @@
         readonly yAxisLabels?: boolean;
         readonly yLabels?: readonly string[];
     }>();
+
+    use([HeatmapChart, VisualMapComponent]);
 
     const {t} = useChartBaseSetup();
 

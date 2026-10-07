@@ -17,7 +17,7 @@ export const FluxFormCheckboxGroupInjectionKey: InjectionKey<FluxFormCheckboxGro
 export const FluxFormFieldInjectionKey: InjectionKey<FluxFormFieldInjection> = Symbol();
 export const FluxFormRadioGroupInjectionKey: InjectionKey<FluxFormRadioGroupInjection> = Symbol();
 export const FluxItemControlInjectionKey: InjectionKey<FluxItemControlInjection> = Symbol();
-export const FluxMenuFlyoutInjectionKey: InjectionKey<FluxMenuFlyoutInjection> = Symbol();
+export const FluxMenuFlyoutInjectionKey: InjectionKey<FluxMenuFlyoutInjection | null> = Symbol();
 export const FluxMenuPersistentInjectionKey: InjectionKey<Readonly<Ref<boolean>>> = Symbol();
 export const FluxSegmentedControlInjectionKey: InjectionKey<FluxSegmentedControlInjection> = Symbol();
 export const FluxTabBarInjectionKey: InjectionKey<FluxTabBarInjection> = Symbol();
@@ -309,6 +309,7 @@ export type FluxTableColumnDef = {
     readonly minWidth?: number;
     readonly noWrap?: boolean;
     readonly pinned: 'start' | 'end' | null;
+    readonly verticalAlign?: 'start' | 'center' | 'end';
     readonly width?: number;
 };
 

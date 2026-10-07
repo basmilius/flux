@@ -52,7 +52,7 @@ render=../code/components/read-more/preview.vue
 :::
 
 ::: tip
-While collapsed, the last visible line fades out into the surface the component sits on. Because that fade is painted with `--surface-current`, it follows a pane, a menu or a raised layer without any extra configuration.
+While collapsed, the last visible line fades out. The fade is a mask on the text itself, so it works on any background, including a custom one, without extra configuration.
 :::
 
 ::: tip

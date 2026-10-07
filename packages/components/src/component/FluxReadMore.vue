@@ -1,8 +1,8 @@
 <template>
-    <div :class="clsx($style.readMore, hasToggle && !isExpanded && $style.isFaded)">
+    <div :class="$style.readMore">
         <div
             ref="content"
-            :class="clsx($style.readMoreContent, isClamped && $style.isClamped)"
+            :class="clsx($style.readMoreContent, isClamped && $style.isClamped, hasToggle && !isExpanded && $style.isFaded)"
             :id="contentId"
             :style="{'--lines': lines}">
             <slot/>

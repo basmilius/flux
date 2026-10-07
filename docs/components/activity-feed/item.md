@@ -38,6 +38,12 @@ props:
         type: FluxIconName
         optional: true
 
+    -   name: is-date-below
+        description: Places the timestamp on its own line below the actor and action.
+        type: boolean
+        default: false
+        optional: true
+
     -   name: when
         description: The rendered timestamp, formatted by the application.
         type: string
@@ -77,6 +83,10 @@ example=../../code/components/activity-feed/item/markers.vue
 
 ::: example Colors || The color of an entry only paints its marker, which keeps the sentence itself readable.
 example=../../code/components/activity-feed/item/colors.vue
+:::
+
+::: example Date below || Set `is-date-below` to place the timestamp below the actor and action. Both layouts use the xsmall text size for the timestamp.
+example=../../code/components/activity-feed/item/date-below.vue
 :::
 
 ## Used components

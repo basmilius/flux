@@ -11,8 +11,8 @@
 
 .expandableHeader {
     display: flex;
-    height: 54px;
-    padding-inline: 18px;
+    height: 48px;
+    padding-inline: var(--pane-padding);
     align-items: center;
     gap: 12px;
     background: unset;
@@ -65,7 +65,7 @@
 }
 
 .expandableContent {
-    padding: 0 18px 18px;
+    padding: 0 var(--pane-padding) var(--pane-padding);
 }
 
 .basePane > .expandable {

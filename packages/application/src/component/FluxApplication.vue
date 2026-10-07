@@ -100,9 +100,7 @@
 
         window.addEventListener('resize', onResize, {passive: true});
 
-        // Flag the app as ready one frame past the first paint so the menu
-        // sub-header's `@starting-style` transition does not play on page
-        // load — it should only animate on later collapse / expand.
+        // Restore the remembered menu state before enabling sub-header transitions.
         readyFrame = requestAnimationFrame(() => {
             readyFrame = requestAnimationFrame(() => {
                 readyFrame = undefined;

@@ -82,6 +82,6 @@
 
         const [start, end] = value;
 
-        return createLabelForDateRange(start, end, true);
+        return createLabelForDateRange(start, end);
     });
 </script>

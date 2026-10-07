@@ -19,8 +19,7 @@ const navigation: SidebarItem[] = [
                     {text: 'Group', link: '/components/button/group'},
                     {text: 'Split', link: '/components/button/split'},
                     {text: 'Primary Link', link: '/components/button/primary-link'},
-                    {text: 'Secondary Link', link: '/components/button/secondary-link'},
-                    {text: 'Publish', link: '/components/button/publish'}
+                    {text: 'Secondary Link', link: '/components/button/secondary-link'}
                 ]
             },
             {text: 'Chip', link: '/components/chip'},
@@ -316,6 +315,14 @@ const navigation: SidebarItem[] = [
                 collapsed: true,
                 items: [
                     {text: 'Item', link: '/components/timeline/item'}
+                ]
+            },
+            {
+                text: 'Tree',
+                link: '/components/tree/',
+                collapsed: true,
+                items: [
+                    {text: 'Item', link: '/components/tree/item'}
                 ]
             },
             {text: 'Tree view', link: '/components/tree-view'}

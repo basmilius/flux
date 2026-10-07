@@ -4,19 +4,9 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 6px;
-
-    &.isFaded::after {
-        content: '';
-        grid-area: 1 / 1;
-        height: 1lh;
-        align-self: end;
-        background: linear-gradient(to bottom, transparent 25%, var(--surface-current));
-        pointer-events: none;
-    }
 }
 
 .readMoreContent {
-    grid-area: 1 / 1;
     min-width: 0;
 
     &.isClamped {
@@ -24,6 +14,10 @@
         overflow: hidden;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: var(--lines, 3);
+    }
+
+    &.isFaded {
+        mask-image: linear-gradient(to bottom, #000 calc(100% - .75lh), transparent);
     }
 }
 

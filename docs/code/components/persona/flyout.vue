@@ -7,7 +7,7 @@
                     <FluxPersona
                         name="Bas Milius"
                         title="Flux engineer"
-                        :avatar-size="42"
+                        :avatar-size="36"
                         avatar-src="https://avatars.githubusercontent.com/u/978257?v=4"
                         @click="open"/>
                 </template>
@@ -15,7 +15,7 @@
                 <FluxPaneHeader title="Bas Milius" sub-title="Flux engineer">
                     <template #before>
                         <FluxAvatar
-                            :size="42"
+                            :size="36"
                             src="https://avatars.githubusercontent.com/u/978257?v=4"/>
                     </template>
                 </FluxPaneHeader>

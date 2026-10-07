@@ -532,7 +532,8 @@ export default defineConfig({
                 {
                     text: 'Showcase',
                     items: [
-                        {text: 'Overview', link: '/showcase/'}
+                        {text: 'Overview', link: '/showcase/'},
+                        {text: 'Performance checks', link: '/showcase/performance'}
                     ]
                 }
             ]

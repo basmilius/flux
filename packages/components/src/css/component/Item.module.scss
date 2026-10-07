@@ -72,7 +72,7 @@
 
 .basePaneStructure > .item,
 .basePaneStructure > .itemStack > .item {
-    padding: 18px;
+    padding: var(--pane-padding);
 }
 
 .basePaneStructure > .itemStack > .item {

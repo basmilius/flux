@@ -6,9 +6,9 @@ import 'vitepress/dist/client/theme-default/styles/vars.css';
 import './override/base.css';
 import 'vitepress/dist/client/theme-default/styles/icons.css';
 import 'vitepress/dist/client/theme-default/styles/utils.css';
-import 'vitepress/dist/client/theme-default/styles/components/custom-block.css';
+import './override/custom-block.css';
 import 'vitepress/dist/client/theme-default/styles/components/vp-code.css';
-import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css';
+import './override/vp-code-group.css';
 import './override/vp-doc.css';
 import 'vitepress/dist/client/theme-default/styles/components/vp-sponsor.css';
 
