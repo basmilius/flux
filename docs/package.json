@@ -8,7 +8,7 @@
         "preview": "vitepress preview",
         "generate:react": "bun ../scripts/react-docs/generate.ts",
         "test:react-docs": "bun test ../scripts/react-docs/convert.test.ts",
-        "test:react-browser": "node ../scripts/react-docs/browser/playground.mjs && node ../scripts/react-docs/browser/menus.mjs && node ../scripts/react-docs/browser/menu-spacing.mjs && node ../scripts/react-docs/browser/animations.mjs",
+        "test:react-browser": "node ../scripts/react-docs/browser/run.mjs",
         "audit:react-browser": "node ../scripts/react-docs/browser/inventory.mjs",
         "test:react-performance": "node ../scripts/react-docs/browser/drag-performance.mjs"
     },

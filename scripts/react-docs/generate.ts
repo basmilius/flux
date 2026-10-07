@@ -254,7 +254,7 @@ for (const page of pages) {
         const name = page.split('/').at(-1)!.replace('.md', '');
         const entry = api.get(name);
         if (entry)
-            source = `# ${name}\n\nImport this function from \`@flux-ui/react\`. Its current React signature is:\n\n\`\`\`ts\n${name}${entry.signature};\n\`\`\`\n\n${name.startsWith('use') ? 'Call hooks at the top level of a React function component.\n' : ''}\nSee [port status](/react/status) for behavior that still differs from the original implementation.\n`;
+            source = `# ${name}\n\nImport this function from \`@flux-ui/react\`. Its current React signature is:\n\n\`\`\`ts\n${name}${entry.signature};\n\`\`\`\n\n${name.startsWith('use') ? 'Call hooks at the top level of a React function component.\n' : ''}\nSee [port status](/react/status) for the Vue comparison and validation scope.\n`;
     }
     if (page === 'index.md') {
         frontmatter.layout = 'home';
@@ -289,7 +289,7 @@ for (const page of pages) {
             }
         ];
         source =
-            '```sh\nbun add @flux-ui/react react react-dom\n```\n\nThe React port is under review. See [port status](/react/status) for known gaps.\n';
+            '```sh\nbun add @flux-ui/react react react-dom\n```\n\nSee [port status](/react/status) for component comparisons, browser checks and React API adaptations.\n';
     }
     const target = resolve(docs, 'react', page);
     mkdirSync(dirname(target), { recursive: true });
@@ -327,22 +327,19 @@ Sliders and range sliders use the Vue track/thumb structure with continuous poin
 
 See the [component comparison](/react/parity) for the full source/API inventory and the limits of the browser checks.
 
-## Remaining library work
+## Validation
 
-- Check transition timing for nested dialogs and interrupted animations across browsers. React now uses the shared enter/leave classes, retained leaving content and keyed window transitions.
-- Complete calendar time-grid layout, automatic responsive views, keyboard rescheduling and resizing. Month-view drag and drop works through onReschedule.
-- Complete sheet content-to-drag handoff, wheel gestures and spring physics. Snap points, grabber dragging and keyboard resizing are implemented.
-- Connect the compatibility injection hooks to the component contexts and complete localization beyond the supplied English dictionary.
-- Review visual parity, keyboard navigation, focus handling and screen-reader behavior across the component families. Selects and comboboxes now use Flux popups. The focused browser checks do not certify every state of each specialized control.
-- Verify React 18 compatibility, routing integrations, server rendering and published package installation before release. The development checks use React 19.
+The browser inventory renders 1,323 Vue/React fixtures. The interaction suite compares animations, menu prediction cones, elastic sliders, color inputs, table selection, calendar scheduling, filters, tree controls, Kanban, charts, sheets, split views, swipe actions, tours and streaming conversations. A separate drag profile checks frame timing and rejects rerenders of unrelated table components.
 
-## Unsupported variants
+React 18.3.1 and React 19.3.0 pass server-rendering and hydration checks, including a form interaction after hydration. Unit tests cover routing adapters, locale interpolation and component contexts. Browser validation currently uses Chromium.
 
-These are library limitations, not missing documentation examples. Supported compositions are shown on the relevant pages where possible.
+Run \`bun run --cwd docs test:react-browser\`, \`bun run --cwd docs audit:react-browser\` and \`bun run --cwd docs test:react-performance\` with the local docs server running. After building the React package, run \`NODE_ENV=production node scripts/react-docs/ssr.mjs\` for SSR and hydration.
+
+${gaps.length ? `## Unsupported variants
 
 | Page | Variant | Current behavior |
 | --- | --- | --- |
-${gaps.map((gap) => `| [${gap.page.replace('.md', '')}](/react/${gap.page.replace('.md', '')}) | ${gap.example.split('/').at(-1)!.replace('.vue', '')} | ${gap.reason.replaceAll('|', '\\|')} |`).join('\n')}
+${gaps.map((gap) => `| [${gap.page.replace('.md', '')}](/react/${gap.page.replace('.md', '')}) | ${gap.example.split('/').at(-1)!.replace('.vue', '')} | ${gap.reason.replaceAll('|', '\\|')} |`).join('\n')}` : 'All referenced documentation examples have a checked React implementation.'}
 `;
 writeGenerated(resolve(docs, 'react/status.md'), status);
 writeGenerated(resolve(docs, 'react/parity.md'), componentComparison());

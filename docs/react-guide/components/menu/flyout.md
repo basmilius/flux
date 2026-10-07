@@ -48,9 +48,9 @@ requiredIcons:
 
 A menu item that opens a submenu in a flyout next to it, rather than expanding inline like a [Collapsible](./collapsible). Use it inside any [Menu](./), such as a [Context menu](../context-menu), a dropdown, or a plain menu in a pane. Submenus may be nested arbitrarily deep.
 
-Activate the item by clicking it or pressing Enter or Space to toggle its submenu. The current React implementation does not open submenus on hover or ArrowRight.
+Hover over an item to open its submenu, or use a click, Enter, Space or ArrowRight. ArrowLeft and Escape close the submenu and return focus to its trigger.
 
-The current React flyout does not implement pointer prediction or a diagnostic cone.
+Pointer prediction keeps the submenu open while the pointer travels diagonally toward it. Set `debugCone` on the containing `FluxMenu` or `FluxContextMenu` to inspect the prediction area.
 
 ::: render
 render=../../code/components/menu/flyout/preview.vue

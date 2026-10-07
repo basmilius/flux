@@ -14,4 +14,4 @@ When porting an existing Flux app, keep the component names and replace framewor
 | Inline style string | A style object |
 | Package-specific imports | `@flux-ui/react` |
 
-Read the React props table for each component. Some APIs, including tables and overlays, differ beyond the syntax. See [port status](/react/status) for features that still need work.
+Read the React props table for each component. Some APIs, including tables and overlays, differ beyond the syntax. See [port status](/react/status) for the API adaptations and validation scope.

@@ -65,7 +65,7 @@ requiredIcons:
 
 # Menu collapsible
 
-A menu item that expands to reveal a nested group. Use `defaultOpened` for local state, or `isOpened` and `onOpenedChange` to control it. A heading with `href` or `to` navigates and opens the group. Automatic expansion from router state is not implemented.
+A menu item that expands to reveal a nested group. Use `defaultOpened` for local state, or `isOpened` and `onOpenedChange` to control it. A heading with `href` or `to` navigates and opens the group. With a `FluxRouterProvider`, matching routes open their parent groups automatically.
 
 ::: render
 render=../../code/components/menu/collapsible/preview.vue

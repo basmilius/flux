@@ -1,12 +1,14 @@
 import {clsx} from 'clsx';
 import {createPortal} from 'react-dom';
-import {cloneElement, createContext, isValidElement, useContext, useEffect, useId, useLayoutEffect, useRef, useState} from 'react';
+import {Fragment, cloneElement, createContext, isValidElement, useContext, useEffect, useId, useLayoutEffect, useRef, useState} from 'react';
 import type {CSSProperties, HTMLAttributes, KeyboardEvent, ReactNode} from 'react';
 import type {FluxDirection, FluxSize, FluxStyle} from '../types';
 import {FluxPane} from './Display';
 import {MenuContext} from './Menus';
-import {registerDialog, useFluxStore} from './Notifications';
-import {FluxFlyoutTransition, FluxFadeTransition, FluxOverlayTransition, FluxSheetTransition, FluxSlideOverTransition, FluxTooltipTransition} from './Transitions';
+import {positionTooltip} from './tooltipPosition';
+import {useOverlayHost} from './overlayHost';
+import {registerDialog, removeTooltip, useFluxStore} from './Notifications';
+import {FluxFlyoutTransition, FluxOverlayTransition, FluxSheetTransition, FluxSlideOverTransition, FluxTooltipTransition} from './Transitions';
 import overlayStyles from '../../../components/src/css/component/Overlay.module.scss';
 import sheetStyles from '../../../components/src/css/component/Sheet.module.scss';
 import flyoutStyles from '../../../components/src/css/component/Flyout.module.scss';
@@ -16,6 +18,7 @@ export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
     isCloseable?: boolean;
     label?: string;
     onClose?: () => void;
+    onAfterClose?: () => void;
     open: boolean;
 }
 
@@ -29,7 +32,8 @@ export function FluxSlideOver({children, className, ...props}: DialogProps) {
 
 export {FluxSheet} from './Sheet';
 
-export function DialogPortal({children, className, isCloseable, label, onClose, open, transition = 'overlay', ...props}: DialogProps & {transition?: 'overlay' | 'slideOver' | 'sheet'}) {
+export function DialogPortal({children, className, isCloseable, label, onAfterClose, onClose, open, transition = 'overlay', ...props}: DialogProps & {transition?: 'overlay' | 'slideOver' | 'sheet'}) {
+    const host = useOverlayHost();
     const ref = useRef<HTMLDivElement>(null);
     const [dialogId, setDialogId] = useState<number>();
     const {dialogs} = useFluxStore();
@@ -41,9 +45,9 @@ export function DialogPortal({children, className, isCloseable, label, onClose, 
         return () => registration.unregister();
     }, [open]);
     useDialogLifecycle(open && isCurrent, ref, onClose, isCloseable);
-    if (typeof document === 'undefined') return null;
+    if (!host) return null;
     const Transition = transition === 'sheet' ? FluxSheetTransition : transition === 'slideOver' ? FluxSlideOverTransition : FluxOverlayTransition;
-    return createPortal(<div className={overlayStyles.overlayProvider}><FluxFadeTransition show={open}><div className={overlayStyles.overlayShade} /></FluxFadeTransition><Transition appear show={open}><div {...props} ref={ref} className={clsx(className, isCurrent && overlayStyles.isCurrent)} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1} onMouseDown={event => {if (isCloseable && event.target === event.currentTarget) onClose?.();}}>{children}</div></Transition></div>, document.body);
+    return createPortal(<Transition appear show={open} onAfterLeave={onAfterClose}><div {...props} ref={ref} className={clsx(className, isCurrent && overlayStyles.isCurrent)} style={{zIndex: Math.max(0, dialogs.indexOf(dialogId ?? -1)) + 1000, ...props.style}} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1} onMouseDown={event => {if (isCloseable && event.target === event.currentTarget) onClose?.();}}>{children}</div></Transition>, host);
 }
 
 function useDialogLifecycle(open: boolean, ref: React.RefObject<HTMLElement | null>, onClose?: () => void, closeable?: boolean) {
@@ -87,11 +91,26 @@ export function FluxFlyout({children, direction = 'vertical', isAutoWidth, label
     const anchor = useRef<HTMLSpanElement>(null);
     const pane = useRef<HTMLDivElement>(null);
     const restoreFocus = useRef<HTMLElement | null>(null);
+    const openRef = useRef(false);
+    const callbacks = useRef({onOpen, onClose, onOpenChange});
+    callbacks.current = {onOpen, onClose, onOpenChange};
     const [open, setOpen] = useState(false);
     const [present, setPresent] = useState(false);
     const [position, setPosition] = useState({x: 0, y: 0, mx: 0, my: 0, openerWidth: 0, openerHeight: 0});
-    const change = (value: boolean) => {if (value === open) return; if (value) {restoreFocus.current = document.activeElement as HTMLElement; setPresent(true);} setOpen(value); onOpenChange?.(value); value ? onOpen?.() : onClose?.();};
-    const api = {close: () => change(false), open: () => change(true), toggle: () => change(!open), isOpen: present, ancestors};
+    const change = (value: boolean) => {
+        if (value === openRef.current) return;
+        openRef.current = value;
+        if (value) {if (!present) restoreFocus.current = document.activeElement as HTMLElement; setPresent(true);}
+        setOpen(value);
+        callbacks.current.onOpenChange?.(value);
+        if (value && !present) callbacks.current.onOpen?.();
+    };
+    const afterLeave = () => {
+        if (openRef.current) return;
+        setPresent(false);
+        callbacks.current.onClose?.();
+    };
+    const api = {close: () => change(false), open: () => change(true), toggle: () => change(!present), isOpen: present, ancestors};
     useLayoutEffect(() => {
         if (!open || !anchor.current) return;
         const update = () => {
@@ -143,43 +162,70 @@ export function FluxFlyout({children, direction = 'vertical', isAutoWidth, label
         document.addEventListener('mousedown', closeOutside);
         return () => document.removeEventListener('mousedown', closeOutside);
     }, [open]);
-    return <span ref={anchor} className={flyoutStyles.flyout}>{opener(api)}{present && typeof document !== 'undefined' && createPortal(<div data-flux-flyout-ancestors={ancestors} className={flyoutStyles.flyoutDialog} style={{position: 'fixed', left: position.x - 30, top: position.y - 30, zIndex: 11000}} role="presentation" onMouseDown={event => event.target === event.currentTarget && change(false)}><div ref={pane}><FluxFlyoutTransition appear show={open} onAfterLeave={() => setPresent(false)}><FluxPane className={clsx(flyoutStyles.flyoutPane, isAutoWidth && flyoutStyles.isAutoWidth)} style={{width: isAutoWidth ? position.openerWidth : width, maxWidth: 'calc(100vw - 24px)', '--pane-mx': `${position.mx}px`, '--pane-my': `${position.my}px`} as FluxStyle} role="dialog" aria-label={label}><FluxFlyoutContext.Provider value={api}><MenuContext.Provider value={{persistent: false}}>{children({close: api.close, paneX: position.x, paneY: position.y, openerWidth: position.openerWidth, openerHeight: position.openerHeight})}</MenuContext.Provider></FluxFlyoutContext.Provider></FluxPane></FluxFlyoutTransition></div></div>, document.body)}</span>;
+    return <span ref={anchor} className={flyoutStyles.flyout}>{opener(api)}{present && typeof document !== 'undefined' && createPortal(<div data-flux-flyout-ancestors={ancestors} className={flyoutStyles.flyoutDialog} style={{position: 'fixed', left: position.x - 30, top: position.y - 30, zIndex: 11000}} role="presentation" onMouseDown={event => event.target === event.currentTarget && change(false)}><FluxFlyoutTransition appear show={open} onAfterLeave={afterLeave}><FluxPane ref={pane} className={clsx(flyoutStyles.flyoutPane, isAutoWidth && flyoutStyles.isAutoWidth)} style={{width: isAutoWidth ? position.openerWidth : width, maxWidth: 'calc(100vw - 24px)', '--pane-mx': `${position.mx}px`, '--pane-my': `${position.my}px`} as FluxStyle} role="dialog" aria-label={label}><FluxFlyoutContext.Provider value={api}><MenuContext.Provider value={{persistent: false}}>{children({close: api.close, paneX: position.x, paneY: position.y, openerWidth: position.openerWidth, openerHeight: position.openerHeight})}</MenuContext.Provider></FluxFlyoutContext.Provider></FluxPane></FluxFlyoutTransition></div>, document.body)}</span>;
 }
 
-export const TooltipContext = createContext<{close(): void; open(): void}>({close() {}, open() {}});
+export const TooltipContext = createContext<{calculate(): void; close(): void; open(): void}>({calculate() {}, close() {}, open() {}});
 
 export function FluxTooltip({children, content, direction = 'vertical', open: controlledOpen}: {children: ReactNode; content: ReactNode; direction?: FluxDirection; open?: boolean}) {
     const anchor = useRef<HTMLSpanElement>(null);
-    const tooltip = useRef<HTMLSpanElement>(null);
+    const [dismissed, setDismissed] = useState(false);
     const id = useId();
     const [open, setOpen] = useState(false);
-    const [layout, setLayout] = useState<{side: string; style: FluxStyle}>({side: 'Below', style: {'--x': 0, '--y': 0}});
-    const visible = (controlledOpen ?? open) && Boolean(content);
-    useLayoutEffect(() => {
-        if (!visible) return;
-        const update = () => {
-            const box = anchor.current?.firstElementChild?.getBoundingClientRect();
-            const size = tooltip.current?.getBoundingClientRect();
-            if (!box || !size) return;
-            let side = direction === 'vertical' ? 'Below' : 'End';
-            let x = direction === 'vertical' ? box.left + (box.width - size.width) / 2 : box.right + 9;
-            let y = direction === 'vertical' ? box.bottom + 9 : box.top + (box.height - size.height) / 2;
-            if (direction === 'vertical' && y + size.height > innerHeight - 9) {side = 'Above'; y = box.top - size.height - 9;}
-            if (direction === 'horizontal' && x + size.width > innerWidth - 9) {side = 'Start'; x = box.left - size.width - 9;}
-            x = Math.max(9, Math.min(innerWidth - size.width - 9, x));
-            y = Math.max(9, Math.min(innerHeight - size.height - 9, y));
-            setLayout({side, style: {'--x': x, '--y': y, '--arrowX': direction === 'vertical' ? `${Math.max(9, Math.min(size.width - 9, box.left + box.width / 2 - x))}px` : side === 'End' ? '0px' : '100%', '--arrowY': direction === 'horizontal' ? `${Math.max(9, Math.min(size.height - 9, box.top + box.height / 2 - y))}px` : side === 'Below' ? '0px' : '100%', '--arrowAngle': {Below: '225deg', Above: '45deg', End: '135deg', Start: '-45deg'}[side]}});
-        };
-        const frame = requestAnimationFrame(update);
-        window.addEventListener('resize', update);
-        window.addEventListener('scroll', update, true);
-        return () => {cancelAnimationFrame(frame); window.removeEventListener('resize', update); window.removeEventListener('scroll', update, true);};
-    }, [visible, direction, content]);
-    const child = isValidElement<{ 'aria-describedby'?: string }>(children) ? cloneElement(children, {'aria-describedby': visible ? [children.props['aria-describedby'], id].filter(Boolean).join(' ') : children.props['aria-describedby']}) : children;
-    return <TooltipContext.Provider value={{close: () => setOpen(false), open: () => setOpen(true)}}><span ref={anchor} style={{display: 'contents'}} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}>
+    const [revision, setRevision] = useState(0);
+    const visible = (controlledOpen ?? open) && !dismissed && Boolean(content);
+    useEffect(() => setDismissed(false), [controlledOpen]);
+    const bindable = isValidElement<HTMLAttributes<HTMLElement> & {'data-flux-tooltip-anchor'?: string}>(children) && children.type !== Fragment;
+    const events: HTMLAttributes<HTMLElement> = {
+        onMouseEnter: event => {setDismissed(false); setOpen(true); if (bindable) children.props.onMouseEnter?.(event);},
+        onMouseLeave: event => {setOpen(false); if (bindable) children.props.onMouseLeave?.(event);},
+        onFocus: event => {setDismissed(false); setOpen(true); if (bindable) children.props.onFocus?.(event);},
+        onBlur: event => {setOpen(false); if (bindable) children.props.onBlur?.(event);}
+    };
+    const child = bindable ? cloneElement(children, {...events, 'data-flux-tooltip-anchor': id, 'aria-describedby': visible ? [children.props['aria-describedby'], id].filter(Boolean).join(' ') : children.props['aria-describedby']}) : <span ref={anchor} style={{display: 'contents'}} {...events}>{children}</span>;
+    return <TooltipContext.Provider value={{calculate: () => setRevision(value => value + 1), close: () => setOpen(false), open: () => {setDismissed(false); setOpen(true);}}}>
         {child}
-        {typeof document !== 'undefined' && createPortal(<FluxTooltipTransition show={visible}><span ref={tooltip} id={id} role="tooltip" className={tooltipStyles[`tooltip${layout.side}`]} style={layout.style as CSSProperties}>{content}</span></FluxTooltipTransition>, document.body)}
-    </span></TooltipContext.Provider>;
+        <TooltipPopup anchor={() => document.querySelector<HTMLElement>(`[data-flux-tooltip-anchor="${id}"]`) ?? anchor.current?.firstElementChild as HTMLElement | null} content={content} direction={direction} id={id} onDismiss={() => {setOpen(false); setDismissed(true);}} revision={revision} visible={visible}/>
+    </TooltipContext.Provider>;
+}
+
+function TooltipPopup({anchor, content, direction, id, onDismiss, revision = 0, visible}: {anchor(): HTMLElement | null; content: ReactNode; direction: FluxDirection; id: string; onDismiss(): void; revision?: number; visible: boolean}) {
+    const [mounted, setMounted] = useState(false);
+    const tooltip = useRef<HTMLSpanElement>(null);
+    const host = useRef<HTMLDivElement>(null);
+    const callbacks = useRef({anchor, onDismiss});
+    callbacks.current = {anchor, onDismiss};
+    const [layout, setLayout] = useState<{side: string; style: FluxStyle}>({side: 'Below', style: {'--x': 0, '--y': 0}});
+    useEffect(() => setMounted(true), []);
+    useLayoutEffect(() => {
+        if (!mounted || !visible) return;
+        if (host.current && !host.current.matches(':popover-open')) host.current.showPopover?.();
+        const update = () => {
+            const box = callbacks.current.anchor()?.getBoundingClientRect();
+            if (!box || !tooltip.current) return;
+            const bounds = tooltip.current.getBoundingClientRect();
+            const scale = parseFloat(getComputedStyle(tooltip.current).scale) || 1;
+            setLayout(positionTooltip(box, {width: bounds.width / scale, height: bounds.height / scale}, direction));
+        };
+        const observer = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(update);
+        const frame = requestAnimationFrame(() => {update(); if (tooltip.current) observer?.observe(tooltip.current);});
+        const dismiss = () => callbacks.current.onDismiss();
+        window.addEventListener('resize', update);
+        window.addEventListener('scroll', dismiss, {capture: true, passive: true});
+        return () => {cancelAnimationFrame(frame); observer?.disconnect(); window.removeEventListener('resize', update); window.removeEventListener('scroll', dismiss, true);};
+    }, [mounted, visible, direction, content, revision]);
+    return !mounted ? null : createPortal(<div ref={host} popover="manual" className={tooltipStyles.tooltipHost}><FluxTooltipTransition appear show={visible} onAfterLeave={() => {if (!visible && host.current?.matches(':popover-open')) host.current.hidePopover?.();}}><span ref={tooltip} id={id} role="tooltip" className={tooltipStyles[`tooltip${layout.side}`]} style={layout.style as CSSProperties}>{content}</span></FluxTooltipTransition></div>, document.body);
+}
+
+export function FluxTooltipProvider({children}: {children?: ReactNode}) {
+    const {tooltip} = useFluxStore();
+    const id = useId();
+    const [revision, setRevision] = useState(0);
+    const close = () => {if (tooltip) removeTooltip(tooltip.id);};
+    return <TooltipContext.Provider value={{calculate: () => setRevision(value => value + 1), close, open() {}}}>
+        {children}
+        <TooltipPopup anchor={() => tooltip?.origin ?? null} content={tooltip?.contentSlot?.() ?? tooltip?.content} direction={tooltip?.direction ?? 'vertical'} id={id} onDismiss={close} revision={revision} visible={Boolean(tooltip)}/>
+    </TooltipContext.Provider>;
 }
 
 function focusables(root: HTMLElement | null): HTMLElement[] { return root ? Array.from(root.querySelectorAll<HTMLElement>('a[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')).filter(element => element.tabIndex >= 0) : []; }

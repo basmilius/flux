@@ -62,7 +62,7 @@ The React package exports components and helpers from these Flux families:
 
 The package entry point is checked against every public export of `@flux-ui/components`, `@flux-ui/application`, `@flux-ui/ai`, `@flux-ui/flow`, `@flux-ui/statistics`, `@flux-ui/visuals`, `@flux-ui/internals`, and `@flux-ui/types` with `bun run audit:exports`.
 
-Matching export names does not establish behavioral parity. Transitions, localization, context hooks and some component APIs still need work. The [port status](https://flux-ui.dev/react/status) tracks these gaps.
+The [port status](https://flux-ui.dev/react/status) records the Vue/React browser comparisons, interaction tests and React 18/19 hydration checks. Run the browser suite from the repository root with `bun run --cwd docs test:react-browser` while the docs server is running.
 
 ## Vue-to-React conventions
 

@@ -2,7 +2,7 @@
 
 A sheet opens against the bottom, top, left or right edge. Control visibility with `open` and set it to `false` in `onClose`. Set `isCloseable` to enable Escape, backdrop clicks and the grabber’s close action.
 
-Drag the grabber to resize or dismiss the sheet. `snapPoints` accepts fractions of the viewport; arrow keys, Home and End move between them. Content scrolls inside the sheet. Content-to-drag handoff, wheel gestures and the Vue spring physics are not yet implemented.
+Drag the grabber to resize or dismiss the sheet. `snapPoints` accepts fractions of the viewport; arrow keys, Home and End move between them. Content scrolls inside the sheet. Dragging within the content hands off to the sheet at the scroll boundary. Wheel gestures use the same snap points and spring motion.
 
 ::: render
 render=../code/components/sheet/preview.vue

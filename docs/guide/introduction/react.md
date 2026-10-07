@@ -37,7 +37,7 @@ Keep the existing Flux component names and translate Vue template conventions in
 - Named slots become node props or render props such as `before`, `after`, `header`, and `opener`.
 - Events use React names such as `onClick`, `onValueChange`, and `onCheckedChange`.
 - Two-way bindings become controlled props plus a change callback.
-- React components use contexts and hooks. Some compatibility injection hooks are not yet connected to those contexts.
+- React components use contexts and hooks; injection helpers read their containing React provider.
 
 ```tsx
 export function NameField() {
@@ -55,4 +55,4 @@ export function NameField() {
 
 See the package README for examples and development commands.
 
-The port is under review. See [React port status](/react/status) for verified checks and remaining work.
+See [React port status](/react/status) for the Vue comparison, browser checks and React API adaptations.

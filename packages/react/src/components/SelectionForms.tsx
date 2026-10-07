@@ -49,10 +49,10 @@ function valueKey(value: FluxFormSelectValueSingle) {return `${typeof value}:${v
 export interface FluxFormSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
     autoFocus?: boolean; defaultValue?: FluxFormSelectValue; disabled?: boolean; error?: string | boolean; isCondensed?: boolean; isLoading?: boolean;
     isCreatable?: boolean; isMultiple?: boolean; isReadonly?: boolean; isSearchable?: boolean; isSecondary?: boolean; name?: string; onSearchQueryChange?: (value: string) => void;
-    onPopupOpen?: () => void; filterOptions?: boolean; onValueChange?: (value: FluxFormSelectValue) => void; options: FluxFormSelectEntry[]; placeholder?: string; searchQuery?: string; value?: FluxFormSelectValue;
+    onPopupOpen?: () => void; filterOptions?: boolean; onValueChange?: (value: FluxFormSelectValue) => void; options: FluxFormSelectEntry[]; selectedOptions?: FluxFormSelectEntry[]; placeholder?: string; searchQuery?: string; value?: FluxFormSelectValue;
 }
 
-export function FluxFormSelect({autoFocus, className, defaultValue, disabled, error, isCondensed, isCreatable, isLoading, isMultiple, isReadonly, isSearchable, isSecondary, name, onKeyDown, onSearchQueryChange, onValueChange, onPopupOpen, filterOptions = true, options, placeholder, searchQuery, value, 'aria-label': ariaLabel, ...props}: FluxFormSelectProps) {
+export function FluxFormSelect({autoFocus, className, defaultValue, disabled, error, isCondensed, isCreatable, isLoading, isMultiple, isReadonly, isSearchable, isSecondary, name, onKeyDown, onSearchQueryChange, onValueChange, onPopupOpen, filterOptions = true, options, selectedOptions: optionSelection = [], placeholder, searchQuery, value, 'aria-label': ariaLabel, ...props}: FluxFormSelectProps) {
     const translate = useFluxTranslate();
     const field = useFluxFormField();
     const scopedDisabled = useFluxDisabled(disabled);
@@ -66,7 +66,7 @@ export function FluxFormSelect({autoFocus, className, defaultValue, disabled, er
     const [keyboardAction, setKeyboardAction] = useState(false);
     const current = value !== undefined ? value : inner;
     const query = searchQuery ?? localSearch;
-    const allOptions = flattenOptions([...options, ...created]);
+    const allOptions = flattenOptions([...options, ...created, ...optionSelection]);
     const selected = Array.isArray(current) ? current : [current];
     const selectedOptions = selected.map(value => allOptions.find(option => option.value === value)).filter((option): option is FluxFormSelectOption => Boolean(option));
     const visible = optionGroups([...options, ...created]).map(group => ({...group, options: group.options.filter(option => (!filterOptions || option.label.toLowerCase().includes(query.trim().toLowerCase())) && (!isMultiple || !selected.includes(option.value)))})).filter(group => group.options.length);
@@ -180,9 +180,7 @@ export function FluxFormSelectAsync({fetchOptions, fetchRelevant, fetchSearch, s
         return () => clearTimeout(timer);
     }, [query]);
     useEffect(() => () => {++generation.current;}, []);
-    const visibleValues = new Set(flattenOptions(visibleOptions).map(option => option.value));
-    const options = [...visibleOptions, ...selectedOptions.filter(option => isGroup(option) || !visibleValues.has(option.value))];
-    return <FluxFormSelect {...props} defaultValue={defaultValue} value={current} options={options} filterOptions={false} isSearchable isLoading={props.isLoading || loadingSelected || loadingVisible} searchQuery={query} onPopupOpen={() => void load(query)} onValueChange={next => {if (value === undefined) setInner(next); onValueChange?.(next);}} onSearchQueryChange={next => {setLocalQuery(next); props.onSearchQueryChange?.(next);}}/>;
+    return <FluxFormSelect {...props} defaultValue={defaultValue} value={current} options={visibleOptions} selectedOptions={selectedOptions} filterOptions={false} isSearchable isLoading={props.isLoading || loadingSelected || loadingVisible} searchQuery={query} onPopupOpen={() => void load(query)} onValueChange={next => {if (value === undefined) setInner(next); onValueChange?.(next);}} onSearchQueryChange={next => {setLocalQuery(next); props.onSearchQueryChange?.(next);}}/>;
 }
 
 export interface FluxDateInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'defaultValue' | 'max' | 'min' | 'onChange' | 'type' | 'value'> {defaultValue?: DateTime | null; error?: string | boolean; isCondensed?: boolean; isLoading?: boolean; isReadonly?: boolean; isSecondary?: boolean; max?: DateTime; min?: DateTime; onValueChange?: (value: DateTime | null) => void; value?: DateTime | null}

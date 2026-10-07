@@ -34,7 +34,8 @@
             align-self: center;
         }
 
-        > .pane {
+        > .pane,
+        > :global([data-react-example-scope]) > .pane {
             width: 100%;
         }
     }
@@ -78,7 +79,8 @@
             align-self: center;
         }
 
-        > .pane {
+        > .pane,
+        > :global([data-react-example-scope]) > .pane {
             width: 100%;
         }
     }

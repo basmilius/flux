@@ -106,7 +106,7 @@ render=../../code/components/calendar/preview.vue
 
 ## Auto-responsive views
 
-The React calendar defaults to `month`. To adapt it to the viewport, read `useBreakpoints()` and pass an explicit `view`, as this example does.
+Without an explicit `view`, the calendar adapts to the viewport: month from 1280px, week from 1024px, two days from 768px and a single day below that. Pass `view` to select a fixed layout.
 
 ::: render
 render=../../code/components/calendar/auto-responsive.vue
@@ -120,7 +120,7 @@ render=../../code/components/calendar/auto-responsive.vue
 
 ## Week view
 
-The current React week view groups events by day. Hour-grid positioning, duration sizing and a separate all-day region are not implemented.
+Week view positions timed events in an hour grid, sizes them by `duration` and places `allDay` events in a separate row.
 
 ::: render
 render=../../code/components/calendar/week-view.vue
@@ -134,7 +134,7 @@ render=../../code/components/calendar/week-view.vue
 
 ## Day view
 
-A single-day event list. The React implementation accepts `duration` and `allDay` on items but does not yet use them for timed layout.
+Day view uses the same timed grid and all-day row for one day. Set `duration` in minutes to control an event’s height.
 
 ::: render
 render=../../code/components/calendar/day-view.vue
@@ -148,7 +148,7 @@ render=../../code/components/calendar/day-view.vue
 
 ## Draggable items
 
-Set `draggable` in month view and update your events in `onReschedule`. The callback supplies `id`, `fromDate` and `toDate`. Day/week drag and drop, timed snapping and navigation while dragging are not implemented.
+Set `draggable` and update your events in `onReschedule`. The callback supplies `id`, `fromDate` and `toDate`. Month view moves events between dates; timed views snap to half-hour intervals and support changing the visible period while dragging.
 
 ::: render
 render=../../code/components/calendar/draggable.vue
@@ -162,7 +162,7 @@ render=../../code/components/calendar/draggable.vue
 
 ## Resize
 
-The current React API has no resize interaction.
+Timed events expose resize handles. Update the event in `onResize`, which receives `id`, `fromDate`, `toDate`, `fromDuration` and `toDuration`.
 
 ::: render
 render=../../code/components/calendar/resize.vue
@@ -176,7 +176,7 @@ render=../../code/components/calendar/resize.vue
 
 ## Keyboard navigation
 
-Items are native buttons and can receive keyboard focus. Keyboard grabbing, arrow-key rescheduling and drop/cancel commands are not implemented. The example below shows focusable items; use your own accessible editing form to change dates.
+Focus an event and press Enter or Space to grab it. Arrow keys change its date or time; Enter or Space drops it, and Escape or Tab cancels. Apply `onReschedule` updates to keep the controlled event data in sync.
 
 ::: render
 render=../../code/components/calendar/keyboard.vue

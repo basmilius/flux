@@ -587,8 +587,8 @@ config.locales = {
             siteTitle: 'Flux · React',
             nav: [
                 {text: 'Home', link: '/react/'},
-                {text: 'Guide', link: '/react/guide/introduction/installation/manual'},
-                {text: 'Components', link: '/react/components/'},
+                {text: 'Guide', link: '/react/guide/introduction/installation/manual', activeMatch: '^/react/(guide|internals)/'},
+                {text: 'Components', link: '/react/components/', activeMatch: '^/react/components/'},
                 reactNavigation(config.themeConfig!.nav![3]),
                 {text: 'Port status', link: '/react/status'}
             ],

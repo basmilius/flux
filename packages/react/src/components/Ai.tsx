@@ -7,13 +7,18 @@ import type { FluxColor, FluxIconName, FluxStyle } from '../types';
 import { FluxPrimaryButton, FluxSecondaryButton } from './Actions';
 import { FluxActionStack } from './Composition';
 import { FluxAvatar, FluxBadge } from './Display';
-import { FluxBoxedIcon } from './DisplayExtended';
+import { FluxBoxedIcon, useFluxDisabled } from './DisplayExtended';
+import {createTranslate} from '../i18n';
+import {english} from './aiEnglish';
+import {useNumberFormat} from '../compatibility';
 import { FluxExpandable } from './Disclosure';
 import { FluxProgressBar, FluxSpinner } from './Feedback';
+import {FluxFadeTransition} from './Transitions';
+import {flattenElements} from './children';
 import { FluxHoverCard } from './Interactions';
 import { FluxProse } from './Layout';
 import { FluxMenu } from './Menus';
-import { FluxFlyout } from './Overlays';
+import { FluxFlyout, FluxTooltip } from './Overlays';
 import { FluxIcon } from './Icon';
 import citationStyles from '../../../ai/src/css/component/AiCitation.module.scss';
 import codeStyles from '../../../ai/src/css/component/AiCodeBlock.module.scss';
@@ -47,6 +52,8 @@ export function configureAi(options: ConfigureAiOptions) {
     if (options.streaming) Object.assign(aiConfig.streaming, options.streaming);
     if (options.toolCall) Object.assign(aiConfig.toolCall, options.toolCall);
 }
+
+const useTranslate = createTranslate(english);
 
 const markdownOptions = { breaks: true, gfm: true, silent: true } as const;
 export interface LexMarkdownResult {
@@ -187,7 +194,7 @@ function blocks(tokens: Token[], context: MarkdownContext, offset = 0): ReactNod
                 return [<blockquote key={key}>{blocks((token as Tokens.Blockquote).tokens, context)}</blockquote>];
             case 'code': {
                 const code = token as Tokens.Code;
-                return [<span key={key}>{context.renderCode({ code: code.text, language: code.lang?.trim().split(/\s+/)[0] })}</span>];
+                return [<Fragment key={key}>{context.renderCode({ code: code.text, language: code.lang?.trim().split(/\s+/)[0] })}</Fragment>];
             }
             case 'heading': {
                 const heading = token as Tokens.Heading,
@@ -268,9 +275,10 @@ export function useStreamingMarkdown({ content, fadeClass, isStreaming, renderCo
 }
 
 export function FluxAiCitation({ children, excerpt, index, title, url }: { children?: (state: { close(): void }) => ReactNode; excerpt?: string; index: number; title?: string; url?: string }) {
+    const translate = useTranslate();
     const id = useId(),
         description = [title, excerpt].filter(Boolean).join('. '),
-        label = `Source ${index}`;
+        label = translate('flux.ai.citationSource', {index});
     return (
         <FluxHoverCard
             label={label}
@@ -313,14 +321,15 @@ async function copy(value: string) {
         return false;
     }
 }
-export function FluxAiCodeBlock({ code, language }: MarkdownCodeProps) {
+export function FluxAiCodeBlock({ code, language, className, ...props }: MarkdownCodeProps & HTMLAttributes<HTMLDivElement>) {
+    const translate = useTranslate();
     const [copied, setCopied] = useState(false),
         timer = useRef(0);
     useEffect(() => () => clearTimeout(timer.current), []);
     return (
-        <div className={codeStyles.codeBlock}>
+        <div {...props} className={clsx(codeStyles.codeBlock, className)}>
             <div className={codeStyles.codeBlockHeader}>
-                <span className={codeStyles.codeBlockLanguage}>{language ?? 'Code'}</span>
+                <span className={codeStyles.codeBlockLanguage}>{language ?? translate('flux.ai.code')}</span>
                 <button
                     className={codeStyles.codeBlockCopy}
                     type="button"
@@ -333,7 +342,7 @@ export function FluxAiCodeBlock({ code, language }: MarkdownCodeProps) {
                     }}
                 >
                     <FluxIcon name={copied ? 'check' : 'copy'} size={15} />
-                    <span aria-live="polite">{copied ? 'Copied' : 'Copy code'}</span>
+                    <span aria-live="polite">{translate(copied ? 'flux.ai.copiedCode' : 'flux.ai.copyCode')}</span>
                 </button>
             </div>
             <pre className={codeStyles.codeBlockContent}>
@@ -349,22 +358,33 @@ export const FluxAiConversationInjectionKey = createContext<FluxAiConversationIn
 export interface FluxAiConversationHandle {
     scrollToBottom(): void;
 }
-export const FluxAiConversation = forwardRef<FluxAiConversationHandle, HTMLAttributes<HTMLDivElement> & { empty?: ReactNode; isGrouped?: boolean; isSticky?: boolean; jumpToLatestLabel?: string; label?: string }>(function FluxAiConversation({ children, className, empty, isGrouped, isSticky = true, jumpToLatestLabel = 'Jump to latest', label = 'Conversation', ...props }, forwardedRef) {
+export const FluxAiConversation = forwardRef<FluxAiConversationHandle, HTMLAttributes<HTMLDivElement> & { empty?: ReactNode; isGrouped?: boolean; isSticky?: boolean; jumpToLatestLabel?: string; label?: string }>(function FluxAiConversation({ children, className, empty, isGrouped, isSticky = true, jumpToLatestLabel, label, ...props }, forwardedRef) {
+    const translate = useTranslate();
     const scroller = useRef<HTMLDivElement>(null),
         [atBottom, setAtBottom] = useState(true);
+    const list = useRef<HTMLOListElement>(null);
+    const following = useRef(true);
+    const lastScrollTop = useRef(0);
     const scrollToBottom = () => {
         const element = scroller.current;
         if (!element) return;
-        if (typeof element.scrollTo === 'function') element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
+        following.current = true;
+        if (typeof element.scrollTo === 'function') element.scrollTo({ top: element.scrollHeight, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
         else element.scrollTop = element.scrollHeight;
     };
     useImperativeHandle(forwardedRef, () => ({ scrollToBottom }));
     useEffect(() => {
-        if (isSticky) scrollToBottom();
-    }, [children, isSticky]);
+        const follow = () => {
+            if (isSticky && following.current && scroller.current) scroller.current.scrollTop = scroller.current.scrollHeight;
+        };
+        follow();
+        if (typeof ResizeObserver === 'undefined') return;
+        const observer = new ResizeObserver(follow);
+        if (list.current) observer.observe(list.current);
+        return () => observer.disconnect();
+    }, [isSticky]);
     let previousDay: string | undefined;
-    const turns = Children.toArray(children)
-        .filter(isValidElement)
+    const turns = flattenElements(children)
         .map((child, index) => {
             const day = (child as ReactElement<{ day?: string }>).props.day,
                 separator = isGrouped && day && day !== previousDay ? day : null;
@@ -389,27 +409,33 @@ export const FluxAiConversation = forwardRef<FluxAiConversationHandle, HTMLAttri
                     role="log"
                     aria-live="polite"
                     aria-relevant="additions"
-                    aria-label={label}
+                    aria-atomic="false"
+                    aria-label={label ?? translate('flux.ai.conversation')}
                     tabIndex={0}
                     onScroll={(event) => {
                         const element = event.currentTarget;
-                        setAtBottom(element.scrollHeight - element.scrollTop - element.clientHeight <= 24);
+                        if (element.scrollTop < lastScrollTop.current - 1) following.current = false;
+                        lastScrollTop.current = element.scrollTop;
+                        const bottom = element.scrollHeight - element.scrollTop - element.clientHeight <= 24;
+                        setAtBottom(bottom);
+                        if (bottom) following.current = true;
                     }}
                 >
-                    <ol className={conversationStyles.conversationList} role="list">
+                    <ol ref={list} className={conversationStyles.conversationList} role="list">
                         {turns}
                     </ol>
                     {turns.length === 0 && empty && <div className={conversationStyles.conversationEmpty}>{empty}</div>}
                 </div>
-                {!atBottom && <FluxSecondaryButton className={conversationStyles.conversationJump} iconLeading="arrow-down" aria-label={jumpToLatestLabel} onClick={scrollToBottom} />}
+                <FluxFadeTransition>{!atBottom && <FluxTooltip content={jumpToLatestLabel ?? translate('flux.ai.jumpToLatest')}><FluxSecondaryButton className={conversationStyles.conversationJump} iconLeading="arrow-down" aria-label={jumpToLatestLabel ?? translate('flux.ai.jumpToLatest')} onClick={scrollToBottom}/></FluxTooltip>}</FluxFadeTransition>
             </div>
         </FluxAiConversationInjectionKey.Provider>
     );
 });
 export function FluxAiMessage({ actions, author, avatarFallbackInitials, avatarSrc, children, className, dateTime, day: _day, footer, icon, isStreaming, role, when, ...props }: Omit<HTMLAttributes<HTMLElement>, 'role'> & { actions?: ReactNode; author?: string; avatarFallbackInitials?: string; avatarSrc?: string; dateTime?: string; day?: string; footer?: ReactNode; icon?: FluxIconName; isStreaming?: boolean; role: 'assistant' | 'system' | 'user'; when?: string }) {
+    const translate = useTranslate();
     const inConversation = useContext(FluxAiConversationInjectionKey),
         Tag = inConversation ? 'li' : 'article',
-        authorLabel = author ?? { assistant: 'Assistant', system: 'System', user: 'You' }[role],
+        authorLabel = author ?? translate(role === 'assistant' ? 'flux.ai.roleAssistant' : role === 'system' ? 'flux.ai.roleSystem' : 'flux.ai.roleUser'),
         marker = avatarSrc || avatarFallbackInitials ? <FluxAvatar className={messageStyles.messageMarker} fallbackInitials={avatarFallbackInitials} size={30} src={avatarSrc} aria-hidden="true" /> : icon ? <FluxBoxedIcon className={messageStyles.messageMarker} name={icon} rounded size={30} aria-hidden="true" /> : null;
     return (
         <Tag {...props} className={clsx(messageStyles.message, role === 'system' && messageStyles.isSystem, role === 'user' && messageStyles.isUser, marker && messageStyles.hasMarker, isStreaming && messageStyles.isStreaming, className)} aria-busy={isStreaming || undefined}>
@@ -436,12 +462,13 @@ export interface FluxAiModel {
     name: string;
 }
 export function FluxAiModelSelect({ defaultValue, disabled, models, onValueChange, option, value }: { defaultValue?: string; disabled?: boolean; models: readonly FluxAiModel[]; onValueChange?: (value: string) => void; option?: (props: { isSelected: boolean; model: FluxAiModel }) => ReactNode; value?: string }) {
+    const translate = useTranslate();
     const controlled = value !== undefined,
         [inner, setInner] = useState(defaultValue),
         current = controlled ? value : inner,
         selected = models.find((model) => model.id === current);
     return (
-        <FluxFlyout label="Model" width={321} opener={({ isOpen, toggle }) => <FluxSecondaryButton disabled={disabled} iconTrailing="angles-up-down" label={selected?.name ?? 'Select model'} aria-haspopup="menu" aria-expanded={isOpen} onClick={toggle} after={selected?.badge && <FluxBadge label={selected.badge} size="small" />} />}>
+        <FluxFlyout label={translate('flux.ai.model')} width={321} opener={({ isOpen, toggle }) => <FluxSecondaryButton disabled={disabled} iconTrailing="angles-up-down" label={selected?.name ?? translate('flux.ai.selectModel')} aria-haspopup="menu" aria-expanded={isOpen} onClick={toggle}>{selected?.badge && <FluxBadge label={selected.badge} size="small" tabIndex={-1}/>}</FluxSecondaryButton>}>
             {({ close }) => (
                 <FluxMenu>
                     {models.map((model) => (
@@ -461,7 +488,7 @@ export function FluxAiModelSelect({ defaultValue, disabled, models, onValueChang
                             {option?.({ isSelected: model.id === current, model }) ?? (
                                 <>
                                     <span className={modelStyles.modelSelectName}>{model.name}</span>
-                                    {model.badge && <FluxBadge className={modelStyles.modelSelectBadge} label={model.badge} size="small" />}
+                                    {model.badge && <FluxBadge className={modelStyles.modelSelectBadge} label={model.badge} size="small" tabIndex={-1} />}
                                     {model.description && <span className={modelStyles.modelSelectDescription}>{model.description}</span>}
                                 </>
                             )}
@@ -477,7 +504,11 @@ export interface FluxAiPromptInputHandle {
     blur(): void;
     focus(): void;
 }
-export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: string; actions?: ReactNode; attachments?: File[]; children?: ReactNode; defaultValue?: string; disabled?: boolean; isStreaming?: boolean; maxRows?: number; onAttachmentsChange?: (files: File[]) => void; onStop?: () => void; onSubmit?: (value: string) => void; onValueChange?: (value: string) => void; placeholder?: string; value?: string }>(function FluxAiPromptInput({ accept, actions, attachments, children, defaultValue = '', disabled, isStreaming, maxRows = 10, onAttachmentsChange, onStop, onSubmit, onValueChange, placeholder = 'Message AI…', value }, forwardedRef) {
+export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, Omit<HTMLAttributes<HTMLDivElement>, 'onSubmit' | 'defaultValue'> & { accept?: string; actions?: ReactNode; attachments?: File[]; children?: ReactNode; defaultValue?: string; disabled?: boolean; isStreaming?: boolean; maxRows?: number; onAttachmentsChange?: (files: File[]) => void; onStop?: () => void; onSubmit?: (value: string) => void; onValueChange?: (value: string) => void; placeholder?: string; value?: string }>(function FluxAiPromptInput({ accept, actions, attachments, children, defaultValue = '', disabled, isStreaming, maxRows = 10, onAttachmentsChange, onStop, onSubmit, onValueChange, placeholder, value, className, ...props }, forwardedRef) {
+    const translate = useTranslate();
+    disabled = useFluxDisabled(disabled);
+    const composing = useRef(false);
+    const fileInput = useRef<HTMLInputElement>(null);
     const controlled = value !== undefined,
         [inner, setInner] = useState(defaultValue),
         current = controlled ? value : inner,
@@ -493,16 +524,16 @@ export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: 
         };
     useImperativeHandle(forwardedRef, () => ({ blur: () => field.current?.blur(), focus: () => field.current?.focus() }));
     return (
-        <div className={clsx(promptStyles.aiPromptInput, disabled && promptStyles.isDisabled)} role="group" aria-label="Prompt">
+        <div {...props} className={clsx(promptStyles.aiPromptInput, disabled && promptStyles.isDisabled, className)} role="group" aria-label={translate('flux.ai.prompt')}>
             {children && <div className={promptStyles.aiPromptInputHeader}>{children}</div>}
             {files.length > 0 && (
-                <ul className={promptStyles.aiPromptInputAttachments} role="list" aria-label="Attachments">
+                <ul className={promptStyles.aiPromptInputAttachments} role="list" aria-label={translate('flux.ai.attachments')}>
                     {files.map((file, index) => (
                         <li key={`${index}-${file.name}`} className={promptStyles.aiPromptInputAttachment}>
                             <span className={promptStyles.aiPromptInputAttachmentLabel} title={file.name}>
                                 {file.name}
                             </span>
-                            <button className={promptStyles.aiPromptInputAttachmentRemove} type="button" disabled={disabled} aria-label={`Remove ${file.name}`} onClick={() => onAttachmentsChange?.(files.filter((_, at) => at !== index))}>
+                            <button className={promptStyles.aiPromptInputAttachmentRemove} type="button" disabled={disabled} aria-label={translate('flux.ai.removeAttachment', {name: file.name})} onClick={() => onAttachmentsChange?.(files.filter((_, at) => at !== index))}>
                                 <FluxIcon name="xmark" size={14} />
                             </button>
                         </li>
@@ -514,13 +545,15 @@ export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: 
                 className={promptStyles.aiPromptInputField}
                 rows={1}
                 disabled={disabled}
-                placeholder={placeholder}
+                placeholder={placeholder ?? translate('flux.ai.promptPlaceholder')}
                 value={current}
                 style={{ '--max-rows': maxRows } as FluxStyle}
-                aria-label="Prompt message"
+                aria-label={translate('flux.ai.promptMessage')}
+                onCompositionStart={() => {composing.current = true;}}
+                onCompositionEnd={() => {composing.current = false;}}
                 onChange={(event) => update(event.target.value)}
                 onKeyDown={(event) => {
-                    if (event.key === 'Enter' && !event.shiftKey && !event.altKey && !event.ctrlKey && !event.metaKey && !event.nativeEvent.isComposing && current.trim()) {
+                    if (event.key === 'Enter' && !event.shiftKey && !event.altKey && !event.ctrlKey && !event.metaKey && !event.nativeEvent.isComposing && !composing.current && !disabled && !isStreaming && current.trim()) {
                         event.preventDefault();
                         submit();
                     }
@@ -528,26 +561,29 @@ export const FluxAiPromptInput = forwardRef<FluxAiPromptInputHandle, { accept?: 
             />
             <div className={promptStyles.aiPromptInputActions}>
                 {attachments && (
-                    <label>
-                        <input hidden type="file" multiple accept={accept} disabled={disabled} onChange={(event) => onAttachmentsChange?.([...files, ...Array.from(event.target.files ?? [])])} />
-                        <span aria-label="Attach">
-                            <FluxIcon name="paperclip" />
-                        </span>
-                    </label>
+                    <>
+                        <input ref={fileInput} hidden type="file" multiple accept={accept} disabled={disabled} onChange={event => {
+                            const selected = Array.from(event.target.files ?? []);
+                            if (selected.length) onAttachmentsChange?.([...files, ...selected]);
+                            event.target.value = '';
+                        }}/>
+                        <FluxSecondaryButton disabled={disabled} iconLeading="paperclip" size="small" aria-label={translate('flux.ai.attach')} onClick={() => fileInput.current?.click()}/>
+                    </>
                 )}
                 {actions}
-                {isStreaming ? <FluxSecondaryButton className={promptStyles.aiPromptInputSubmit} iconLeading="stop" size="small" aria-label="Stop" onClick={onStop} /> : <FluxPrimaryButton className={promptStyles.aiPromptInputSubmit} disabled={disabled || !current.trim()} iconLeading="arrow-up" size="small" aria-label="Send" onClick={submit} />}
+                {isStreaming ? <FluxSecondaryButton className={promptStyles.aiPromptInputSubmit} iconLeading="stop" size="small" aria-label={translate('flux.ai.stop')} onClick={onStop} /> : <FluxPrimaryButton className={promptStyles.aiPromptInputSubmit} disabled={disabled || !current.trim()} iconLeading="arrow-up" size="small" aria-label={translate('flux.ai.send')} onClick={submit} />}
             </div>
         </div>
     );
 });
-function reasoningLabel(streaming?: boolean, duration?: number) {
-    if (streaming) return 'Thinking';
-    if (duration === undefined) return 'Reasoning';
+function reasoningLabel(translate: ReturnType<typeof useTranslate>, streaming?: boolean, duration?: number) {
+    if (streaming) return translate('flux.ai.thinking');
+    if (duration === undefined) return translate('flux.ai.reasoning');
     const seconds = Math.max(0, Math.round(duration));
-    return seconds < 60 ? `Thought for ${seconds} seconds` : `Thought for ${Math.floor(seconds / 60)}m ${seconds % 60}s`;
+    return seconds < 60 ? translate('flux.ai.thoughtForSeconds', {seconds}) : translate('flux.ai.thoughtForMinutes', {minutes: Math.floor(seconds / 60), seconds: seconds % 60});
 }
 export function FluxAiReasoning({ children, className, content, defaultExpanded, duration, isExpanded, isStreaming, onExpandedChange }: { children?: ReactNode; className?: string; content?: string; defaultExpanded?: boolean; duration?: number; isExpanded?: boolean; isStreaming?: boolean; onExpandedChange?: (value: boolean) => void }) {
+    const translate = useTranslate();
     const expandableId = useId();
     return (
         <FluxExpandable
@@ -561,20 +597,20 @@ export function FluxAiReasoning({ children, className, content, defaultExpanded,
                 <button className={clsx(reasoningStyles.reasoningHeader, isOpen && reasoningStyles.isOpened)} id={`${expandableId}-header`} type="button" aria-controls={`${expandableId}-content`} aria-expanded={isOpen} onClick={toggle}>
                     {isStreaming ? <FluxSpinner size={15} /> : <FluxIcon name="brain" size={15} />}
                     <span className={reasoningStyles.reasoningLabel} aria-live="polite">
-                        {reasoningLabel(isStreaming, duration)}
+                        {reasoningLabel(translate, isStreaming, duration)}
                     </span>
                     <FluxIcon className={clsx(reasoningStyles.reasoningChevron, isOpen && reasoningStyles.isOpened)} name="angle-down" size={15} />
                 </button>
             )}
-            body={<div className={reasoningStyles.reasoningBody}>{children ?? <p className={reasoningStyles.reasoningText}>{content}</p>}</div>}
+            body={<div className={reasoningStyles.reasoningBody}>{children ?? <p className={reasoningStyles.reasoningText}>{renderText(content ?? '', {fadeClass: isStreaming && aiConfig.streaming.hasFade ? reasoningStyles.reasoningWord : null, wordIndex: 0})}</p>}</div>}
         />
     );
 }
-export function FluxAiStreamingText({ code, content, hasMarkdown = true, isStreaming }: { code?: (props: MarkdownCodeProps) => ReactNode; content: string; hasMarkdown?: boolean; isStreaming?: boolean }) {
+export function FluxAiStreamingText({ code, content, hasMarkdown = true, isStreaming, className, style, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'content'> & { code?: (props: MarkdownCodeProps) => ReactNode; content: string; hasMarkdown?: boolean; isStreaming?: boolean }) {
     const renderCode = (props: MarkdownCodeProps) => code?.(props) ?? <FluxAiCodeBlock {...props} />,
         result = useStreamingMarkdown({ content, fadeClass: aiConfig.streaming.hasFade ? streamingStyles.streamingTextWord : null, isStreaming, renderCode });
     return (
-        <FluxProse className={streamingStyles.streamingText} style={{ '--ai-fade-duration': `${aiConfig.streaming.fadeDuration}ms` } as FluxStyle}>
+        <FluxProse {...props} className={clsx(streamingStyles.streamingText, className)} style={{...style, '--ai-fade-duration': `${aiConfig.streaming.fadeDuration}ms` } as FluxStyle}>
             {hasMarkdown ? result.nodes : <p className={streamingStyles.streamingTextPlain}>{renderText(content, { fadeClass: isStreaming && aiConfig.streaming.hasFade ? streamingStyles.streamingTextWord : null, wordIndex: 0 })}</p>}
         </FluxProse>
     );
@@ -584,9 +620,11 @@ export interface FluxAiSuggestion {
     id: string;
     label: string;
 }
-export function FluxAiSuggestions({ disabled, onSelect, suggestions }: { disabled?: boolean; onSelect?: (suggestion: FluxAiSuggestion) => void; suggestions: readonly FluxAiSuggestion[] }) {
+export function FluxAiSuggestions({ disabled, onSelect, suggestions, className, ...props }: Omit<HTMLAttributes<HTMLUListElement>, 'onSelect'> & { disabled?: boolean; onSelect?: (suggestion: FluxAiSuggestion) => void; suggestions: readonly FluxAiSuggestion[] }) {
+    const translate = useTranslate();
+    disabled = useFluxDisabled(disabled);
     return (
-        <ul className={suggestionStyles.aiSuggestions} role="list" aria-label="Suggestions">
+        <ul {...props} className={clsx(suggestionStyles.aiSuggestions, className)} role="list" aria-label={translate('flux.ai.suggestions')}>
             {suggestions.map((suggestion) => (
                 <li key={suggestion.id}>
                     <button className={suggestionStyles.aiSuggestion} type="button" disabled={disabled} onClick={() => onSelect?.(suggestion)}>
@@ -614,30 +652,42 @@ function signature(value?: string | Record<string, unknown>) {
     } catch {
         return '';
     }
-    if (parsed === null || typeof parsed !== 'object') return '';
+    if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) return '';
     const summary = Object.entries(parsed)
         .map(([key, item]) => `${key}: ${typeof item === 'string' ? JSON.stringify(item.length > 24 ? `${item.slice(0, 24)}...` : item) : Array.isArray(item) ? `[${item.length}]` : item && typeof item === 'object' ? '{...}' : String(item)}`)
         .join(', ');
     return summary.length > 60 ? `${summary.slice(0, 60)}...` : summary;
 }
 export function FluxAiToolCall({ arguments: args, argumentsContent, defaultExpanded, duration, isExpanded, name, onExpandedChange, result, resultContent, status = 'success' }: { arguments?: string | Record<string, unknown>; argumentsContent?: (value: string | null) => ReactNode; defaultExpanded?: boolean; duration?: number; isExpanded?: boolean; name: string; onExpandedChange?: (expanded: boolean) => void; result?: string; resultContent?: (value: string | null) => ReactNode; status?: FluxAiToolCallStatus }) {
+    const translate = useTranslate();
     const expandableId = useId();
     const formatted = args === undefined ? null : formatJson(args),
         [full, setFull] = useState(false),
         visible = result && !full && result.length > aiConfig.toolCall.resultLimit ? `${result.slice(0, aiConfig.toolCall.resultLimit)}...` : result,
-        statusLabel = { running: 'Running', success: 'Succeeded', error: 'Failed' }[status];
-    const section = (label: string, value: string | null, content?: (value: string | null) => ReactNode) =>
+        statusLabel = translate(status === 'running' ? 'flux.ai.toolRunning' : status === 'error' ? 'flux.ai.toolFailed' : 'flux.ai.toolSucceeded');
+    const [copied, setCopied] = useState<string | null>(null);
+    const copiedTimer = useRef(0);
+    useEffect(() => () => clearTimeout(copiedTimer.current), []);
+    const section = (kind: 'arguments' | 'result', value: string | null, content?: (value: string | null) => ReactNode) =>
         value !== null || content ? (
             <section className={toolStyles.aiToolCallSection}>
                 <div className={toolStyles.aiToolCallSectionHeader}>
-                    <span className={toolStyles.aiToolCallSectionLabel}>{label}</span>
+                    <span className={toolStyles.aiToolCallSectionLabel}>{translate(kind === 'arguments' ? 'flux.ai.toolArguments' : 'flux.ai.toolResult')}</span>
                     {value !== null && (
-                        <button className={toolStyles.aiToolCallAction} type="button" onClick={() => void copy(value)}>
-                            <FluxIcon name="copy" size={12} /> Copy
+                        <button className={toolStyles.aiToolCallAction} type="button" onClick={async () => {
+                            if (!await copy(value)) return;
+                            setCopied(kind);
+                            clearTimeout(copiedTimer.current);
+                            copiedTimer.current = window.setTimeout(() => setCopied(null), 2000);
+                        }}>
+                            <FluxIcon name={copied === kind ? 'check' : 'copy'} size={12}/>{' '}{translate(copied === kind ? 'flux.ai.toolCopied' : 'flux.ai.toolCopy')}
                         </button>
                     )}
                 </div>
-                {content?.(value) ?? <pre className={toolStyles.aiToolCallOutput}>{value}</pre>}
+                {content?.(value) ?? <>
+                    <pre className={toolStyles.aiToolCallOutput}>{kind === 'result' ? visible : value}</pre>
+                    {kind === 'result' && result && result.length > aiConfig.toolCall.resultLimit && <button className={toolStyles.aiToolCallMore} type="button" onClick={() => setFull(value => !value)}>{translate(full ? 'flux.ai.toolShowLess' : 'flux.ai.toolShowFullResult')}</button>}
+                </>}
             </section>
         ) : null;
     return (
@@ -650,54 +700,50 @@ export function FluxAiToolCall({ arguments: args, argumentsContent, defaultExpan
             header={({ isOpen, toggle }) => (
                 <button id={`${expandableId}-header`} className={toolStyles.aiToolCallHeader} type="button" aria-controls={`${expandableId}-content`} aria-expanded={isOpen} onClick={toggle}>
                     <FluxIcon className={clsx(toolStyles.aiToolCallChevron, isOpen && toolStyles.isOpen)} name="angle-right" size={12} />
-                    <span className={toolStyles.aiToolCallDot} />
+                    <span className={toolStyles.aiToolCallDot} aria-hidden="true"/>
                     <span className={toolStyles.aiToolCallName}>
                         {name}
                         <span className={toolStyles.aiToolCallSignature}>({signature(args)})</span>
                     </span>
                     <span className={clsx(toolStyles.aiToolCallStatus, status === 'success' && toolStyles.isHidden)}>{statusLabel}</span>
-                    {duration !== undefined && <span className={toolStyles.aiToolCallDuration}>{duration.toFixed(duration < 10 ? 1 : 0)}s</span>}
+                    {duration !== undefined && <span className={toolStyles.aiToolCallDuration}>{translate('flux.ai.toolDuration', {duration: duration.toFixed(duration < 10 ? 1 : 0)})}</span>}
                 </button>
             )}
             body={
                 <div className={toolStyles.aiToolCallBody}>
-                    {section('Arguments', formatted, argumentsContent)}
-                    {section('Result', visible ?? null, resultContent)}
-                    {result && result.length > aiConfig.toolCall.resultLimit && (
-                        <button className={toolStyles.aiToolCallMore} type="button" onClick={() => setFull((value) => !value)}>
-                            {full ? 'Show less' : 'Show full result'}
-                        </button>
-                    )}
+                    {section('arguments', formatted, argumentsContent)}
+                    {section('result', result ?? null, resultContent)}
                 </div>
             }
         />
     );
 }
-export function FluxAiUsage({ cost, inputTokens, isCompact, limit, outputTokens }: { cost?: string; inputTokens?: number; isCompact?: boolean; limit?: number; outputTokens?: number }) {
-    const format = new Intl.NumberFormat(),
+export function FluxAiUsage({ cost, inputTokens, isCompact, limit, outputTokens, className, ...props }: HTMLAttributes<HTMLDivElement> & { cost?: string; inputTokens?: number; isCompact?: boolean; limit?: number; outputTokens?: number }) {
+    const translate = useTranslate();
+    const format = useNumberFormat(),
         total = (inputTokens ?? 0) + (outputTokens ?? 0),
         ratio = limit ? total / limit : 0,
         state = ratio >= 1 ? 'reached' : ratio >= 0.9 ? 'near' : null,
         color: FluxColor = state === 'reached' ? 'danger' : state === 'near' ? 'warning' : 'primary';
     return (
-        <div className={clsx(usageStyles.usage, isCompact && usageStyles.isCompact)} role="group" aria-label="Usage">
+        <div {...props} className={clsx(usageStyles.usage, isCompact && usageStyles.isCompact, className)} role="group" aria-label={translate('flux.ai.usage')}>
             {(inputTokens !== undefined || outputTokens !== undefined || cost) && (
                 <dl className={usageStyles.usageFigures}>
                     {inputTokens !== undefined && (
                         <div className={usageStyles.usageFigure}>
-                            <dt className={usageStyles.usageLabel}>Input tokens</dt>
+                            <dt className={usageStyles.usageLabel}>{translate('flux.ai.inputTokens')}</dt>
                             <dd className={usageStyles.usageValue}>{format.format(inputTokens)}</dd>
                         </div>
                     )}
                     {outputTokens !== undefined && (
                         <div className={usageStyles.usageFigure}>
-                            <dt className={usageStyles.usageLabel}>Output tokens</dt>
+                            <dt className={usageStyles.usageLabel}>{translate('flux.ai.outputTokens')}</dt>
                             <dd className={usageStyles.usageValue}>{format.format(outputTokens)}</dd>
                         </div>
                     )}
                     {cost && (
                         <div className={usageStyles.usageFigure}>
-                            <dt className={usageStyles.usageLabel}>Cost</dt>
+                            <dt className={usageStyles.usageLabel}>{translate('flux.ai.cost')}</dt>
                             <dd className={usageStyles.usageValue}>{cost}</dd>
                         </div>
                     )}
@@ -707,11 +753,11 @@ export function FluxAiUsage({ cost, inputTokens, isCompact, limit, outputTokens 
                 <div className={usageStyles.usageLimit}>
                     <FluxProgressBar className={usageStyles.usageLimitBar} color={color} max={limit} value={total} />
                     <p className={usageStyles.usageLimitLabel}>
-                        {format.format(total)} of {format.format(limit)} tokens used
+                        {translate('flux.ai.tokenLimitUsage', {used: format.format(total), limit: format.format(limit)})}
                     </p>
                     {state && (
                         <p className={clsx(usageStyles.usageLimitNotice, state === 'reached' && usageStyles.isReached)}>
-                            <FluxIcon name="triangle-exclamation" size={14} /> {state === 'reached' ? 'Token limit reached' : 'Token limit nearly reached'}
+                            <FluxIcon name="triangle-exclamation" size={14} /> {translate(state === 'reached' ? 'flux.ai.tokenLimitReached' : 'flux.ai.tokenLimitNear')}
                         </p>
                     )}
                 </div>

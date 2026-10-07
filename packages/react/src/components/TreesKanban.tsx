@@ -1,3 +1,4 @@
+import {TIME_ZONES, TIME_ZONE_GROUP_ORDER} from './timeZones';
 import {useFluxTranslate} from '../i18n';
 import { clsx } from 'clsx';
 import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
@@ -177,26 +178,27 @@ export function FluxTreeView({ className, expandedDepth = 1, levelColors, onClic
 export {FluxFormTreeViewSelect} from './TreeSelect';
 export type {FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue, FluxFormTreeViewSelectProps} from './TreeSelect';
 
-function timeZoneOptions() {
-    const supported = (Intl as typeof Intl & { supportedValuesOf?: (key: 'timeZone') => string[] }).supportedValuesOf?.('timeZone') ?? ['UTC'];
-    const groups = new Map<string, Array<{ label: string; value: string }>>();
-    for (const zone of supported) {
-        const group = zone.includes('/') ? zone.split('/')[0] : 'Other';
-        let offset = '';
+function timeZoneOptions(translate: ReturnType<typeof useFluxTranslate>) {
+    const groups = new Map<string, Array<{label: string; value: string; command: string}>>();
+    for (const zone of TIME_ZONES) {
         try {
-            offset = new Intl.DateTimeFormat(undefined, { timeZone: zone, timeZoneName: 'longOffset' }).formatToParts().find((part) => part.type === 'timeZoneName')?.value ?? '';
-        } catch {
-            continue;
-        }
-        const options = groups.get(group) ?? [];
-        options.push({ label: `${zone.replaceAll('_', ' ').replaceAll('/', ' / ')} ${offset}`.trim(), value: zone });
-        groups.set(group, options);
+            const label = new Intl.DateTimeFormat(undefined, {timeZone: zone}).resolvedOptions().timeZone.replaceAll('_', ' ').replaceAll('/', ' / ');
+            const area = label.includes('/') ? label.split('/')[0].trim().toLowerCase() : 'other';
+            const group = `flux.timezone${area[0].toUpperCase()}${area.slice(1)}`;
+            const command = (new Intl.DateTimeFormat(undefined, {timeZone: zone, timeZoneName: 'longOffset'}).formatToParts().find(part => part.type === 'timeZoneName')?.value ?? '').replace(/^(GMT|UTC)/, '');
+            const options = groups.get(group) ?? [];
+            if (!options.some(option => option.label === label)) options.push({label, value: zone, command});
+            groups.set(group, options);
+        } catch {continue;}
     }
-    return Array.from(groups, ([label, options]) => ({ label, options: options.sort((a, b) => a.label.localeCompare(b.label)) }));
+    return [...groups].sort(([a], [b]) => TIME_ZONE_GROUP_ORDER.indexOf(a as typeof TIME_ZONE_GROUP_ORDER[number]) - TIME_ZONE_GROUP_ORDER.indexOf(b as typeof TIME_ZONE_GROUP_ORDER[number])).flatMap(([label, options]) => [{label: translate(label as typeof TIME_ZONE_GROUP_ORDER[number])}, ...options.sort((a, b) => a.label.localeCompare(b.label))]);
 }
 export function FluxFormTimeZonePicker(props: Omit<React.ComponentProps<typeof FluxFormSelect>, 'isSearchable' | 'options'>) {
-    const options = useMemo(timeZoneOptions, []);
-    return <FluxFormSelect {...props} isSearchable options={options} />;
+    const translate = useFluxTranslate();
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const options = useMemo(() => mounted ? timeZoneOptions(translate) : [], [mounted, translate]);
+    return <FluxFormSelect {...props} isSearchable options={options}/>;
 }
 
 export {FluxKanban, FluxKanbanColumn, FluxKanbanItem, FluxKanbanSwimlane, KanbanContext, KanbanLayoutContext, SwimlaneContext} from './Kanban';

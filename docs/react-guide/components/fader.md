@@ -64,7 +64,7 @@ example=../code/components/fader/basic.vue
 example=../code/components/fader/autoplay.vue
 :::
 
-::: example Manual navigation || Manual navigation is not part of the current React API.
+::: example Manual navigation || Use the children render prop to access `current`, `next` and `previous` and render navigation controls.
 example=../code/components/fader/manual.vue
 :::
 

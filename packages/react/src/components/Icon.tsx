@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import type { CSSProperties, MouseEventHandler } from 'react';
+import type { CSSProperties, HTMLAttributes, MouseEventHandler } from 'react';
 import type { FluxColor, FluxIconName, FluxIconStyle } from '../types';
 import iconStyles from '../../../components/src/css/component/Icon.module.scss';
 
@@ -61,7 +61,7 @@ function registerIcons(icons: FluxIcons | readonly FluxIconDefinition[]): void {
     }
 }
 
-export interface FluxIconProps {
+export interface FluxIconProps extends Omit<HTMLAttributes<HTMLElement | SVGSVGElement>, 'color'> {
     ariaLabel?: string;
     className?: string;
     color?: FluxColor;
@@ -90,7 +90,7 @@ const fontStyleClasses: Record<FluxIconStyle, string> = {
     brands: 'fa-brands'
 };
 
-export function FluxIcon({ ariaLabel, className, color, iconStyle, name, onClick, size, style }: FluxIconProps) {
+export function FluxIcon({ ariaLabel, className, color, iconStyle, name, onClick, size, style, ...props }: FluxIconProps) {
     const resolvedStyle = iconStyle ?? (name ? iconConfig.styleOverrides[name] : undefined) ?? iconConfig.defaultStyle;
     const definition = name ? registry[name] : undefined;
     const fontSize = typeof size === 'number' ? `${size}px` : size;
@@ -100,7 +100,7 @@ export function FluxIcon({ ariaLabel, className, color, iconStyle, name, onClick
         const paths = Array.isArray(iconPaths) ? iconPaths : [iconPaths];
 
         return (
-            <svg className={clsx(iconStyles.fontAwesomeIcon, color && colorClasses[color], className)} viewBox={`0 0 ${width} ${height}`} style={{fontSize, scale: width / 512 > 1 ? width / 512 : undefined, ...style}} focusable="false" role={ariaLabel ? 'img' : undefined} aria-hidden={ariaLabel ? undefined : true} aria-label={ariaLabel} onClick={onClick as MouseEventHandler<SVGSVGElement>}>
+            <svg {...props} className={clsx(iconStyles.fontAwesomeIcon, color && colorClasses[color], className)} viewBox={`0 0 ${width} ${height}`} style={{fontSize, scale: width / 512 > 1 ? width / 512 : undefined, ...style}} focusable="false" role={ariaLabel ? 'img' : undefined} aria-hidden={ariaLabel ? undefined : true} aria-label={ariaLabel} onClick={onClick as MouseEventHandler<SVGSVGElement>}>
                 {paths.map((path, index) => (
                     <path key={index} d={path} fill="currentColor" />
                 ))}
@@ -110,7 +110,7 @@ export function FluxIcon({ ariaLabel, className, color, iconStyle, name, onClick
 
     if (iconConfig.renderMode === 'font' && name) {
         return (
-            <i className={clsx(iconStyles.iconFont, fontStyleClasses[resolvedStyle], color && colorClasses[color], className)} style={{fontSize, ...style}} role={ariaLabel ? 'img' : undefined} aria-hidden={ariaLabel ? undefined : true} aria-label={ariaLabel} onClick={onClick as MouseEventHandler<HTMLElement>}>
+            <i {...props} className={clsx(iconStyles.iconFont, fontStyleClasses[resolvedStyle], color && colorClasses[color], className)} style={{fontSize, ...style}} role={ariaLabel ? 'img' : undefined} aria-hidden={ariaLabel ? undefined : true} aria-label={ariaLabel} onClick={onClick as MouseEventHandler<HTMLElement>}>
                 {resolvedStyle === 'duotone' ? (
                     <>
                         <span className={iconStyles.iconFontSecondary}>{name}##</span>
@@ -123,5 +123,5 @@ export function FluxIcon({ ariaLabel, className, color, iconStyle, name, onClick
         );
     }
 
-    return <i className={clsx(iconStyles.icon, className)} style={style} aria-hidden="true" />;
+    return <i {...props} className={clsx(iconStyles.icon, className)} style={style} aria-hidden="true" />;
 }

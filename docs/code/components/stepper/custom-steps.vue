@@ -42,7 +42,7 @@
 
             <FluxPrimaryButton
                 :disabled="step === 2"
-                icon-before="circle-check"
+                icon-leading="circle-check"
                 label="Next"
                 @click="step++"/>
         </FluxPaneFooter>

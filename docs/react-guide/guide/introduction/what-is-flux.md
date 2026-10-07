@@ -4,4 +4,4 @@ Flux is Bas Milius's component library for building application interfaces. The 
 
 Start with the [installation guide](./installation/manual), then browse [components](/react/components/). The sidebar also contains the application shell, AI components, flow diagrams, charts and visual effects.
 
-This branch is still under review. The [status page](/react/status) tracks the gaps between the implementations.
+The [status page](/react/status) records the component comparison, interaction checks and React API adaptations.

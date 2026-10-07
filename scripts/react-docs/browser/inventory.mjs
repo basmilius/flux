@@ -57,6 +57,7 @@ async function worker() {
                 );
                 if (framework === 'react') await page.waitForFunction(() => !document.querySelector('#flux-validation [data-react-state="loading"]'), null, { timeout: 10000 });
                 await page.waitForTimeout(100);
+                await page.locator('#flux-validation img').evaluateAll(images => Promise.all(images.map(image => image.complete ? undefined : Promise.race([image.decode().catch(() => {}), new Promise(resolve => setTimeout(resolve, 2500))]))));
                 const failed = page.locator('#flux-validation [data-react-state="error"]');
                 if (await failed.count()) throw new Error(await failed.innerText());
                 row[framework] = await page.locator('#flux-validation').evaluate((root, props) => {

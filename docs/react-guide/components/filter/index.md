@@ -2,7 +2,7 @@
 
 `FluxFilter` provides a controlled filter state to its child controls. Pass the state record as `value` and update it in `onValueChange`. Each control reads its entry by `name`.
 
-The React implementation displays these controls directly. It does not build the nested window navigation of the original implementation. Initialize defaults in your state, and implement reset or clear by updating that state yourself.
+The filter menu opens each control in a nested window with back navigation. Controls can supply `defaultValue`; the provider initializes missing values and exposes reset and clear actions.
 
 ::: render
 render=../../code/components/filter/preview.vue
@@ -23,9 +23,9 @@ render=../../code/components/filter/preview.vue
 
 ## Custom filters
 
-Compose a controlled component with `value` and `onValueChange`. This example uses a flyout and menu items. It does not require a compile-time macro or Vite plugin. The compatibility `defineFilter` and injection helpers are not connected to the context used by the native React filter controls.
+Use `useFilterInjection()` to read `state`, update an entry with `setValue(name, value)` and return to the menu with `back()`. Attach a `filterDefinition` factory created with `defineFilter` to your component so the provider can read its label, defaults and value summary. This uses ordinary React code and needs no compiler plugin.
 
-::: example Custom toggle filter || A controlled boolean filter composed from React components.
+::: example Custom toggle filter || A boolean filter using the shared filter context and definition factory.
 example=../../code/components/filter/custom/preview.vue
 :::
 

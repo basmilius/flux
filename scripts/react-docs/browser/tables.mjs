@@ -24,6 +24,13 @@ try {
                 });
             });
         }
+        for (const name of ['basic', 'pinned']) {
+            await fixture(`table/cell/${name}`);
+            const preview = await page.locator('#flux-validation .f_preview').boundingBox();
+            const table = await page.locator('#flux-validation .f_table').boundingBox();
+            assert(preview.height <= Math.max(300, table.height + 150), `${framework}: ancestor measured the table before its columns were ready`);
+            results[framework][`initial-${name}`] = {previewHeight: preview.height, tableHeight: table.height};
+        }
         await fixture('table/pinned-columns');
         results[framework].pinned = await geometry();
         await page.locator('#flux-validation .f_table').evaluate(element => element.scrollLeft = 300);

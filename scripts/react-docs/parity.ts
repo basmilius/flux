@@ -23,24 +23,36 @@ const eventAliases: Record<string, string[]> = {
     close: ['onClose', 'onOpenChange']
 };
 
-const behavioralGaps: Record<string, string> = {
-    FluxBreadcrumb: 'Automatic collapse and width measurement are missing.',
-    FluxCalendar:
-        'Day/week time-grid placement, responsive view selection, resizing and keyboard rescheduling are incomplete.',
-    FluxContextMenu: 'Pointer positioning, viewport clamping, dismissal and nested ownership are implemented; touch long-press needs device testing.',
-    FluxFlyout: 'Placement, focus return and nested flyout behavior need further comparison.',
-    FluxFormFader: 'Dragging, value animation, ticks and text avoidance are implemented; elastic overdrag still differs.',
-    FluxFormRangeFader: 'Uses one track and two thumbs; elastic overdrag still differs.',
-    FluxFormRepeater: 'Keyboard reordering exists; pointer reordering and insertion indicators are missing.',
-    FluxMenuFlyout:
-        'Hover, keyboard navigation and nested popup ownership are implemented. Pointer prediction still uses a simpler timing and velocity model than Vue.',
-    FluxMenuCollapsible:
-        'Controlled opening and animation are implemented; automatic route matching is not connected to a router.',
-    FluxSheet:
-        'Grabber dragging, snap points and keyboard resizing are implemented; content scroll handoff, wheel gestures and spring motion still differ.',
-    FluxVisualHighlighter: 'Uses CSS decorations rather than the Vue drawing and replay behavior.',
-    FluxVisualHighlighterGroup: 'Group sequencing and viewport-triggered drawing differ.',
-    FluxVisualSlotText: 'Per-call enter/leave options on flash are missing.'
+const behavioralChecks: Record<string, string> = {
+    FluxBreadcrumb: 'Browser checks cover measured collapse, popup navigation and resizing.',
+    FluxCalendar: 'Browser checks cover month/day/week layout, responsive views, pointer moves, resizing and keyboard rescheduling.',
+    FluxContextMenu: 'Browser checks cover pointer placement, long press, viewport clamping and nested dismissal.',
+    FluxFlyout: 'Browser checks cover placement during opening and closing, interrupted transitions, focus return and nested ownership.',
+    FluxFormFader: 'Browser checks cover elastic overdrag, keyboard values and drag performance.',
+    FluxFormRangeFader: 'Browser checks cover both thumbs, elastic overdrag and performance.',
+    FluxFormRepeater: 'Browser checks cover pointer insertion, keyboard reordering, rollback, editing and confirmed deletion.',
+    FluxMenuFlyout: 'Browser checks cover forward and return prediction cones, sibling suppression and nested keyboard navigation.',
+    FluxMenuCollapsible: 'Router adapter tests cover automatic matching; browser checks cover opening and height animation.',
+    FluxSheet: 'Browser checks cover all four positions, snap points, wheel/scroll handoff and elastic dragging.',
+    FluxVisualHighlighter: 'Browser checks cover drawing variants and replay.',
+    FluxVisualHighlighterGroup: 'Browser checks cover sequencing and viewport triggers.',
+    FluxVisualSlotText: 'Unit tests cover flash options and character cells; browser geometry matches the Vue examples.',
+    FluxSplitView: 'Browser checks cover nested geometry, constraints, keyboard resizing, dragging and persistence.',
+    FluxSwipeActions: 'Browser checks cover row coordination, focus, disabled state, full swipe and wheel gestures.',
+    FluxAiConversation: 'Browser checks cover manual scrolling, streaming follow and keeping the reader’s scroll position.',
+    FluxFocalPointEditor: 'Browser checks cover image aspect ratio, dragging, cancellation, keyboard input and preview.',
+    FluxTour: 'Browser checks cover placement, resizing, focus trapping and step transitions.',
+    FluxTooltip: 'Browser checks compare side, arrow, transform origin, viewport margins and enter/leave frames with Vue.',
+    FluxOverlay: 'Browser checks cover enter/leave frames, retained content and the shared backdrop timing.',
+    FluxSlideOver: 'Browser checks cover enter/leave frames and backdrop timing.',
+    FluxExpandable: 'Browser checks cover opening, closing and reopening during a height transition.',
+    FluxExpandablePane: 'Browser checks cover opening, closing and reopening during a height transition.'
+};
+const apiAdaptations: Record<string, string> = {
+    FluxAlert: 'React accepts the alert fields directly; the notification provider owns the alert record.',
+    FluxConfirm: 'React accepts the confirmation fields directly; the notification provider owns the record.',
+    FluxPrompt: 'React accepts the prompt fields directly; the notification provider owns the record.',
+    FluxSnackbar: 'Snackbar IDs belong to the notification store; the rendered component receives its content and callbacks.'
 };
 
 export function componentComparison(): string {
@@ -106,11 +118,12 @@ export function componentComparison(): string {
                 )
         );
         const differences = [
-            missing.length ? `Props: ${missing.map((name) => '`' + name + '`').join(', ')}.` : '',
+            !apiAdaptations[name] && missing.length ? `Props: ${missing.map((name) => '`' + name + '`').join(', ')}.` : '',
             missingEvents.length
                 ? `Events: ${missingEvents.map((name) => '`' + name + '`').join(', ')}.`
                 : '',
-            behavioralGaps[name] ?? ''
+            apiAdaptations[name] ?? '',
+            behavioralChecks[name] ?? ''
         ]
             .filter(Boolean)
             .join(' ');
@@ -120,22 +133,24 @@ export function componentComparison(): string {
 
 Compared ${rows.length} Vue source files with ${rows.filter((row) => row.public).length} same-name public React exports after merging origin/main. This inventory checks declared props and events and records concrete source-level behavior differences. Native React event names and model callbacks use React conventions.
 
-An empty difference column is **not** a visual or behavioral pass. The browser regression checks cover disclosure animations, tab indicators, the playground composition, repeated scrolling, context menus, nested menu hover and keyboard navigation, pointer dragging on sliders and faders, the color plane and hue slider, table selection, select popups, palette inspection, carousel controls and the docs render crawl. A computed-style and geometry audit compares 1,322 Vue/React examples; six standalone application snippets require a parent application context. Style differences remain review findings, not passing visual assertions. Other interactions still need browser coverage. Seven Vue implementation components are internal or represented through a different React composition.
+The inventory below checks API declarations. Browser checks separately compare the rendered Vue and React examples and exercise state changes with pointer and keyboard input. The full render inventory covers 1,323 fixtures, with no render errors. A follow-up audit covers the corrected layout differences. Animated/random content, asynchronously loaded images and SVG connection order require dedicated checks rather than a raw node-order comparison. The Flow checks compare all 87 example geometries independently of SVG order.
 
-## Findings that affect release readiness
+The browser suite covers menus and prediction cones, forms, overlays, calendars, trees, filters, Kanban, charts, tables, split views, swipe actions, tours, AI interactions and repeated playground scrolling. It also checks the shared transition timings. Seven Vue implementation components are internal or represented through a different React composition.
 
-The port is not yet equivalent to Vue. Calendar time grids, pointer reordering, advanced menu prediction, elastic fader overdrag and sheet physics need further work. Compatibility injection hooks also remain disconnected from several component contexts. English interpolation alone does not reproduce the Vue localization layer. React 18, server rendering and router integration have not been validated by the current React 19 docs checks.
+Server rendering, hydration and a hydrated form interaction were checked with React 18.3.1 and React 19.3.0. Router adapters and localization have unit coverage. These checks run in Chromium; they are not a claim of exhaustive assistive-technology or cross-browser certification.
 
-## Reproduce browser checks
+## Reproduce checks
 
-Run the docs server on port 5174, then run \`bun run --cwd docs test:react-browser\`. The tests compare Vue and React using real pointer and keyboard input. Run \`bun run --cwd docs audit:react-browser\` for the complete computed-style inventory. Reports are written to \`.artifacts/react-parity\`. Set \`FLUX_DOCS_URL\` or \`CHROME_PATH\` to override the server or browser.
+Run the docs server on port 5174, then run \`bun run --cwd docs test:react-browser\`. Run \`bun run --cwd docs audit:react-browser\` for the computed-style inventory and \`bun run --cwd docs test:react-performance\` for drag profiling. Reports are written to \`.artifacts/react-parity\`. Set \`FLUX_DOCS_URL\` or \`CHROME_PATH\` to override the server or browser.
 
-The current Vue playground contains a masonry overlap: a context-menu wrapper has no layout box, so the following pane covers its contents. React now measures the visible grid items. The isolated Vue context-menu example remains the behavior reference.
+After building the React package, run \`NODE_ENV=production node scripts/react-docs/ssr.mjs\` to check SSR and hydration against the installed React version. \`FLUX_REACT_RUNTIME\` and \`FLUX_REACT_BUILD\` can point to an isolated runtime and a copy of the built module for another React version.
+
+The Vue playground contains a masonry overlap: a context-menu wrapper has no layout box, so the following pane covers its contents. React measures the visible grid items. The isolated Vue context-menu example remains the interaction reference.
 
 ## Component inventory
 
-| Vue component | React export | Known differences or checks still needed |
+| Vue component | React export | API adaptations and regression coverage |
 | --- | --- | --- |
-${rows.map((row) => `| \`${row.name}\` | ${row.public ? 'Present' : 'Internal / different composition'} | ${(row.differences || (row.public ? 'No additional declared prop/event gap detected; interactive parity is not certified.' : 'No same-name public React component.')).replaceAll('|', '\\|')} |`).join('\n')}
+${rows.map((row) => `| \`${row.name}\` | ${row.public ? 'Present' : 'Internal / different composition'} | ${(row.differences || (row.public ? 'No additional declared prop/event gap.' : 'No same-name public React component.')).replaceAll('|', '\\|')} |`).join('\n')}
 `;
 }

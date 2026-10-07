@@ -35,6 +35,7 @@ export interface FluxFormFieldProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function FluxFormField({addition, as = 'field', children, className, currentLength, error, hint, isOptional, label, maxLength, valueLabel, ...props}: FluxFormFieldProps) {
+    const translate = useFluxTranslate();
     const baseId = useId();
     const id = `flux-${baseId.replace(/:/g, '')}`;
     const labelId = `${id}-label`;
@@ -47,7 +48,7 @@ export function FluxFormField({addition, as = 'field', children, className, curr
         <div {...props} className={clsx(formStyles.formField, className)} role={as === 'group' ? 'group' : undefined} aria-labelledby={as === 'group' && label ? labelId : undefined}>
             <Header className={formStyles.formFieldHeader} htmlFor={as === 'field' ? id : undefined}>
                 {label && <span id={as === 'group' ? labelId : undefined} className={formStyles.formFieldLabel}>{label}</span>}
-                {isOptional && <span className={formStyles.formFieldOptional}>(optional)</span>}
+                {isOptional && <span className={formStyles.formFieldOptional}>({translate('flux.optional')})</span>}
                 {valueLabel && <span className={formStyles.formFieldValue}>{valueLabel}</span>}
             </Header>
             {children}
@@ -148,7 +149,9 @@ export interface FluxFormCheckboxProps extends Omit<InputHTMLAttributes<HTMLInpu
     subLabel?: ReactNode;
 }
 
-export const FluxFormCheckbox = forwardRef<HTMLInputElement, FluxFormCheckboxProps>(function FluxFormCheckbox({checked = false, className, disabled, error, isReadonly, label, onCheckedChange, subLabel, value, ...props}, forwardedRef) {
+export const FluxFormCheckbox = forwardRef<HTMLInputElement, FluxFormCheckboxProps>(function FluxFormCheckbox({checked: controlledChecked, defaultChecked = false, className, disabled, error, isReadonly, label, onCheckedChange, subLabel, value, ...props}, forwardedRef) {
+    const [innerChecked, setInnerChecked] = useState(defaultChecked);
+    let checked = controlledChecked === undefined ? innerChecked : controlledChecked;
     const field = useContext(FieldContext);
     const scopedDisabled = useFluxDisabled(disabled);
     const group = useFluxCheckboxGroup();
@@ -184,7 +187,7 @@ export const FluxFormCheckbox = forwardRef<HTMLInputElement, FluxFormCheckboxPro
             aria-readonly={isReadonly || undefined}
             aria-invalid={Boolean(error || field?.error) || undefined}
             onClick={event => {if (isReadonly) event.preventDefault(); props.onClick?.(event);}}
-            onChange={event => {if (!isReadonly && !groupDisabled) {if (grouped) group.toggle(value); else onCheckedChange?.(event.target.checked);};}}
+            onChange={event => {if (!isReadonly && !groupDisabled) {if (grouped) group.toggle(value); else {if (controlledChecked === undefined) setInnerChecked(event.target.checked); onCheckedChange?.(event.target.checked);}};}}
         />
         <span aria-hidden="true" className={formStyles.formCheckboxElement}><FluxIcon name={checked === null ? 'minus' : 'check'} size={12} /></span>
         {(label || subLabel) && <span className={formStyles.formCheckboxText}>{label && <span className={formStyles.formCheckboxLabel}>{label}</span>}{subLabel && <span className={formStyles.formCheckboxSubLabel}>{subLabel}</span>}</span>}
@@ -200,7 +203,9 @@ export interface FluxToggleProps extends Omit<InputHTMLAttributes<HTMLInputEleme
     onCheckedChange?: (checked: boolean) => void;
 }
 
-export function FluxToggle({checked = false, children: _children, className, disabled, error, iconOff, iconOn, isReadonly, onCheckedChange, ...props}: FluxToggleProps) {
+export function FluxToggle({checked: controlledChecked, defaultChecked = false, children: _children, className, disabled, error, iconOff, iconOn, isReadonly, onCheckedChange, ...props}: FluxToggleProps) {
+    const [innerChecked, setInnerChecked] = useState(defaultChecked);
+    const checked = controlledChecked ?? innerChecked;
     const field = useContext(FieldContext);
     const generated = useId();
     const id = props.id ?? field?.id ?? generated;
@@ -222,7 +227,7 @@ export function FluxToggle({checked = false, children: _children, className, dis
             aria-describedby={props['aria-describedby'] ?? field?.describedBy}
             aria-invalid={Boolean(error || field?.error) || undefined}
             onClick={event => {if (isReadonly) event.preventDefault(); props.onClick?.(event);}}
-            onChange={event => {if (!isReadonly && !scopedDisabled) onCheckedChange?.(event.target.checked);}}
+            onChange={event => {if (!isReadonly && !scopedDisabled) {if (controlledChecked === undefined) setInnerChecked(event.target.checked); onCheckedChange?.(event.target.checked);}}}
         />
     </Tag>;
 }

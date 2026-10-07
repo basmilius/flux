@@ -71,4 +71,4 @@ Register the icons your app and its components use with `fluxRegisterIcons`. See
 
 ## Current support
 
-The package declares React 18.3 or newer. This branch's tests run against React 19. Review [port status](/react/status) before depending on it in production.
+The package declares React 18.3 or newer. The package has been checked with React 18.3.1 and React 19.3.0, including server rendering, hydration and a client interaction. See [port status](/react/status) for the validation scope.

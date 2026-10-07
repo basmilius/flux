@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {FluxDisabled} from './DisplayExtended';
 import { describe, expect, it, vi } from 'vitest';
 import {
     FluxAiConversation,
@@ -38,14 +39,42 @@ describe('AI markdown', () => {
 });
 
 describe('AI interactions', () => {
+    it('does not submit an IME candidate or an inherited disabled prompt', () => {
+        const submit = vi.fn();
+        const {rerender} = render(<FluxAiPromptInput value="候補" onSubmit={submit}/>);
+        const field = screen.getByRole('textbox');
+        fireEvent.compositionStart(field);
+        fireEvent.keyDown(field, {key: 'Enter'});
+        expect(submit).not.toHaveBeenCalled();
+        fireEvent.compositionEnd(field);
+        fireEvent.keyDown(field, {key: 'Enter'});
+        expect(submit).toHaveBeenCalledOnce();
+        rerender(<FluxDisabled><FluxAiPromptInput value="disabled" onSubmit={submit}/></FluxDisabled>);
+        expect(screen.getByRole('textbox')).toBeDisabled();
+        fireEvent.keyDown(screen.getByRole('textbox'), {key: 'Enter'});
+        expect(submit).toHaveBeenCalledOnce();
+    });
+
+    it('copies the full tool result while the visible result is truncated', async () => {
+        const writeText = vi.fn().mockResolvedValue(undefined);
+        Object.defineProperty(navigator, 'clipboard', {configurable: true, value: {writeText}});
+        configureAi({toolCall: {resultLimit: 4}});
+        render(<FluxAiToolCall name="read" result="abcdefgh" defaultExpanded/>);
+        expect(screen.getByText('abcd...')).toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', {name: 'Copy'}));
+        await waitFor(() => expect(screen.getByRole('button', {name: 'Copied'})).toBeInTheDocument());
+        expect(writeText).toHaveBeenCalledWith('abcdefgh');
+        configureAi({toolCall: {resultLimit: 900}});
+    });
+
     it('submits prompts from Enter and exposes a streaming stop action', () => {
         const onSubmit = vi.fn(),
             onStop = vi.fn();
         const { rerender } = render(<FluxAiPromptInput defaultValue="  Explain Flux  " onSubmit={onSubmit} />);
-        fireEvent.keyDown(screen.getByRole('textbox', { name: 'Prompt message' }), { key: 'Enter' });
+        fireEvent.keyDown(screen.getByRole('textbox', { name: 'Message' }), { key: 'Enter' });
         expect(onSubmit).toHaveBeenCalledWith('Explain Flux');
         rerender(<FluxAiPromptInput value="Waiting" isStreaming onStop={onStop} />);
-        fireEvent.click(screen.getByRole('button', { name: 'Stop' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Stop generating' }));
         expect(onStop).toHaveBeenCalledOnce();
     });
 
@@ -91,6 +120,6 @@ describe('AI interactions', () => {
     it('reports token totals and limit state', () => {
         render(<FluxAiUsage inputTokens={60} outputTokens={40} limit={100} cost="$0.01" />);
         expect(screen.getByText('Token limit reached')).toBeInTheDocument();
-        expect(screen.getByText('100 of 100 tokens used')).toBeInTheDocument();
+        expect(screen.getByText('100 of 100 tokens')).toBeInTheDocument();
     });
 });

@@ -8,6 +8,7 @@ import { FluxBoxedIcon } from './DisplayExtended';
 import { FluxPane } from './Display';
 import { FluxIcon } from './Icon';
 import { FluxToolbar } from './Composition';
+import {FluxTooltip} from './Overlays';
 import { CHART_DEFAULT_COLORS, FluxStatisticsChartLegendInjectionKey, FluxStatisticsLegendVariantInjectionKey, buildAreaChartOptions, buildBarChartOptions, buildBoxPlotChartOptions, buildBubbleChartOptions, buildCandlestickChartOptions, buildDonutChartOptions, buildGaugeChartOptions, buildHeatmapChartOptions, buildLineChartOptions, buildMixedChartOptions, buildPieChartOptions, buildPolarAreaChartOptions, buildRadarChartOptions, buildScatterChartOptions, buildSparklineOptions, buildTreemapChartOptions, resolveChartColor, useECharts, useChartSeriesSetup, useChartSlicesSetup, candlestickLegendItemBuilder, gaugeLegendItemBuilder } from './StatisticsUtilities';
 import {buildBaseOptions} from './StatisticsUtilities';
 import type { ChartLegendContext, ChartLegendItem, ChartTooltipValueFormatter, EChartsInstance, EChartsOption, FluxStatisticsLegendVariant, SparklineSeriesItem, SparklineVariant, ChartSeriesShape, ChartLegendItemBuilder } from './StatisticsUtilities';
@@ -133,8 +134,11 @@ export function FluxStatisticsTreemapChart({ advancedOptions, nodes, tooltip, ..
     return <FluxStatisticsChart {...props} options={options} />;
 }
 export function FluxStatisticsSparkline({ className, color, options, series, variant = 'line', ...props }: HTMLAttributes<HTMLDivElement> & { color?: FluxColor | `#${string}`; options?: EChartsOption; series: readonly SparklineSeriesItem[]; variant?: SparklineVariant }) {
-    const resolved = resolveChartColor(color) ?? CHART_DEFAULT_COLORS[0], built = useMemo(() => buildSparklineOptions(variant, resolved, series), [resolved, series, variant]), merged = useMemo(() => ({...built, ...options, series: options?.series ?? built.series}), [built, options]);
-    return <FluxStatisticsChart {...props} className={clsx(sparklineStyles.statisticsSparkline, className)} options={merged} />;
+    const target = useRef<HTMLDivElement>(null);
+    const resolved = resolveChartColor(color);
+    const merged = useMemo(() => merge({}, buildSparklineOptions(variant, resolved ?? 'var(--chart-1)', series), options), [variant, resolved, series, options]);
+    useECharts(target, merged);
+    return <div {...props} data-sparkline className={clsx(sparklineStyles.statisticsSparkline, className)} style={{...props.style, '--color': resolved} as FluxStyle}><div ref={target} className={sparklineStyles.statisticsSparklineChart}/></div>;
 }
 
 export function FluxStatisticsBase({ children, className, content, icon, info, isLoading, isSmall, title, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'content'> & { content?: ReactNode; icon?: FluxIconName; info?: ReactNode; isLoading?: boolean; isSmall?: boolean; title?: string }) {
@@ -144,10 +148,7 @@ export function FluxStatisticsBase({ children, className, content, icon, info, i
                 <div className={baseStyles.statisticsBaseHeader}>
                     {title && <span className={baseStyles.statisticsBaseHeaderTitle}>{title}</span>}
                     {info && (
-                        <span className={baseStyles.statisticsBaseHeaderInfo} title={typeof info === 'string' ? info : undefined}>
-                            <FluxIcon name="circle-info" />
-                            {typeof info === 'string' ? null : info}
-                        </span>
+                        <FluxTooltip content={info} direction="vertical"><FluxIcon className={baseStyles.statisticsBaseHeaderInfo} name="circle-info"/></FluxTooltip>
                     )}
                     {icon && <FluxIcon className={baseStyles.statisticsBaseHeaderIcon} name={icon} />}
                 </div>

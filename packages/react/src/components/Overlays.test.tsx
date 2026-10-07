@@ -54,11 +54,58 @@ describe('FluxFlyout', () => {
 
 describe('tooltip layout', () => {
     it('keeps the opener in normal layout and connects its accessible description', () => {
-        render(<FluxTooltip content="More detail"><button>Help</button></FluxTooltip>);
+        const {container} = render(<FluxTooltip content="More detail"><button>Help</button></FluxTooltip>);
         const button = screen.getByRole('button', {name: 'Help'});
-        expect(button.parentElement).toHaveStyle({display: 'contents'});
+        expect(button.parentElement).toBe(container);
         fireEvent.focus(button);
-        const tooltip = screen.getByRole('tooltip');
+        const tooltip = screen.getByRole('tooltip', {hidden: true});
         expect(button).toHaveAttribute('aria-describedby', tooltip.id);
+    });
+});
+
+describe('dialog transitions', () => {
+    it('retains a closing dialog and calls onAfterClose after it leaves', async () => {
+        const afterClose = vi.fn();
+        const {rerender} = render(<FluxOverlay open label="Closing" onAfterClose={afterClose}><button>Latest content</button></FluxOverlay>);
+        rerender(<FluxOverlay open={false} label="Closing" onAfterClose={afterClose}/>);
+        expect(screen.getByRole('button', {name: 'Latest content'})).toBeInTheDocument();
+        expect(afterClose).not.toHaveBeenCalled();
+        await waitFor(() => expect(afterClose).toHaveBeenCalledOnce());
+        expect(screen.queryByRole('dialog', {name: 'Closing'})).not.toBeInTheDocument();
+    });
+
+    it('shares one backdrop between stacked dialogs', () => {
+        render(<><FluxOverlay open label="First"/><FluxOverlay open label="Second"/></>);
+        const first = screen.getByRole('dialog', {name: 'First'});
+        const second = screen.getByRole('dialog', {name: 'Second'});
+        expect(first.parentElement).toBe(second.parentElement);
+        expect(first.parentElement?.children).toHaveLength(3);
+        expect(Number(second.style.zIndex)).toBeGreaterThan(Number(first.style.zIndex));
+    });
+
+    it('fires flyout onClose only after its leave finishes', async () => {
+        const close = vi.fn();
+        render(<FluxFlyout onClose={close} opener={({open}) => <button onClick={open}>Open</button>}>{({close}) => <button onClick={close}>Dismiss</button>}</FluxFlyout>);
+        fireEvent.click(screen.getByRole('button', {name: 'Open'}));
+        fireEvent.click(screen.getByRole('button', {name: 'Dismiss'}));
+        expect(close).not.toHaveBeenCalled();
+        expect(screen.getByRole('button', {name: 'Dismiss'})).toBeInTheDocument();
+        await waitFor(() => expect(close).toHaveBeenCalledOnce());
+    });
+});
+
+describe('tooltip provider', () => {
+    it('renders, updates and dismisses imperative tooltips from FluxRoot', async () => {
+        const {FluxRoot} = await import('./Root');
+        const {addTooltip, updateTooltip} = await import('./Notifications');
+        const {act} = await import('@testing-library/react');
+        render(<FluxRoot><button>Origin</button></FluxRoot>);
+        let id = 0;
+        act(() => {id = addTooltip({content: 'First', direction: 'vertical', origin: screen.getByRole('button', {name: 'Origin'})});});
+        expect(screen.getByRole('tooltip', {hidden: true})).toHaveTextContent('First');
+        act(() => updateTooltip(id, {content: 'Updated'}));
+        expect(screen.getByRole('tooltip', {hidden: true})).toHaveTextContent('Updated');
+        fireEvent.scroll(window);
+        await waitFor(() => expect(screen.queryByRole('tooltip', {hidden: true})).not.toBeInTheDocument());
     });
 });

@@ -47,3 +47,19 @@ describe('FluxSnackbarProvider', () => {
         await expect(confirm).resolves.toBe(false);
     });
 });
+
+describe('dialog replacement', () => {
+    it('replaces a confirmation that is still leaving with a single active confirmation', async () => {
+        render(<FluxRoot/>);
+        let first!: Promise<boolean>;
+        act(() => {first = showConfirm({title: 'First confirmation', message: 'Continue?'});});
+        fireEvent.click(screen.getByRole('button', {name: 'Cancel'}));
+        await expect(first).resolves.toBe(false);
+        let second!: Promise<boolean>;
+        act(() => {second = showConfirm({title: 'Second confirmation', message: 'Continue again?'});});
+        expect(screen.getAllByRole('button', {name: 'Ok'})).toHaveLength(1);
+        expect(screen.queryByText('First confirmation')).not.toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', {name: 'Ok'}));
+        await expect(second).resolves.toBe(true);
+    });
+});

@@ -1,4 +1,5 @@
-import {useFluxTranslate} from '../i18n';
+import {createTranslate, useFluxTranslate} from '../i18n';
+import {english} from './applicationEnglish';
 import { clsx } from 'clsx';
 import {FluxRouterProvider, useFluxRouting, type FluxRouter} from '../routing';
 import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
@@ -22,6 +23,8 @@ import sectionStyles from '../../../application/src/css/component/ApplicationSec
 import sideStyles from '../../../application/src/css/component/ApplicationSide.module.scss';
 import statusStyles from '../../../application/src/css/component/ApplicationStatusPage.module.scss';
 import topStyles from '../../../application/src/css/component/ApplicationTop.module.scss';
+
+const useApplicationTranslate = createTranslate(english);
 
 export type { FluxApplicationLayout } from '@flux-ui/types/application';
 export interface FluxApplicationContextInfo {
@@ -358,9 +361,14 @@ export function FluxApplicationSide({ children, className, closeLabel = 'Close p
         </>
     );
 }
-const statusPresets: Record<'error' | 'maintenance' | 'not-found' | 'offline', { color: FluxColor; description: string; icon: FluxIconName; title: string }> = { error: { color: 'danger', description: 'Something went wrong.', icon: 'triangle-exclamation', title: 'Error' }, maintenance: { color: 'warning', description: 'This service is temporarily under maintenance.', icon: 'screwdriver-wrench', title: 'Maintenance' }, 'not-found': { color: 'primary', description: 'The requested page could not be found.', icon: 'compass', title: 'Page not found' }, offline: { color: 'gray', description: 'Check your internet connection and try again.', icon: 'wifi-slash', title: 'You are offline' } };
+const statusPresets = {
+    error: {color: 'danger', description: 'flux.application.statusErrorDescription', icon: 'triangle-exclamation', title: 'flux.application.statusErrorTitle'},
+    maintenance: {color: 'warning', description: 'flux.application.statusMaintenanceDescription', icon: 'screwdriver-wrench', title: 'flux.application.statusMaintenanceTitle'},
+    'not-found': {color: 'primary', description: 'flux.application.statusNotFoundDescription', icon: 'compass', title: 'flux.application.statusNotFoundTitle'},
+    offline: {color: 'gray', description: 'flux.application.statusOfflineDescription', icon: 'wifi-slash', title: 'flux.application.statusOfflineTitle'}
+} as const;
 export function FluxApplicationStatusPage({ actions, children, className, code, description, icon, media, title, variant = 'error', ...props }: HTMLAttributes<HTMLDivElement> & { actions?: ReactNode; code?: string | number; description?: string; icon?: FluxIconName; media?: ReactNode; title?: string; variant?: keyof typeof statusPresets }) {
-    const translate = useFluxTranslate();
+    const translate = useApplicationTranslate();
 
     const router = useRouter(),
         preset = statusPresets[variant],
@@ -374,13 +382,13 @@ export function FluxApplicationStatusPage({ actions, children, className, code, 
                         {code}
                     </span>
                 )}
-                <h1>{title ?? preset.title}</h1>
-                {children ?? <p>{description ?? preset.description}</p>}
+                <h1>{title ?? translate(preset.title)}</h1>
+                {children ?? <p>{description ?? translate(preset.description)}</p>}
             </div>
             <div className={statusStyles.applicationStatusPageActions}>
                 {actions ?? (
                     <FluxSecondaryButton
-                        label={translate('flux.back')}
+                        label={translate('flux.application.back')}
                         onClick={() => {
                             if (router) router.back();
                             else history.back();

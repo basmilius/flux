@@ -61,11 +61,11 @@ example=../../code/components/breadcrumb/icons.vue
 example=../../code/components/breadcrumb/separator.vue
 :::
 
-::: example Collapse the middle || Set `a manually placed flyout` to keep the first and last step visible and fold the rest into an overflow menu when the trail runs out of space. Collapsed [Breadcrumb flyout](./flyout) steps become nested submenus.
+::: example Collapse the middle || Set `collapse="middle"` to keep the first and last step visible and fold the rest into an overflow menu when the trail runs out of space. Collapsed [Breadcrumb flyout](./flyout) steps become nested submenus.
 example=../../code/components/breadcrumb/collapse-middle.vue
 :::
 
-::: example Collapse from the start || Set `a leading flyout` to keep only the trailing steps visible and fold everything before them into an overflow menu.
+::: example Collapse from the start || Set `collapse="start"` to keep only the trailing steps visible and fold everything before them into an overflow menu.
 example=../../code/components/breadcrumb/collapse-start.vue
 :::
 
@@ -74,7 +74,7 @@ example=../../code/components/breadcrumb/rich.vue
 :::
 
 ::: tip
-The React examples place links in a flyout explicitly. The component does not measure or automatically collapse the trail.
+The breadcrumb measures its available width and moves overflowing steps into a flyout. It updates when the trail or its container resizes.
 :::
 
 ## Used components

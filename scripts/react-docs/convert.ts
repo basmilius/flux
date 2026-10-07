@@ -881,7 +881,7 @@ export function convert(
         extraImports.push(style.module ? `import $style from './${name}';` : `import './${name}';`);
     }
     if (descriptor.styles.some(style => !style.module))
-        jsx = `<div className="${scope}" style={{width: '100%'}}>${jsx}</div>`;
+        jsx = `<div data-react-example-scope className="${scope}" style={{display: 'contents'}}>${jsx}</div>`;
     if (needsStyleParser) hooks.add('type CSSProperties');
     const output = [
         hooks.size ? `import { ${[...hooks].sort().join(', ')} } from 'react';` : '',

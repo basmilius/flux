@@ -14,7 +14,7 @@ type ButtonProps = ComponentProps<typeof FluxPrimaryButton>;
 
 ## Routing
 
-`FluxTo` is a URL string or an object with optional `pathname`, `search` and `hash` fields. It does not accept named routes or router-specific location objects.
+`FluxTo` is a URL string or an object with optional `path`, `pathname`, `name`, `params`, `query`, `search` and `hash` fields. Provide `router.resolve(to)` through `FluxRouterProvider` to resolve named routes with your routing library.
 
 ## Shared data
 

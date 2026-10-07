@@ -1,8 +1,9 @@
 import {useFluxTranslate} from '../i18n';
+import {getBidirectionalFocusElement} from '../compatibility';
 import {FluxFadeTransition} from './Transitions';
 import {clsx} from 'clsx';
 import {createContext, useContext, useLayoutEffect, useMemo, useState} from 'react';
-import type {ButtonHTMLAttributes, HTMLAttributes, ReactNode} from 'react';
+import type {ButtonHTMLAttributes, HTMLAttributes, KeyboardEvent, ReactNode} from 'react';
 import type {FluxIconName, FluxPressableType, FluxStyle, FluxTo} from '../types';
 import {FluxButton, FluxButtonGroup, FluxDestructiveButton, FluxPressable, FluxSecondaryButton} from './Actions';
 import {FluxFlex, FluxSpacer} from './Layout';
@@ -30,8 +31,15 @@ export function FluxAction({className, icon, isActive, isDestructive, isLoading,
     return <FluxButton {...props} className={clsx(isDestructive && actionStyles.isDestructive, className)} cssClass={actionStyles.action} cssClassActive={actionStyles.isActive} cssClassIcon={actionStyles.actionIcon} cssClassLabel={actionStyles.actionLabel} iconLeading={icon} isActive={isActive} isLoading={isLoading} label={label} type={type} aria-description={isDestructive ? 'Destructive action' : undefined} />;
 }
 
-export function FluxActionStack(props: HTMLAttributes<HTMLDivElement>) {
-    return <div {...props} className={props.className} role={props.role ?? 'toolbar'} style={{...props.style, display: 'flex', gap: 1}} />;
+function toolbarKeyDown(event: KeyboardEvent<HTMLElement>, onKeyDown?: HTMLAttributes<HTMLElement>['onKeyDown']) {
+    onKeyDown?.(event);
+    if (event.defaultPrevented || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    const next = getBidirectionalFocusElement(event.currentTarget, document.activeElement as HTMLElement, event.key === 'ArrowLeft' ? 'left' : 'right');
+    if (next) {event.preventDefault(); next.focus();}
+}
+
+export function FluxActionStack({onKeyDown, ...props}: HTMLAttributes<HTMLElement>) {
+    return <FluxFlex {...props} gap={1} role={props.role ?? 'toolbar'} onKeyDown={event => toolbarKeyDown(event, onKeyDown)}/>;
 }
 
 export function FluxActionBar({actionsAfterSearch, actionsBeforeSearch, actionsEnd, actionsStart, className, filter, filterOpener, isResettable, onReset, primary, search, ...props}: HTMLAttributes<HTMLDivElement> & {actionsAfterSearch?: ReactNode; actionsBeforeSearch?: ReactNode; actionsEnd?: ReactNode; actionsStart?: ReactNode; filter?: FluxFlyoutProps['children']; filterOpener?: FluxFlyoutProps['opener']; isResettable?: boolean; onReset?: () => void; primary?: ReactNode; search?: ReactNode}) {
@@ -88,15 +96,15 @@ export function FluxItemMedia({className, isCenter, size, style, ...props}: HTML
 }
 
 export function FluxItemStack(props: HTMLAttributes<HTMLDivElement>) {
-    return <div {...props} className={clsx(itemStyles.itemStack, props.className)} />;
+    return <FluxFlex {...props} direction="vertical" className={clsx(itemStyles.itemStack, props.className)}/>;
 }
 
-export function FluxToolbar({className, floatingMode, ...props}: HTMLAttributes<HTMLDivElement> & {floatingMode?: 'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'}) {
-    return <div {...props} className={clsx(floatingMode ? toolbarStyles.toolbarFloating : toolbarStyles.toolbarFlat, floatingMode && toolbarStyles[`is${pascal(floatingMode)}`], className)} role={props.role ?? 'toolbar'} />;
+export function FluxToolbar({className, floatingMode, onKeyDown, ...props}: HTMLAttributes<HTMLElement> & {floatingMode?: 'free' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'}) {
+    return <FluxFlex {...props} gap={6} className={clsx(floatingMode ? toolbarStyles.toolbarFloating : toolbarStyles.toolbarFlat, floatingMode && toolbarStyles[`is${pascal(floatingMode)}`], className)} role={props.role ?? 'toolbar'} onKeyDown={event => toolbarKeyDown(event, onKeyDown)}/>;
 }
 
 export function FluxToolbarGroup(props: HTMLAttributes<HTMLDivElement>) {
-    return <div {...props} role={props.role ?? 'group'} style={{...props.style, display: 'flex', gap: 3}} />;
+    return <FluxFlex {...props} gap={3} role={props.role ?? 'group'}/>;
 }
 
 export interface FluxLinkProps extends Omit<React.ComponentProps<typeof FluxPressable>, 'children' | 'componentType'> {

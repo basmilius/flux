@@ -20,7 +20,7 @@
     ],
     "scripts": {
         "audit:exports": "node scripts/audit-exports.mjs",
-        "build": "tsc --noEmit && vite build && tsc --emitDeclarationOnly",
+        "build": "tsc --noEmit && vite build && tsc --emitDeclarationOnly && node scripts/finalize-types.mjs",
         "build:showcase": "vite build --config demo/vite.config.ts",
         "dev": "vite build --watch --mode development",
         "showcase": "bun run build && vite --config demo/vite.config.ts",

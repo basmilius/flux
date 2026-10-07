@@ -29,7 +29,8 @@ export interface TransitionProps extends HTMLAttributes<HTMLElement> {
 
 type TransitionElement = ReactElement<HTMLAttributes<HTMLElement>>;
 type Entry = {element: TransitionElement; entering: boolean; leaving: boolean};
-type MotionProps = TransitionProps & {
+type MotionProps = Omit<TransitionProps, 'mode'> & {
+    mode?: TransitionProps['mode'] | 'concurrent';
     axis?: 'height' | 'width';
     name: string;
     styles?: Record<string, string>;
@@ -41,7 +42,7 @@ function same(a: TransitionElement | undefined, b: TransitionElement | undefined
     return a?.key === b?.key && a?.type === b?.type;
 }
 
-function Motion({
+export function Motion({
     appear = false,
     axis,
     children,
@@ -61,14 +62,18 @@ function Motion({
         next ? [{element: next, entering: appear, leaving: false}] : []
     );
     const active = entries.find((entry) => !entry.leaving);
+    // Leaving content must retain its last rendered position, props and children.
+    const lastActive = useRef(next);
+    if (next && same(active?.element, next)) lastActive.current = next;
+    const retainedElement = (element: TransitionElement) => same(element, lastActive.current) ? lastActive.current! : element;
 
     useLayoutEffect(() => {
         if (same(active?.element, next)) return;
         setEntries((current) => {
-            const retained = current.map((entry) => ({...entry, entering: false, leaving: true}));
+            const retained = current.map((entry) => ({...entry, element: retainedElement(entry.element), entering: false, leaving: true}));
             const returning = retained.find((entry) => same(entry.element, next));
             if (returning && next) return [{element: next, entering: true, leaving: false}];
-            if (next && (!retained.length || mode === 'in-out'))
+            if (next && (!retained.length || mode !== 'out-in'))
                 retained.push({element: next, entering: true, leaving: false});
             return retained;
         });
@@ -94,7 +99,7 @@ function Motion({
             key={entry.element.key ?? 'transition'}
             {...props}
             axis={axis}
-            element={same(entry.element, next) ? next! : entry.element}
+            element={same(entry.element, next) ? next! : retainedElement(entry.element)}
             entering={entry.entering}
             leaving={entry.leaving && !(mode === 'in-out' && entries.some((item) => item.entering))}
             name={`${name}${isBack ? 'Back' : ''}`}
@@ -130,6 +135,11 @@ function MotionItem({
     callbacks.current = {onEntered, onExited};
     const interruptedSize = useRef<number | undefined>(undefined);
     const appliedClasses = useRef<string[]>([]);
+    const phase = leaving ? 'Leave' : 'Enter';
+    const initialClasses = entering || leaving ? [
+        axis ? `v-${phase.toLowerCase()}-active` : styles[`${name}${phase}Active`],
+        axis ? `v-${phase.toLowerCase()}-from` : styles[`${name}${phase}From`]
+    ] : [];
 
     useLayoutEffect(() => {
         if (!entering && !leaving) {
@@ -153,6 +163,19 @@ function MotionItem({
         let timer: ReturnType<typeof setTimeout> | undefined;
         let firstFrame = 0;
         let secondFrame = 0;
+        let endTime = Infinity;
+        let completed = false;
+        const complete = () => {
+            if (completed) return;
+            completed = true;
+            clearTimeout(timer);
+            finish();
+        };
+        const ended = (event: Event) => {
+            if (event.target === node && (event.type === 'animationend' || performance.now() >= endTime - 17)) complete();
+        };
+        node.addEventListener('animationend', ended);
+        node.addEventListener('transitionend', ended);
         const original = {dimension: axis ? node.style[axis] : '', overflow: node.style.overflow};
         let target = 0;
         if (axis) {
@@ -186,7 +209,8 @@ function MotionItem({
                         );
                     })
                 );
-                timer = setTimeout(finish, duration + (duration ? 20 : 0));
+                endTime = performance.now() + duration;
+                timer = setTimeout(complete, duration + (duration ? 1 : 0));
             });
         });
         return () => {
@@ -194,6 +218,9 @@ function MotionItem({
             cancelAnimationFrame(firstFrame);
             cancelAnimationFrame(secondFrame);
             clearTimeout(timer);
+            completed = true;
+            node.removeEventListener('animationend', ended);
+            node.removeEventListener('transitionend', ended);
             node.classList.remove(...classes);
             appliedClasses.current = [];
             if (axis) node.style[axis] = original.dimension;
@@ -204,7 +231,7 @@ function MotionItem({
     return cloneElement(element, {
         ...props,
         ...element.props,
-        className: clsx(element.props.className, props.className, appliedClasses.current),
+        className: clsx(element.props.className, props.className, appliedClasses.current.length ? appliedClasses.current : initialClasses),
         style: {...props.style, ...element.props.style},
         ...{'data-flux-transition': id}
     });

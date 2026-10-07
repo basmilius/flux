@@ -94,7 +94,7 @@ Reach for a pop confirm when the action lives in the interface and the answer is
 :::
 
 ::: tip
-The Cancel button calls `onCancel`, and the confirm button calls `onConfirm`. Closing through Escape or an outside click only dismisses the flyout; it does not call `onCancel`.
+The Cancel button calls `onCancel`, and the confirm button calls `onConfirm`. Closing through Escape or an outside click also calls `onCancel` after the flyout closes.
 :::
 
 <FrontmatterDocs/>

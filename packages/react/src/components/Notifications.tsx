@@ -1,7 +1,8 @@
 import {useFluxTranslate} from '../i18n';
 import {FluxSnackbarTransitionGroup} from './Transitions';
+import {setOverlayShadeOpacity, useOverlayHost} from './overlayHost';
 import { clsx } from 'clsx';
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useLayoutEffect, useState, useSyncExternalStore } from 'react';
 import type { HTMLAttributes, ReactNode } from 'react';
 import type { FluxConfirmObject, FluxPromptObject } from '@flux-ui/types/notify';
 import type { FluxColor, FluxDirection, FluxIconName } from '../types';
@@ -52,6 +53,7 @@ export type { FluxConfirmObject, FluxPromptObject } from '@flux-ui/types/notify'
 export interface FluxTooltipObject {
     id: number;
     content?: string;
+    contentSlot?: () => ReactNode;
     direction: FluxDirection;
     origin?: HTMLElement;
 }
@@ -208,6 +210,7 @@ export interface FluxDialogRegistration {
     unregister(): void;
 }
 let dialogs: number[] = [];
+const shadeOpacities = new Map<number, number>();
 let overflowBeforeDialogs: string | undefined;
 export function registerDialog(): FluxDialogRegistration {
     const id = ++nextNotificationId;
@@ -216,17 +219,24 @@ export function registerDialog(): FluxDialogRegistration {
         document.body.style.overflow = 'hidden';
     }
     dialogs = [...dialogs, id];
+    setOverlayShadeOpacity(1);
     notify();
     let registered = true;
     return {
         id,
         getPosition: () => dialogs.indexOf(id),
         isCurrent: () => dialogs.at(-1) === id,
-        setShadeOpacity() {},
+        setShadeOpacity(opacity) {
+            shadeOpacities.set(id, opacity);
+            if (dialogs.at(-1) === id) setOverlayShadeOpacity(opacity);
+            notify();
+        },
         unregister() {
             if (!registered) return;
             registered = false;
             dialogs = dialogs.filter((value) => value !== id);
+            shadeOpacities.delete(id);
+            setOverlayShadeOpacity(shadeOpacities.get(dialogs.at(-1)!) ?? 1);
             if (dialogs.length === 0 && typeof document !== 'undefined') {
                 document.body.style.overflow = overflowBeforeDialogs ?? '';
                 overflowBeforeDialogs = undefined;
@@ -255,7 +265,7 @@ function storeSnapshot(): FluxStore {
         tooltips,
         dialogCount: dialogs.length,
         inertMain: dialogs.length > 0,
-        shadeOpacity: 1,
+        shadeOpacity: shadeOpacities.get(dialogs.at(-1)!) ?? 1,
         tooltip: tooltips.at(-1) ?? null,
         addAlert,
         addConfirm,
@@ -352,7 +362,24 @@ export function FluxSnackbarProvider() {
     );
 }
 
+function useLeavingDialogs<T extends {id: number}>(items: T[]) {
+    const [retained, setRetained] = useState(items);
+    useLayoutEffect(() => {
+        // A new dialog replaces content that is still leaving, as in the Vue provider.
+        if (items.length) setRetained(items);
+    }, [items]);
+    return retained.map(item => ({
+        item,
+        open: items.some(active => active.id === item.id),
+        onAfterClose: () => setRetained(current => current.filter(record => record.id !== item.id))
+    }));
+}
+
 export function FluxDialogProvider() {
+    useOverlayHost();
+    const renderedAlerts = useLeavingDialogs(alerts);
+    const renderedConfirms = useLeavingDialogs(confirms);
+    const renderedPrompts = useLeavingDialogs(prompts);
     const [, render] = useState(0);
     useEffect(() => {
         const listener = () => render((value) => value + 1);
@@ -363,14 +390,14 @@ export function FluxDialogProvider() {
     }, []);
     return (
         <>
-            {alerts.map((item) => (
-                <FluxAlert key={item.id} open icon={item.icon} message={item.message} title={item.title} onClose={item.onClose} />
+            {renderedAlerts.map(({item, open, onAfterClose}) => (
+                <FluxAlert key={item.id} open={open} onAfterClose={onAfterClose} icon={item.icon} message={item.message} title={item.title} onClose={item.onClose} />
             ))}
-            {confirms.map((item) => (
-                <FluxConfirm key={item.id} open icon={item.icon} message={item.message} title={item.title} onCancel={item.onCancel} onConfirm={item.onConfirm} />
+            {renderedConfirms.map(({item, open, onAfterClose}) => (
+                <FluxConfirm key={item.id} open={open} onAfterClose={onAfterClose} icon={item.icon} message={item.message} title={item.title} onCancel={item.onCancel} onConfirm={item.onConfirm} />
             ))}
-            {prompts.map((item) => (
-                <FluxPrompt key={item.id} open icon={item.icon} message={item.message} title={item.title} fieldLabel={item.fieldLabel} fieldPlaceholder={item.fieldPlaceholder} onCancel={item.onCancel} onConfirm={item.onConfirm} />
+            {renderedPrompts.map(({item, open, onAfterClose}) => (
+                <FluxPrompt key={item.id} open={open} onAfterClose={onAfterClose} icon={item.icon} message={item.message} title={item.title} fieldLabel={item.fieldLabel} fieldPlaceholder={item.fieldPlaceholder} onCancel={item.onCancel} onConfirm={item.onConfirm} />
             ))}
         </>
     );
@@ -395,18 +422,18 @@ export function FluxPopConfirm({cancelLabel, children, confirmLabel, direction, 
     </FluxFlyout>;
 }
 
-export function FluxAlert({ icon, message, onClose, open, title }: { icon?: FluxIconName; message?: string; onClose(): void; open: boolean; title: string }) {
+export function FluxAlert({ icon, message, onAfterClose, onClose, open, title }: { icon?: FluxIconName; message?: string; onClose(): void; onAfterClose?: () => void; open: boolean; title: string }) {
     const translate = useFluxTranslate();
     return (
-        <FluxOverlay open={open} label={title}>
+        <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} label={title}>
             <DialogLayout icon={icon} message={message} title={title} footer={<FluxPrimaryButton label={translate('flux.ok')} onClick={onClose} />} />
         </FluxOverlay>
     );
 }
-export function FluxConfirm({ icon, message, onCancel, onConfirm, open, title }: { icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(): void; open: boolean; title: string }) {
+export function FluxConfirm({ icon, message, onCancel, onAfterClose, onConfirm, open, title }: { icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(): void; onAfterClose?: () => void; open: boolean; title: string }) {
     const translate = useFluxTranslate();
     return (
-        <FluxOverlay open={open} isCloseable label={title} onClose={onCancel}>
+        <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} isCloseable label={title} onClose={onCancel}>
             <DialogLayout
                 icon={icon}
                 message={message}
@@ -421,11 +448,11 @@ export function FluxConfirm({ icon, message, onCancel, onConfirm, open, title }:
         </FluxOverlay>
     );
 }
-export function FluxPrompt({ fieldLabel, fieldPlaceholder, icon, message, onCancel, onConfirm, open, title }: { fieldLabel: string; fieldPlaceholder?: string; icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(value: string): void; open: boolean; title: string }) {
+export function FluxPrompt({ fieldLabel, fieldPlaceholder, icon, message, onCancel, onAfterClose, onConfirm, open, title }: { fieldLabel: string; fieldPlaceholder?: string; icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(value: string): void; onAfterClose?: () => void; open: boolean; title: string }) {
     const translate = useFluxTranslate();
     const [value, setValue] = useState('');
     return (
-        <FluxOverlay open={open} isCloseable label={title} onClose={onCancel}>
+        <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} isCloseable label={title} onClose={onCancel}>
             <DialogLayout
                 icon={icon}
                 message={message}

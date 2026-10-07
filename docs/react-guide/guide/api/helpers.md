@@ -2,7 +2,7 @@
 
 Import helpers from `@flux-ui/react`. The compatibility exports include filter helpers, focus utilities, input masking, colors and geometry.
 
-The filter factory in this branch is an identity function. It does not compile component metadata or register filters. Compose the React filter components with the props documented on their pages.
+`defineFilter` types a factory for a custom filter’s metadata. Assign the result to the component’s `filterDefinition` property; `FluxFilter` and `FluxFilterBar` use it to discover the filter, initialize defaults and render its value summary. See [custom filters](/react/components/filter/#custom-filters).
 
 ```tsx
 import { isFluxFormSelectOption, resolveTo } from '@flux-ui/react';
@@ -11,4 +11,4 @@ const href = resolveTo({pathname: '/account', hash: '#profile'});
 const isOption = isFluxFormSelectOption({label: 'One', value: 1});
 ```
 
-The [internals pages](/react/internals/) list the current helper signatures. Export coverage does not guarantee the same behavior as the original implementation; the [status page](/react/status) lists the known gaps.
+The [internals pages](/react/internals/) list the current helper signatures. The [status page](/react/status) describes the source comparison and browser checks.

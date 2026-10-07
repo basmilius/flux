@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import type { HTMLAttributes } from 'react';
 import {FluxLocaleProvider, type FluxLocaleProps} from '../i18n';
+import {FluxTooltipProvider} from './Overlays';
 import rootStyles from '../../../components/src/css/component/Root.module.scss';
 import { FluxDialogProvider, FluxSnackbarProvider, useFluxStore } from './Notifications';
 
@@ -9,6 +10,7 @@ export function FluxRoot({ className, locale, messages, translate, ...props }: O
     return (
         <FluxLocaleProvider locale={locale} messages={messages} translate={translate}>
             <div {...props} className={clsx(rootStyles.root, className)} inert={inertMain || undefined} />
+            <FluxTooltipProvider />
             <FluxDialogProvider />
             <FluxSnackbarProvider />
         </FluxLocaleProvider>

@@ -4,6 +4,20 @@ import {FluxFormCheckbox, FluxFormField, FluxFormInput, FluxFormTextArea, FluxTo
 import {FluxDisabled} from './DisplayExtended';
 
 describe('React form components', () => {
+    it('keeps standalone checkbox and toggle state when defaultChecked is used', () => {
+        render(<><FluxFormCheckbox aria-label="Choice" defaultChecked/><FluxToggle aria-label="Enabled" defaultChecked/></>);
+        const checkbox = screen.getByRole('checkbox', {name: 'Choice'});
+        const toggle = screen.getByRole('switch', {name: 'Enabled'});
+        expect(checkbox).toBeChecked();
+        expect(toggle).toBeChecked();
+        fireEvent.click(checkbox);
+        fireEvent.click(toggle);
+        expect(checkbox).not.toBeChecked();
+        expect(toggle).not.toBeChecked();
+        fireEvent.click(checkbox);
+        expect(checkbox).toBeChecked();
+    });
+
     it('connects a field label and error to its input', () => {
         render(<FluxFormField label="Email" error="Required"><FluxFormInput /></FluxFormField>);
         const input = screen.getByLabelText('Email');

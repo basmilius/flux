@@ -49,7 +49,7 @@ slots:
 
 The Context menu component opens a menu at the cursor when the user right-clicks its content. It is positioned at the pointer, traps focus while open, supports arrow-key navigation through the menu, and closes on Escape, scroll, or an outside click.
 
-Nest a [Menu flyout](./menu/flyout) to add a submenu. The React version opens submenus by activating their menu item; hover prediction and diagnostic cones are not implemented.
+Nest a [Menu flyout](./menu/flyout) to add a submenu. Submenus open on hover, click or keyboard activation. Pointer prediction preserves the active submenu while moving toward it; `debugCone` displays the prediction area.
 
 ::: render
 render=../code/components/context-menu/preview.vue
