@@ -1,6 +1,9 @@
+import {useFluxTranslate} from '../i18n';
+import {flattenElements} from './children';
+import {FluxFadeTransition, FluxWindowTransition} from './Transitions';
 import {clsx} from 'clsx';
 import {
-    Children, createContext, isValidElement, useCallback, useContext, useEffect, useLayoutEffect,
+    Children, cloneElement, createContext, isValidElement, useCallback, useContext, useEffect, useLayoutEffect,
     useMemo, useRef, useState
 } from 'react';
 import type {
@@ -43,7 +46,7 @@ export function FluxBoxedIcon({className, color, name, rounded, size, style, ...
     return <div {...props} className={clsx(color ? iconStyles[`iconBoxed${capitalize(color)}`] : iconStyles.iconBoxedDefault, rounded && iconStyles.isRounded, className)} style={{...style, fontSize: size && `${size}px`}}><FluxIcon name={name} /></div>;
 }
 
-const DisabledContext = createContext(false);
+export const DisabledContext = createContext(false);
 
 export function FluxDisabled({children, disabled = true}: {children?: ReactNode; disabled?: boolean}) {
     return <DisabledContext.Provider value={disabled}>{children}</DisabledContext.Provider>;
@@ -59,19 +62,19 @@ export interface FluxClickablePaneProps extends Omit<HTMLAttributes<HTMLElement>
     rel?: string; tag?: string; target?: string; to?: FluxTo; type?: FluxPressableType; variant?: 'default' | 'flat' | 'well';
 }
 
-export function FluxClickablePane({children, className, disabled, isLoading, loader, tag, type = 'button', variant = 'default', ...props}: FluxClickablePaneProps) {
+export function FluxClickablePane({children, className, disabled, isLoading, loader, onClick, tag, type = 'button', variant = 'default', ...props}: FluxClickablePaneProps) {
     const isDisabled = useFluxDisabled(disabled);
-    return <FluxPressable {...props} className={clsx(paneStyles[`pane${capitalize(variant)}`], className)} componentType={type} disabled={isDisabled || isLoading} aria-busy={isLoading || undefined}>
-        {children}{isLoading && (loader ?? <div className={paneStyles.paneLoader}><FluxSpinner /></div>)}{tag && <div className={paneStyles.paneTag}>{tag}</div>}
+    return <FluxPressable {...props} className={clsx(paneStyles[`pane${capitalize(variant)}`], className)} componentType={type} disabled={isDisabled} onClick={event => {if (isDisabled || isLoading) {event.preventDefault(); return;} onClick?.(event);}} aria-busy={isLoading || undefined}>
+        {children}<FluxFadeTransition show={Boolean(isLoading)}>{loader ?? <div className={paneStyles.paneLoader}><FluxSpinner /></div>}</FluxFadeTransition>{tag && <div className={paneStyles.paneTag}>{tag}</div>}
     </FluxPressable>;
 }
 
 export function FluxClickablePaneHeader({before, children, className, disabled, icon, subtitle, title, type = 'button', ...props}: FluxClickablePaneProps & {before?: ReactNode; icon?: FluxIconName; subtitle?: string; title?: string}) {
     const isDisabled = useFluxDisabled(disabled);
     return <FluxPressable {...props} className={clsx(paneStyles.paneHeader, paneStyles.paneHeaderClickable, className)} componentType={type} disabled={isDisabled}>
-        {before}{icon && <FluxIcon className={paneStyles.paneHeaderIcon} size={20} name={icon} />}
+        {before}{icon && <FluxIcon className={paneStyles.paneHeaderIcon} size={18} name={icon} />}
         {(title || subtitle) && <div className={paneStyles.paneHeaderCaption}>{title && <strong>{title}</strong>}{subtitle && <span>{subtitle}</span>}</div>}
-        {children}<FluxIcon className={paneStyles.paneHeaderChevron} size={20} name="angle-right" />
+        {children}<FluxIcon className={paneStyles.paneHeaderChevron} size={18} name="angle-right" />
     </FluxPressable>;
 }
 
@@ -82,21 +85,22 @@ export interface FluxRelativeDateTime {
 }
 
 export function FluxComment({avatarAlt, avatarFallback = 'colorized', avatarFallbackIcon = 'user', avatarFallbackInitials, avatarSrc, children, className, isReceived, isTyping, postedBy, postedOn, ...props}: HTMLAttributes<HTMLDivElement> & {avatarAlt?: string; avatarFallback?: 'colorized' | 'neutral'; avatarFallbackIcon?: FluxIconName; avatarFallbackInitials?: string; avatarSrc?: string; isReceived?: boolean; isTyping?: boolean; postedBy?: string; postedOn?: FluxRelativeDateTime}) {
+    const translate = useFluxTranslate();
     const [, update] = useState(0);
     useEffect(() => { const timer = setInterval(() => update(value => value + 1), 30_000); return () => clearInterval(timer); }, []);
     const iso = postedOn?.toISO();
     const relative = postedOn?.toRelative();
     const justNow = postedOn && Math.abs(postedOn.diffNow().as('seconds')) < 15;
     return <div {...props} className={clsx(commentStyles.comment, isTyping && commentStyles.isTyping, isReceived && commentStyles.isReceived, className)} role={props.role ?? 'article'}>
-        <FluxAvatar alt={avatarAlt} fallback={avatarFallback} fallbackIcon={avatarFallbackIcon} fallbackInitials={avatarFallbackInitials} size={42} src={avatarSrc} />
+        <FluxAvatar alt={avatarAlt} fallback={avatarFallback} fallbackIcon={avatarFallbackIcon} fallbackInitials={avatarFallbackInitials} size={36} src={avatarSrc} />
         <div className={commentStyles.commentContent}>{isTyping ? <div className={commentStyles.commentTyping} /> : children}</div>
-        <div className={commentStyles.commentFooter}>{isReceived && postedBy && <span>{postedBy}</span>}{iso && relative && !isTyping && <time dateTime={iso}>{justNow ? 'Just now' : relative}</time>}</div>
+        <div className={commentStyles.commentFooter}>{isReceived && postedBy && <span>{postedBy}</span>}{iso && relative && !isTyping && <time dateTime={iso}>{justNow ? translate('flux.justNow') : relative}</time>}</div>
     </div>;
 }
 
-export function FluxDescriptionList({children, className, direction = 'vertical', header, labelWidth, style, title, ...props}: HTMLAttributes<HTMLDivElement> & {direction?: 'horizontal' | 'vertical'; header?: ReactNode; labelWidth?: number | string; title?: string}) {
+export function FluxDescriptionList({children, className, direction = 'vertical', header, isLabelSmall, labelWidth, style, title, ...props}: HTMLAttributes<HTMLDivElement> & {direction?: 'horizontal' | 'vertical'; header?: ReactNode; isLabelSmall?: boolean; labelWidth?: number | string; title?: string}) {
     const aligned = direction === 'vertical' && labelWidth !== undefined;
-    return <div {...props} className={clsx(descriptionStyles.descriptionList, className)}>{(title || header) && <div className={descriptionStyles.descriptionListHeader}>{header ?? title}</div>}<dl className={clsx(descriptionStyles.descriptionListItems, direction === 'horizontal' && descriptionStyles.isHorizontal, aligned && descriptionStyles.hasLabelWidth)} style={{...style, '--label-width': aligned ? (typeof labelWidth === 'number' ? `${labelWidth}px` : labelWidth) : undefined} as FluxStyle}>{children}</dl></div>;
+    return <div {...props} className={clsx(descriptionStyles.descriptionList, className)}>{(title || header) && <div className={descriptionStyles.descriptionListHeader}>{header ?? title}</div>}<dl className={clsx(descriptionStyles.descriptionListItems, direction === 'horizontal' && descriptionStyles.isHorizontal, aligned && descriptionStyles.hasLabelWidth, isLabelSmall && descriptionStyles.isLabelSmall)} style={{...style, '--label-width': aligned ? (typeof labelWidth === 'number' ? `${labelWidth}px` : labelWidth) : undefined} as FluxStyle}>{children}</dl></div>;
 }
 
 export function FluxDescriptionItem({children, className, icon, isStacked, label, labelContent, ...props}: HTMLAttributes<HTMLDivElement> & {icon?: FluxIconName; isStacked?: boolean; label?: string; labelContent?: ReactNode}) {
@@ -140,7 +144,7 @@ export function FluxDropZone({accept, actions, children, className, disabled, ex
     return <div {...props} className={clsx(dropZoneStyles.dropZone, isDragging && dropZoneStyles.isDragging, isDraggingOver && dropZoneStyles.isDraggingOver, className)} role="button" aria-disabled={isDisabled || undefined} aria-label={props['aria-label'] ?? 'Drop files or click to select'} tabIndex={isDisabled ? -1 : 0} onClick={event => {props.onClick?.(event); if (!event.defaultPrevented && !(event.target as Element).closest('a,button,input,select,textarea')) showPicker();}} onKeyDown={event => {props.onKeyDown?.(event); if (!event.defaultPrevented && (event.key === 'Enter' || event.key === ' ')) {event.preventDefault(); showPicker();}}}>
         <div className={dropZoneStyles.dropZoneContent} onDragEnter={event => {if (!isDisabled) {depth.current++; setDraggingOver(true); event.preventDefault();}}} onDragOver={event => {if (!isDisabled) event.preventDefault();}} onDragLeave={() => {depth.current = Math.max(0, depth.current - 1); if (!depth.current) setDraggingOver(false);}} onDrop={(event: DragEvent<HTMLDivElement>) => {depth.current = 0; setDragging(false); setDraggingOver(false); if (!isDisabled) {event.preventDefault(); event.stopPropagation(); emitFiles(event.dataTransfer.files);}}}>
             <svg className={dropZoneStyles.dropZoneBorder} role="presentation"><rect height="100%" width="100%" strokeLinecap="round" strokeLinejoin="round" pathLength={600} /></svg>
-            {render(children)}{isLoading && <div className={dropZoneStyles.dropZoneLoader}><FluxSpinner /></div>}
+            {render(children)}<FluxFadeTransition show={Boolean(isLoading)}><div className={dropZoneStyles.dropZoneLoader}><FluxSpinner /></div></FluxFadeTransition>
         </div>{actions && <div className={dropZoneStyles.dropZoneActions}>{render(actions)}</div>}{render(extra)}
         <input ref={inputRef} hidden type="file" accept={accept} multiple={isMultiple} disabled={isDisabled} onChange={event => {emitFiles(event.currentTarget.files); event.currentTarget.value = '';}} />
     </div>;
@@ -176,18 +180,28 @@ export function FluxPersona({avatarAlt, avatarFallback = 'colorized', avatarFall
 
 export interface FluxQuantitySelectorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {ariaLabel?: string; defaultValue?: number; disabled?: boolean; max?: number; min?: number; onValueChange?: (value: number) => void; step?: number; value?: number}
 export function FluxQuantitySelector({ariaLabel, className, defaultValue = 0, disabled, max = 100, min = 0, onValueChange, step = 1, value, ...props}: FluxQuantitySelectorProps) {
+    const translate = useFluxTranslate();
+
     const scopedDisabled = useFluxDisabled(disabled), controlled = value !== undefined;
     const [inner, setInner] = useState(() => clamp(defaultValue, min, max));
     const current = clamp(controlled ? value : inner, min, max);
     const set = (next: number) => {next = clamp(snap(next, min, step), min, max); if (!controlled) setInner(next); onValueChange?.(next);};
-    const width = Math.max(51, String(current).length * 9 + 30);
-    return <FluxButtonGroup {...props} className={clsx(formStyles.formQuantitySelector, className)} aria-label={ariaLabel} aria-disabled={scopedDisabled || undefined}><FluxSecondaryButton className={formStyles.formQuantitySelectorButton} aria-label="Decrease" disabled={scopedDisabled || current <= min} iconLeading="minus" tabIndex={-1} onClick={() => set(current - step)} /><input className={formStyles.formQuantitySelectorInput} style={{width}} disabled={scopedDisabled} tabIndex={0} type="number" aria-label={ariaLabel} max={max} min={min} step={step} value={current} onChange={event => set(event.currentTarget.valueAsNumber)} /><FluxSecondaryButton className={formStyles.formQuantitySelectorButton} aria-label="Increase" disabled={scopedDisabled || current >= max} iconLeading="plus" tabIndex={-1} onClick={() => set(current + step)} /></FluxButtonGroup>;
+    const input = useRef<HTMLInputElement>(null);
+    const [width, setWidth] = useState(0);
+    useLayoutEffect(() => {
+        if (!input.current) return;
+        input.current.style.width = '0px';
+        const next = Math.max(51, input.current.scrollWidth + 30);
+        input.current.style.width = `${next}px`;
+        setWidth(next);
+    }, [current]);
+    return <FluxButtonGroup {...props} className={clsx(formStyles.formQuantitySelector, className)} aria-label={ariaLabel} aria-disabled={scopedDisabled || undefined}><FluxSecondaryButton className={formStyles.formQuantitySelectorButton} aria-label={translate('flux.decrease')} disabled={scopedDisabled || current <= min} iconLeading="minus" tabIndex={-1} onClick={() => set(current - step)} /><input ref={input} className={formStyles.formQuantitySelectorInput} style={{width}} disabled={scopedDisabled} tabIndex={0} type="number" aria-label={ariaLabel} max={max} min={min} step={step} value={current} onChange={event => set(event.currentTarget.valueAsNumber)} /><FluxSecondaryButton className={formStyles.formQuantitySelectorButton} aria-label={translate('flux.increase')} disabled={scopedDisabled || current >= max} iconLeading="plus" tabIndex={-1} onClick={() => set(current + step)} /></FluxButtonGroup>;
 }
 function clamp(value: number, min: number, max: number) { return Number.isNaN(value) ? min : Math.min(max, Math.max(min, value)); }
 function snap(value: number, min: number, step: number) { if (step <= 0) return value; const decimals = (String(step).split('.')[1] ?? '').length; const result = min + Math.round((value - min) / step) * step; return decimals ? Number(result.toFixed(decimals)) : result; }
 
-interface TimelineContextValue {register(element: HTMLElement | null, previous: HTMLElement | null): void}
-const TimelineContext = createContext<TimelineContextValue | null>(null);
+export interface TimelineContextValue {register(element: HTMLElement | null, previous: HTMLElement | null): void}
+export const TimelineContext = createContext<TimelineContextValue | null>(null);
 export function FluxTimeline({children, className, ...props}: HTMLAttributes<HTMLDivElement>) {
     const rootRef = useRef<HTMLDivElement>(null), markers = useRef(new Set<HTMLElement>()), [path, setPath] = useState('');
     const measure = useCallback(() => {const root = rootRef.current; if (!root) return setPath(''); const base = root.getBoundingClientRect(); const measured = Array.from(markers.current).map(element => {const rect = element.getBoundingClientRect(), top = rect.top - base.top; return {x: rect.left - base.left + rect.width / 2, top, bottom: top + rect.height};}).sort((a,b) => a.top - b.top); setPath(measured.slice(0,-1).map((item,index) => {const from = item.bottom + 6, to = measured[index + 1].top - 6; return to > from ? `M${item.x} ${from}V${to}` : '';}).join(''));}, []);
@@ -198,25 +212,25 @@ export function FluxTimeline({children, className, ...props}: HTMLAttributes<HTM
 function useTimelineMarker() { const timeline = useContext(TimelineContext); const old = useRef<HTMLElement | null>(null); return useCallback((element: HTMLElement | null) => {timeline?.register(element, old.current); old.current = element;}, [timeline]); }
 export function FluxTimelineItem({children, className, color = 'gray', icon, photo, title, when, ...props}: HTMLAttributes<HTMLDivElement> & {color?: FluxColor; icon?: FluxIconName; photo?: string; title?: string; when?: string}) { const marker = useTimelineMarker(); return <div {...props} className={clsx(timelineStyles[`timelineItem${capitalize(color)}`], className)} role={props.role ?? 'article'}>{photo ? <div ref={marker} className={timelineStyles.timelineItemPhoto}><img className={timelineStyles.timelineItemPhotoImage} src={photo} alt="" />{icon && <div className={timelineStyles.timelineItemPhotoIcon}><FluxIcon name={icon} size={16} /></div>}</div> : icon ? <div ref={marker} className={timelineStyles.timelineItemIcon}><FluxIcon name={icon} size={20} /></div> : <span ref={marker} className={timelineStyles.timelineItemDot} />}<div className={timelineStyles.timelineItemBody}>{(title || when) && <div className={timelineStyles.timelineItemHeader}>{title && <strong>{title}</strong>}{when && <span>{when}</span>}</div>}{children}</div></div>; }
 
-export interface FluxActivityFeedItemProps extends HTMLAttributes<HTMLLIElement> {actor?: string; avatarFallbackInitials?: string; avatarSrc?: string; color?: FluxColor; dateTime?: string; day?: string; details?: ReactNode; icon?: FluxIconName; when?: string}
-export function FluxActivityFeedItem({actor, avatarFallbackInitials, avatarSrc, children, className, color = 'gray', dateTime, details, icon, when, ...props}: FluxActivityFeedItemProps) { const marker = useTimelineMarker(); return <li {...props} className={clsx(activityStyles[`activityFeedItem${capitalize(color)}`], className)}>{avatarSrc || avatarFallbackInitials ? <span ref={marker}><FluxAvatar className={activityStyles.activityFeedItemAvatar} fallbackInitials={avatarFallbackInitials} size={30} src={avatarSrc} aria-hidden="true" /></span> : icon ? <div ref={marker} className={activityStyles.activityFeedItemIcon}><FluxIcon name={icon} size={16} /></div> : <span ref={marker} className={activityStyles.activityFeedItemDot} />}<div className={activityStyles.activityFeedItemBody}><div className={activityStyles.activityFeedItemAction}>{actor && <strong>{actor}</strong>}<span>{children}</span>{when && <time className={activityStyles.activityFeedItemWhen} dateTime={dateTime}>{when}</time>}</div>{details && <div className={activityStyles.activityFeedItemDetails}>{details}</div>}</div></li>; }
+export interface FluxActivityFeedItemProps extends HTMLAttributes<HTMLLIElement> {actor?: string; avatarFallbackInitials?: string; avatarSrc?: string; color?: FluxColor; dateTime?: string; day?: string; details?: ReactNode; icon?: FluxIconName; isDateBelow?: boolean; when?: string}
+export function FluxActivityFeedItem({actor, avatarFallbackInitials, avatarSrc, children, className, color = 'gray', dateTime, details, icon, isDateBelow, when, ...props}: FluxActivityFeedItemProps) { const marker = useTimelineMarker(); return <li {...props} className={clsx(activityStyles[`activityFeedItem${capitalize(color)}`], className)}>{avatarSrc || avatarFallbackInitials ? <span ref={marker} style={{display: 'flex'}}><FluxAvatar className={activityStyles.activityFeedItemAvatar} fallbackInitials={avatarFallbackInitials} size={24} src={avatarSrc} aria-hidden="true" /></span> : icon ? <div ref={marker} className={activityStyles.activityFeedItemIcon}><FluxIcon name={icon} size={16} /></div> : <span ref={marker} className={activityStyles.activityFeedItemDot} />}<div className={activityStyles.activityFeedItemBody}><div className={activityStyles.activityFeedItemAction}>{actor && <strong>{actor}</strong>}<span>{children}</span>{when && <time className={clsx(activityStyles.activityFeedItemWhen, isDateBelow && activityStyles.isDateBelow)} dateTime={dateTime}>{when}</time>}</div>{details && <div className={activityStyles.activityFeedItemDetails}>{details}</div>}</div></li>; }
 export function FluxActivityFeed({children, className, isGrouped, ...props}: HTMLAttributes<HTMLDivElement> & {isGrouped?: boolean}) {
-    let previous: string | undefined;
-    const content: ReactNode[] = [];
-    Children.forEach(children, (child, index) => {
-        if (isGrouped && isValidElement(child)) {
-            const day = (child as ReactElement<FluxActivityFeedItemProps>).props.day;
-            if (day && day !== previous) {
-                content.push(<li className={activityStyles.activityFeedDay} role="presentation" key={`day-${day}-${index}`}><span>{day}</span></li>);
-            }
-            previous = day ?? previous;
-        }
-        content.push(child);
-    });
-    return <FluxTimeline {...props} className={className} role="presentation"><ul className={activityStyles.activityFeedList} role="list">{content}</ul></FluxTimeline>;
+    const groups: {day?: string; items: ReactNode[]}[] = [];
+    for (const child of flattenElements<FluxActivityFeedItemProps>(children)) {
+        const day = child.props.day;
+        let group = groups.at(-1);
+        if (!group || group.day !== day) {group = {day, items: []}; groups.push(group);}
+        group.items.push(child);
+    }
+    return <div {...props} className={clsx(activityStyles.activityFeed, className)}>
+        {isGrouped ? groups.map((group, index) => <div key={index} className={activityStyles.activityFeedGroup}>
+            {group.day && <div className={activityStyles.activityFeedDay}><span>{group.day}</span></div>}
+            <FluxTimeline role="presentation"><ul className={activityStyles.activityFeedList} role="list">{group.items}</ul></FluxTimeline>
+        </div>) : <FluxTimeline role="presentation"><ul className={activityStyles.activityFeedList} role="list">{children}</ul></FluxTimeline>}
+    </div>;
 }
 
 export function FluxStepperStep(props: HTMLAttributes<HTMLDivElement>) { return <div {...props} className={clsx(stepperStyles.stepperStep, props.className)} />; }
-export function FluxStepperSteps({amount, className, current, onActivate, style, ...props}: HTMLAttributes<HTMLDivElement> & {amount: number; current: number; onActivate?: (index: number) => void}) { const progress = amount <= 1 ? 1 : (current - 1) / (amount - 1); return <div {...props} className={clsx(stepperStyles.stepperSteps, className)} style={{...style, '--progress': progress} as FluxStyle}>{Array.from({length: amount}, (_, index) => {const step = index + 1; return <button key={step} className={clsx(stepperStyles.stepperStepsItem, current > step && stepperStyles.stepperStepsItemComplete, current === step && stepperStyles.stepperStepsItemCurrent, current < step && stepperStyles.stepperStepsItemIdle)} tabIndex={-1} type="button" onClick={() => onActivate?.(index)}>{current > step ? <FluxIcon name="check" /> : <span>{step}</span>}</button>;})}</div>; }
-export function FluxStepper({children, content, defaultValue = 0, onValueChange, steps: stepsRenderer, value}: {children?: ReactNode; content?: (state: FluxStepperState) => ReactNode; defaultValue?: number; onValueChange?: (index: number) => void; steps?: (state: Pick<FluxStepperState, 'activate' | 'value' | 'steps'>) => ReactNode; value?: number}) { const items = Children.toArray(children), controlled = value !== undefined, [inner, setInner] = useState(defaultValue), current = controlled ? value : inner, previous = useRef(current), isTransitioningBack = current < previous.current; useEffect(() => {previous.current = current;}, [current]); const activate = (index: number) => {if (!controlled) setInner(index); onValueChange?.(index);}; const state = {activate, children: items, isTransitioningBack, steps: items.length, value: current, view: items[current] ?? null}; return <>{stepsRenderer ? stepsRenderer(state) : <FluxStepperSteps amount={items.length} current={current + 1} onActivate={activate} />}{content ? content(state) : state.view}</>; }
+export function FluxStepperSteps({amount, className, current, onActivate, style, ...props}: HTMLAttributes<HTMLDivElement> & {amount: number; current: number; onActivate?: (index: number) => void}) { const progress = amount <= 1 ? 1 : (current - 1) / (amount - 1); return <div {...props} className={clsx(stepperStyles.stepperSteps, className)} style={{...style, '--progress': progress} as FluxStyle}>{Array.from({length: amount}, (_, index) => {const step = index + 1; return <button key={step} className={clsx(stepperStyles.stepperStepsItem, current > step && stepperStyles.stepperStepsItemComplete, current === step && stepperStyles.stepperStepsItemCurrent, current < step && stepperStyles.stepperStepsItemIdle)} tabIndex={-1} type="button" onClick={() => onActivate?.(index)}><FluxFadeTransition>{current > step ? <FluxIcon key="complete" name="check" size={12} /> : <span key="number">{step}</span>}</FluxFadeTransition></button>;})}</div>; }
+export function FluxStepper({children, content, defaultValue = 0, onValueChange, steps: stepsRenderer, value}: {children?: ReactNode; content?: (state: FluxStepperState) => ReactNode; defaultValue?: number; onValueChange?: (index: number) => void; steps?: (state: Pick<FluxStepperState, 'activate' | 'value' | 'steps'>) => ReactNode; value?: number}) { const items = flattenElements(children), controlled = value !== undefined, [inner, setInner] = useState(defaultValue), current = controlled ? value : inner, previous = useRef(current), isTransitioningBack = current < previous.current; useEffect(() => {previous.current = current;}, [current]); const activate = (index: number) => {if (!controlled) setInner(index); onValueChange?.(index);}; const state = {activate, children: items, isTransitioningBack, steps: items.length, value: current, view: items[current] ?? null}; return <>{stepsRenderer ? stepsRenderer(state) : <FluxStepperSteps amount={items.length} current={current + 1} onActivate={activate} />}{content ? content(state) : <FluxWindowTransition isBack={isTransitioningBack}>{isValidElement(state.view) ? cloneElement(state.view, {key: current}) : state.view}</FluxWindowTransition>}</>; }
 export interface FluxStepperState {activate(index: number): void; children: ReactNode[]; isTransitioningBack: boolean; steps: number; value: number; view: ReactNode}

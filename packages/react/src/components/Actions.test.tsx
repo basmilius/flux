@@ -10,6 +10,13 @@ describe('FluxPressable', () => {
         expect(link).toHaveAttribute('aria-disabled', 'true');
     });
 
+    it.each(['button', 'link'] as const)('forwards keyboard events for native %s elements', componentType => {
+        const onKeyDown = vi.fn();
+        render(<FluxPressable componentType={componentType} href={componentType === 'link' ? '/target' : undefined} onKeyDown={onKeyDown}>Target</FluxPressable>);
+        fireEvent.keyDown(screen.getByText('Target'), {key: 'ArrowRight'});
+        expect(onKeyDown).toHaveBeenCalledOnce();
+    });
+
     it('adds safe defaults to links opening a new tab', () => {
         render(<FluxPressable componentType="link" href="https://example.com" target="_blank">Safe</FluxPressable>);
         expect(screen.getByRole('link', {name: 'Safe'})).toHaveAttribute('rel', 'noopener noreferrer');

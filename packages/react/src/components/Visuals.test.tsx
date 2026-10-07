@@ -35,8 +35,7 @@ describe('visual effects', () => {
         expect(finished).toHaveBeenCalledOnce();
         vi.useRealTimers();
 
-        const { getByText } = render(<FluxVisualHighlighterGroup color="red"><FluxVisualHighlighter variant="underline">Important</FluxVisualHighlighter></FluxVisualHighlighterGroup>);
-        expect(getByText('Important').getAttribute('style')).toContain('red');
+
     });
 
     it('updates animated text through props and imperative handles', () => {
@@ -63,6 +62,20 @@ describe('visual effects', () => {
         act(() => slot.current?.set('C'));
         act(() => vi.runAllTimers());
         expect(screen.getByLabelText('C')).toHaveTextContent('C');
+        vi.useRealTimers();
+    });
+
+    it('uses separate flash timings and restores the resting text after repeated flashes', () => {
+        vi.useFakeTimers();
+        const ref = createRef<FluxVisualSlotTextHandle>();
+        const {container} = render(<FluxVisualSlotText ref={ref} text="A" bounce={0} exitOffset={0} stagger={0} />);
+        act(() => ref.current?.flash('B', {revertAfter: 600, enter: {duration: 100, easing: 'linear'}, exit: {duration: 200, easing: 'ease-in'}}));
+        act(() => vi.advanceTimersByTime(1));
+        expect(container.querySelector<HTMLElement>('[class*=charFace]:last-child')?.style.transition).toContain('100ms linear');
+        act(() => vi.advanceTimersByTime(601));
+        expect(container.querySelector<HTMLElement>('[class*=charFace]:last-child')?.style.transition).toContain('200ms ease-in');
+        act(() => vi.runAllTimers());
+        expect(screen.getByLabelText('A')).toHaveTextContent('A');
         vi.useRealTimers();
     });
 

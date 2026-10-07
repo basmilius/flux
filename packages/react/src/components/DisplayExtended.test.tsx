@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import {describe, expect, it, vi} from 'vitest';
 import {
     FluxActivityFeed, FluxActivityFeedItem, FluxDisabled, FluxDropZone, FluxQuantitySelector,
@@ -33,11 +33,11 @@ describe('FluxQuantitySelector', () => {
 });
 
 describe('FluxStepper', () => {
-    it('activates steps and renders their content', () => {
+    it('activates steps and renders their content', async () => {
         render(<FluxStepper><FluxStepperStep>One</FluxStepperStep><FluxStepperStep>Two</FluxStepperStep></FluxStepper>);
         expect(screen.getByText('One')).toBeInTheDocument();
         fireEvent.click(screen.getByRole('button', {name: '2'}));
-        expect(screen.getByText('Two')).toBeInTheDocument();
+        expect(await screen.findByText('Two')).toBeInTheDocument();
     });
 });
 

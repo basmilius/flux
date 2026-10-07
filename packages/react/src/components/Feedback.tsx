@@ -1,3 +1,4 @@
+import {FluxFadeTransition} from './Transitions';
 import {clsx} from 'clsx';
 import type {ElementType, HTMLAttributes, ReactNode} from 'react';
 import type {FluxColor, FluxStyle} from '../types';
@@ -79,8 +80,8 @@ export function FluxProgressBar({className, color = 'primary', isIndeterminate =
                 <div className={position >= 1 ? progressStyles.progressBarValueComplete : progressStyles.progressBarValueIncomplete} style={{width: `${isIndeterminate ? 100 : position * 100}%`}} />
             </div>
             {status && <div className={progressStyles.progressBarStatusRow}>
-                <span className={progressStyles.progressBarStatus}>{status}</span>
-                {!isIndeterminate && <span className={progressStyles.progressBarProgress}>{progress}</span>}
+                <FluxFadeTransition><span key={status} className={progressStyles.progressBarStatus}>{status}</span></FluxFadeTransition>
+                <FluxFadeTransition show={!isIndeterminate}><span className={progressStyles.progressBarProgress}>{progress}</span></FluxFadeTransition>
             </div>}
         </div>
     );

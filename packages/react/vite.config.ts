@@ -41,7 +41,7 @@ export default defineConfig({
             name: "fluxReact",
         },
         rolldownOptions: {
-            external: ["clsx", "echarts", "luxon", "marked", "react", "react-dom", "react/jsx-runtime"],
+            external: ["clsx", "echarts", "luxon", "marked", "rough-notation", "react", "react-dom", "react/jsx-runtime"],
             output: {
                 assetFileNames: (assetInfo) => (assetInfo.name?.endsWith(".css") ? "index.css" : "[name][extname]"),
                 exports: "named",

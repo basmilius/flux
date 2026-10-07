@@ -1,19 +1,32 @@
+import {AdaptiveContext} from './components/Utilities';
+import {CalendarContext} from './components/Calendar';
+import {DisabledContext, useFluxDisabled} from './components/DisplayExtended';
+import {ExpandableGroupContext} from './components/Disclosure';
+import {FilterContext} from './components/CalendarFilters';
+import {FluxFlyoutContext} from './components/Overlays';
+import {CheckboxContext} from './components/AdvancedForms';
+import {FieldContext} from './components/Forms';
+import {RadioContext} from './components/AdvancedForms';
+import {KanbanContext, KanbanLayoutContext} from './components/TreesKanban';
+import {SegmentContext} from './components/Navigation';
+import {TabBarContext} from './components/Navigation';
+import {TableContext} from './components/Tables';
+import {BreadcrumbContext} from './components/Navigation';
+import {BreadcrumbCollapsedContext} from './components/Navigation';
+import {TimelineContext} from './components/DisplayExtended';
+import {SwimlaneContext} from './components/TreesKanban';
+import {ItemControlContext} from './components/Composition';
+import {MenuContext} from './components/Menus';
+import {MenuPersistentContext} from './components/Menus';
+import {TooltipContext} from './components/Overlays';
 import { Children, cloneElement, type Context, createContext, type HTMLAttributes, isValidElement, type ReactElement, type ReactNode, type RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
 import type { TranslateFunction } from '@flux-ui/types/translate';
 import type { FluxFilterOptionHeader, FluxFilterOptionItem, FluxFilterOptionRow, FluxFilterState } from './components/CalendarFilters';
-import type { FluxIconName } from './types';
+import type {FluxIconName, FluxFilterDefinition, FluxFilterSpec, FluxTranslate} from './types';
 
 export type { TranslateFunction, TranslateParams } from '@flux-ui/types/translate';
-export function createTranslate<T extends Record<string, string>>(english: T = {} as T): () => TranslateFunction<keyof T & string> {
-    return () => (key, params) => {
-        let translation: string = english[key as keyof T] ?? key;
-        Object.entries(params ?? {}).forEach(([name, value]) => {
-            translation = translation.replaceAll(`{${name}}`, String(value));
-        });
-        return translation;
-    };
-}
+export {createTranslate} from './i18n';
 
 const BREAKPOINTS = { xs: 0, sm: 640, md: 768, lg: 1024, xl: 1280 } as const;
 export type Breakpoint = keyof typeof BREAKPOINTS;
@@ -29,49 +42,54 @@ export function useBreakpoints(): { currentBreakpoint: Breakpoint | null } & Rec
     return { currentBreakpoint, ...states };
 }
 export function useDisabled(componentDisabled?: boolean): boolean {
-    return Boolean(componentDisabled);
+    return useFluxDisabled(componentDisabled);
 }
 
-type InjectionValue = Record<string, any> | boolean | null;
-function injection<T extends InjectionValue>(name: string): [Context<T>, () => T] {
-    const context = createContext<T>(null as T);
-    context.displayName = name;
-    return [context, () => useContext(context)];
-}
-export const [FluxAdaptiveGroupInjectionKey, useAdaptiveGroupInjection] = injection<any>('FluxAdaptiveGroupInjection');
-export const [FluxCalendarInjectionKey, useCalendarInjection] = injection<any>('FluxCalendarInjection');
-export const [FluxDisabledInjectionKey, useDisabledInjection] = injection<boolean>('FluxDisabledInjection');
-export const [FluxExpandableGroupInjectionKey, useExpandableGroupInjection] = injection<any>('FluxExpandableGroupInjection');
-export const [FluxFilterInjectionKey, useFilterInjection] = injection<any>('FluxFilterInjection');
-export const [FluxFlyoutInjectionKey, useFlyoutInjection] = injection<any>('FluxFlyoutInjection');
-export const [FluxFormCheckboxGroupInjectionKey, useFormCheckboxGroupInjection] = injection<any>('FluxFormCheckboxGroupInjection');
-export const [FluxFormFieldInjectionKey, useFormFieldInjection] = injection<any>('FluxFormFieldInjection');
-export const [FluxFormRadioGroupInjectionKey, useFormRadioGroupInjection] = injection<any>('FluxFormRadioGroupInjection');
-export const [FluxKanbanInjectionKey, useKanbanInjection] = injection<any>('FluxKanbanInjection');
-export const [FluxSegmentedControlInjectionKey, useSegmentedControlInjection] = injection<any>('FluxSegmentedControlInjection');
-export const [FluxTabBarInjectionKey, useTabBarInjection] = injection<any>('FluxTabBarInjection');
-export const [FluxTableInjectionKey, useTableInjection] = injection<any>('FluxTableInjection');
-export const [FluxTooltipInjectionKey, useTooltipInjection] = injection<any>('FluxTooltipInjection');
-export const FluxBreadcrumbCollapsedInjectionKey = createContext(false),
-    FluxBreadcrumbSeparatorInjectionKey = createContext<FluxIconName>('angle-right'),
-    FluxItemControlInjectionKey = createContext<any>(null),
-    FluxKanbanLayoutInjectionKey = createContext<any>(null),
-    FluxKanbanSwimlaneInjectionKey = createContext<any>(null),
-    FluxMenuFlyoutInjectionKey = createContext<any>(null),
-    FluxMenuPersistentInjectionKey = createContext(false),
-    FluxTimelineInjectionKey = createContext<any>(null);
+export const FluxAdaptiveGroupInjectionKey = AdaptiveContext;
+export function useAdaptiveGroupInjection() {return useContext(AdaptiveContext);}
+export const FluxCalendarInjectionKey = CalendarContext;
+export function useCalendarInjection() {return useContext(CalendarContext);}
+export const FluxDisabledInjectionKey = DisabledContext;
+export function useDisabledInjection() {return useContext(DisabledContext);}
+export const FluxExpandableGroupInjectionKey = ExpandableGroupContext;
+export function useExpandableGroupInjection() {return useContext(ExpandableGroupContext);}
+export const FluxFilterInjectionKey = FilterContext;
+export function useFilterInjection() {const context = useContext(FilterContext); if (!context) throw new Error('useFilterInjection must be used inside FluxFilter or FluxFilterBar'); return context;}
+export const FluxFlyoutInjectionKey = FluxFlyoutContext;
+export function useFlyoutInjection() {return useContext(FluxFlyoutContext);}
+export const FluxFormCheckboxGroupInjectionKey = CheckboxContext;
+export function useFormCheckboxGroupInjection() {return useContext(CheckboxContext);}
+export const FluxFormFieldInjectionKey = FieldContext;
+export function useFormFieldInjection() {return useContext(FieldContext);}
+export const FluxFormRadioGroupInjectionKey = RadioContext;
+export function useFormRadioGroupInjection() {return useContext(RadioContext);}
+export const FluxKanbanInjectionKey = KanbanContext;
+export function useKanbanInjection() {return useContext(KanbanContext);}
+export const FluxSegmentedControlInjectionKey = SegmentContext;
+export function useSegmentedControlInjection() {return useContext(SegmentContext);}
+export const FluxTabBarInjectionKey = TabBarContext;
+export function useTabBarInjection() {return useContext(TabBarContext);}
+export const FluxTableInjectionKey = TableContext;
+export function useTableInjection() {return useContext(TableContext);}
+export const FluxBreadcrumbSeparatorInjectionKey = BreadcrumbContext;
+export const FluxBreadcrumbCollapsedInjectionKey = BreadcrumbCollapsedContext;
+export const FluxTimelineInjectionKey = TimelineContext;
+export const FluxKanbanSwimlaneInjectionKey = SwimlaneContext;
+export const FluxItemControlInjectionKey = ItemControlContext;
+export const FluxMenuFlyoutInjectionKey = MenuContext;
+export const FluxMenuPersistentInjectionKey = MenuPersistentContext;
+export const FluxTooltipInjectionKey = TooltipContext;
+export function useTooltipInjection() {return useContext(TooltipContext);}
+export const FluxKanbanLayoutInjectionKey = KanbanLayoutContext;
+
+type ContextValue<T> = T extends Context<infer Value> ? NonNullable<Value> : never;
 
 export interface FluxAdaptiveGroupChild {
     priority: number;
     setVisible(value: boolean): void;
 }
-export interface FluxAdaptiveGroupInjection {
-    register(id: string, child: FluxAdaptiveGroupChild): void;
-    unregister(id: string): void;
-}
-export interface FluxCalendarInjection {
-    [key: string]: unknown;
-}
+export type FluxAdaptiveGroupInjection = ContextValue<typeof AdaptiveContext>;
+export type FluxCalendarInjection = ContextValue<typeof CalendarContext>;
 export interface FluxCalendarItemData {
     id: string | number;
     start: DateTime;
@@ -79,45 +97,20 @@ export interface FluxCalendarItemData {
     title?: string;
 }
 export type FluxCalendarKeyboardDirection = 'down' | 'left' | 'right' | 'up';
-export interface FluxExpandableGroupInjection {
-    openedId?: string;
-    open(id: string): void;
-    close(id: string): void;
-}
-export interface FluxFilterInjection {
-    value: FluxFilterState;
-    setValue(name: string, value: unknown): void;
-}
-export interface FluxFlyoutInjection {
-    close(): void;
-    isOpen: boolean;
-}
-export interface FluxFormCheckboxGroupInjection {
-    value: readonly string[];
-    toggle(value: string): void;
-}
-export type FluxFormCheckboxGroupValue = readonly string[];
-export interface FluxFormFieldInjection {
-    disabled?: boolean;
-    error?: string | boolean;
-    id?: string;
-}
-export interface FluxFormRadioGroupInjection {
-    value?: string | number;
-    select(value: string | number): void;
-}
+export type FluxExpandableGroupInjection = ContextValue<typeof ExpandableGroupContext>;
+export type FluxFilterInjection = ContextValue<typeof FilterContext>;
+export type FluxFlyoutInjection = ContextValue<typeof FluxFlyoutContext>;
+export type FluxFormCheckboxGroupInjection = ContextValue<typeof CheckboxContext>;
+export type FluxFormCheckboxGroupValue = Parameters<FluxFormCheckboxGroupInjection['toggle']>[0][];
+export type FluxFormFieldInjection = ContextValue<typeof FieldContext>;
+export type FluxFormRadioGroupInjection = ContextValue<typeof RadioContext>;
 export type FluxFormRadioGroupValue = string | number | null;
-export interface FluxSegmentedControlInjection extends FluxFormRadioGroupInjection {}
+export type FluxSegmentedControlInjection = ContextValue<typeof SegmentContext>;
 export type FluxSegmentedControlValue = FluxFormRadioGroupValue;
-export interface FluxTabBarInjection extends FluxFormRadioGroupInjection {}
-export interface FluxTableInjection {
-    [key: string]: unknown;
-}
-export type FluxTablePinnedEdges = { left?: boolean; right?: boolean };
-export interface FluxTooltipInjection {
-    close(): void;
-    open(): void;
-}
+export type FluxTabBarInjection = ContextValue<typeof TabBarContext>;
+export type FluxTableInjection = ContextValue<typeof TableContext>;
+export type FluxTablePinnedEdges = FluxTableInjection['pinnedEdges'];
+export type FluxTooltipInjection = ContextValue<typeof TooltipContext>;
 export type FluxKanbanDragMode = 'column' | 'item' | 'swimlane';
 export interface FluxKanbanColumnDragState {
     columnId: string | number;
@@ -127,28 +120,10 @@ export interface FluxKanbanDragState {
     id: string | number;
     mode: FluxKanbanDragMode;
 }
-export interface FluxKanbanInjection {
-    [key: string]: unknown;
-}
+export type FluxKanbanInjection = ContextValue<typeof KanbanContext>;
 export type FluxKanbanKeyboardDirection = 'down' | 'left' | 'right' | 'up';
 
-export type TransitionProps = { children?: ReactNode; show?: boolean } & HTMLAttributes<HTMLElement>;
-function Transition({ children, show = true }: TransitionProps) {
-    return show ? <>{children}</> : null;
-}
-export const FluxAutoHeightTransition = Transition,
-    FluxAutoWidthTransition = Transition,
-    FluxBreakthroughTransition = Transition,
-    FluxFadeTransition = Transition,
-    FluxOverlayTransition = Transition,
-    FluxRouteTransition = Transition,
-    FluxScaleTransition = Transition,
-    FluxSheetTransition = Transition,
-    FluxSlideOverTransition = Transition,
-    FluxStaggerTransition = Transition,
-    FluxTooltipTransition = Transition,
-    FluxVerticalWindowTransition = Transition,
-    FluxWindowTransition = Transition;
+export {FluxAutoHeightTransition, FluxAutoWidthTransition, FluxBreakthroughTransition, FluxFadeTransition, FluxOverlayTransition, FluxRouteTransition, FluxScaleTransition, FluxSheetTransition, FluxSlideOverTransition, FluxStaggerTransition, FluxTooltipTransition, FluxVerticalWindowTransition, FluxWindowTransition, type TransitionProps} from './components/Transitions';
 
 export const isSSR = !globalThis.document;
 export type TemplateElement = HTMLElement | null;
@@ -401,13 +376,9 @@ export const vHeightTransition = (element: HTMLElement | null) => {
     if (element) element.style.setProperty('--height', `${element.scrollHeight}px`);
 };
 
-export interface FluxFilterDefinitionContext {
-    readonly state: FluxFilterState;
-}
-export type FluxFilterDefinitionFactory<T = unknown> = (context: FluxFilterDefinitionContext) => T;
-export function defineFilter<T>(factory: FluxFilterDefinitionFactory<T>): FluxFilterDefinitionFactory<T> {
-    return factory;
-}
+export interface FluxFilterDefinitionContext {readonly translate: FluxTranslate}
+export type FluxFilterDefinitionFactory<TProps = FluxFilterSpec> = (props: TProps, context: FluxFilterDefinitionContext) => FluxFilterDefinition;
+export function defineFilter<TProps>(factory: FluxFilterDefinitionFactory<TProps>): FluxFilterDefinitionFactory<TProps> {return factory;}
 export function isFluxFilterOptionHeader(option: FluxFilterOptionRow): option is FluxFilterOptionHeader {
     return 'header' in option || !('value' in option);
 }
@@ -420,15 +391,16 @@ export function isFluxFormSelectGroup(item: unknown): item is Record<string, unk
 export function isFluxFormSelectOption(item: unknown): item is Record<string, unknown> & { value: unknown } {
     return item !== null && typeof item === 'object' && 'value' in item;
 }
-export function pickFilterCommon<T extends Record<string, unknown>>(filter: T): Partial<T> {
-    const keys = ['label', 'name', 'icon', 'defaultValue', 'isDisabled'];
-    return Object.fromEntries(Object.entries(filter).filter(([key]) => keys.includes(key))) as Partial<T>;
+export function pickFilterCommon<T extends FluxFilterSpec>(filter: T): FluxFilterSpec {
+    const {label, name, icon, defaultValue, disabled, onChange, onClear} = filter;
+    return {label, name, icon, defaultValue, disabled, onChange, onClear};
 }
-export function generateMultiOptionsLabel(values: readonly unknown[], options: readonly FluxFilterOptionItem[]): string {
-    return values.map((value) => options.find((option) => option.value === value)?.label ?? String(value)).join(', ');
+export function generateMultiOptionsLabel(translate: FluxTranslate, options: readonly FluxFilterOptionItem[], values: readonly unknown[]): string | null {
+    const selected = options.filter(option => values.includes(option.value));
+    return selected.length > 1 ? translate('flux.nSelected', {n: selected.length}) : selected[0]?.label ?? null;
 }
-export function isResettable(value: unknown, initial: unknown): boolean {
-    return JSON.stringify(value) !== JSON.stringify(initial);
+export function isResettable(definition: FluxFilterDefinition | undefined, value: unknown): boolean {
+    return definition?.defaultValue !== undefined && JSON.stringify(value) !== JSON.stringify(definition.defaultValue);
 }
 export function subscribeToRootFontSize(listener: (size: number) => void): () => void {
     const update = () => listener(Number.parseFloat(getComputedStyle(document.documentElement).fontSize));

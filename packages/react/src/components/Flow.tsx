@@ -1,3 +1,10 @@
+import {createTranslate} from '../i18n';
+import {FluxFlyout} from './Overlays';
+import {FluxMenu, FluxMenuGroup, FluxMenuItem} from './Menus';
+import {FluxSeparator} from './Layout';
+import {english as flowEnglish} from './FlowUtilities';
+import {useFlowLabels} from './flow/labels';
+import {useFlowGestures} from './flow/gestures';
 import { clsx } from 'clsx';
 import { Children, createContext, forwardRef, Fragment, isValidElement, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { CSSProperties, HTMLAttributes, KeyboardEvent, PointerEvent, ReactElement, ReactNode, WheelEvent } from 'react';
@@ -8,7 +15,7 @@ import { FluxBoxedIcon } from './DisplayExtended';
 import { FluxBadge, FluxPane, FluxPaneBody, FluxPaneFooter, FluxPaneHeader } from './Display';
 import { FluxSpinner } from './Feedback';
 import { FluxIcon } from './Icon';
-import { LABELLED_GAP, FluxFlowEdgeLayerInjectionKey, anchorPoint, autoSides, boundsOfNodes, collectObstacles, flowColor, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, portPoint, portSide, routeAvoid, selfLoopPoints, useFlowLayout, useFlowTrunkLayout } from './FlowUtilities';
+import { LABELLED_GAP, FluxFlowEdgeLayerInjectionKey, anchorPoint, autoSides, boundsOfNodes, collectObstacles, flowColor, getBezierPath, getSelfLoopPath, getSmoothStepPath, getStepPath, getStraightPath, markerPath, offsetPoint, portPoint, portSide, routeAvoid, selfLoopPoints, useFlowLayout, useFlowTrunkLayout } from './FlowUtilities';
 import type { FluxFlowAlign, FluxFlowBounds, FluxFlowConnectionType, FluxFlowController, FluxFlowDirection, FluxFlowEdgeRecord, FluxFlowEdgeSpec, FluxFlowLabelPlacement, FluxFlowMarker, FluxFlowMarkerFill, FluxFlowNodeContext, FluxFlowNodeRecord, FluxFlowPanelPosition, FluxFlowPlacementContext, FluxFlowPlacementLink, FluxFlowPortRegistration, FluxFlowPortRecord, FluxFlowPosition, FluxFlowSide, FluxFlowViewport } from './FlowUtilities';
 import flowStyles from '../../../flow/src/css/component/Flow.module.scss';
 import cardStyles from '../../../flow/src/css/component/FlowCard.module.scss';
@@ -169,6 +176,7 @@ function createFlowController(initial: ControllerOptions): InternalController {
             emit();
         },
         setTracking(value) {
+            if (tracking === value) return;
             tracking = value;
             emit();
         },
@@ -184,8 +192,18 @@ function createFlowController(initial: ControllerOptions): InternalController {
             controller.setViewport({ ...viewport, x: viewport.x + dx, y: viewport.y + dy });
         },
         panBounded(dx, dy) {
-            controller.panBy(dx, dy);
-            return { x: dx, y: dy };
+            const rect = clip?.getBoundingClientRect();
+            const box = controller.bounds;
+            if (!rect || !box) return {x: 0, y: 0};
+            const axis = (value: number, delta: number, min: number, max: number, extent: number) => {
+                const start = -min * viewport.zoom, end = extent - max * viewport.zoom;
+                return Math.min(Math.max(start, end) + 300, Math.max(Math.min(start, end) - 300, value + delta));
+            };
+            const x = axis(viewport.x, dx, box.minX, box.maxX, rect.width);
+            const y = axis(viewport.y, dy, box.minY, box.maxY, rect.height);
+            const delta = {x: x - viewport.x, y: y - viewport.y};
+            if (delta.x || delta.y) controller.setViewport({...viewport, x, y});
+            return delta;
         },
         zoomAt(clientX, clientY, factor) {
             const next = clampZoom(viewport.zoom * factor),
@@ -194,10 +212,10 @@ function createFlowController(initial: ControllerOptions): InternalController {
             controller.setViewport({ x: clientX - (rect?.left ?? 0) - point.x * next, y: clientY - (rect?.top ?? 0) - point.y * next, zoom: next });
         },
         zoomIn() {
-            controller.zoomTo(viewport.zoom + options.zoomStep);
+            controller.zoomTo(viewport.zoom * (1 + options.zoomStep));
         },
         zoomOut() {
-            controller.zoomTo(viewport.zoom - options.zoomStep);
+            controller.zoomTo(viewport.zoom / (1 + options.zoomStep));
         },
         zoomTo(zoom) {
             const rect = clip?.getBoundingClientRect(),
@@ -206,13 +224,13 @@ function createFlowController(initial: ControllerOptions): InternalController {
             controller.zoomAt(cx, cy, clampZoom(zoom) / viewport.zoom);
         },
         resetZoom() {
-            controller.zoomTo(1);
+            controller.fitView();
         },
         fitView(padding = options.padding) {
             const bounds = controller.bounds,
                 rect = clip?.getBoundingClientRect();
-            if (!bounds || !rect) return;
-            const zoom = clampZoom(Math.min((rect.width - padding * 2) / Math.max(bounds.maxX - bounds.minX, 1), (rect.height - padding * 2) / Math.max(bounds.maxY - bounds.minY, 1)));
+            if (!bounds || !rect) {controller.setViewport({x: 0, y: 0, zoom: 1}); return;}
+            const zoom = clampZoom(Math.min(Math.max(rect.width - padding * 2, 1) / Math.max(bounds.maxX - bounds.minX, 1), Math.max(rect.height - padding * 2, 1) / Math.max(bounds.maxY - bounds.minY, 1), 1));
             controller.setViewport({ x: (rect.width - (bounds.maxX - bounds.minX) * zoom) / 2 - bounds.minX * zoom, y: (rect.height - (bounds.maxY - bounds.minY) * zoom) / 2 - bounds.minY * zoom, zoom });
         },
         centerView(zoom) {
@@ -298,9 +316,23 @@ export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxF
     useEffect(() => {
         if (viewport && (viewport.x !== controller.viewport.x || viewport.y !== controller.viewport.y || viewport.zoom !== controller.viewport.zoom)) controller.setViewport(viewport);
     }, [viewport?.x, viewport?.y, viewport?.zoom]);
+    const [isReady, setReady] = useState(false);
+    const isPanning = useFlowGestures(clip, controller, interactive, zoomStep);
     useEffect(() => {
-        if (!interactive || viewport || defaultViewport) return;
-        const frame = requestAnimationFrame(() => (start && controller.getNode(start) ? controller.centerView(1) : controller.fitView(padding)));
+        if (!interactive) return;
+        let frame = 0;
+        if (viewport || defaultViewport) frame = requestAnimationFrame(() => setReady(true));
+        else frame = requestAnimationFrame(() => {frame = requestAnimationFrame(() => {
+            const node = start ? controller.getNode(start) : undefined;
+            const rect = clip.current?.getBoundingClientRect();
+            const bounds = controller.bounds;
+            if (node && rect) controller.setViewport({x: rect.width / 2 - node.position.x - node.size.width / 2, y: rect.height / 2 - node.position.y - node.size.height / 2, zoom: 1});
+            else if (bounds) {
+                const spare = rect ? rect.width - (bounds.maxX - bounds.minX) : 0;
+                controller.setViewport({x: (align === 'center' ? Math.max(spare / 2, padding) : padding) - bounds.minX, y: padding - bounds.minY, zoom: 1});
+            }
+            frame = requestAnimationFrame(() => setReady(true));
+        });});
         return () => cancelAnimationFrame(frame);
     }, [interactive, start]);
     const handle = useMemo<FluxFlowHandle>(() => ({ controller, fitView: controller.fitView, centerView: controller.centerView, zoomIn: controller.zoomIn, zoomOut: controller.zoomOut, zoomTo: controller.zoomTo, resetZoom: controller.resetZoom }), [controller]);
@@ -312,69 +344,56 @@ export const FluxFlow = forwardRef<FluxFlowHandle, FluxFlowProps>(function FluxF
             else if (ref) ref.current = null;
         };
     }, [handle, ref]);
+    const [hoveredEdge, setHoveredEdge] = useState<string | number | null>(null);
+    const labelsRef = useRef<HTMLDivElement>(null);
+    const maskId = useId();
     const bounds = controller.bounds,
-        worldStyle: CSSProperties = interactive ? { transform: `translate(${controller.viewport.x}px, ${controller.viewport.y}px) scale(${controller.viewport.zoom})`, transition: controller.isTracking ? 'none' : 'transform 210ms var(--swift-out)' } : bounds ? { position: 'relative', width: Math.ceil(bounds.maxX - bounds.minX + padding * 2), height: Math.ceil(bounds.maxY - bounds.minY + padding * 2), transform: `translate(${padding - bounds.minX}px, ${padding - bounds.minY}px)` } : { position: 'relative' },
-        edges = [...controller.edges.values()].filter((edge): edge is FluxFlowEdgeRecord & { spec: FluxFlowEdgeSpec } => Boolean(edge.spec)).sort((a, b) => Number(a.spec.isColored) - Number(b.spec.isColored));
-    const pointerDown = (event: PointerEvent<HTMLDivElement>) => {
-        if (!interactive || event.button !== 0 || (event.target as Element).closest('[data-nopan]')) return;
-        dragging.current = { x: event.clientX, y: event.clientY };
-        event.currentTarget.setPointerCapture?.(event.pointerId);
-        controller.setTracking(true);
-    };
-    const pointerMove = (event: PointerEvent<HTMLDivElement>) => {
-        if (!dragging.current) return;
-        controller.panBy(event.clientX - dragging.current.x, event.clientY - dragging.current.y);
-        dragging.current = { x: event.clientX, y: event.clientY };
-    };
-    const pointerUp = (event: PointerEvent<HTMLDivElement>) => {
-        if (!dragging.current) return;
-        dragging.current = null;
-        event.currentTarget.releasePointerCapture?.(event.pointerId);
-        controller.setTracking(false);
-    };
+        worldStyle: CSSProperties = interactive ? { transform: `translate(${controller.viewport.x}px, ${controller.viewport.y}px) scale(${controller.viewport.zoom})`, transition: isReady && !controller.isTracking ? 'transform 210ms var(--swift-out)' : 'none' } : bounds ? { position: 'relative', width: Math.ceil(bounds.maxX - bounds.minX + padding * 2), height: Math.ceil(bounds.maxY - bounds.minY + padding * 2), transform: `translate(${padding - bounds.minX}px, ${padding - bounds.minY}px)` } : { position: 'relative' },
+        edges = [...controller.edges.values()].filter((edge): edge is FluxFlowEdgeRecord & { spec: FluxFlowEdgeSpec } => Boolean(edge.spec)).sort((a, b) => (a.id === hoveredEdge ? 2 : Number(a.spec.isColored)) - (b.id === hoveredEdge ? 2 : Number(b.spec.isColored)));
+    const labelBoxes = useFlowLabels(labelsRef, edges);
     const keyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-        if (!interactive) return;
-        const amount = event.shiftKey ? 60 : 20;
+        if (!interactive || event.target !== event.currentTarget) return;
+        const amount = event.shiftKey ? 135 : 45;
         if (event.key === '+' || event.key === '=') controller.zoomIn();
         else if (event.key === '-') controller.zoomOut();
-        else if (event.key === '0') controller.resetZoom();
-        else if (event.key === 'ArrowLeft') controller.panBy(amount, 0);
-        else if (event.key === 'ArrowRight') controller.panBy(-amount, 0);
-        else if (event.key === 'ArrowUp') controller.panBy(0, amount);
-        else if (event.key === 'ArrowDown') controller.panBy(0, -amount);
+        else if (event.key === '0') controller.fitView();
+        else if (event.key === 'ArrowLeft') controller.panBounded(amount, 0);
+        else if (event.key === 'ArrowRight') controller.panBounded(-amount, 0);
+        else if (event.key === 'ArrowUp') controller.panBounded(0, amount);
+        else if (event.key === 'ArrowDown') controller.panBounded(0, -amount);
         else return;
         event.preventDefault();
-    };
-    const wheel = (event: WheelEvent<HTMLDivElement>) => {
-        if (!interactive) return;
-        if (event.ctrlKey || event.metaKey) controller.zoomAt(event.clientX, event.clientY, Math.exp(-event.deltaY * 0.002));
-        else controller.panBy(-event.deltaX, -event.deltaY);
     };
     void version;
     return (
         <FlowContext.Provider value={controller}>
-            <div {...props} ref={clip} className={clsx(flowStyles.flow, interactive && flowStyles.isInteractive, dragging.current && flowStyles.isPanning, className)} style={{ ...style, height: interactive ? '100%' : style?.height }} tabIndex={interactive ? (props.tabIndex ?? 0) : props.tabIndex} onKeyDown={keyDown} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerUp} onWheel={wheel}>
+            <div {...props} ref={clip} className={clsx(flowStyles.flow, interactive && flowStyles.isInteractive, isPanning && flowStyles.isPanning, className)} style={{ ...style, height: interactive ? '100%' : style?.height }} tabIndex={interactive ? (props.tabIndex ?? 0) : props.tabIndex} onKeyDown={keyDown}>
                 {background !== 'none' && <div className={clsx(flowStyles.flowBackground, background === 'dots' ? flowStyles.flowBackgroundDots : flowStyles.flowBackgroundGrid)} style={{ backgroundSize: `${gridSize}px ${gridSize}px`, backgroundPosition: interactive ? `${controller.viewport.x}px ${controller.viewport.y}px` : '0 0' }} />}
                 <div className={flowStyles.flowScroll} style={interactive ? { height: '100%', overflow: 'hidden' } : { display: 'flex', justifyContent: 'safe center', overflowX: 'auto', overflowY: 'hidden' }}>
                     <div className={flowStyles.flowWorld} style={worldStyle}>
+                        <svg className={flowStyles.flowEdgesHit} aria-hidden="true">{edges.map(edge => <path key={edge.id} className={connectionStyles.flowConnectionHit} d={edge.spec.path} onPointerEnter={() => setHoveredEdge(edge.id)} onPointerLeave={() => setHoveredEdge(null)}/>)}</svg>
                         <div ref={backdrop} className={flowStyles.flowBackdrop} />
                         {children}
                         <svg className={clsx(flowStyles.flowEdges, edgeLayer === 'under' && flowStyles.isUnder)} aria-hidden="true">
+                            <defs>{labelBoxes.length > 0 && <mask id={maskId} maskUnits="userSpaceOnUse" x={-99999} y={-99999} width={199998} height={199998}>
+                                <rect x={-99999} y={-99999} width={199998} height={199998} fill="#fff"/>
+                                {labelBoxes.map(box => <rect key={box.id} x={box.x} y={box.y} width={box.width} height={box.height} rx={box.height / 2} fill="#000"/>)}
+                            </mask>}</defs>
                             {edges.map((edge) => (
-                                <g key={edge.id} className={clsx(connectionStyles.flowConnectionGroup, !edge.spec.isColored && connectionStyles.isNeutral)} style={edge.spec.styleVars as CSSProperties}>
+                                <g key={edge.id} className={clsx(connectionStyles.flowConnectionGroup, !edge.spec.isColored && connectionStyles.isNeutral, edge.id === hoveredEdge && connectionStyles.isHovered)} style={edge.spec.styleVars as CSSProperties} mask={labelBoxes.length ? `url(#${maskId})` : undefined}>
                                     <path className={clsx(connectionStyles.flowConnectionLine, edge.spec.animated && connectionStyles.isAnimated, edge.spec.dashed && connectionStyles.isDashed, edge.spec.dotted && connectionStyles.isDotted)} d={edge.spec.path} />
                                     {edge.spec.hasProgress && <path className={connectionStyles.flowConnectionProgress} d={edge.spec.path} pathLength={1} />}
-                                    {edge.spec.fromMarkerPath && <path className={connectionStyles[`flowConnectionMarker${capitalize(edge.spec.fromMarkerFill)}`]} d={edge.spec.fromMarkerPath} />}
-                                    {edge.spec.toMarkerPath && <path className={connectionStyles[`flowConnectionMarker${capitalize(edge.spec.toMarkerFill)}`]} d={edge.spec.toMarkerPath} />}
+                                    {edge.spec.fromMarkerPath && <path className={clsx(connectionStyles[`flowConnectionMarker${capitalize(edge.spec.fromMarkerFill)}`], edge.spec.fromActive && connectionStyles.isActive)} d={edge.spec.fromMarkerPath} />}
+                                    {edge.spec.toMarkerPath && <path className={clsx(connectionStyles[`flowConnectionMarker${capitalize(edge.spec.toMarkerFill)}`], edge.spec.toActive && connectionStyles.isActive)} d={edge.spec.toMarkerPath} />}
                                 </g>
                             ))}
                         </svg>
                         <div ref={foreground} className={flowStyles.flowForeground} />
-                        <div className={flowStyles.flowEdgeLabels}>
+                        <div ref={labelsRef} className={flowStyles.flowEdgeLabels}>
                             {edges
                                 .filter((edge) => edge.spec.label || edge.spec.icon)
                                 .map((edge) => (
-                                    <FluxBadge key={edge.id} className={clsx(connectionStyles.flowConnectionBadge, !edge.spec.label && connectionStyles.isBare)} style={{ ...edge.spec.styleVars, left: edge.spec.labelX, top: edge.spec.labelY } as FluxStyle} icon={edge.spec.icon} label={edge.spec.label ?? ''} />
+                                    <FluxBadge data-flow-edge={edge.id} key={edge.id} className={clsx(connectionStyles.flowConnectionBadge, !edge.spec.label && connectionStyles.isBare)} style={{ ...edge.spec.styleVars, left: edge.spec.labelX, top: edge.spec.labelY } as FluxStyle} icon={edge.spec.icon} label={edge.spec.label ?? ''} />
                                 ))}
                         </div>
                     </div>
@@ -427,9 +446,10 @@ export const FluxFlowNode = forwardRef<HTMLDivElement, FluxFlowNodeProps>(functi
     }, [controller, id, position.x, position.y, measurement]);
     useLayoutEffect(() => {
         const link: FluxFlowPlacementLink = {id, size: measurement.size, anchor: measurement.anchor};
-        placement?.registerLink?.(link);
-        return () => placement?.unregisterLink?.(link);
-    }, [id, measurement, placement?.registerLink, placement?.unregisterLink]);
+        if (x === undefined && y === undefined) placement?.registerLink?.(link);
+        else placement?.unregisterLink?.(link);
+    }, [id, measurement, placement?.registerLink, placement?.unregisterLink, x, y]);
+    useLayoutEffect(() => () => placement?.unregisterLink?.({id, size: measurement.size, anchor: measurement.anchor}), [id, placement?.unregisterLink]);
     const nodeContext = useMemo<FluxFlowNodeContext>(
         () => ({
             registerPort(registration) {
@@ -502,27 +522,32 @@ export function FluxFlowConnection(props: FluxFlowConnectionProps) {
         const sourcePort = props.fromPort ? source.ports.get(props.fromPort) : undefined,
             targetPort = props.toPort ? target.ports.get(props.toPort) : undefined,
             [autoFrom, autoTo] = autoSides(source.position, source.size, target.position, target.size, controller.axis),
-            fromSide = props.fromSide ?? (sourcePort ? portSide(sourcePort, source.size) : autoFrom),
-            toSide = props.toSide ?? (targetPort ? portSide(targetPort, target.size) : autoTo);
+            fromSide = source.id === target.id ? props.fromSide ?? props.toSide ?? (controller.axis === 'horizontal' ? 'bottom' : 'right') : props.fromSide ?? (sourcePort ? portSide(sourcePort, source.size) : autoFrom),
+            toSide = source.id === target.id ? props.toSide ?? props.fromSide ?? (controller.axis === 'horizontal' ? 'bottom' : 'right') : props.toSide ?? (targetPort ? portSide(targetPort, target.size) : autoTo);
         let from = sourcePort ? portPoint(source.position, source.size, fromSide, sourcePort.offset) : anchorPoint(source.position, source.size, fromSide, props.fromAlign, source.anchor),
             to = targetPort ? portPoint(target.position, target.size, toSide, targetPort.offset) : anchorPoint(target.position, target.size, toSide, props.toAlign, target.anchor),
             path,
             waypoints = [...(props.waypoints ?? [])];
+        from = offsetPoint(from, fromSide, 9);
+        to = offsetPoint(to, toSide, 9);
         if (source.id === target.id) {
             [from, to] = selfLoopPoints(source.position, source.size, fromSide, toSide);
-            const loop = getSelfLoopPath(from, fromSide, to, toSide, { minX: source.position.x - 15, minY: source.position.y - 15, maxX: source.position.x + source.size.width + 15, maxY: source.position.y + source.size.height + 15 });
+            from = offsetPoint(from, fromSide, 9);
+            to = offsetPoint(to, toSide, 9);
+            const loop = getSelfLoopPath(from, fromSide, to, toSide, { minX: source.position.x - 9, minY: source.position.y - 9, maxX: source.position.x + source.size.width + 9, maxY: source.position.y + source.size.height + 9 });
             path = loop;
             waypoints = [...loop.points];
         } else if (props.type === 'straight') path = getStraightPath(from, to, waypoints, props.labelPlacement);
         else if (props.type === 'bezier') path = getBezierPath(from, fromSide, to, toSide, waypoints, props.labelPlacement);
-        else if (!props.waypoints?.length && collectObstacles(controller.nodes.values(), props.from, props.to).length) path = routeAvoid(from, fromSide, to, toSide, collectObstacles(controller.nodes.values(), props.from, props.to), props.labelPlacement, 15, props.type === 'step' ? 0 : 15);
+        else if (!props.waypoints?.length) path = routeAvoid(from, fromSide, to, toSide, collectObstacles(controller.nodes.values(), props.from, props.to), props.labelPlacement, 15, props.type === 'step' ? 0 : 15);
         else path = props.type === 'step' ? getStepPath(from, fromSide, to, toSide, waypoints, props.labelPlacement) : getSmoothStepPath(from, fromSide, to, toSide, waypoints, props.labelPlacement);
         const fill = (marker: FluxFlowMarker): FluxFlowMarkerFill => (marker === 'arrow' ? 'solid' : marker === 'bar' || marker === 'chevron' || marker === 'none' ? 'stroke' : 'outline'),
-            startMarker = props.markerStart ?? 'none',
-            endMarker = props.markerEnd ?? 'arrow',
-            color = flowColor(props.color),
+            startMarker = props.markerStart ?? 'dot',
+            endMarker = props.markerEnd ?? 'chevron',
+            color = flowColor(props.color, 'var(--flow-line)'),
+            themedColor = props.color && ['gray', 'primary', 'danger', 'info', 'success', 'warning'].includes(props.color),
             progress = Math.min(1, Math.max(0, props.progressValue ?? 0)),
-            spec: FluxFlowEdgeSpec = { path: path.path, labelX: path.labelX, labelY: path.labelY, fromX: from.x, fromY: from.y, toX: to.x, toY: to.y, waypoints: path.points, styleVars: { '--flow-connection-color': color, '--flow-connection-progress-color': flowColor(props.progressColor, color), '--flow-connection-progress': String(progress) }, animated: Boolean(props.animated), dashed: Boolean(props.dashed), dotted: Boolean(props.dotted), fromMarkerPath: markerPath(startMarker, from, path.fromDirection), fromMarkerFill: fill(startMarker), toMarkerPath: markerPath(endMarker, to, path.toDirection), toMarkerFill: fill(endMarker), fromActive: progress > 0, toActive: progress >= 1, hasProgress: props.progressValue !== undefined, isColored: Boolean(props.color), label: props.label, icon: props.icon };
+            spec: FluxFlowEdgeSpec = { path: path.path, labelX: path.labelX, labelY: path.labelY, fromX: from.x, fromY: from.y, toX: to.x, toY: to.y, waypoints, styleVars: { '--connection-color': color, '--connection-marker': color, '--connection-progress-color': flowColor(props.progressColor, 'var(--primary-solid)'), '--connection-progress': String(progress), '--connection-badge-background': !props.color ? 'var(--gray-soft-hover)' : themedColor ? `var(--${props.color}-soft-hover)` : `color-mix(in oklab, ${props.color} 18%, var(--surface))`, '--connection-badge-foreground': !props.color ? 'var(--foreground-prominent)' : themedColor ? `var(--${props.color}-text)` : props.color }, animated: Boolean(props.animated), dashed: Boolean(props.dashed), dotted: Boolean(props.dotted), fromMarkerPath: markerPath(startMarker, from, path.fromDirection), fromMarkerFill: fill(startMarker), toMarkerPath: markerPath(endMarker, to, path.toDirection), toMarkerFill: fill(endMarker), fromActive: progress > 0, toActive: progress >= 1, hasProgress: props.progressValue !== undefined, isColored: Boolean(props.color), label: props.label, icon: props.icon };
         const signature = JSON.stringify(spec);
         if (signature !== registered.current) {
             registered.current = signature;
@@ -542,12 +567,22 @@ function flatten(children: ReactNode): ReactElement[] {
     return result;
 }
 export function FluxFlowGraph({ children, direction = 'vertical', indent, layerGap, nodeGap = 45, trunk, x = 0, y = 0 }: { children?: ReactNode; direction?: FluxFlowDirection; indent?: number; layerGap?: number; nodeGap?: number; trunk?: readonly string[]; x?: number; y?: number }) {
+    const [links, setLinks] = useState<ReadonlyMap<string, FluxFlowPlacementLink>>(() => new Map());
+    const registerLink = useCallback((link: FluxFlowPlacementLink) => setLinks(current => {
+        const previous = current.get(link.id);
+        if (previous?.size.width === link.size.width && previous.size.height === link.size.height && previous.anchor?.x === link.anchor?.x && previous.anchor?.y === link.anchor?.y) return current;
+        return new Map(current).set(link.id, link);
+    }), []);
+    const unregisterLink = useCallback((link: FluxFlowPlacementLink) => setLinks(current => {
+        if (!current.has(link.id)) return current;
+        const next = new Map(current); next.delete(link.id); return next;
+    }), []);
     const items = flatten(children),
-        nodes = items.filter((item) => item.type === FluxFlowNode).map((item) => ({ id: String((item.props as FluxFlowNodeProps).id) })),
+        nodes = [...links.values()].map(link => ({id: link.id, ...link.size, anchor: link.anchor})),
         edges = items.filter((item) => item.type === FluxFlowConnection).map((item) => ({ from: String((item.props as FluxFlowConnectionProps).from), to: String((item.props as FluxFlowConnectionProps).to) })),
         labelled = items.some((item) => item.type === FluxFlowConnection && Boolean((item.props as FluxFlowConnectionProps).label || (item.props as FluxFlowConnectionProps).icon)),
         positions = trunk ? useFlowTrunkLayout(nodes, edges, trunk, { x, y, indent: indent ?? (labelled ? LABELLED_GAP.horizontal : 180), nodeGap, trunkGap: layerGap ?? 60 }).positions : useFlowLayout(nodes, edges, { x, y, direction, layerGap: layerGap ?? (labelled ? LABELLED_GAP[direction] : 60), nodeGap }).positions,
-        placement = useMemo(() => ({ positionOf: (id: string) => positions[id] ?? null }), [positions]);
+        placement = useMemo(() => ({positionOf: (id: string) => positions[id] ?? null, registerLink, unregisterLink}), [positions, registerLink, unregisterLink]);
     return <PlacementContext.Provider value={placement}>{children}</PlacementContext.Provider>;
 }
 export function FluxFlowChain({ align = 'center', autoConnect = true, children, direction = 'vertical', gap = 60, labelGap, x = 0, y = 0 }: { align?: FluxFlowAlign; autoConnect?: boolean; children?: ReactNode; direction?: FluxFlowDirection; gap?: number; labelGap?: number; x?: number; y?: number }) {
@@ -568,7 +603,7 @@ export function FluxFlowChain({ align = 'center', autoConnect = true, children, 
             const next = new Map(current); next.set(link.id, link); return next;
         }), []),
         unregisterLink = useCallback((link: FluxFlowPlacementLink) => setLinks(current => {
-            if (current.get(link.id) !== link) return current;
+            if (!current.has(link.id)) return current;
             const next = new Map(current); next.delete(link.id); return next;
         }), []),
         positions = useMemo(() => {
@@ -704,31 +739,40 @@ export function FluxFlowPanel({ children, offset = 15, position = 'bottom-right'
           )
         : null;
 }
-export function FluxFlowControls({ exitFullscreenLabel = 'Exit fullscreen', fitLabel = 'Fit view', fullscreenLabel = 'Fullscreen', offset, position, zoomInLabel = 'Zoom in', zoomLabel = 'Zoom', zoomOutLabel = 'Zoom out' }: { exitFullscreenLabel?: string; fitLabel?: string; fullscreenLabel?: string; offset?: number; position?: FluxFlowPanelPosition; zoomInLabel?: string; zoomLabel?: string; zoomOutLabel?: string }) {
-    const controller = useInternalFlow(),
-        [fullscreen, setFullscreen] = useState(false);
+const useFlowTranslate = createTranslate(flowEnglish);
+export function FluxFlowControls({exitFullscreenLabel, fitLabel, fullscreenLabel, offset, position, zoomInLabel, zoomLabel, zoomOutLabel}: {exitFullscreenLabel?: string; fitLabel?: string; fullscreenLabel?: string; offset?: number; position?: FluxFlowPanelPosition; zoomInLabel?: string; zoomLabel?: string; zoomOutLabel?: string}) {
+    const controller = useInternalFlow();
+    const translate = useFlowTranslate();
+    const [fullscreen, setFullscreen] = useState(false);
+    const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
     useEffect(() => {
-        const update = () => setFullscreen(document.fullscreenElement === controller.clipElement);
+        setFullscreenAvailable(document.fullscreenEnabled);
+        const update = () => setFullscreen(Boolean(controller.clipElement) && document.fullscreenElement === controller.clipElement);
         document.addEventListener('fullscreenchange', update);
         return () => document.removeEventListener('fullscreenchange', update);
     }, [controller]);
     if (controller.isStatic) return null;
-    const toggle = () => (fullscreen ? document.exitFullscreen?.().catch(() => undefined) : controller.clipElement?.requestFullscreen?.().catch(() => undefined));
-    return (
-        <FluxFlowPanel offset={offset} position={position}>
-            <FluxButtonStack>
-                <FluxButtonGroup aria-label={zoomLabel}>
-                    <FluxSecondaryButton iconLeading="minus" aria-label={zoomOutLabel} onClick={controller.zoomOut} />
-                    <FluxSecondaryButton className={controlsStyles.flowControlsZoom} label={`${Math.round(controller.viewport.zoom * 100)}%`} aria-label={zoomLabel} onClick={() => controller.zoomTo(1)} />
-                    <FluxSecondaryButton iconLeading="plus" aria-label={zoomInLabel} onClick={controller.zoomIn} />
-                </FluxButtonGroup>
-                <FluxButtonGroup>
-                    <FluxSecondaryButton iconLeading="arrows-to-dot" aria-label={fitLabel} onClick={() => controller.fitView()} />
-                    {typeof document !== 'undefined' && document.fullscreenEnabled && <FluxSecondaryButton iconLeading={fullscreen ? 'compress' : 'expand'} aria-label={fullscreen ? exitFullscreenLabel : fullscreenLabel} onClick={toggle} />}
-                </FluxButtonGroup>
-            </FluxButtonStack>
-        </FluxFlowPanel>
-    );
+    const percentage = Math.round(controller.viewport.zoom * 100);
+    const presets = [2, 1.5, 1, 0.75, 0.5].filter(zoom => zoom >= controller.minZoom && zoom <= controller.maxZoom);
+    return <FluxFlowPanel offset={offset} position={position}>
+        <FluxButtonStack>
+            <FluxFlyout label={zoomLabel ?? translate('flux.flow.zoom')} opener={({isOpen, toggle}) => <FluxButtonGroup>
+                <FluxSecondaryButton iconLeading="minus" aria-label={zoomOutLabel ?? translate('flux.flow.zoomOut')} onClick={controller.zoomOut}/>
+                <FluxSecondaryButton className={controlsStyles.flowControlsZoom} label={`${percentage}%`} aria-haspopup="menu" aria-expanded={isOpen} onClick={toggle}/>
+                <FluxSecondaryButton iconLeading="plus" aria-label={zoomInLabel ?? translate('flux.flow.zoomIn')} onClick={controller.zoomIn}/>
+            </FluxButtonGroup>}>
+                {() => <FluxMenu>
+                    <FluxMenuGroup>{presets.map(preset => <FluxMenuItem key={preset} isSelectable isSelected={Math.round(preset * 100) === percentage} label={`${Math.round(preset * 100)}%`} onClick={() => controller.zoomTo(preset)}/>)}</FluxMenuGroup>
+                    <FluxSeparator/>
+                    <FluxMenuGroup><FluxMenuItem iconLeading="arrows-to-dot" label={fitLabel ?? translate('flux.flow.fitView')} onClick={() => controller.fitView()}/></FluxMenuGroup>
+                </FluxMenu>}
+            </FluxFlyout>
+            {fullscreenAvailable && <FluxButtonGroup><FluxSecondaryButton iconLeading={fullscreen ? 'compress' : 'expand'} aria-label={fullscreen ? exitFullscreenLabel ?? translate('flux.flow.exitFullscreen') : fullscreenLabel ?? translate('flux.flow.fullscreen')} onClick={() => {
+                if (fullscreen) document.exitFullscreen().catch(() => undefined);
+                else controller.clipElement?.requestFullscreen().catch(() => undefined);
+            }}/></FluxButtonGroup>}
+        </FluxButtonStack>
+    </FluxFlowPanel>;
 }
 export function FluxFlowMinimap({ height = 120, offset, padding = 9, position, width = 180 }: { height?: number; offset?: number; padding?: number; position?: FluxFlowPanelPosition; width?: number }) {
     const controller = useInternalFlow();
@@ -773,6 +817,14 @@ export function FluxFlowMinimap({ height = 120, offset, padding = 9, position, w
         </FluxFlowPanel>
     );
 }
+function useFlowBox(controller: InternalController, box: {x: number; y: number; width: number; height: number} | null) {
+    const id = useId();
+    useLayoutEffect(() => {
+        controller.registerBox({id, bounds: box ? {minX: box.x, minY: box.y, maxX: box.x + box.width, maxY: box.y + box.height} : null});
+    }, [controller, id, box?.x, box?.y, box?.width, box?.height]);
+    useLayoutEffect(() => () => controller.unregisterBox(id), [controller, id]);
+}
+
 export function FluxFlowGroup({ color, nodes, padding = 21, title }: { color?: FluxColor; nodes: readonly string[]; padding?: number; title?: string }) {
     const controller = useInternalFlow(),
         bounds = boundsOfNodes(
@@ -781,9 +833,10 @@ export function FluxFlowGroup({ color, nodes, padding = 21, title }: { color?: F
                 return node ? [node] : [];
             }),
         );
-    if (!bounds || !controller.backdropElement) return null;
     const band = title ? 60 : 0,
-        box = { x: bounds.minX - padding, y: bounds.minY - padding - band, width: bounds.maxX - bounds.minX + padding * 2, height: bounds.maxY - bounds.minY + padding * 2 + band };
+        box = bounds ? { x: bounds.minX - padding, y: bounds.minY - padding - band, width: bounds.maxX - bounds.minX + padding * 2, height: bounds.maxY - bounds.minY + padding * 2 + band } : null;
+    useFlowBox(controller, box);
+    if (!box || !controller.backdropElement) return null;
     return (
         <>
             {createPortal(<div className={groupStyles.flowGroup} data-color={color} style={{ transform: `translate(${box.x}px, ${box.y}px)`, width: box.width, height: box.height }} />, controller.backdropElement)}
@@ -801,11 +854,12 @@ export function FluxFlowGroup({ color, nodes, padding = 21, title }: { color?: F
 export function FluxFlowLane({ color, height, padding = 21, title, width, x = 0, y = 0 }: { color?: FluxColor; height?: number; padding?: number; title?: string; width?: number; x?: number; y?: number }) {
     const controller = useInternalFlow(),
         bounds = controller.nodeBounds;
-    if (!bounds || !controller.backdropElement) return null;
     const row = height !== undefined,
         gutter = 30,
-        start = row ? bounds.minX - padding - gutter : bounds.minY - padding - gutter,
-        box = row ? { x: start, y, width: bounds.maxX + padding - start, height: height ?? 0 } : { x, y: start, width: width ?? 0, height: bounds.maxY + padding - start };
+        start = bounds ? (row ? bounds.minX - padding - gutter : bounds.minY - padding - gutter) : 0,
+        box = !bounds ? null : row ? { x: start, y, width: bounds.maxX + padding - start, height: height ?? 0 } : { x, y: start, width: width ?? 0, height: bounds.maxY + padding - start };
+    useFlowBox(controller, box);
+    if (!box || !controller.backdropElement) return null;
     return createPortal(
         <div className={laneStyles.flowLane} data-color={color} data-orientation={row ? 'row' : 'column'} style={{ transform: `translate(${box.x}px, ${box.y}px)`, width: box.width, height: box.height }}>
             {title && <span className={laneStyles.flowLaneTitle}>{title}</span>}

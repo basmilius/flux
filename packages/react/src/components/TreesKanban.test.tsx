@@ -42,11 +42,11 @@ describe('tree controls', () => {
         expect(onClick).toHaveBeenCalledWith({ id: 'flux', label: 'Flux' });
     });
 
-    it('searches and changes hierarchical selections', () => {
+    it('searches and changes hierarchical selections', async () => {
         const onValueChange = vi.fn();
         render(<FluxFormTreeViewSelect options={tree} value={null} isSearchable onValueChange={onValueChange} placeholder="Choose" />);
         fireEvent.click(screen.getByRole('combobox'));
-        fireEvent.change(screen.getByRole('searchbox', { name: 'Search' }), { target: { value: 'Flux' } });
+        fireEvent.change(await screen.findByRole('searchbox', { name: 'Search...' }), { target: { value: 'Flux' } });
         fireEvent.click(screen.getByRole('option', { name: /Flux/ }));
         expect(onValueChange).toHaveBeenCalledWith('flux');
     });
@@ -55,8 +55,9 @@ describe('tree controls', () => {
         const onValueChange = vi.fn();
         render(<FluxFormTreeViewSelect options={tree} value={null} onValueChange={onValueChange} placeholder="Choose" />);
         const combobox = screen.getByRole('combobox');
-        fireEvent.keyDown(combobox, {key: 'ArrowDown'});
+        fireEvent.keyDown(combobox, {key: 'Enter'});
         expect(combobox).toHaveAttribute('aria-expanded', 'true');
+        fireEvent.keyDown(combobox, {key: 'ArrowDown'});
         fireEvent.keyDown(combobox, {key: 'Enter'});
         expect(onValueChange).toHaveBeenCalledWith('projects');
     });
@@ -73,6 +74,7 @@ describe('tree controls', () => {
     it('provides a searchable IANA time-zone select', () => {
         render(<FluxFormTimeZonePicker value={null} onValueChange={() => undefined} aria-label="Time zone" placeholder="Select zone" />);
         expect(screen.getByRole('combobox', { name: 'Time zone' })).toBeInTheDocument();
+        fireEvent.click(screen.getByRole('combobox', {name: 'Time zone'}));
         expect(screen.getByRole('searchbox', { name: 'Time zone search' })).toBeInTheDocument();
     });
 });
@@ -97,12 +99,12 @@ describe('Kanban', () => {
         render(
             <FluxKanban onMove={onMove}>
                 <FluxKanbanSwimlane swimlaneId={10} label="Team A"><FluxKanbanColumn columnId="todo" label="Todo"><FluxKanbanItem columnId="todo" itemId="task">Task</FluxKanbanItem></FluxKanbanColumn></FluxKanbanSwimlane>
-                <FluxKanbanSwimlane swimlaneId={20} label="Team B"><FluxKanbanColumn columnId="done" label="Done" /></FluxKanbanSwimlane>
+                <FluxKanbanSwimlane swimlaneId={20} label="Team B"><FluxKanbanColumn columnId="todo" label="Todo" /></FluxKanbanSwimlane>
             </FluxKanban>
         );
         const item = screen.getByRole('listitem');
         fireEvent.keyDown(item, {key: ' '});
-        fireEvent.keyDown(item, {key: 'ArrowRight'});
+        fireEvent.keyDown(item, {key: 'ArrowDown'});
         expect(onMove).toHaveBeenCalledWith(expect.objectContaining({fromSwimlaneId: 10, toSwimlaneId: 20}));
     });
 
@@ -147,6 +149,7 @@ describe('Kanban', () => {
             </FluxKanban>
         );
         fireEvent.click(screen.getByRole('button', { name: 'Collapse group' }));
-        expect(screen.queryByRole('list', { name: 'Todo' })).not.toBeInTheDocument();
+        expect(screen.getByRole('list', {name: 'Todo'}).closest('[data-kanban-swimlane]')).toHaveAttribute('data-kanban-swimlane-collapsed');
+        expect(screen.getByRole('list', {name: 'Todo'})).toBeInTheDocument();
     });
 });

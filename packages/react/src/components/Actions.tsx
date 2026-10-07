@@ -3,7 +3,11 @@ import {type AnchorHTMLAttributes, type ButtonHTMLAttributes, forwardRef, type H
 import type {FluxButtonProps, FluxPressableProps} from '@flux-ui/types/react';
 import type {FluxIconName} from '../types';
 import {resolveTo} from '../types';
+import {useFluxRouting} from '../routing';
 import {FluxIcon} from './Icon';
+import {useFluxDisabled} from './DisplayExtended';
+import {FluxFlex, type FluxFlexProps} from './Layout';
+import flexStyles from '../../../components/src/css/component/Flex.module.scss';
 import {FluxSpinner} from './Feedback';
 import buttonStyles from '~flux/components/css/component/Button.module.scss';
 import baseButtonStyles from '~flux/components/css/component/base/Button.module.scss';
@@ -18,7 +22,9 @@ export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(functio
     {buttonType = 'button', children, componentType = 'none', disabled, href, onClick, onKeyDown, rel, role, tabIndex, target, to, ...props},
     ref
 ) {
-    const resolvedHref = componentType === 'route' ? resolveTo(to) : href;
+    const {router} = useFluxRouting();
+    disabled = useFluxDisabled(disabled);
+    const resolvedHref = componentType === 'route' ? (to && router?.resolve ? router.resolve(to) : resolveTo(to)) : href;
     const blocked = isDangerousUrl(resolvedHref);
     const resolvedRel = rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined);
 
@@ -29,6 +35,10 @@ export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(functio
             return;
         }
         onClick?.(event);
+        if (!event.defaultPrevented && componentType === 'route' && to && router?.navigate && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && (!target || target === '_self')) {
+            event.preventDefault();
+            router.navigate(to);
+        }
     };
 
     if (componentType === 'link' || componentType === 'route') {
@@ -42,6 +52,7 @@ export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(functio
             tabIndex={disabled || blocked ? -1 : tabIndex}
             aria-disabled={disabled || blocked || undefined}
             onClick={handleClick as MouseEventHandler<HTMLAnchorElement>}
+            onKeyDown={onKeyDown as React.KeyboardEventHandler<HTMLAnchorElement>}
         >{children}</a>;
     }
 
@@ -54,6 +65,7 @@ export const FluxPressable = forwardRef<HTMLElement, FluxPressableProps>(functio
             disabled={disabled}
             tabIndex={tabIndex}
             onClick={handleClick as MouseEventHandler<HTMLButtonElement>}
+            onKeyDown={onKeyDown as React.KeyboardEventHandler<HTMLButtonElement>}
         >{children}</button>;
     }
 
@@ -86,8 +98,9 @@ const buttonVariantClasses: Record<ButtonVariant, {button: string; icon: string;
     secondaryLink: {button: buttonStyles.secondaryLinkButton, icon: buttonStyles.secondaryLinkButtonIcon, label: buttonStyles.secondaryLinkButtonLabel}
 };
 
-export function FluxButton({variant = 'secondary', ...props}: FluxButtonProps & {variant?: ButtonVariant}) {
-    const classes = buttonVariantClasses[variant];
+export function FluxButton({variant = 'secondary', cssClass, cssClassActive, cssClassIcon, cssClassLabel, ...props}: FluxButtonProps & {variant?: ButtonVariant; cssClass?: string; cssClassActive?: string; cssClassIcon?: string; cssClassLabel?: string}) {
+    const variantClasses = buttonVariantClasses[variant];
+    const classes = {button: cssClass ?? variantClasses.button, icon: cssClassIcon ?? variantClasses.icon, label: cssClassLabel ?? variantClasses.label};
     const {
         after, before, children, className, disabled, iconLeading, iconTrailing, isActive, isFilled,
         isLoading, isSubmit, label, onClick, size = 'medium', type = 'button', ...pressableProps
@@ -100,12 +113,13 @@ export function FluxButton({variant = 'secondary', ...props}: FluxButtonProps & 
             return;
         }
         onClick?.(event);
+
     };
 
     return (
         <FluxPressable
             {...pressableProps}
-            className={clsx(classes.button, isActive && buttonStyles.isActive, isFilled && baseButtonStyles.isFilled, baseButtonStyles[`is${capitalize(size)}`], className)}
+            className={clsx(classes.button, isActive && (cssClassActive ?? buttonStyles.isActive), isFilled && baseButtonStyles.isFilled, baseButtonStyles[`is${capitalize(size)}`], className)}
             componentType={type}
             buttonType={isSubmit ? 'submit' : 'button'}
             disabled={disabled}
@@ -148,16 +162,12 @@ export function FluxButtonGroup({children, className, ...props}: HTMLAttributes<
     return <div {...props} className={clsx(buttonStyles.buttonGroup, className)} role={props.role ?? 'group'}>{children}</div>;
 }
 
-export function FluxButtonStack({children, className, direction = 'horizontal', gap = 9, isFilled, style, ...props}: HTMLAttributes<HTMLDivElement> & {direction?: 'horizontal' | 'vertical'; gap?: number; isFilled?: boolean}) {
-    return <div
-        {...props}
-        className={className}
-        style={{...style, display: 'flex', width: isFilled ? '100%' : undefined, flexDirection: direction === 'horizontal' ? 'row' : 'column', flexWrap: 'wrap', gap}}
-    >{children}</div>;
+export function FluxButtonStack({className, direction = 'horizontal', gap = 9, isFilled, wrap = 'wrap', ...props}: FluxFlexProps & {isFilled?: boolean}) {
+    return <FluxFlex {...props} className={clsx(isFilled && flexStyles.flexFill, className)} direction={direction} gap={gap} wrap={wrap} />;
 }
 
 function renderIcon(icon: FluxIconName | ReactNode | undefined, className: string, loading: boolean) {
-    if (loading) return <FluxSpinner size={20} />;
+    if (loading) return <FluxSpinner />;
     if (typeof icon === 'string') return <FluxIcon className={className} name={icon} />;
     return icon;
 }

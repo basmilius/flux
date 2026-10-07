@@ -1,11 +1,12 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { blue500, slate950 } from './colors';
 import { FluxFadeTransition, createTranslate, defaultKeyboardGrabAnnounce, getFocusableElements, iban, isFluxFormSelectGroup, isFluxFormSelectOption, useBreakpoints, wrapFocus } from './compatibility';
 
 describe('React compatibility APIs', () => {
     it('translates keys and interpolates parameters', () => {
-        const translate = createTranslate({ greeting: 'Hello {name}' })();
+        const {result} = renderHook(createTranslate({ greeting: 'Hello {name}' }));
+        const translate = result.current;
         expect(translate('greeting', { name: 'Flux' })).toBe('Hello Flux');
         expect(translate('unknown')).toBe('unknown');
     });
@@ -27,7 +28,7 @@ describe('React compatibility APIs', () => {
         expect(screen.getByText('xl')).toBeInTheDocument();
     });
 
-    it('exposes transition, focus, form option, mask, and color helpers', () => {
+    it('exposes transition, focus, form option, mask, and color helpers', async () => {
         const { container, rerender } = render(
             <FluxFadeTransition>
                 <button>Focusable</button>
@@ -39,7 +40,7 @@ describe('React compatibility APIs', () => {
                 <button>Focusable</button>
             </FluxFadeTransition>
         );
-        expect(screen.queryByText('Focusable')).not.toBeInTheDocument();
+        await waitFor(() => expect(screen.queryByText('Focusable')).not.toBeInTheDocument());
 
         expect(isFluxFormSelectGroup({ label: 'Group', options: [] })).toBe(true);
         expect(isFluxFormSelectOption({ label: 'One', value: 1 })).toBe(true);

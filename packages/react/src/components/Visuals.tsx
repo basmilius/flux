@@ -4,7 +4,6 @@ import type { AnimationEventHandler, CSSProperties, HTMLAttributes, ReactElement
 import type { FluxColor, FluxStyle } from '../types';
 import attentionStyles from '../../../visuals/src/css/component/Attention.module.scss';
 import beamStyles from '../../../visuals/src/css/component/BorderBeam.module.scss';
-import highlighterStyles from '../../../visuals/src/css/component/Highlighter.module.scss';
 import noiseStyles from '../../../visuals/src/css/component/Noise.module.scss';
 import numberStyles from '../../../visuals/src/css/component/NumberFlow.module.scss';
 import paneStyles from '../../../visuals/src/css/component/PaneIllustration.module.scss';
@@ -294,66 +293,7 @@ export function FluxVisualFlickeringGrid({ className, color = '#1d4ed8', flicker
     return <canvas {...props} ref={ref} aria-hidden="true" className={clsx(visualStyles.flickeringGrid, className)} />;
 }
 
-export type FluxVisualHighlighterVariant = 'underline' | 'box' | 'circle' | 'highlight' | 'strike-through' | 'crossed-off' | 'bracket';
-interface HighlighterDefaults {
-    animationDuration?: number;
-    color?: string;
-    iterations?: number;
-    multiline?: boolean;
-    padding?: number;
-    strokeWidth?: number;
-    variant?: FluxVisualHighlighterVariant;
-}
-const HighlighterContext = createContext<HighlighterDefaults | null>(null);
-export interface FluxVisualHighlighterHandle {
-    hide(): void;
-    replay(): void;
-    show(): void;
-}
-export const FluxVisualHighlighter = forwardRef<FluxVisualHighlighterHandle, HTMLAttributes<HTMLSpanElement> & HighlighterDefaults & { onHidden?: () => void; onShown?: () => void; whenInView?: boolean }>(function FluxVisualHighlighter({ animationDuration, children, className, color, iterations, multiline, onHidden, onShown, padding, strokeWidth, variant, whenInView, style, ...props }, forwardedRef) {
-    const group = useContext(HighlighterContext),
-        [shown, setShown] = useState(!whenInView),
-        ref = useRef<HTMLSpanElement>(null);
-    const effective = { animationDuration: animationDuration ?? group?.animationDuration ?? 500, color: color ?? group?.color ?? 'var(--warning-border)', iterations: iterations ?? group?.iterations ?? 2, multiline: multiline ?? group?.multiline ?? true, padding: padding ?? group?.padding ?? 2, strokeWidth: strokeWidth ?? group?.strokeWidth ?? 1.5, variant: variant ?? group?.variant ?? 'highlight' };
-    const show = () => {
-            setShown(true);
-            window.setTimeout(() => onShown?.(), reducedMotion() ? 0 : effective.animationDuration);
-        },
-        hide = () => {
-            setShown(false);
-            onHidden?.();
-        };
-    useImperativeHandle(forwardedRef, () => ({
-        hide,
-        replay: () => {
-            hide();
-            requestAnimationFrame(show);
-        },
-        show,
-    }));
-    useEffect(() => {
-        if (!whenInView || !ref.current || typeof IntersectionObserver === 'undefined') {
-            show();
-            return;
-        }
-        const observer = new IntersectionObserver((entries) => entries[0]?.isIntersecting && show(), { threshold: 0.1 });
-        observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, [whenInView]);
-    const decoration: CSSProperties = shown ? (effective.variant === 'highlight' ? { background: `linear-gradient(transparent 45%, ${effective.color} 45%, ${effective.color} 90%, transparent 90%)` } : effective.variant === 'underline' ? { textDecoration: `underline ${effective.strokeWidth}px ${effective.color}`, textUnderlineOffset: effective.padding } : effective.variant === 'strike-through' || effective.variant === 'crossed-off' ? { textDecoration: `line-through ${effective.strokeWidth}px ${effective.color}` } : { outline: `${effective.strokeWidth}px solid ${effective.color}`, outlineOffset: effective.padding, borderRadius: effective.variant === 'circle' ? '50%' : undefined }) : {};
-    return (
-        <span {...props} ref={ref} className={clsx(highlighterStyles.highlighter, className)} style={{ ...style, ...decoration }}>
-            {children}
-        </span>
-    );
-});
-export function FluxVisualHighlighterGroup({ children, className, ...defaults }: HTMLAttributes<HTMLSpanElement> & HighlighterDefaults) {
-    return (
-        <HighlighterContext.Provider value={defaults}>
-            <span className={clsx(highlighterStyles.highlighterGroup, className)}>{children}</span>
-        </HighlighterContext.Provider>
-    );
-}
+export {FluxVisualHighlighter, FluxVisualHighlighterGroup, type FluxVisualHighlighterHandle, type FluxVisualHighlighterVariant} from './Highlighter';
 
 export function FluxVisualNoise({ animated = false, blend = 'overlay', className, opacity = 0.05, ...props }: HTMLAttributes<HTMLDivElement> & { animated?: boolean; blend?: 'normal' | 'multiply' | 'screen' | 'overlay' | 'soft-light' | 'plus-lighter'; opacity?: number }) {
     return <div {...props} aria-hidden="true" className={clsx(noiseStyles.noise, animated && noiseStyles.animated, className)} style={{ ...props.style, '--noise-blend': blend, '--noise-opacity': opacity } as FluxStyle} />;
@@ -463,10 +403,10 @@ export function FluxVisualPing({ color = 'success', duration = 1.4, size = 9 }: 
 }
 
 export interface FluxVisualSlotTextHandle {
-    flash(text: string, options?: { revertAfter?: number }): void;
-    set(text: string): void;
+    flash(text: string, options?: {revertAfter?: number; enter?: Partial<SlotTextOptions>; exit?: Partial<SlotTextOptions>}): void;
+    set(text: string, options?: Partial<SlotTextOptions>): void;
 }
-interface SlotTextOptions {
+export interface SlotTextOptions {
     bounce: number;
     color?: string | ((index: number, total: number) => string);
     colorFade: number;
@@ -483,7 +423,7 @@ interface SlotTextState {
     target: string;
     timers: number[];
 }
-export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?: number; chromatic?: boolean; color?: string; colorFade?: number; direction?: 'up' | 'down'; duration?: number; easing?: string; exitOffset?: number; interrupt?: boolean; skipUnchanged?: boolean; stagger?: number; text: string }>(function FluxVisualSlotText({ bounce = 0.6, chromatic = false, color, colorFade = 280, direction = 'down', duration = 300, easing = 'cubic-bezier(0.34, 1.56, 0.64, 1)', exitOffset = 50, interrupt = true, skipUnchanged = true, stagger = 45, text }, forwardedRef) {
+export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & { bounce?: number; chromatic?: boolean; color?: string; colorFade?: number; direction?: 'up' | 'down'; duration?: number; easing?: string; exitOffset?: number; interrupt?: boolean; skipUnchanged?: boolean; stagger?: number; text: string }>(function FluxVisualSlotText({ bounce = 0.6, chromatic = false, color, colorFade = 280, direction = 'down', duration = 300, easing = 'cubic-bezier(0.34, 1.56, 0.64, 1)', exitOffset = 50, interrupt = true, skipUnchanged = true, stagger = 45, text, className, ...props }, forwardedRef) {
     const label = useRef<HTMLSpanElement>(null),
         initialText = useRef(text),
         previousText = useRef(text),
@@ -548,7 +488,7 @@ export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?
         }
         const fromText = slots.map((slot) => slot.dataset.char ?? '').join(''),
             maxLength = Math.max(fromText.length, toText.length);
-        if (fromText === toText && options.skipUnchanged) return;
+        if (fromText === toText && (options.skipUnchanged || !options.interrupt)) return;
         for (let index = slots.length; index < maxLength; index++) container.append(buildSlot(''));
         slots = Array.from(container.querySelectorAll<HTMLElement>(`.${slotStyles.charSlot}`));
         const sample = slots.find((slot) => (slot.dataset.char ?? '') !== '') ?? slots[0],
@@ -579,12 +519,23 @@ export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?
                 transition = `transform ${characterDuration}ms ${options.easing}`,
                 tint = typeof options.color === 'function' ? options.color(index, maxLength) : options.color,
                 newFace = makeFace(toChar);
+            const oldWidth = slot.getBoundingClientRect().width;
             sizer.textContent = glyph(toChar);
+            const newWidth = sizer.getBoundingClientRect().width;
+            const widthChanges = Math.abs(newWidth - oldWidth) > .5;
+            if (widthChanges) slot.style.width = `${oldWidth}px`;
+            if (fromChar === '' || toChar === '') slot.classList.add(slotStyles.isResizing);
             newFace.style.transformOrigin = '50% 50%';
             newFace.style.transform = `translateY(${inY}px) rotate(${tilt.toFixed(2)}deg)`;
             if (tint) newFace.style.color = tint;
             slot.append(newFace);
             void slot.offsetWidth;
+            if (widthChanges) {
+                const widthDelay = tail ? delay + Math.round(characterDuration * .55) : delay;
+                const widthDuration = tail ? Math.max(140, Math.round(characterDuration * .6)) : fromChar === '' ? Math.max(140, Math.round(characterDuration * .45)) : characterDuration;
+                timers.push(window.setTimeout(() => {slot.style.transition = `width ${widthDuration}ms cubic-bezier(0.2, 0, 0, 1)`; slot.style.width = `${newWidth}px`;}, widthDelay));
+                maxEnd = Math.max(maxEnd, widthDelay + widthDuration);
+            }
             if (oldFace)
                 timers.push(window.setTimeout(() => {
                     oldFace.style.transition = transition;
@@ -594,6 +545,16 @@ export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?
                 newFace.style.transition = options.color ? `${transition}, color ${options.colorFade}ms linear ${characterDuration}ms` : transition;
                 newFace.style.transform = 'translateY(0) rotate(0deg)';
                 if (options.color) newFace.style.color = restColor;
+                const done = (event: TransitionEvent) => {
+                    if (event.propertyName !== 'transform') return;
+                    newFace.removeEventListener('transitionend', done);
+                    slot.dataset.char = toChar;
+                    slot.style.removeProperty('transition');
+                    slot.style.removeProperty('width');
+                    slot.classList.remove(slotStyles.isResizing);
+                    slot.querySelectorAll(`.${slotStyles.charFace}`).forEach(face => {if (face !== newFace) face.remove();});
+                };
+                newFace.addEventListener('transitionend', done);
             }, delay + options.exitOffset));
             maxEnd = Math.max(maxEnd, delay + options.exitOffset + characterDuration + (options.color ? options.colorFade : 0));
         }
@@ -604,12 +565,12 @@ export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?
             if (pending) animate(container, pending.text, pending.options);
         }, maxEnd + 80));
     };
-    const set = (next: string) => {
+    const set = (next: string, options: Partial<SlotTextOptions> = {}) => {
         if (!label.current) return;
         window.clearTimeout(revertTimer.current);
         restingText.current = undefined;
         label.current.setAttribute('aria-label', next);
-        animate(label.current, next, baseOptions());
+        animate(label.current, next, {...baseOptions(), ...options});
     };
     useLayoutEffect(() => {
         if (label.current) build(label.current, text);
@@ -630,17 +591,17 @@ export const FluxVisualSlotText = forwardRef<FluxVisualSlotTextHandle, { bounce?
             if (!container) return;
             if (restingText.current === undefined) restingText.current = text;
             container.setAttribute('aria-label', next);
-            animate(container, next, { ...baseOptions(), interrupt: false });
+            animate(container, next, {...baseOptions(), interrupt: false, ...options?.enter});
             window.clearTimeout(revertTimer.current);
             revertTimer.current = window.setTimeout(() => {
                 const resting = restingText.current ?? text;
                 restingText.current = undefined;
                 container.setAttribute('aria-label', resting);
-                animate(container, resting, { ...baseOptions(), interrupt: false });
+                animate(container, resting, {...baseOptions(), interrupt: false, ...options?.exit});
             }, options?.revertAfter ?? 1400);
         }
     }));
-    return <span ref={label} className={slotStyles.slotText} aria-label={text}>{initialText.current}</span>;
+    return <span {...props} ref={label} className={clsx(slotStyles.slotText, className)} aria-label={text}>{initialText.current}</span>;
 });
 export interface FluxVisualTextScrambleHandle {
     replay(): void;

@@ -13,7 +13,8 @@ describe('flow geometry and layout', () => {
         expect(markerPath('arrow', { x: 10, y: 10 }, [1, 0])).toContain('Z');
         const routed = routeAvoid({ x: 0, y: 0 }, 'right', { x: 100, y: 0 }, 'left', [{ minX: 40, minY: -10, maxX: 60, maxY: 10 }]);
         expect(routed.path).toContain('M 0 0');
-        expect(routed.points.some((point) => point.x > 60)).toBe(true);
+        expect(routed.path).not.toBe('M 0 0 L 100 0');
+        expect(routed.path).toMatch(/-\d/);
     });
 
     it('lays out layered and trunk graphs deterministically', () => {

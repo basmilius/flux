@@ -1,19 +1,22 @@
+import {useItemControl} from './Composition';
+import {useFluxTranslate} from '../i18n';
 import {clsx} from 'clsx';
 import {createContext, forwardRef, useContext, useId, useRef, useState} from 'react';
 import type {ChangeEvent, FieldsetHTMLAttributes, FormHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes} from 'react';
 import type {FluxIconName, FluxStyle} from '../types';
 import {FluxIcon} from './Icon';
+import {useFluxCheckboxGroup} from './AdvancedForms';
 import {FluxSpinner} from './Feedback';
-import {useFluxDisabled} from './DisplayExtended';
+import {FluxDisabled, useFluxDisabled} from './DisplayExtended';
 import formStyles from '../../../components/src/css/component/Form.module.scss';
 
-interface FieldContextValue {
+export interface FieldContextValue {
     describedBy?: string;
     error?: string;
     id: string;
 }
 
-const FieldContext = createContext<FieldContextValue | undefined>(undefined);
+export const FieldContext = createContext<FieldContextValue | undefined>(undefined);
 
 export function useFluxFormField() {
     return useContext(FieldContext);
@@ -70,9 +73,12 @@ export interface FluxFormInputProps extends Omit<InputHTMLAttributes<HTMLInputEl
     isSecondary?: boolean;
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
     onValueChange?: (value: string | number | null) => void;
+    onShowPicker?: () => void;
 }
 
-export const FluxFormInput = forwardRef<HTMLInputElement, FluxFormInputProps>(function FluxFormInput({className, disabled, error, iconLeading, iconTrailing, isCondensed, isLoading, isReadonly, isSecondary, onChange, onValueChange, readOnly, type = 'text', ...props}, ref) {
+export const FluxFormInput = forwardRef<HTMLInputElement, FluxFormInputProps>(function FluxFormInput({className, disabled, error, iconLeading, iconTrailing, isCondensed, isLoading, isReadonly, isSecondary, onChange, onKeyDown, onShowPicker, onValueChange, readOnly, type = 'text', ...props}, ref) {
+    const translate = useFluxTranslate();
+
     const field = useContext(FieldContext);
     const scopedDisabled = useFluxDisabled(disabled);
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -96,14 +102,16 @@ export const FluxFormInput = forwardRef<HTMLInputElement, FluxFormInputProps>(fu
             aria-disabled={scopedDisabled || undefined}
             aria-invalid={Boolean(error || field?.error) || undefined}
             onChange={handleChange}
+            onKeyDown={event => {onKeyDown?.(event); if (!event.defaultPrevented && !isReadonly && !readOnly && event.key === ' ' && ['date', 'datetime-local', 'month', 'week'].includes(type)) {event.preventDefault(); if (onShowPicker) onShowPicker(); else event.currentTarget.showPicker?.();}}}
         />
-        {iconLeading && <FluxIcon className={formStyles.formInputIconLeading} name={iconLeading} size={18} />}
-        {type === 'password' ? <button type="button" className={formStyles.formInputIconPasswordToggle} aria-label="Toggle password visibility" aria-pressed={passwordVisible} disabled={scopedDisabled} onClick={() => setPasswordVisible(value => !value)}><FluxIcon name={passwordVisible ? 'eye-slash' : 'eye'} size={18} /></button> : iconTrailing ? <FluxIcon className={formStyles.formInputIconTrailing} name={iconTrailing} size={18} /> : null}
-        {isLoading && <FluxSpinner className={formStyles.formInputIconTrailing} size={18} />}
+        {iconLeading && <FluxIcon className={formStyles.formInputIconLeading} name={iconLeading} size={15} />}
+        {type === 'password' ? <button type="button" className={formStyles.formInputIconPasswordToggle} aria-label={translate('flux.togglePasswordVisibility')} aria-pressed={passwordVisible} disabled={scopedDisabled} onClick={() => setPasswordVisible(value => !value)}><FluxIcon name={passwordVisible ? 'eye-slash' : 'eye'} size={15} /></button> : iconTrailing ? <FluxIcon className={formStyles.formInputIconTrailing} name={iconTrailing} size={15} /> : null}
+        {isLoading && <FluxSpinner className={formStyles.formInputIconTrailing} size={15} />}
     </div>;
 });
 
 export interface FluxFormTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+    isLoading?: boolean;
     error?: string | boolean;
     isCondensed?: boolean;
     isReadonly?: boolean;
@@ -111,7 +119,7 @@ export interface FluxFormTextAreaProps extends TextareaHTMLAttributes<HTMLTextAr
     onValueChange?: (value: string) => void;
 }
 
-export const FluxFormTextArea = forwardRef<HTMLTextAreaElement, FluxFormTextAreaProps>(function FluxFormTextArea({className, disabled, error, isCondensed, isReadonly, isSecondary, onChange, onValueChange, readOnly, rows = 3, style, ...props}, ref) {
+export const FluxFormTextArea = forwardRef<HTMLTextAreaElement, FluxFormTextAreaProps>(function FluxFormTextArea({className, disabled, error, isCondensed, isLoading: _isLoading, isReadonly, isSecondary, onChange, onValueChange, readOnly, rows = 3, style, ...props}, ref) {
     const field = useContext(FieldContext);
     const scopedDisabled = useFluxDisabled(disabled);
     return <textarea
@@ -140,9 +148,20 @@ export interface FluxFormCheckboxProps extends Omit<InputHTMLAttributes<HTMLInpu
     subLabel?: ReactNode;
 }
 
-export const FluxFormCheckbox = forwardRef<HTMLInputElement, FluxFormCheckboxProps>(function FluxFormCheckbox({checked = false, className, disabled, error, isReadonly, label, onCheckedChange, subLabel, ...props}, forwardedRef) {
+export const FluxFormCheckbox = forwardRef<HTMLInputElement, FluxFormCheckboxProps>(function FluxFormCheckbox({checked = false, className, disabled, error, isReadonly, label, onCheckedChange, subLabel, value, ...props}, forwardedRef) {
     const field = useContext(FieldContext);
     const scopedDisabled = useFluxDisabled(disabled);
+    const group = useFluxCheckboxGroup();
+    const grouped = group && (typeof value === 'string' || typeof value === 'number');
+    const generatedId = useId();
+    if (grouped) {
+        checked = group.has(value);
+        isReadonly = isReadonly || group.isReadonly;
+        error = group.error;
+    }
+    const id = props.id ?? (grouped ? generatedId : field?.id ?? generatedId);
+    const Tag = useItemControl(id) ? 'span' : 'label';
+    const groupDisabled = scopedDisabled || Boolean(group?.disabled);
     const localRef = useRef<HTMLInputElement | null>(null);
     const setRef = (node: HTMLInputElement | null) => {
         localRef.current = node;
@@ -151,24 +170,25 @@ export const FluxFormCheckbox = forwardRef<HTMLInputElement, FluxFormCheckboxPro
         else if (forwardedRef) forwardedRef.current = node;
     };
 
-    return <label className={clsx(formStyles.formCheckbox, scopedDisabled && formStyles.isDisabled, isReadonly && formStyles.isReadonly, (error || field?.error) && formStyles.isInvalid, className)}>
+    return <Tag className={clsx(formStyles.formCheckbox, groupDisabled && formStyles.isDisabled, isReadonly && formStyles.isReadonly, (error || field?.error) && formStyles.isInvalid, className)}>
         <input
             {...props}
             ref={setRef}
             type="checkbox"
             className={formStyles.formCheckboxNative}
-            id={props.id ?? field?.id}
+            id={id}
+            value={value}
             checked={checked === true}
-            disabled={scopedDisabled}
+            disabled={groupDisabled}
             aria-describedby={props['aria-describedby'] ?? field?.describedBy}
             aria-readonly={isReadonly || undefined}
             aria-invalid={Boolean(error || field?.error) || undefined}
             onClick={event => {if (isReadonly) event.preventDefault(); props.onClick?.(event);}}
-            onChange={event => {if (!isReadonly && !scopedDisabled) onCheckedChange?.(event.target.checked);}}
+            onChange={event => {if (!isReadonly && !groupDisabled) {if (grouped) group.toggle(value); else onCheckedChange?.(event.target.checked);};}}
         />
         <span aria-hidden="true" className={formStyles.formCheckboxElement}><FluxIcon name={checked === null ? 'minus' : 'check'} size={12} /></span>
         {(label || subLabel) && <span className={formStyles.formCheckboxText}>{label && <span className={formStyles.formCheckboxLabel}>{label}</span>}{subLabel && <span className={formStyles.formCheckboxSubLabel}>{subLabel}</span>}</span>}
-    </label>;
+    </Tag>;
 });
 
 export interface FluxToggleProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'checked' | 'onChange' | 'type'> {
@@ -180,16 +200,19 @@ export interface FluxToggleProps extends Omit<InputHTMLAttributes<HTMLInputEleme
     onCheckedChange?: (checked: boolean) => void;
 }
 
-export function FluxToggle({checked = false, className, disabled, error, iconOff, iconOn, isReadonly, onCheckedChange, ...props}: FluxToggleProps) {
+export function FluxToggle({checked = false, children: _children, className, disabled, error, iconOff, iconOn, isReadonly, onCheckedChange, ...props}: FluxToggleProps) {
     const field = useContext(FieldContext);
+    const generated = useId();
+    const id = props.id ?? field?.id ?? generated;
+    const Tag = useItemControl(id) ? 'span' : 'label';
     const scopedDisabled = useFluxDisabled(disabled);
-    return <label className={clsx(formStyles.formToggle, checked && formStyles.isChecked, scopedDisabled && formStyles.isDisabled, isReadonly && formStyles.isReadonly, (error || field?.error) && formStyles.isInvalid, className)}>
-        {iconOff && <FluxIcon className={formStyles.formToggleIconOff} name={iconOff} size={14} />}
-        {iconOn && <FluxIcon className={formStyles.formToggleIconOn} name={iconOn} size={14} />}
+    return <Tag className={clsx(formStyles.formToggle, checked && formStyles.isChecked, scopedDisabled && formStyles.isDisabled, isReadonly && formStyles.isReadonly, (error || field?.error) && formStyles.isInvalid, className)}>
+        {iconOff && <FluxIcon className={formStyles.formToggleIconOff} name={iconOff} size={12} />}
+        {iconOn && <FluxIcon className={formStyles.formToggleIconOn} name={iconOn} size={12} />}
         <input
             {...props}
             className={formStyles.formToggleInput}
-            id={props.id ?? field?.id}
+            id={id}
             type="checkbox"
             role="switch"
             checked={checked}
@@ -201,11 +224,12 @@ export function FluxToggle({checked = false, className, disabled, error, iconOff
             onClick={event => {if (isReadonly) event.preventDefault(); props.onClick?.(event);}}
             onChange={event => {if (!isReadonly && !scopedDisabled) onCheckedChange?.(event.target.checked);}}
         />
-    </label>;
+    </Tag>;
 }
 
-export function FluxForm(props: FormHTMLAttributes<HTMLFormElement>) {
-    return <form {...props} className={clsx(formStyles.form, props.className)} />;
+export function FluxForm({disabled, ...props}: FormHTMLAttributes<HTMLFormElement> & {disabled?: boolean}) {
+    const isDisabled = useFluxDisabled(disabled);
+    return <FluxDisabled disabled={isDisabled}><form {...props} className={clsx(formStyles.form, props.className)} /></FluxDisabled>;
 }
 
 export function FluxFormRow(props: HTMLAttributes<HTMLDivElement>) {

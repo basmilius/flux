@@ -163,7 +163,7 @@ export interface FluxStatisticsChartGaugeSeries {
     readonly color?: FluxStatisticsChartColor;
     readonly icon?: FluxIconName;
 }
-export type FluxTo = string | { pathname?: string; search?: string; hash?: string };
+export type FluxTo = string | { pathname?: string; path?: string; name?: string | symbol; params?: Record<string, string | number>; query?: Record<string, string | number | null | undefined>; search?: string; hash?: string };
 export type FluxElementType = ElementType;
 export interface FluxFocalPointObject {
     x: number;
@@ -182,7 +182,8 @@ export function resolveTo(to: FluxTo | undefined): string | undefined {
         return to;
     }
 
-    return `${to.pathname ?? ''}${to.search ?? ''}${to.hash ?? ''}` || undefined;
+    const query = to.query ? new URLSearchParams(Object.entries(to.query).filter(([, value]) => value != null).map(([key, value]) => [key, String(value)])).toString() : '';
+    return `${to.pathname ?? to.path ?? ''}${to.search ?? (query ? `?${query}` : '')}${to.hash ?? ''}` || undefined;
 }
 
 export function toCssSize(value: number | string | undefined): string | undefined {

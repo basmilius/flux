@@ -1,10 +1,13 @@
+import {useFluxTranslate} from '../i18n';
+import {FluxFadeTransition} from './Transitions';
 import {clsx} from 'clsx';
-import {Children, cloneElement, isValidElement, useEffect, useMemo, useRef, useState} from 'react';
+import {Children, cloneElement, forwardRef, useCallback, isValidElement, useEffect, useMemo, useRef, useState} from 'react';
 import type {HTMLAttributes, ReactElement, ReactNode} from 'react';
 import type {FluxColor, FluxIconName, FluxPressableType, FluxSize, FluxStyle, FluxTo} from '../types';
 import {FluxPressable} from './Actions';
 import {FluxSpinner} from './Feedback';
 import {FluxIcon} from './Icon';
+import {FluxFlex} from './Layout';
 import paneStyles from '../../../components/src/css/component/Pane.module.scss';
 import badgeStyles from '../../../components/src/css/component/Badge.module.scss';
 import avatarStyles from '../../../components/src/css/component/Avatar.module.scss';
@@ -20,8 +23,9 @@ export interface FluxPaneProps extends HTMLAttributes<HTMLDivElement> {
     variant?: 'default' | 'flat' | 'well';
 }
 
-export function FluxPane({children, className, isLoading, loader, style, tag, variant = 'default', ...props}: FluxPaneProps) {
+export const FluxPane = forwardRef<HTMLDivElement, FluxPaneProps>(function FluxPane({children, className, isLoading, loader, style, tag, variant = 'default', ...props}, forwardedRef) {
     const paneRef = useRef<HTMLDivElement>(null);
+    const setPaneRef = useCallback((element: HTMLDivElement | null) => {paneRef.current = element; if (typeof forwardedRef === 'function') forwardedRef(element); else if (forwardedRef) forwardedRef.current = element;}, [forwardedRef]);
     const [headerHeight, setHeaderHeight] = useState<number>();
 
     useEffect(() => {
@@ -43,16 +47,16 @@ export function FluxPane({children, className, isLoading, loader, style, tag, va
     return (
         <div
             {...props}
-            ref={paneRef}
+            ref={setPaneRef}
             className={clsx(paneStyles[`pane${capitalize(variant)}`], className)}
             style={{...style, '--flux-pane-header-height': headerHeight ? `${headerHeight}px` : undefined} as FluxStyle}
         >
             {children}
-            {isLoading && (loader ?? <div className={paneStyles.paneLoader}><FluxSpinner /></div>)}
+            <FluxFadeTransition show={Boolean(isLoading)}>{loader ?? <div className={paneStyles.paneLoader}><FluxSpinner /></div>}</FluxFadeTransition>
             {tag && <div className={paneStyles.paneTag}>{tag}</div>}
         </div>
     );
-}
+});
 
 export interface FluxPaneHeaderProps extends HTMLAttributes<HTMLDivElement> {
     after?: ReactNode;
@@ -65,7 +69,7 @@ export interface FluxPaneHeaderProps extends HTMLAttributes<HTMLDivElement> {
 export function FluxPaneHeader({after, before, children, className, icon, subtitle, title, ...props}: FluxPaneHeaderProps) {
     return <div {...props} className={clsx(paneStyles.paneHeader, className)} data-flux-pane-header="">
         {before}
-        {icon && <FluxIcon className={paneStyles.paneHeaderIcon} size={20} name={icon} />}
+        {icon && <FluxIcon className={paneStyles.paneHeaderIcon} size={18} name={icon} />}
         {(title || subtitle) && <div className={paneStyles.paneHeaderCaption}>{title && <strong>{title}</strong>}{subtitle && <span>{subtitle}</span>}</div>}
         {children}
         {after}
@@ -114,7 +118,10 @@ export function FluxTag(props: FluxLabelProps) {
     return <FluxLabel {...props} kind="tag" />;
 }
 
-function FluxLabel({className, color = 'gray', colored, deleteLabel = 'Delete', dot, href, icon, isDeletable, isKeyboardShortcut, isLoading, kind, label, onClick, onDelete, rel, size = 'medium', target, to, type = 'none', ...props}: FluxLabelProps & {kind: 'badge' | 'tag'}) {
+function FluxLabel({className, color = 'gray', colored, deleteLabel, dot, href, icon, isDeletable, isKeyboardShortcut, isLoading, kind, label, onClick, onDelete, rel, size = 'medium', target, to, type = 'none', ...props}: FluxLabelProps & {kind: 'badge' | 'tag'}) {
+    const translate = useFluxTranslate();
+    deleteLabel ??= translate('flux.delete');
+
     const styles = badgeStyles;
     const prefix = kind;
     const classes = clsx(
@@ -134,21 +141,24 @@ function FluxLabel({className, color = 'gray', colored, deleteLabel = 'Delete', 
 }
 
 export function FluxBadgeStack(props: HTMLAttributes<HTMLDivElement>) {
-    return <div {...props} className={clsx(props.className)} style={{...props.style, display: 'flex', flexWrap: 'wrap', gap: 6}} />;
+    return <FluxFlex direction="horizontal" gap={6} wrap="wrap" {...props}/>;
 }
 
 export function FluxTagStack(props: HTMLAttributes<HTMLDivElement>) {
     return <FluxBadgeStack {...props} />;
 }
 
-const fallbackColors = ['#65a30d', '#16a34a', '#059669', '#0d9488', '#0891b2', '#0284c7', '#2563eb', '#4f46e5', '#7c3aed', '#9333ea', '#c026d3', '#db2777', '#e11d48', '#dc2626', '#ea580c', '#d97706', '#ca8a04'];
+const defaultFallbackColors = ['#65a30d', '#16a34a', '#059669', '#0d9488', '#0891b2', '#0284c7', '#2563eb', '#4f46e5', '#7c3aed', '#9333ea', '#c026d3', '#db2777', '#e11d48', '#dc2626', '#ea580c', '#d97706', '#ca8a04'];
 
 export interface FluxAvatarProps extends Omit<HTMLAttributes<HTMLElement>, 'color' | 'onClick'> {
     alt?: string;
     fallback?: 'colorized' | 'neutral';
+    fallbackColors?: string[];
     fallbackIcon?: FluxIconName;
     fallbackInitials?: string;
     href?: string;
+    target?: string;
+    to?: FluxTo;
     isLoading?: boolean;
     onClick?: React.MouseEventHandler<HTMLElement>;
     size?: number;
@@ -158,7 +168,7 @@ export interface FluxAvatarProps extends Omit<HTMLAttributes<HTMLElement>, 'colo
     type?: FluxPressableType;
 }
 
-export function FluxAvatar({alt, className, fallback = 'colorized', fallbackIcon = 'user', fallbackInitials, isLoading, onClick, size, src, status, statusIcon, style, type = 'none', ...props}: FluxAvatarProps) {
+export function FluxAvatar({alt, className, fallback = 'colorized', fallbackColors = defaultFallbackColors, fallbackIcon = 'user', fallbackInitials, isLoading, onClick, size, src, status, statusIcon, style, type = 'none', ...props}: FluxAvatarProps) {
     const [hasError, setHasError] = useState(false);
     useEffect(() => setHasError(false), [src]);
     const color = useMemo(() => {
@@ -166,7 +176,7 @@ export function FluxAvatar({alt, className, fallback = 'colorized', fallbackIcon
         let seed = 6;
         for (let index = 0; index < source.length; index++) seed ^= source.charCodeAt(index);
         return fallbackColors[seed % fallbackColors.length];
-    }, [fallbackIcon, fallbackInitials]);
+    }, [fallbackColors, fallbackIcon, fallbackInitials]);
 
     return <FluxPressable
         {...props}
@@ -178,7 +188,7 @@ export function FluxAvatar({alt, className, fallback = 'colorized', fallbackIcon
         onClick={onClick}
     >
         {src && !hasError ? <img className={avatarStyles.avatarImage} alt={alt ?? ''} src={src} onError={() => setHasError(true)} /> : <div className={fallback === 'colorized' ? avatarStyles.avatarFallbackColorized : avatarStyles.avatarFallbackNeutral}>{fallbackInitials ? <span>{fallbackInitials}</span> : <FluxIcon name={fallbackIcon} />}</div>}
-        {isLoading && <div className={avatarStyles.avatarLoading}><FluxSpinner /></div>}
+        <FluxFadeTransition show={Boolean(isLoading)}><div className={avatarStyles.avatarLoading}><FluxSpinner /></div></FluxFadeTransition>
         {status && (statusIcon ? <FluxIcon className={avatarStyles.avatarStatusIcon} color={status} name={statusIcon} size="0.36em" /> : <div className={avatarStyles[`avatarStatus${capitalize(status)}`]} />)}
     </FluxPressable>;
 }
@@ -211,17 +221,19 @@ export interface FluxNoticeProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 }
 
 export function FluxNotice({children, className, color = 'gray', end, icon, isCenter, isCloseable, isFluid, isLoading, message, onClose, title, ...props}: FluxNoticeProps) {
+    const translate = useFluxTranslate();
+
     const role = color === 'danger' || color === 'warning' ? 'alert' : 'status';
     return <div {...props} className={clsx(noticeStyles[`notice${capitalize(color)}`], isCenter && noticeStyles.isCenter, isFluid && noticeStyles.isFluid, className)} role={role} aria-live={role === 'alert' ? 'assertive' : 'polite'}>
         {isLoading ? <FluxSpinner className={noticeStyles.noticePrefix} color={color} /> : icon ? <FluxIcon className={noticeStyles.noticePrefix} name={icon} /> : null}
         <div className={noticeStyles.noticeBody}>{title && <p className={noticeStyles.noticeTitle}>{title}</p>}{message && <p className={noticeStyles.noticeMessage}>{message}</p>}{children}</div>
         {end}
-        {isCloseable && <button className={noticeStyles.noticeClose} type="button" aria-label="Close" onClick={onClose}><FluxIcon name="xmark" /></button>}
+        {isCloseable && <button className={noticeStyles.noticeClose} type="button" aria-label={translate('flux.close')} onClick={onClose}><FluxIcon name="xmark" /></button>}
     </div>;
 }
 
-export function FluxInfo({children, className, color = 'gray', icon, ...props}: Omit<HTMLAttributes<HTMLDivElement>, 'color'> & {color?: FluxColor; icon?: FluxIconName}) {
-    return <div {...props} className={clsx(infoStyles.info, infoStyles[`info${capitalize(color)}`], className)}>{icon && <FluxIcon className={infoStyles.infoIcon} name={icon} />}<div className={infoStyles.infoBody}>{children}</div></div>;
+export function FluxInfo({children, className, color, icon, ...props}: Omit<HTMLAttributes<HTMLDivElement>, 'color'> & {color?: FluxColor; icon?: FluxIconName}) {
+    return <div {...props} className={clsx(infoStyles.info, color && infoStyles[`info${capitalize(color)}`], className)}>{icon && <FluxIcon className={infoStyles.infoIcon} name={icon} />}<div className={infoStyles.infoBody}>{children}</div></div>;
 }
 
 export interface FluxPlaceholderProps extends HTMLAttributes<HTMLDivElement> {

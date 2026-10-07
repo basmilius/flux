@@ -1,5 +1,7 @@
+import {useFluxTranslate} from '../i18n';
 import { clsx } from 'clsx';
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import {FluxRouterProvider, useFluxRouting, type FluxRouter} from '../routing';
+import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
 import type { FluxApplicationLayout } from '@flux-ui/types/application';
 import type { FluxColor, FluxIconName, FluxPressableType, FluxTo } from '../types';
@@ -10,6 +12,7 @@ import { FluxMenu, FluxMenuGroup, FluxMenuItem } from './Menus';
 import { FluxFlyout } from './Overlays';
 import { FluxTabBar } from './Navigation';
 import { FluxIcon } from './Icon';
+import {FluxFadeTransition, FluxRouteTransition} from './Transitions';
 import applicationStyles from '../../../application/src/css/component/Application.module.scss';
 import contentStyles from '../../../application/src/css/component/ApplicationContent.module.scss';
 import heroStyles from '../../../application/src/css/component/ApplicationHero.module.scss';
@@ -32,17 +35,16 @@ export interface FluxApplicationContextInfo {
     type?: FluxPressableType;
 }
 export interface FluxApplicationRouteRecord {
+    name?: string | symbol;
     components?: Record<string, ComponentType | ReactNode>;
     path: string;
 }
 export interface FluxApplicationRoute {
+    path?: string;
     fullPath?: string;
     matched?: FluxApplicationRouteRecord[];
 }
-export interface FluxApplicationRouter {
-    back(): void;
-    navigate?(to: FluxTo): void;
-}
+export interface FluxApplicationRouter extends FluxRouter {}
 export interface NamedRouteMatch {
     depth: number;
     record: FluxApplicationRouteRecord;
@@ -78,13 +80,17 @@ export function useApplicationInjection() {
     return context;
 }
 export function useRoute() {
-    return useContext(FluxApplicationInjectionKey)?.route ?? null;
+    const application = useContext(FluxApplicationInjectionKey);
+    const routing = useFluxRouting();
+    return application?.route ?? routing.route;
 }
 export function useRouter() {
-    return useContext(FluxApplicationInjectionKey)?.router ?? null;
+    const application = useContext(FluxApplicationInjectionKey);
+    const routing = useFluxRouting();
+    return application?.router ?? routing.router;
 }
 export function useNamedRoutes(name = 'menu'): NamedRouteMatch[] {
-    const route = useRoute();
+    const route = useRoute() as FluxApplicationRoute | null;
     return (route?.matched ?? []).flatMap((record, depth) => (record.components && name in record.components ? [{ depth, record }] : []));
 }
 export function useApplicationContextMenu(name = 'menu') {
@@ -105,7 +111,8 @@ export function useApplicationMenu() {
 }
 export function useApplicationContextRegistration(info: Omit<FluxApplicationContextInfo, 'id'>) {
     const context = useApplicationInjection();
-    const id = useRef(Symbol('application-context'));
+    const identity = useId();
+    const id = useRef(Symbol(identity));
     useEffect(() => {
         context.pushContext({ ...info, id: id.current });
         return () => context.removeContext(id.current);
@@ -179,14 +186,14 @@ export function FluxApplication({ children, className, contextMenuName = 'menu',
         [contexts, isMenuCollapsed, layout, route, router, showDesktopMenuToggle, totalLevels, viewIndex]
     );
     return (
-        <FluxApplicationInjectionKey.Provider value={context}>
+        <FluxRouterProvider route={route} router={router}><FluxApplicationInjectionKey.Provider value={context}>
             <div {...props} className={clsx(applicationStyles.application, className)}>
                 {menu}
                 <div className={applicationStyles.applicationBody}>{children}</div>
                 {side}
                 <button type="button" aria-label="Close menu" className={applicationStyles.applicationMenuBackdrop} onClick={context.close} />
             </div>
-        </FluxApplicationInjectionKey.Provider>
+        </FluxApplicationInjectionKey.Provider></FluxRouterProvider>
     );
 }
 
@@ -234,13 +241,15 @@ export function FluxApplicationMenuAccount({ avatar, icon, imageAlt, imageSrc, l
         <FluxMenuItem className={menuStyles.applicationMenuAccount} before={avatar} iconLeading={icon} imageAlt={imageAlt} imageSrc={imageSrc} label={label} />
     );
 }
-export function FluxApplicationMenuContext(props: { entryTo?: FluxTo; href?: string; icon?: FluxIconName; rel?: string; subtitle?: string; tabIndex?: number; target?: string; title: string; to?: FluxTo; type?: FluxPressableType }) {
+export function FluxApplicationMenuContext(props: { onClick?: React.MouseEventHandler<HTMLElement>; entryTo?: FluxTo; href?: string; icon?: FluxIconName; rel?: string; subtitle?: string; tabIndex?: number; target?: string; title: string; to?: FluxTo; type?: FluxPressableType }) {
+    const translate = useFluxTranslate();
+
     const application = useApplicationInjection();
     useApplicationContextRegistration(props);
     const canSlide = application.viewIndex > 0 && !(props.type && props.to);
     return (
         <div className={menuStyles.applicationMenuContext}>
-            <FluxSecondaryButton iconLeading="angle-left" size="small" tabIndex={props.tabIndex} href={canSlide ? undefined : props.href} rel={props.rel} target={props.target} to={canSlide ? undefined : props.to} type={canSlide ? 'button' : props.type} aria-label="Back" onClick={() => canSlide && application.goToParent()} />
+            <FluxSecondaryButton iconLeading="angle-left" size="small" tabIndex={props.tabIndex} href={canSlide ? undefined : props.href} rel={props.rel} target={props.target} to={canSlide ? undefined : props.to} type={canSlide ? 'button' : props.type} aria-label={translate('flux.back')} onClick={event => {props.onClick?.(event); if (!event.defaultPrevented && canSlide) application.goToParent();}} />
             <div className={menuStyles.applicationMenuContextContent}>
                 <div className={menuStyles.applicationMenuContextContentInner}>
                     <strong>{props.title}</strong>
@@ -351,6 +360,8 @@ export function FluxApplicationSide({ children, className, closeLabel = 'Close p
 }
 const statusPresets: Record<'error' | 'maintenance' | 'not-found' | 'offline', { color: FluxColor; description: string; icon: FluxIconName; title: string }> = { error: { color: 'danger', description: 'Something went wrong.', icon: 'triangle-exclamation', title: 'Error' }, maintenance: { color: 'warning', description: 'This service is temporarily under maintenance.', icon: 'screwdriver-wrench', title: 'Maintenance' }, 'not-found': { color: 'primary', description: 'The requested page could not be found.', icon: 'compass', title: 'Page not found' }, offline: { color: 'gray', description: 'Check your internet connection and try again.', icon: 'wifi-slash', title: 'You are offline' } };
 export function FluxApplicationStatusPage({ actions, children, className, code, description, icon, media, title, variant = 'error', ...props }: HTMLAttributes<HTMLDivElement> & { actions?: ReactNode; code?: string | number; description?: string; icon?: FluxIconName; media?: ReactNode; title?: string; variant?: keyof typeof statusPresets }) {
+    const translate = useFluxTranslate();
+
     const router = useRouter(),
         preset = statusPresets[variant],
         variantClass = statusStyles[`applicationStatusPage${variant === 'not-found' ? 'NotFound' : variant[0].toUpperCase() + variant.slice(1)}`];
@@ -369,7 +380,7 @@ export function FluxApplicationStatusPage({ actions, children, className, code, 
             <div className={statusStyles.applicationStatusPageActions}>
                 {actions ?? (
                     <FluxSecondaryButton
-                        label="Back"
+                        label={translate('flux.back')}
                         onClick={() => {
                             if (router) router.back();
                             else history.back();
@@ -395,16 +406,12 @@ export function FluxApplicationTop({ className, end, icon, start, tabs, title, .
             <div className={topStyles.applicationTopBar}>
                 <FluxApplicationMenuToggle className={!showDesktopMenuToggle ? topStyles.applicationTopMenuToggleHidden : undefined} />
                 {start}
-                {icon && <FluxIcon name={icon} />}
-                {title && <span className={topStyles.applicationTopBarTitle}>{title}</span>}
+                <FluxFadeTransition>{icon && <FluxIcon key={icon} name={icon} />}</FluxFadeTransition>
+                <FluxFadeTransition>{title && <span key={title} className={topStyles.applicationTopBarTitle}>{title}</span>}</FluxFadeTransition>
                 <FluxSpacer />
                 {end}
             </div>
-            {tabs && (
-                <div className={tabsClass}>
-                    <FluxTabBar>{tabs}</FluxTabBar>
-                </div>
-            )}
+            <FluxRouteTransition>{tabs ? <div key="tabs" className={tabsClass}><FluxTabBar>{tabs}</FluxTabBar></div> : <div key="empty" />}</FluxRouteTransition>
         </header>
     );
 }

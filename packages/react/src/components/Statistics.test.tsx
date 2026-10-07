@@ -4,23 +4,24 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 afterEach(() => vi.unstubAllGlobals());
 
 const { chart, init } = vi.hoisted(() => ({
-    chart: { dispatchAction: vi.fn(), dispose: vi.fn(), resize: vi.fn(), setOption: vi.fn() },
+    chart: { on: vi.fn(), off: vi.fn(), dispatchAction: vi.fn(), dispose: vi.fn(), resize: vi.fn(), setOption: vi.fn() },
     init: vi.fn()
 }));
 init.mockReturnValue(chart);
 vi.mock('echarts', () => ({ init }));
 
-import { FluxStatisticsBarChart, FluxStatisticsComparison, FluxStatisticsDetailsTable, FluxStatisticsDetailsTableRow, FluxStatisticsKpi, FluxStatisticsLegend, FluxStatisticsLegendScope, FluxStatisticsMeter, FluxStatisticsPercentageBar, FluxStatisticsTracker, FluxStatisticsTrackerEntry, FluxStatisticsTrackerStep, FluxStatisticsTrackerSteps } from './Statistics';
+import { FluxStatisticsChartPane, FluxStatisticsMetric, FluxStatisticsBarChart, FluxStatisticsComparison, FluxStatisticsDetailsTable, FluxStatisticsDetailsTableRow, FluxStatisticsKpi, FluxStatisticsLegend, FluxStatisticsLegendScope, FluxStatisticsMeter, FluxStatisticsPercentageBar, FluxStatisticsTracker, FluxStatisticsTrackerEntry, FluxStatisticsTrackerStep, FluxStatisticsTrackerSteps } from './Statistics';
 import { buildBarChartOptions, buildDonutChartOptions, buildHeatmapChartOptions, buildSparklineOptions, deepResolveCssVars, toBubbleSeries } from './StatisticsUtilities';
 
 describe('statistics option builders', () => {
     it('builds cartesian, circular, heatmap, and sparkline series', () => {
-        const bar = buildBarChartOptions({ labels: ['Jan'], series: [{ name: 'Sales', data: [4] }] }),
-            donut = buildDonutChartOptions({ slices: [{ label: 'Done', value: 70 }] }),
-            heatmap = buildHeatmapChartOptions({ xLabels: ['Mon'], yLabels: ['AM'], series: [{ data: [{ x: 'Mon', y: 'AM', value: 2 }] }] }),
+        const shared = {palette: ['#123456'], t: (key: string) => key, styles: {}};
+        const bar = buildBarChartOptions({...shared, labels: ['Jan'], series: [{ name: 'Sales', data: [4] }] }),
+            donut = buildDonutChartOptions({...shared, tooltipItems: [], slices: [{ label: 'Done', value: 70 }] }),
+            heatmap = buildHeatmapChartOptions({...shared, xLabels: ['Mon'], yLabels: ['AM'], series: [{ data: [{ x: 'Mon', y: 'AM', value: 2 }] }] }),
             sparkline = buildSparklineOptions('area', '#123456', [{ data: [1, 2, 3] }]);
         expect((bar.series as object[])[0]).toMatchObject({ type: 'bar', data: [4] });
-        expect((donut.series as object[])[0]).toMatchObject({ type: 'pie', radius: ['55%', '80%'] });
+        expect((donut.series as object[])[0]).toMatchObject({ type: 'pie', radius: ['55%', '75%'] });
         expect((heatmap.series as Array<{ data: number[][] }>)[0].data[0]).toEqual([0, 0, 2]);
         expect((sparkline.series as Array<{ areaStyle?: object }>)[0].areaStyle).toBeDefined();
     });
@@ -34,6 +35,20 @@ describe('statistics option builders', () => {
 });
 
 describe('statistics components', () => {
+
+    it('preserves tile content while a reload is busy', () => {
+        const {container, rerender} = render(<>
+            <FluxStatisticsChartPane isLoading title="Sales"><span>Existing chart</span></FluxStatisticsChartPane>
+            <FluxStatisticsKpi isLoading title="Revenue" value="42"/>
+            <FluxStatisticsMetric isLoading title="Capacity" value="74%"/>
+        </>);
+        expect(container.querySelectorAll('[aria-busy="true"]')).toHaveLength(3);
+        expect(screen.getByText('Existing chart')).toBeInTheDocument();
+        rerender(<FluxStatisticsChartPane title="Sales"><span>Updated chart</span></FluxStatisticsChartPane>);
+        expect(container.querySelector('[aria-busy="true"]')).toBeNull();
+        expect(screen.getByText('Updated chart')).toBeInTheDocument();
+    });
+
     it('does not dim percentage segments without a legend scope', () => {
         render(<FluxStatisticsPercentageBar items={[{ label: 'Used', value: 1 }]} />);
         expect(screen.getByRole('img').firstElementChild?.className).not.toMatch(/isHoverActive|is-hover-active/);

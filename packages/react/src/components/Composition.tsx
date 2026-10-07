@@ -1,7 +1,12 @@
+import {useFluxTranslate} from '../i18n';
+import {FluxFadeTransition} from './Transitions';
 import {clsx} from 'clsx';
+import {createContext, useContext, useLayoutEffect, useMemo, useState} from 'react';
 import type {ButtonHTMLAttributes, HTMLAttributes, ReactNode} from 'react';
 import type {FluxIconName, FluxPressableType, FluxStyle, FluxTo} from '../types';
-import {FluxPressable} from './Actions';
+import {FluxButton, FluxButtonGroup, FluxDestructiveButton, FluxPressable, FluxSecondaryButton} from './Actions';
+import {FluxFlex, FluxSpacer} from './Layout';
+import {FluxFlyout, FluxTooltip, type FluxFlyoutProps} from './Overlays';
 import {FluxIcon} from './Icon';
 import {FluxSpinner} from './Feedback';
 import actionStyles from '../../../components/src/css/component/Action.module.scss';
@@ -15,23 +20,30 @@ export interface FluxActionProps extends Omit<React.ComponentProps<typeof FluxPr
     icon?: FluxIconName;
     isActive?: boolean;
     isDestructive?: boolean;
+    isSubmit?: boolean;
     isLoading?: boolean;
     label?: ReactNode;
     type?: FluxPressableType;
 }
 
 export function FluxAction({className, icon, isActive, isDestructive, isLoading, label, type = 'button', ...props}: FluxActionProps) {
-    return <FluxPressable {...props} className={clsx(actionStyles.action, isActive && actionStyles.isActive, isDestructive && actionStyles.isDestructive, className)} componentType={type} aria-description={isDestructive ? 'Destructive action' : undefined}>{isLoading ? <FluxSpinner className={actionStyles.actionIcon} size={18} /> : icon && <FluxIcon className={actionStyles.actionIcon} name={icon} />} {label && <span className={actionStyles.actionLabel}>{label}</span>}</FluxPressable>;
+    return <FluxButton {...props} className={clsx(isDestructive && actionStyles.isDestructive, className)} cssClass={actionStyles.action} cssClassActive={actionStyles.isActive} cssClassIcon={actionStyles.actionIcon} cssClassLabel={actionStyles.actionLabel} iconLeading={icon} isActive={isActive} isLoading={isLoading} label={label} type={type} aria-description={isDestructive ? 'Destructive action' : undefined} />;
 }
 
 export function FluxActionStack(props: HTMLAttributes<HTMLDivElement>) {
     return <div {...props} className={props.className} role={props.role ?? 'toolbar'} style={{...props.style, display: 'flex', gap: 1}} />;
 }
 
-export function FluxActionBar({actionsAfterSearch, actionsBeforeSearch, actionsEnd, actionsStart, className, primary, search, ...props}: HTMLAttributes<HTMLDivElement> & {actionsAfterSearch?: ReactNode; actionsBeforeSearch?: ReactNode; actionsEnd?: ReactNode; actionsStart?: ReactNode; primary?: ReactNode; search?: ReactNode}) {
+export function FluxActionBar({actionsAfterSearch, actionsBeforeSearch, actionsEnd, actionsStart, className, filter, filterOpener, isResettable, onReset, primary, search, ...props}: HTMLAttributes<HTMLDivElement> & {actionsAfterSearch?: ReactNode; actionsBeforeSearch?: ReactNode; actionsEnd?: ReactNode; actionsStart?: ReactNode; filter?: FluxFlyoutProps['children']; filterOpener?: FluxFlyoutProps['opener']; isResettable?: boolean; onReset?: () => void; primary?: ReactNode; search?: ReactNode}) {
+    const translate = useFluxTranslate();
+
     const before = primary || actionsStart;
-    const after = actionsBeforeSearch || search || actionsAfterSearch || actionsEnd;
-    return <div {...props} className={clsx(actionStyles.actionBar, className)}>{primary}{actionsStart}{before && after && <span style={{flexGrow: 1}} />}{actionsBeforeSearch}{search}{actionsAfterSearch}{actionsEnd}</div>;
+    const after = actionsBeforeSearch || search || actionsAfterSearch || filter || actionsEnd;
+    return <FluxFlex {...props} className={clsx(actionStyles.actionBar, className)} gap={9}>
+        {primary}{actionsStart}{before && after && <FluxSpacer />}{actionsBeforeSearch}{search}{actionsAfterSearch}
+        {filter && <FluxFlyout opener={filterOpener ?? (({open}) => <FluxButtonGroup><FluxSecondaryButton iconLeading="filter" label={translate('flux.filter')} onClick={open} />{isResettable && <FluxTooltip content="Reset filters"><FluxDestructiveButton iconLeading="xmark" onClick={onReset} /></FluxTooltip>}</FluxButtonGroup>)}>{filter}</FluxFlyout>}
+        {actionsEnd}
+    </FluxFlex>;
 }
 
 interface FluxChipCommonProps {
@@ -46,18 +58,25 @@ export type FluxChipProps = FluxChipCommonProps & (
 );
 
 export function FluxChip({className, iconLeading, iconTrailing, isSelectable, isSelected, label, ...props}: FluxChipProps) {
-    const content = <>{isSelectable ? <FluxIcon name={isSelected ? 'check' : iconLeading ?? 'plus'} size={16} /> : iconLeading && <FluxIcon name={iconLeading} size={16} />}<span>{label}</span>{iconTrailing && <FluxIcon name={iconTrailing} size={16} />}</>;
+    const content = <>{isSelectable ? <FluxFadeTransition><FluxIcon key={isSelected ? 'circle-check' : iconLeading ?? 'plus'} name={isSelected ? 'circle-check' : iconLeading ?? 'plus'} size={15} /></FluxFadeTransition> : iconLeading && <FluxIcon name={iconLeading} size={15} />}<span>{label}</span>{iconTrailing && <FluxIcon name={iconTrailing} size={15} />}</>;
     return isSelectable ? <button {...props as ButtonHTMLAttributes<HTMLButtonElement>} className={clsx(chipStyles.chip, chipStyles.isSelectable, isSelected && chipStyles.isSelected, className)} type="button" aria-pressed={Boolean(isSelected)}>{content}</button> : <div {...props as HTMLAttributes<HTMLDivElement>} className={clsx(chipStyles.chip, className)}>{content}</div>;
 }
 
-export function FluxItem({className, htmlFor, isControl, ...props}: HTMLAttributes<HTMLDivElement> & {htmlFor?: string; isControl?: boolean}) {
+export const ItemControlContext = createContext<{isControl: boolean; register(id: string): void} | null>(null);
+export function useItemControl(id: string) {
+    const control = useContext(ItemControlContext);
+    useLayoutEffect(() => {control?.register(id);}, [control, id]);
+    return Boolean(control?.isControl);
+}
+export function FluxItem({className, htmlFor, isControl = false, ...props}: HTMLAttributes<HTMLDivElement> & {htmlFor?: string; isControl?: boolean}) {
+    const [controlId, setControlId] = useState<string>();
+    const context = useMemo(() => ({isControl, register: setControlId}), [isControl]);
     const classes = clsx(itemStyles.item, isControl && itemStyles.isControl, className);
-    if (isControl) return <label {...props as HTMLAttributes<HTMLLabelElement>} className={classes} htmlFor={htmlFor} />;
-    return <div {...props} className={classes} />;
+    return <ItemControlContext.Provider value={context}>{isControl ? <label {...props as HTMLAttributes<HTMLLabelElement>} className={classes} htmlFor={htmlFor ?? controlId} /> : <div {...props} className={classes} />}</ItemControlContext.Provider>;
 }
 
-export function FluxItemActions({className, isCenter, ...props}: HTMLAttributes<HTMLDivElement> & {isCenter?: boolean}) {
-    return <div {...props} className={clsx(itemStyles.itemActions, isCenter && itemStyles.isCenter, className)} />;
+export function FluxItemActions({children, className, isCenter, ...props}: Omit<HTMLAttributes<HTMLDivElement>, 'onReset'> & {isCenter?: boolean}) {
+    return <FluxActionBar {...props} className={clsx(itemStyles.itemActions, isCenter && itemStyles.isCenter, className)} primary={children}/>;
 }
 
 export function FluxItemContent({className, isCenter, ...props}: HTMLAttributes<HTMLDivElement> & {isCenter?: boolean}) {
@@ -94,7 +113,9 @@ export function FluxLink({children, className, iconLeading, iconTrailing, isPrim
 }
 
 export function FluxRemove({className, icon = 'xmark', isHidden, ...props}: ButtonHTMLAttributes<HTMLButtonElement> & {icon?: FluxIconName; isHidden?: boolean}) {
-    return <button {...props} className={clsx(removeStyles.remove, isHidden && removeStyles.isHidden, className)} type="button" aria-label={props['aria-label'] ?? 'Delete'} aria-hidden={isHidden || undefined} tabIndex={isHidden ? -1 : props.tabIndex}>{icon && <FluxIcon name={icon} size={16} />}</button>;
+    const translate = useFluxTranslate();
+
+    return <button {...props} className={clsx(removeStyles.remove, isHidden && removeStyles.isHidden, className)} type="button" aria-label={props['aria-label'] ?? translate('flux.delete')} aria-hidden={isHidden || undefined} tabIndex={isHidden ? -1 : props.tabIndex}>{icon && <FluxIcon name={icon} size={16} />}</button>;
 }
 
 function pascal(value: string): string { return value.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(''); }

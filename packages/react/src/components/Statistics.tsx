@@ -1,3 +1,5 @@
+import {useFluxTranslate} from '../i18n';
+import {merge} from 'lodash-es';
 import { clsx } from 'clsx';
 import { createContext, forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
@@ -6,8 +8,9 @@ import { FluxBoxedIcon } from './DisplayExtended';
 import { FluxPane } from './Display';
 import { FluxIcon } from './Icon';
 import { FluxToolbar } from './Composition';
-import { CHART_DEFAULT_COLORS, FluxStatisticsChartLegendInjectionKey, FluxStatisticsLegendVariantInjectionKey, buildAreaChartOptions, buildBarChartOptions, buildBoxPlotChartOptions, buildBubbleChartOptions, buildCandlestickChartOptions, buildDonutChartOptions, buildGaugeChartOptions, buildHeatmapChartOptions, buildLineChartOptions, buildMixedChartOptions, buildPieChartOptions, buildPolarAreaChartOptions, buildRadarChartOptions, buildScatterChartOptions, buildSparklineOptions, buildTreemapChartOptions, deepResolveCssVars, resolveChartColor, useCssVarVersion, useECharts } from './StatisticsUtilities';
-import type { ChartLegendContext, ChartLegendItem, ChartTooltipValueFormatter, EChartsInstance, EChartsOption, FluxStatisticsLegendVariant, SparklineSeriesItem, SparklineVariant } from './StatisticsUtilities';
+import { CHART_DEFAULT_COLORS, FluxStatisticsChartLegendInjectionKey, FluxStatisticsLegendVariantInjectionKey, buildAreaChartOptions, buildBarChartOptions, buildBoxPlotChartOptions, buildBubbleChartOptions, buildCandlestickChartOptions, buildDonutChartOptions, buildGaugeChartOptions, buildHeatmapChartOptions, buildLineChartOptions, buildMixedChartOptions, buildPieChartOptions, buildPolarAreaChartOptions, buildRadarChartOptions, buildScatterChartOptions, buildSparklineOptions, buildTreemapChartOptions, resolveChartColor, useECharts, useChartSeriesSetup, useChartSlicesSetup, candlestickLegendItemBuilder, gaugeLegendItemBuilder } from './StatisticsUtilities';
+import {buildBaseOptions} from './StatisticsUtilities';
+import type { ChartLegendContext, ChartLegendItem, ChartTooltipValueFormatter, EChartsInstance, EChartsOption, FluxStatisticsLegendVariant, SparklineSeriesItem, SparklineVariant, ChartSeriesShape, ChartLegendItemBuilder } from './StatisticsUtilities';
 import baseStyles from '../../../statistics/src/css/Base.module.scss';
 import changeStyles from '../../../statistics/src/css/Change.module.scss';
 import chartStyles from '../../../statistics/src/css/Chart.module.scss';
@@ -30,10 +33,14 @@ export interface FluxStatisticsChartHandle {
     resize(): void;
 }
 export const FluxStatisticsChart = forwardRef<FluxStatisticsChartHandle, HTMLAttributes<HTMLDivElement> & { options?: EChartsOption }>(function FluxStatisticsChart({ className, options = {}, ...props }, forwardedRef) {
+    const mergedOptions = useMemo(() => {
+        const merged = merge({}, buildBaseOptions(), options);
+        if (options.color !== undefined) merged.color = options.color;
+        if (options.series !== undefined) merged.series = options.series;
+        return merged;
+    }, [options]);
     const element = useRef<HTMLDivElement>(null),
-        version = useCssVarVersion(),
-        resolved = useMemo(() => deepResolveCssVars(options, element.current), [options, version]),
-        chart = useECharts(element, resolved);
+        chart = useECharts(element, mergedOptions);
     useImperativeHandle(forwardedRef, () => ({ chartInstance: chart.chartInstance, resize: chart.resize }), [chart.chartInstance]);
     return <div {...props} ref={element} className={clsx(chartStyles.statisticsChart, className)} />;
 });
@@ -48,41 +55,39 @@ interface CartesianChartProps<S> extends HTMLAttributes<HTMLDivElement> {
     xAxisLabels?: boolean;
     yAxisLabels?: boolean;
 }
-const palette = (items: readonly unknown[]) => items.map((item, index) => resolveChartColor((item as { color?: never }).color) ?? CHART_DEFAULT_COLORS[index % CHART_DEFAULT_COLORS.length]);
-function chartProps<S>(props: CartesianChartProps<S>) {
-    return { ...props, palette: palette(props.series), t: (key: string) => key, styles: chartStyles };
-}
 function useCartesianChart<S>(props: CartesianChartProps<S>) {
     const { advancedOptions, labels, series, splitLines, tooltip, tooltipValueFormatter, xAxisLabels, yAxisLabels, ...domProps } = props;
     const chart = useMemo(() => ({ advancedOptions, labels, series, splitLines, tooltip, tooltipValueFormatter, xAxisLabels, yAxisLabels }), [advancedOptions, labels, series, splitLines, tooltip, tooltipValueFormatter, xAxisLabels, yAxisLabels]);
     return {chart, domProps};
 }
-function useCartesianOptions<S>(chart: CartesianChartProps<S>, build: (props: ReturnType<typeof chartProps<S>>) => EChartsOption) {
-    return useMemo(() => build(chartProps(chart)), [build, chart]);
+function useCartesianOptions<S extends ChartSeriesShape>(chart: CartesianChartProps<S>, build: (props: CartesianChartProps<S> & {palette: readonly string[]; t: (key: string) => string; styles: typeof chartStyles}) => EChartsOption, getLegendItem?: ChartLegendItemBuilder<S>) {
+    const {t, palette, chartRef} = useChartSeriesSetup(() => chart.series, {getLegendItem});
+    const options = useMemo(() => build({...chart, palette, t, styles: chartStyles}), [build, chart, palette, t]);
+    return {options, chartRef};
 }
 export function FluxStatisticsLineChart(props: CartesianChartProps<FluxStatisticsChartLineSeries>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildLineChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildLineChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsAreaChart(props: CartesianChartProps<FluxStatisticsChartAreaSeries>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildAreaChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildAreaChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsBarChart(props: CartesianChartProps<FluxStatisticsChartBarSeries>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildBarChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildBarChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsMixedChart(props: CartesianChartProps<FluxStatisticsChartMixedSeries>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildMixedChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildMixedChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsScatterChart(props: Omit<CartesianChartProps<FluxStatisticsChartScatterSeries>, 'labels'>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildScatterChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildScatterChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsBubbleChart(props: Omit<CartesianChartProps<FluxStatisticsChartBubbleSeries>, 'labels'>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildBubbleChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildBubbleChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsBoxPlotChart(props: Omit<CartesianChartProps<FluxStatisticsChartBoxPlotSeries>, 'tooltipValueFormatter'>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildBoxPlotChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildBoxPlotChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsCandlestickChart(props: Omit<CartesianChartProps<FluxStatisticsChartCandlestickSeries>, 'tooltipValueFormatter'>) {
-    const {chart, domProps} = useCartesianChart(props), options = useCartesianOptions(chart, buildCandlestickChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useCartesianChart(props), {options, chartRef} = useCartesianOptions(chart, buildCandlestickChartOptions, candlestickLegendItemBuilder); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 interface SliceChartProps extends HTMLAttributes<HTMLDivElement> {
     advancedOptions?: EChartsOption;
@@ -91,32 +96,40 @@ interface SliceChartProps extends HTMLAttributes<HTMLDivElement> {
     tooltip?: boolean;
     tooltipValueFormatter?: ChartTooltipValueFormatter;
 }
-const sliceProps = (props: SliceChartProps) => ({ ...props, palette: palette(props.slices), tooltipItems: props.slices.map((item, index) => ({ name: item.label, value: item.formatted ?? item.value, color: resolveChartColor(item.color) ?? CHART_DEFAULT_COLORS[index % CHART_DEFAULT_COLORS.length] })), t: (key: string) => key, styles: chartStyles });
 function useSliceChart(props: SliceChartProps) {const {advancedOptions, slices, title, tooltip, tooltipValueFormatter, ...domProps} = props; const chart = useMemo(() => ({advancedOptions, slices, title, tooltip, tooltipValueFormatter}), [advancedOptions, slices, title, tooltip, tooltipValueFormatter]); return {chart, domProps};}
-function useSliceOptions(chart: SliceChartProps, build: (props: ReturnType<typeof sliceProps>) => EChartsOption) {return useMemo(() => build(sliceProps(chart)), [build, chart]);}
+function useSliceOptions(chart: SliceChartProps, build: (props: SliceChartProps & ReturnType<typeof useChartSlicesSetup> & {styles: typeof chartStyles}) => EChartsOption) {
+    const setup = useChartSlicesSetup(() => chart.slices);
+    const {t, palette, tooltipItems, chartRef} = setup;
+    const options = useMemo(() => build({...chart, ...setup, styles: chartStyles}), [build, chart, t, palette, tooltipItems]);
+    return {options, chartRef};
+}
 export function FluxStatisticsPieChart(props: SliceChartProps) {
-    const {chart, domProps} = useSliceChart(props), options = useSliceOptions(chart, buildPieChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useSliceChart(props), {options, chartRef} = useSliceOptions(chart, buildPieChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsDonutChart(props: SliceChartProps) {
-    const {chart, domProps} = useSliceChart(props), options = useSliceOptions(chart, buildDonutChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useSliceChart(props), {options, chartRef} = useSliceOptions(chart, buildDonutChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsPolarAreaChart(props: SliceChartProps) {
-    const {chart, domProps} = useSliceChart(props), options = useSliceOptions(chart, buildPolarAreaChartOptions); return <FluxStatisticsChart {...domProps} options={options} />;
+    const {chart, domProps} = useSliceChart(props), {options, chartRef} = useSliceOptions(chart, buildPolarAreaChartOptions); return <FluxStatisticsChart ref={chartRef} {...domProps} options={options} />;
 }
 export function FluxStatisticsRadarChart({ advancedOptions, indicators, series, tooltip, ...props }: HTMLAttributes<HTMLDivElement> & { advancedOptions?: EChartsOption; indicators: readonly FluxStatisticsChartRadarIndicator[]; series: readonly FluxStatisticsChartRadarSeries[]; tooltip?: boolean }) {
-    const options = useMemo(() => buildRadarChartOptions({ advancedOptions, indicators, series, tooltip, palette: palette(series), t: (key) => key, styles: chartStyles }), [advancedOptions, indicators, series, tooltip]);
-    return <FluxStatisticsChart {...props} options={options} />;
+    const {t, palette, chartRef} = useChartSeriesSetup(() => series, {mode: 'data'});
+    const options = useMemo(() => buildRadarChartOptions({ advancedOptions, indicators, series, tooltip, palette, t, styles: chartStyles }), [advancedOptions, indicators, series, tooltip, palette, t]);
+    return <FluxStatisticsChart ref={chartRef} {...props} options={options} />;
 }
 export function FluxStatisticsRadialBar({ advancedOptions, series, tooltip, ...props }: HTMLAttributes<HTMLDivElement> & { advancedOptions?: EChartsOption; series: readonly FluxStatisticsChartGaugeSeries[]; tooltip?: boolean }) {
-    const options = useMemo(() => buildGaugeChartOptions({ advancedOptions, series, tooltip, palette: palette(series), t: (key) => key, styles: chartStyles }), [advancedOptions, series, tooltip]);
-    return <FluxStatisticsChart {...props} options={options} />;
+    const {t, palette, chartRef} = useChartSeriesSetup(() => series, {getLegendItem: gaugeLegendItemBuilder});
+    const options = useMemo(() => buildGaugeChartOptions({ advancedOptions, series, tooltip, palette, t, styles: chartStyles }), [advancedOptions, series, tooltip, palette, t]);
+    return <FluxStatisticsChart ref={chartRef} {...props} options={options} />;
 }
 export function FluxStatisticsHeatmapChart({ advancedOptions, series, tooltip, xAxisLabels, xLabels = [], yAxisLabels, yLabels = [], ...props }: HTMLAttributes<HTMLDivElement> & { advancedOptions?: EChartsOption; series: readonly FluxStatisticsChartHeatmapSeries[]; tooltip?: boolean; xAxisLabels?: boolean; xLabels?: readonly string[]; yAxisLabels?: boolean; yLabels?: readonly string[] }) {
-    const options = useMemo(() => buildHeatmapChartOptions({ advancedOptions, series, tooltip, xAxisLabels, xLabels, yAxisLabels, yLabels, t: (key) => key, styles: chartStyles }), [advancedOptions, series, tooltip, xAxisLabels, xLabels, yAxisLabels, yLabels]);
+    const t = useFluxTranslate();
+    const options = useMemo(() => buildHeatmapChartOptions({ advancedOptions, series, tooltip, xAxisLabels, xLabels, yAxisLabels, yLabels, t, styles: chartStyles }), [advancedOptions, series, tooltip, xAxisLabels, xLabels, yAxisLabels, yLabels, t]);
     return <FluxStatisticsChart {...props} options={options} />;
 }
 export function FluxStatisticsTreemapChart({ advancedOptions, nodes, tooltip, ...props }: HTMLAttributes<HTMLDivElement> & { advancedOptions?: EChartsOption; nodes: readonly FluxStatisticsChartTreemapNode[]; tooltip?: boolean }) {
-    const options = useMemo(() => buildTreemapChartOptions({ advancedOptions, nodes, tooltip, t: (key) => key, styles: chartStyles }), [advancedOptions, nodes, tooltip]);
+    const t = useFluxTranslate();
+    const options = useMemo(() => buildTreemapChartOptions({ advancedOptions, nodes, tooltip, t, styles: chartStyles }), [advancedOptions, nodes, tooltip, t]);
     return <FluxStatisticsChart {...props} options={options} />;
 }
 export function FluxStatisticsSparkline({ className, color, options, series, variant = 'line', ...props }: HTMLAttributes<HTMLDivElement> & { color?: FluxColor | `#${string}`; options?: EChartsOption; series: readonly SparklineSeriesItem[]; variant?: SparklineVariant }) {
@@ -157,9 +170,9 @@ export function FluxStatisticsChange({ color, icon, value }: FluxStatisticsChang
         </div>
     );
 }
-export function FluxStatisticsKpi({ change, footer, icon, title, value }: { change?: StatisticsChange; footer?: string; icon?: FluxIconName; title: string; value: string | number }) {
+export function FluxStatisticsKpi({ change, footer, icon, isLoading, title, value }: { change?: StatisticsChange; footer?: string; icon?: FluxIconName; isLoading?: boolean; title: string; value: string | number }) {
     return (
-        <FluxStatisticsBase isSmall icon={icon} title={title}>
+        <FluxStatisticsBase isLoading={isLoading} isSmall icon={icon} title={title}>
             <div className={kpiStyles.statisticsKpiValue}>{value}</div>
             {(change || footer) && (
                 <div className={kpiStyles.statisticsKpiBottom}>
@@ -170,9 +183,9 @@ export function FluxStatisticsKpi({ change, footer, icon, title, value }: { chan
         </FluxStatisticsBase>
     );
 }
-export function FluxStatisticsMetric({ change, children, footer, icon, label, title, value }: { change?: StatisticsChange; children?: ReactNode; footer?: string; icon?: FluxIconName; label?: string; title: string; value?: string | number }) {
+export function FluxStatisticsMetric({ change, children, footer, icon, isLoading, label, title, value }: { change?: StatisticsChange; children?: ReactNode; footer?: string; icon?: FluxIconName; isLoading?: boolean; label?: string; title: string; value?: string | number }) {
     return (
-        <FluxStatisticsBase icon={icon} title={title}>
+        <FluxStatisticsBase isLoading={isLoading} icon={icon} title={title}>
             {label && <div className={metricStyles.statisticsMetricLabel}>{label}</div>}
             {value !== undefined && <div className={metricStyles.statisticsMetricValue}>{value}</div>}
             {children && <div className={metricStyles.statisticsMetricContent}>{children}</div>}
@@ -185,7 +198,10 @@ export function FluxStatisticsMetric({ change, children, footer, icon, label, ti
         </FluxStatisticsBase>
     );
 }
-export function FluxStatisticsComparison({ current, currentLabel = 'Current', footer, format, icon, previous, previousLabel = 'Previous', showDelta = true, title }: { current: number; currentLabel?: string; footer?: string; format?: (value: number) => string; icon?: FluxIconName; previous: number; previousLabel?: string; showDelta?: boolean; title: string }) {
+export function FluxStatisticsComparison({ current, currentLabel = 'Current', footer, format, icon, previous, previousLabel, showDelta = true, title }: { current: number; currentLabel?: string; footer?: string; format?: (value: number) => string; icon?: FluxIconName; previous: number; previousLabel?: string; showDelta?: boolean; title: string }) {
+    const translate = useFluxTranslate();
+    previousLabel ??= translate('flux.previous');
+
     const delta = previous === 0 ? 0 : ((current - previous) / Math.abs(previous)) * 100,
         rounded = Math.round(delta * 10) / 10,
         color: FluxColor = rounded > 0 ? 'success' : rounded < 0 ? 'danger' : 'gray',
@@ -230,10 +246,11 @@ export function FluxStatisticsEmpty({ children, description, icon, title }: { ch
         </div>
     );
 }
-export function FluxStatisticsChartPane({ aspectRatio, children, icon, info, legend, maxHeight, minHeight, title, toolbar }: { aspectRatio?: number; children?: ReactNode; icon?: FluxIconName; info?: ReactNode; legend?: ReactNode; maxHeight?: number; minHeight?: number; title?: string; toolbar?: ReactNode }) {
+export function FluxStatisticsChartPane({ aspectRatio, children, icon, info, isLoading, legend, maxHeight, minHeight, title, toolbar }: { aspectRatio?: number; children?: ReactNode; icon?: FluxIconName; info?: ReactNode; isLoading?: boolean; legend?: ReactNode; maxHeight?: number; minHeight?: number; title?: string; toolbar?: ReactNode }) {
     return (
         <FluxStatisticsBase
             className={chartPaneStyles.statisticsChartPane}
+            isLoading={isLoading}
             icon={icon}
             info={info}
             title={title}
@@ -278,7 +295,7 @@ export function FluxStatisticsDetailsTableRow({ label, value }: { label: string;
 export function FluxStatisticsLegendScope({ children }: { children?: ReactNode }) {
     const [items, setItems] = useState<readonly ChartLegendItem[]>([]),
         [hoveredIndex, setHoveredIndex] = useState<number | null>(null),
-        setLegendItems = useCallback((next: readonly ChartLegendItem[]) => setItems((previous) => (previous.length === next.length && previous.every((item, index) => item.color === next[index].color && item.icon === next[index].icon && item.label === next[index].label && item.value === next[index].value) ? previous : next)), []),
+        setLegendItems = useCallback((next: readonly ChartLegendItem[]) => setItems((previous) => (previous.length === next.length && previous.every((item, index) => item.color === next[index].color && item.icon === next[index].icon && item.label === next[index].label && item.value === next[index].value && item.seriesIndex === next[index].seriesIndex) ? previous : next)), []),
         context = useMemo<ChartLegendContext>(() => ({ items, hoveredIndex, setItems: setLegendItems, setHoveredIndex }), [items, hoveredIndex, setLegendItems]);
     return <FluxStatisticsChartLegendInjectionKey.Provider value={context}>{children}</FluxStatisticsChartLegendInjectionKey.Provider>;
 }
@@ -318,12 +335,20 @@ export function FluxStatisticsPercentageBar({ items }: { items: FluxStatisticsPe
         </div>
     );
 }
-export function FluxStatisticsMeter({ color, footer, icon, isSmall, subTitle, tip, title, value, variant = 'bar' }: { color?: string; icon?: FluxIconName; isSmall?: boolean; footer?: string; subTitle?: string; tip?: string; title?: string; value: number; variant?: 'bar' | 'blocks' }) {
-    const count = 24,
+export function FluxStatisticsMeter({ color, footer, icon, isSmall, subTitle, tip, title, value, variant = 'bar', className, style: customStyle, ...props }: Omit<HTMLAttributes<HTMLDivElement>, 'color'> & { color?: string; icon?: FluxIconName; isSmall?: boolean; footer?: string; subTitle?: string; tip?: string; title?: string; value: number; variant?: 'bar' | 'blocks' }) {
+    const blocks = useRef<HTMLDivElement>(null);
+    const [trackWidth, setTrackWidth] = useState(0);
+    useLayoutEffect(() => {
+        if (!blocks.current || typeof ResizeObserver === 'undefined') return;
+        const observer = new ResizeObserver(entries => setTrackWidth(entries[0].contentRect.width));
+        observer.observe(blocks.current);
+        return () => observer.disconnect();
+    }, [variant]);
+    const count = Math.max(1, Math.floor((trackWidth + 3) / 9)),
         filled = Math.max(0, Math.min(count, Math.round(value * count))),
         style = { '--color': resolveChartColor(color as never), '--percentage': `${value * 100}%` } as FluxStyle;
     return (
-        <div className={isSmall ? meterStyles.statisticsMeterSmall : meterStyles.statisticsMeter} style={style}>
+        <div {...props} className={clsx(isSmall ? meterStyles.statisticsMeterSmall : meterStyles.statisticsMeter, className)} style={{...style, ...customStyle}}>
             <div className={meterStyles.statisticsMeterHeader}>
                 {icon && <FluxIcon className={meterStyles.statisticsMeterHeaderIcon} name={icon} size={16} />}
                 {title && <span className={meterStyles.statisticsMeterHeaderTitle}>{title}</span>}
@@ -332,7 +357,7 @@ export function FluxStatisticsMeter({ color, footer, icon, isSmall, subTitle, ti
                 {tip && <span className={meterStyles.statisticsMeterHeaderTip}>{tip}</span>}
             </div>
             {variant === 'blocks' ? (
-                <div className={meterStyles.statisticsMeterBlocks}>
+                <div ref={blocks} className={meterStyles.statisticsMeterBlocks}>
                     {Array.from({ length: count }, (_, index) => (
                         <div key={index} className={clsx(meterStyles.statisticsMeterBlock, index < filled && meterStyles.isFilled)} />
                     ))}

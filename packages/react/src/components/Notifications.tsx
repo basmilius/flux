@@ -1,8 +1,12 @@
+import {useFluxTranslate} from '../i18n';
+import {FluxSnackbarTransitionGroup} from './Transitions';
 import { clsx } from 'clsx';
 import { useEffect, useState, useSyncExternalStore } from 'react';
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import type { FluxConfirmObject, FluxPromptObject } from '@flux-ui/types/notify';
 import type { FluxColor, FluxDirection, FluxIconName } from '../types';
+import {FluxSpacer} from './Layout';
+import {useRef} from 'react';
 import { FluxAction } from './Composition';
 import { FluxDestructiveButton, FluxPrimaryButton, FluxSecondaryButton } from './Actions';
 import { FluxIcon } from './Icon';
@@ -13,12 +17,13 @@ import { FluxFlyout, FluxOverlay } from './Overlays';
 import snackbarStyles from '../../../components/src/css/component/Snackbar.module.scss';
 import popStyles from '../../../components/src/css/component/PopConfirm.module.scss';
 
-export interface FluxSnackbarSpec {
+export interface FluxSnackbarSpec extends Omit<HTMLAttributes<HTMLDivElement>, 'color' | 'id'> {
     actions?: Record<string, string>;
     color?: FluxColor;
     duration?: number;
     icon?: FluxIconName;
     isCloseable?: boolean;
+    isRendered?: boolean;
     isLoading?: boolean;
     message?: string;
     progressIndeterminate?: boolean;
@@ -290,9 +295,11 @@ export function useFluxStore(): FluxStore {
     return storeSnapshot();
 }
 
-export function FluxSnackbar({ actions, color = 'gray', icon, isCloseable, isLoading, message, onAction, onClose, progressIndeterminate, progressMax, progressMin, progressStatus, progressValue, subMessage, title }: FluxSnackbarSpec) {
+export function FluxSnackbar({ actions, className, color = 'gray', icon, isCloseable, isLoading, isRendered = true, message, onAction, onClose, progressIndeterminate, progressMax, progressMin, progressStatus, progressValue, subMessage, title, ...props }: FluxSnackbarSpec) {
+    const translate = useFluxTranslate();
+    if (!isRendered) return null;
     return (
-        <div className={snackbarStyles[`snackbar${capital(color)}`]} role={color === 'danger' ? 'alert' : 'status'} aria-live={color === 'danger' ? 'assertive' : 'polite'}>
+        <div {...props} className={clsx(snackbarStyles[`snackbar${capital(color)}`], className)} role={color === 'danger' ? 'alert' : 'status'} aria-live={color === 'danger' ? 'assertive' : 'polite'}>
             <div className={snackbarStyles.snackbarContent}>
                 {isLoading ? <FluxSpinner size={18} /> : icon && <FluxIcon size={18} name={icon} />}
                 <div className={snackbarStyles.snackbarBody}>
@@ -311,7 +318,7 @@ export function FluxSnackbar({ actions, color = 'gray', icon, isCloseable, isLoa
                     ))}
                 </div>
             )}
-            {isCloseable && <FluxAction icon="xmark" aria-label="Close" onClick={onClose} />}
+            {isCloseable && <FluxAction icon="xmark" aria-label={translate('flux.close')} onClick={onClose} />}
         </div>
     );
 }
@@ -326,7 +333,7 @@ export function FluxSnackbarProvider() {
         };
     }, []);
     return (
-        <div className={snackbarStyles.snackbars}>
+        <FluxSnackbarTransitionGroup className={snackbarStyles.snackbars}>
             {[...snackbars].reverse().map((item) => (
                 <FluxSnackbar
                     key={item.id}
@@ -341,7 +348,7 @@ export function FluxSnackbarProvider() {
                     }}
                 />
             ))}
-        </div>
+        </FluxSnackbarTransitionGroup>
     );
 }
 
@@ -369,60 +376,35 @@ export function FluxDialogProvider() {
     );
 }
 
-export function FluxPopConfirm({ cancelLabel = 'Cancel', confirmLabel = 'OK', direction, icon, isDestructive, message, onCancel, onConfirm, opener, title }: { cancelLabel?: string; confirmLabel?: string; direction?: FluxDirection; icon?: FluxIconName; isDestructive?: boolean; message?: string; onCancel?: () => void; onConfirm: () => void; opener: React.ComponentProps<typeof FluxFlyout>['opener']; title?: string }) {
-    return (
-        <FluxFlyout direction={direction} label={title ?? message ?? confirmLabel} opener={opener}>
-            {({ close }) => (
-                <>
-                    <FluxPaneBody className={popStyles.popConfirmBody}>
-                        <div className={popStyles.popConfirmContent}>
-                            {icon && <FluxIcon className={popStyles.popConfirmIcon} color={isDestructive ? 'danger' : 'primary'} name={icon} size={20} />}
-                            <div className={popStyles.popConfirmCaption}>
-                                {title && <strong>{title}</strong>}
-                                {message && <span>{message}</span>}
-                            </div>
-                        </div>
-                    </FluxPaneBody>
-                    <FluxPaneFooter>
-                        <FluxSecondaryButton
-                            label={cancelLabel}
-                            onClick={() => {
-                                onCancel?.();
-                                close();
-                            }}
-                        />
-                        {isDestructive ? (
-                            <FluxDestructiveButton
-                                label={confirmLabel}
-                                onClick={() => {
-                                    onConfirm();
-                                    close();
-                                }}
-                            />
-                        ) : (
-                            <FluxPrimaryButton
-                                label={confirmLabel}
-                                onClick={() => {
-                                    onConfirm();
-                                    close();
-                                }}
-                            />
-                        )}
-                    </FluxPaneFooter>
-                </>
-            )}
-        </FluxFlyout>
-    );
+export function FluxPopConfirm({cancelLabel, children, confirmLabel, direction, icon, isDestructive, label, margin, message, onCancel, onConfirm, opener, title, width}: {cancelLabel?: string; children?: ReactNode | ((state: {close(): void}) => ReactNode); confirmLabel?: string; direction?: FluxDirection; icon?: FluxIconName; isDestructive?: boolean; label?: string; margin?: number; message?: string; onCancel?: () => void; onConfirm: () => void; opener: React.ComponentProps<typeof FluxFlyout>['opener']; title?: string; width?: number | string}) {
+    const translate = useFluxTranslate();
+    const decided = useRef(false);
+    return <FluxFlyout direction={direction} label={label ?? title ?? message ?? confirmLabel ?? translate('flux.ok')} margin={margin} width={width} opener={opener} onClose={() => {if (!decided.current) onCancel?.(); decided.current = false;}}>
+        {({close}) => <>
+            <FluxPaneBody className={popStyles.popConfirmBody}>
+                {children ? typeof children === 'function' ? children({close}) : children : <div className={popStyles.popConfirmContent}>
+                    {icon && <FluxIcon className={popStyles.popConfirmIcon} color={isDestructive ? 'danger' : 'primary'} name={icon} size={20} />}
+                    <div className={popStyles.popConfirmCaption}>{title && <strong>{title}</strong>}{message && <span>{message}</span>}</div>
+                </div>}
+            </FluxPaneBody>
+            <FluxPaneFooter><FluxSpacer />
+                <FluxSecondaryButton autoFocus={isDestructive} label={cancelLabel ?? translate('flux.cancel')} onClick={() => {decided.current = true; onCancel?.(); close();}} />
+                {isDestructive ? <FluxDestructiveButton label={confirmLabel ?? translate('flux.ok')} onClick={() => {decided.current = true; onConfirm(); close();}} /> : <FluxPrimaryButton autoFocus iconLeading="circle-check" label={confirmLabel ?? translate('flux.ok')} onClick={() => {decided.current = true; onConfirm(); close();}} />}
+            </FluxPaneFooter>
+        </>}
+    </FluxFlyout>;
 }
 
 export function FluxAlert({ icon, message, onClose, open, title }: { icon?: FluxIconName; message?: string; onClose(): void; open: boolean; title: string }) {
+    const translate = useFluxTranslate();
     return (
         <FluxOverlay open={open} label={title}>
-            <DialogLayout icon={icon} message={message} title={title} footer={<FluxPrimaryButton label="OK" onClick={onClose} />} />
+            <DialogLayout icon={icon} message={message} title={title} footer={<FluxPrimaryButton label={translate('flux.ok')} onClick={onClose} />} />
         </FluxOverlay>
     );
 }
 export function FluxConfirm({ icon, message, onCancel, onConfirm, open, title }: { icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(): void; open: boolean; title: string }) {
+    const translate = useFluxTranslate();
     return (
         <FluxOverlay open={open} isCloseable label={title} onClose={onCancel}>
             <DialogLayout
@@ -431,8 +413,8 @@ export function FluxConfirm({ icon, message, onCancel, onConfirm, open, title }:
                 title={title}
                 footer={
                     <>
-                        <FluxSecondaryButton label="Cancel" onClick={onCancel} />
-                        <FluxPrimaryButton label="OK" onClick={onConfirm} />
+                        <FluxSecondaryButton label={translate('flux.cancel')} onClick={onCancel} />
+                        <FluxPrimaryButton iconLeading="circle-check" label={translate('flux.ok')} onClick={onConfirm} />
                     </>
                 }
             />
@@ -440,6 +422,7 @@ export function FluxConfirm({ icon, message, onCancel, onConfirm, open, title }:
     );
 }
 export function FluxPrompt({ fieldLabel, fieldPlaceholder, icon, message, onCancel, onConfirm, open, title }: { fieldLabel: string; fieldPlaceholder?: string; icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(value: string): void; open: boolean; title: string }) {
+    const translate = useFluxTranslate();
     const [value, setValue] = useState('');
     return (
         <FluxOverlay open={open} isCloseable label={title} onClose={onCancel}>
@@ -449,8 +432,8 @@ export function FluxPrompt({ fieldLabel, fieldPlaceholder, icon, message, onCanc
                 title={title}
                 footer={
                     <>
-                        <FluxSecondaryButton label="Cancel" onClick={onCancel} />
-                        <FluxPrimaryButton disabled={!value.trim()} label="OK" onClick={() => onConfirm(value)} />
+                        <FluxSecondaryButton label={translate('flux.cancel')} onClick={onCancel} />
+                        <FluxPrimaryButton disabled={!value.trim()} label={translate('flux.ok')} onClick={() => onConfirm(value)} />
                     </>
                 }
             >

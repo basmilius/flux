@@ -1,0 +1,50 @@
+---
+outline: deep
+
+slots:
+    -   name: default
+        description: The content of the step.
+---
+
+# Stepper step
+
+The stepper step represents an individual step within the stepper. It contains the content, actions, and guidance needed for that part of the process. Each FluxStepperStep helps users focus on one task at a time, making multi-step workflows feel clear and manageable.
+
+<FrontmatterDocs/>
+
+## Snippet
+
+::: code-group
+
+<<< @/code/components/stepper/step/snippet.vue [StepperStep.vue]
+
+:::
+
+## Usage
+
+Each step is placed directly inside a [Stepper](./index). The stepper renders the [Stepper steps](./steps) indicator itself, based on the number of steps it receives. The step's content is only rendered when the corresponding step is active.
+
+```tsx
+import { type ComponentProps, useState } from 'react';
+import { FluxStepper, FluxStepperStep } from '@flux-ui/react';
+export default function Example() {
+    const [currentStep, setCurrentStep] =
+        useState<Exclude<ComponentProps<typeof FluxStepper>['value'], undefined>>(0);
+    return (
+        <>
+            <FluxStepper value={currentStep} onValueChange={setCurrentStep}>
+                <FluxStepperStep>
+                    <p>{'Content for the first step.'}</p>
+                </FluxStepperStep>
+                <FluxStepperStep>
+                    <p>{'Content for the second step.'}</p>
+                </FluxStepperStep>
+            </FluxStepper>
+        </>
+    );
+}
+```
+
+## Used components
+
+- [Stepper](./index)

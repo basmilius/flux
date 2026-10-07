@@ -35,6 +35,17 @@ describe('table primitives', () => {
         expect(cell.className).toMatch(/isNoWrap/);
     });
 
+
+    it('inherits vertical alignment while allowing a cell override', () => {
+        render(<FluxTable header={<FluxTableRow><FluxTableHeader verticalAlign="start">Column</FluxTableHeader></FluxTableRow>}>
+            <FluxTableRow><FluxTableCell>Inherited</FluxTableCell></FluxTableRow>
+            <FluxTableRow><FluxTableCell verticalAlign="end" contentDirection="column">Override</FluxTableCell></FluxTableRow>
+        </FluxTable>);
+        expect(screen.getByRole('cell', {name: 'Inherited'})).toHaveStyle({alignItems: 'start'});
+        expect(screen.getByRole('cell', {name: 'Override'})).toHaveStyle({justifyContent: 'end'});
+        expect(screen.getByRole('columnheader')).not.toHaveStyle({alignItems: 'start'});
+    });
+
     it('keeps the active row while the table context updates', () => {
         render(
             <FluxTable>
@@ -53,7 +64,7 @@ describe('table primitives', () => {
         expect(container.firstElementChild).toHaveStyle({ '--flux-table-columns': 'repeat(3, auto)' });
     });
 
-    it('sorts, resizes, and activates rows from the keyboard', () => {
+    it('sorts, resizes, and activates rows from the keyboard', async () => {
         const onSort = vi.fn();
         const onResize = vi.fn();
         const onRowClick = vi.fn();
@@ -72,6 +83,7 @@ describe('table primitives', () => {
         );
 
         fireEvent.click(screen.getByRole('button', { name: 'Sort' }));
+        fireEvent.click(await screen.findByRole('menuitem', {name: 'Ascending'}));
         expect(onSort).toHaveBeenCalledWith('ascending');
         fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize column' }), { key: 'ArrowRight' });
         expect(onResize).toHaveBeenCalledWith(132);
@@ -108,7 +120,7 @@ describe('FluxDataTable', () => {
         { id: 2, name: 'Beta', amount: 20 }
     ];
 
-    it('renders columns and emits row selection and sorting', () => {
+    it('renders columns and emits row selection and sorting', async () => {
         const onSelectedChange = vi.fn();
         const onSortChange = vi.fn();
         render(
@@ -133,7 +145,17 @@ describe('FluxDataTable', () => {
         fireEvent.click(screen.getByRole('checkbox', { name: 'Select row 1' }));
         expect(onSelectedChange).toHaveBeenCalledWith([1]);
         fireEvent.click(screen.getByRole('button', { name: 'Sort' }));
+        fireEvent.click(await screen.findByRole('menuitem', {name: 'Ascending'}));
         expect(onSortChange).toHaveBeenCalledWith({ key: 'name', direction: 'ascending' });
+    });
+
+    it('expands rows directly without adding a toggle column', () => {
+        const onExpandedChange = vi.fn();
+        render(<FluxDataTable items={items} columns={[{key: 'name', header: 'Name'}]} page={1} perPage={10} total={2} uniqueKey="id" expandTrigger="row" onExpandedChange={onExpandedChange} expandable={({item}) => <span>Details for {item.name}</span>} />);
+        expect(screen.queryByRole('button', {name: 'Expand row'})).not.toBeInTheDocument();
+        expect(screen.getAllByRole('columnheader')).toHaveLength(1);
+        fireEvent.click(screen.getByRole('cell', {name: 'Alpha'}));
+        expect(onExpandedChange).toHaveBeenCalledWith([1]);
     });
 
     it('expands data rows and renders the empty state', () => {

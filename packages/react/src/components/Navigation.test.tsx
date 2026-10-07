@@ -40,3 +40,20 @@ describe('keyboard navigation', () => {
         expect(second).toHaveBeenCalledOnce();
     });
 });
+
+describe('tab bar parity', () => {
+    it('positions the indicator at the active tab after selection changes', () => {
+        const tabs = (active: boolean) => <FluxTabBar><FluxTabBarItem label="One" isActive={!active} /><FluxTabBarItem label="Two" isActive={active} /></FluxTabBar>;
+        const {container, rerender} = render(tabs(false));
+        Object.defineProperties(screen.getByRole('tab', {name: 'Two'}), {offsetLeft: {value: 96}, offsetWidth: {value: 80}});
+        rerender(tabs(true));
+        expect(container.querySelector('[style="left: 96px; width: 80px;"]')).toBeInTheDocument();
+    });
+
+    it('keeps the first enabled tab reachable when no tab is active', () => {
+        render(<FluxTabBar><FluxTabBarItem disabled label="Disabled" /><FluxTabBarItem label="First" /><FluxTabBarItem label="Second" /></FluxTabBar>);
+        expect(screen.getByRole('tab', {name: 'Disabled'})).toHaveAttribute('tabindex', '-1');
+        expect(screen.getByRole('tab', {name: 'First'})).toHaveAttribute('tabindex', '0');
+        expect(screen.getByRole('tab', {name: 'Second'})).toHaveAttribute('tabindex', '-1');
+    });
+});

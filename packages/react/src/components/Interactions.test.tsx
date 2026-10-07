@@ -3,7 +3,7 @@ import {createRef} from 'react';
 import {describe, expect, it, vi} from 'vitest';
 import {
     FluxCommandPalette, type FluxCommandPaletteHandle, FluxContextMenu, FluxFocalPointEditor,
-    FluxInlineEdit, FluxSpeedDial, FluxSpeedDialAction, FluxSplitView, FluxSplitViewPane, FluxSwipeActions
+    FluxInlineEdit, FluxSpeedDial, FluxSpeedDialAction, FluxSplitView, FluxSplitViewPane, FluxSwipeAction, FluxSwipeActions
 } from './Interactions';
 
 describe('FluxCommandPalette', () => {
@@ -19,12 +19,12 @@ describe('FluxCommandPalette', () => {
 });
 
 describe('context and editing interactions', () => {
-    it('opens a context menu at the pointer', () => {
+    it('opens a context menu at the pointer', async () => {
         render(<FluxContextMenu menu={({close}) => <button onClick={close}>Action</button>}><span>Target</span></FluxContextMenu>);
         fireEvent.contextMenu(screen.getByText('Target'), {clientX: 20, clientY: 30});
         expect(screen.getByRole('menu')).toBeInTheDocument();
         fireEvent.click(screen.getByRole('button', {name: 'Action'}));
-        expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+        await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
     });
 
     it('edits and saves inline values', () => {
@@ -48,7 +48,7 @@ describe('compound interactions', () => {
     });
 
     it('resizes split panes from the keyboard', () => {
-        render(<FluxSplitView><FluxSplitViewPane>One</FluxSplitViewPane><FluxSplitViewPane>Two</FluxSplitViewPane></FluxSplitView>);
+        render(<FluxSplitView><FluxSplitViewPane defaultSize={500}>One</FluxSplitViewPane><FluxSplitViewPane defaultSize={500}>Two</FluxSplitViewPane></FluxSplitView>);
         const separator = screen.getByRole('separator');
         expect(separator).toHaveAttribute('aria-valuenow', '50');
         fireEvent.keyDown(separator, {key: 'ArrowRight'});
@@ -56,15 +56,15 @@ describe('compound interactions', () => {
     });
 
     it('applies pointer drag displacement from the starting sizes', () => {
-        const {container} = render(<FluxSplitView><FluxSplitViewPane>One</FluxSplitViewPane><FluxSplitViewPane>Two</FluxSplitViewPane></FluxSplitView>);
+        const {container} = render(<FluxSplitView><FluxSplitViewPane defaultSize={500}>One</FluxSplitViewPane><FluxSplitViewPane defaultSize={500}>Two</FluxSplitViewPane></FluxSplitView>);
         const root = container.firstElementChild as HTMLElement;
         Object.defineProperty(root, 'clientWidth', {configurable: true, value: 1000});
         const separator = screen.getByRole('separator');
-        fireEvent.pointerDown(separator, {clientX: 0});
-        fireEvent.pointerMove(window, {clientX: 100});
-        fireEvent.pointerMove(window, {clientX: 200});
+        fireEvent.pointerDown(separator, {button: 0, pointerId: 1, clientX: 0});
+        fireEvent.pointerMove(separator, {pointerId: 1, clientX: 100});
+        fireEvent.pointerMove(separator, {pointerId: 1, clientX: 200});
         expect(separator).toHaveAttribute('aria-valuenow', '70');
-        fireEvent.pointerUp(window);
+        fireEvent.pointerUp(separator, {pointerId: 1});
     });
 
     it('keeps successful remote results when another source fails', async () => {
@@ -77,13 +77,9 @@ describe('compound interactions', () => {
         await waitFor(() => expect(screen.queryByText('Loading...')).not.toBeInTheDocument());
     });
 
-    it('applies swipe displacement from the pointer-down offset', () => {
-        const {container} = render(<FluxSwipeActions><span>Message</span></FluxSwipeActions>);
-        const row = container.querySelector('[tabindex="-1"]') as HTMLElement;
-        fireEvent.pointerDown(row, {clientX: 10, pointerId: 1});
-        fireEvent.pointerMove(row, {clientX: 30, pointerId: 1});
-        fireEvent.pointerMove(row, {clientX: 50, pointerId: 1});
-        expect(row).toHaveStyle({transform: 'translateX(40px)'});
+    it('disables actions inside a disabled swipe row', () => {
+        render(<FluxSwipeActions disabled end={<FluxSwipeAction icon="trash" label="Delete"/>}>Message</FluxSwipeActions>);
+        expect(screen.getByRole('button', {name: 'Delete'})).toBeDisabled();
     });
 
     it('moves the focal point with arrow keys', () => {

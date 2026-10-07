@@ -1,0 +1,34 @@
+
+    .dashboardSearch {
+        width: 261px;
+    }
+
+    // The panel is a fixed column of its own, so its body is the part that scrolls.
+    .sideBody {
+        overflow-y: auto;
+    }
+
+    .dashboardMetrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 21px;
+    }
+
+    .dashboardMetric {
+        display: flex;
+        align-items: start;
+        flex-flow: column;
+        gap: 6px;
+    }
+
+    .dashboardMetricLabel {
+        font-size: var(--font-size-small);
+        color: var(--foreground-secondary);
+    }
+
+    .dashboardMetricValue {
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--foreground-prominent);
+    }

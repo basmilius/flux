@@ -2,7 +2,7 @@
 
 Flux UI includes a native React package alongside its Vue packages. It shares the same component names, design tokens, Sass modules, and public package APIs without depending on the Vue runtime.
 
-[Open the interactive React showcase](/react/).
+[Open the React documentation](/react/), with live examples and props from the React implementation.
 
 ## Installation
 
@@ -37,7 +37,7 @@ Keep the existing Flux component names and translate Vue template conventions in
 - Named slots become node props or render props such as `before`, `after`, `header`, and `opener`.
 - Events use React names such as `onClick`, `onValueChange`, and `onCheckedChange`.
 - Two-way bindings become controlled props plus a change callback.
-- Injection APIs are exposed as React providers, contexts, and hooks.
+- React components use contexts and hooks. Some compatibility injection hooks are not yet connected to those contexts.
 
 ```tsx
 export function NameField() {
@@ -54,3 +54,5 @@ export function NameField() {
 `@flux-ui/react` includes the public component, hook, utility, data, and type surfaces from the core components, Application, AI, Flow, Statistics, Visuals, Internals, and Types packages. Flow and Statistics integrations keep their native third-party engines while exposing React lifecycle and rendering behavior.
 
 See the package README for examples and development commands.
+
+The port is under review. See [React port status](/react/status) for verified checks and remaining work.

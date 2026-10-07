@@ -51,7 +51,7 @@ describe('FluxCalendar', () => {
     it('renders registered items and navigates months', () => {
         const onNavigate = vi.fn();
         render(
-            <FluxCalendar initialDate={DateTime.fromISO('2025-01-15')} onNavigate={onNavigate}>
+            <FluxCalendar view="month" initialDate={DateTime.fromISO('2025-01-15')} onNavigate={onNavigate}>
                 <FluxCalendarItem id="planning" date={DateTime.fromISO('2025-01-20')}>
                     Planning
                 </FluxCalendarItem>
@@ -60,68 +60,55 @@ describe('FluxCalendar', () => {
 
         expect(screen.getByRole('button', { name: 'Planning' })).toBeInTheDocument();
         fireEvent.click(screen.getByRole('button', { name: 'Next' }));
-        expect(screen.getByText('February 2025')).toBeInTheDocument();
+        expect(screen.getByRole('button', {name: 'Select month'})).toHaveTextContent('February');
+        expect(screen.getByRole('button', {name: 'Select year'})).toHaveTextContent('2025');
         expect(onNavigate).toHaveBeenLastCalledWith(expect.objectContaining({ month: 2 }), expect.any(DateTime), expect.any(DateTime));
     });
 });
 
 describe('filter controls', () => {
-    it('updates single and multiple option values', () => {
-        const onValueChange = vi.fn();
-        const { rerender } = render(
-            <FluxFilter value={{ status: null }} onValueChange={onValueChange}>
-                <FluxFilterOption name="status" label="Status" options={[{ label: 'Open', value: 'open' }]} />
-            </FluxFilter>
-        );
-        fireEvent.click(screen.getByRole('radio', { name: 'Open' }));
-        expect(onValueChange).toHaveBeenCalledWith({ status: 'open' });
-
-        rerender(
-            <FluxFilter value={{ status: ['open'] }} onValueChange={onValueChange}>
-                <FluxFilterOptions
-                    name="status"
-                    label="Status"
-                    options={[
-                        { label: 'Open', value: 'open' },
-                        { label: 'Closed', value: 'closed' }
-                    ]}
-                />
-            </FluxFilter>
-        );
-        fireEvent.click(screen.getByRole('checkbox', { name: 'Closed' }));
-        expect(onValueChange).toHaveBeenLastCalledWith({ status: ['open', 'closed'] });
+    it('navigates into a single filter and keeps the selection panel open', async () => {
+        const onValueChange = vi.fn(), onChange = vi.fn();
+        render(<FluxFilter value={{status: null}} onValueChange={onValueChange}><FluxFilterOption name="status" label="Status" options={[{label: 'Open', value: 'open'}]} onChange={onChange} /></FluxFilter>);
+        expect(screen.queryByText('Open')).not.toBeInTheDocument();
+        fireEvent.click(screen.getByRole('menuitem', {name: 'Status'}));
+        fireEvent.click(await screen.findByRole('menuitemradio', {name: 'Open'}));
+        expect(onValueChange).toHaveBeenCalledWith({status: 'open'});
+        expect(onChange).toHaveBeenCalledOnce();
+        expect(screen.getByRole('menuitem', {name: 'Back'})).toBeInTheDocument();
     });
 
-    it('keeps the numeric range ordered', () => {
-        const onValueChange = vi.fn();
-        render(
-            <FluxFilter value={{ price: [20, 80] }} onValueChange={onValueChange}>
-                <FluxFilterRange name="price" label="Price" min={0} max={100} />
-            </FluxFilter>
-        );
-        const sliders = screen.getAllByRole('slider');
-        fireEvent.change(sliders[0], { target: { value: '90' } });
-        expect(onValueChange).toHaveBeenCalledWith({ price: [90, 90] });
-    });
-
-    it('applies option disabled state and invokes option callbacks', () => {
+    it('toggles the final multiple selection to null without emitting remove', async () => {
         const onValueChange = vi.fn(), onChange = vi.fn(), onClear = vi.fn();
-        const {rerender} = render(
-            <FluxFilter value={{status: null}} onValueChange={onValueChange}>
-                <FluxFilterOption disabled name="status" label="Status" options={[{label: 'Open', value: 'open'}]} onChange={onChange} />
-            </FluxFilter>
-        );
-        expect(screen.getByRole('radio', {name: 'Open'})).toBeDisabled();
-        fireEvent.click(screen.getByRole('radio', {name: 'Open'}));
-        expect(onValueChange).not.toHaveBeenCalled();
+        render(<FluxFilter value={{status: ['open']}} onValueChange={onValueChange}><FluxFilterOptions name="status" label="Status" options={[{label: 'Open', value: 'open'}]} onChange={onChange} onClear={onClear} /></FluxFilter>);
+        fireEvent.click(screen.getByRole('menuitem', {name: /Status/}));
+        fireEvent.click(await screen.findByRole('menuitemradio', {name: 'Open'}));
+        expect(onValueChange).toHaveBeenCalledWith({status: null});
+        expect(onChange).toHaveBeenCalledWith(null);
+        expect(onClear).not.toHaveBeenCalled();
+    });
 
-        rerender(
-            <FluxFilter value={{status: ['open']}} onValueChange={onValueChange}>
-                <FluxFilterOptions name="status" label="Status" options={[{label: 'Open', value: 'open'}]} onChange={onChange} onClear={onClear} />
-            </FluxFilter>
-        );
-        fireEvent.click(screen.getByRole('checkbox', {name: 'Open'}));
-        expect(onChange).toHaveBeenLastCalledWith([]);
-        expect(onClear).toHaveBeenCalledOnce();
+    it('keeps the numeric range ordered', async () => {
+        const onValueChange = vi.fn();
+        render(<FluxFilter value={{price: [20, 80]}} onValueChange={onValueChange}><FluxFilterRange name="price" label="Price" min={0} max={100} /></FluxFilter>);
+        fireEvent.click(screen.getByRole('menuitem', {name: /Price/}));
+        const sliders = await screen.findAllByRole('slider');
+        fireEvent.keyDown(sliders[0], {key: 'End'});
+        expect(onValueChange).toHaveBeenCalledWith({price: [100, 100]});
+    });
+
+    it('blocks disabled filters and exposes reset and removal separately', async () => {
+        const onValueChange = vi.fn(), onClear = vi.fn(), onReset = vi.fn();
+        const {rerender} = render(<FluxFilter value={{status: 'closed'}} onValueChange={onValueChange}><FluxFilterOption disabled name="status" label="Status" options={[]} /></FluxFilter>);
+        expect(screen.getByRole('menuitem', {name: /Status/})).toBeDisabled();
+        rerender(<FluxFilter value={{status: 'closed'}} onValueChange={onValueChange} onClear={onClear} onReset={onReset}><FluxFilterOption name="status" label="Status" defaultValue="open" options={[{label: 'Open', value: 'open'}]} /></FluxFilter>);
+        fireEvent.click(screen.getByRole('menuitem', {name: /Status/}));
+        fireEvent.click(await screen.findByRole('menuitem', {name: 'Reset filters'}));
+        expect(onValueChange).toHaveBeenCalledWith({status: 'open'});
+        expect(onReset).toHaveBeenCalledWith('status');
+        fireEvent.click(await screen.findByRole('menuitem', {name: /Status/}));
+        fireEvent.click(await screen.findByRole('menuitem', {name: 'Remove filter'}));
+        expect(onValueChange).toHaveBeenLastCalledWith({});
+        expect(onClear).toHaveBeenCalledWith('status');
     });
 });

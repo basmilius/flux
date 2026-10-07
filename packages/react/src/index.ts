@@ -1,7 +1,9 @@
 import '~flux/components/css/index.scss';
+import '~flux/statistics/css/index.scss';
 
 export * from './colors';
 export * from './compatibility';
+export {FluxLocaleProvider, useFluxLocale, type FluxLocaleProps, type FluxMessages} from './i18n';
 export * from './types';
 export * from './components/Actions';
 export * from './components/AdvancedForms';
@@ -28,5 +30,10 @@ export * from './components/SelectionForms';
 export * from './components/Statistics';
 export * from './components/Tables';
 export * from './components/TreesKanban';
+export * from './components/Tree';
 export * from './components/Utilities';
 export * from './components/Visuals';
+
+export {FluxRouterProvider, type FluxRoute, type FluxRouter} from './routing';
+
+export {useHeightTransition} from './components/heightTransition';

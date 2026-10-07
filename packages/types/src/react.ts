@@ -2,7 +2,7 @@ import type {ButtonHTMLAttributes, HTMLAttributes, MouseEventHandler, ReactNode}
 
 type FluxPressableType = 'button' | 'link' | 'route' | 'none';
 type FluxSize = 'small' | 'medium' | 'large';
-type FluxTo = string | {pathname?: string; search?: string; hash?: string};
+type FluxTo = string | {pathname?: string; path?: string; name?: string | symbol; params?: Record<string, string | number>; query?: Record<string, string | number | null | undefined>; search?: string; hash?: string};
 
 export interface FluxPressableProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
     buttonType?: ButtonHTMLAttributes<HTMLButtonElement>['type'];

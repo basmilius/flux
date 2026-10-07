@@ -1,0 +1,93 @@
+---
+outline: deep
+
+emits:
+    -   name: toggle
+        description: Triggered when the collapsible opens or closes.
+        type: [ boolean ]
+
+    -   name: update:isOpened
+        description: Two-way binding for the open state.
+        type: [ boolean ]
+
+props:
+    -   name: disabled
+        description: Disable the collapsible header.
+        type: boolean
+        optional: true
+
+    -   name: href
+        description: When set, clicking the header navigates to the URL and opens the collapsible.
+        type: string
+        optional: true
+
+    -   name: icon-leading
+        description: The icon at the start of the header.
+        type: FluxIconName
+        optional: true
+
+    -   name: is-opened
+        description: Controls the open state externally. Works with v-model.
+        type: boolean
+        optional: true
+
+    -   name: label
+        description: The label shown in the header.
+        type: string
+        optional: true
+
+    -   name: rel
+        description: Same as the <a> HTML element (only used with href).
+        type: string
+        optional: true
+
+    -   name: target
+        description: Same as the <a> HTML element (only used with href).
+        type: string
+        optional: true
+
+    -   name: to
+        description: Vue Router location. When set, clicking the header navigates and opens the collapsible.
+        type: FluxTo
+        optional: true
+
+slots:
+    -   name: default
+        description: The menu items that are shown when the collapsible is open.
+
+    -   name: before
+        description: Custom content at the start of the header, replacing the leading icon.
+
+requiredIcons:
+    - angle-down
+    - angle-right
+---
+
+# Menu collapsible
+
+A menu item that expands to reveal a nested group. Use `defaultOpened` for local state, or `isOpened` and `onOpenedChange` to control it. A heading with `href` or `to` navigates and opens the group. Automatic expansion from router state is not implemented.
+
+::: render
+render=../../code/components/menu/collapsible/preview.vue
+:::
+
+<FrontmatterDocs/>
+
+## Examples
+
+::: example Basic || A collapsible group without its own route. Click the header to toggle.
+example=../../code/components/menu/collapsible/basic.vue
+:::
+
+::: example Navigate || A collapsible with a link on the header. Clicking navigates and opens.
+example=../../code/components/menu/collapsible/navigate.vue
+:::
+
+::: example Controlled || Control the open state from outside with v-model:isOpened.
+example=../../code/components/menu/collapsible/controlled.vue
+:::
+
+## Used components
+
+- [Menu item](./item)
+- [Icon](../icon)

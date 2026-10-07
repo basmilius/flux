@@ -1,7 +1,21 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import {describe, expect, it, vi} from 'vitest';
 import {FluxColorPicker, FluxColorSelect} from './Color';
-import {FluxExpandablePane, FluxWindow} from './Utilities';
+import {FluxMasonry, FluxWindow} from './Utilities';
+import {FluxExpandablePane} from './Disclosure';
+
+describe('FluxMasonry', () => {
+    it('keeps measurements across parent renders and measures inserted items', async () => {
+        const view = render(<FluxMasonry><div>First</div></FluxMasonry>);
+        const first = screen.getByText('First');
+        const measure = vi.spyOn(first, 'getBoundingClientRect');
+        view.rerender(<FluxMasonry><div>First</div></FluxMasonry>);
+        expect(measure).not.toHaveBeenCalled();
+        view.rerender(<FluxMasonry><div>First</div><div>Second</div></FluxMasonry>);
+        await waitFor(() => expect(screen.getByText('Second').style.gridRowEnd).toBe('span 15'));
+        expect(measure).toHaveBeenCalled();
+    });
+});
 
 describe('FluxExpandablePane', () => {
     it('toggles an accessible region', () => {
@@ -19,19 +33,19 @@ describe('FluxWindow', () => {
         expect(screen.getByText('Home')).toBeInTheDocument();
     });
 
-    it('exposes navigation to a render child', () => {
+    it('exposes navigation to a render child', async () => {
         render(<FluxWindow>{state => <button onClick={() => state.navigate('edit')}>{state.view}</button>}</FluxWindow>);
         fireEvent.click(screen.getByRole('button', {name: 'default'}));
-        expect(screen.getByRole('button', {name: 'edit'})).toBeInTheDocument();
+        expect(await screen.findByRole('button', {name: 'edit'})).toBeInTheDocument();
     });
 });
 
 describe('color controls', () => {
-    it('emits the selected native color', () => {
+    it('changes hue with the keyboard', () => {
         const onValueChange = vi.fn();
         render(<FluxColorPicker value="#ff0000" onValueChange={onValueChange} />);
-        fireEvent.change(screen.getByLabelText('Color'), {target: {value: '#00ff00'}});
-        expect(onValueChange).toHaveBeenCalledWith('#00ff00');
+        fireEvent.keyDown(screen.getByRole('slider', {name: 'Hue'}), {key: 'ArrowRight'});
+        expect(onValueChange).toHaveBeenCalledWith('#ff0000');
     });
 
     it('supports roving swatch selection', () => {

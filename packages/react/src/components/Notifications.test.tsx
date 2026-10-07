@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { FluxRoot } from './Root';
 import { FluxSnackbarProvider, showAlert, showConfirm, showSnackbar } from './Notifications';
@@ -13,7 +13,7 @@ describe('FluxSnackbarProvider', () => {
         expect(screen.getByText('Saved')).toBeInTheDocument();
         fireEvent.click(screen.getByRole('button', { name: 'Close' }));
         await expect(notification).resolves.toBeUndefined();
-        expect(screen.queryByText('Saved')).not.toBeInTheDocument();
+        await waitFor(() => expect(screen.queryByText('Saved')).not.toBeInTheDocument());
     });
 
     it('resolves an imperative notification dismissed by an action', async () => {
@@ -35,7 +35,7 @@ describe('FluxSnackbarProvider', () => {
         });
         expect(screen.getByText('Application')).toHaveAttribute('inert');
         expect(screen.getByRole('dialog', { name: 'Attention' })).toBeInTheDocument();
-        fireEvent.click(screen.getByRole('button', { name: 'OK' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Ok' }));
         await expect(alert).resolves.toBeUndefined();
         expect(screen.getByText('Application')).not.toHaveAttribute('inert');
 

@@ -2,7 +2,7 @@
 
 Native React components for Flux UI. The package lives alongside the Vue packages, uses the same design tokens and styles, and has no Vue runtime dependency.
 
-[Open the React showcase](https://flux-ui.dev/react/) or run it locally with `bun run showcase`.
+[Open the React documentation](https://flux-ui.dev/react/). From the repository root, run `bun run --cwd docs dev` and open `/react/` to use the local docs.
 
 ## Install
 
@@ -50,7 +50,7 @@ React event props follow React conventions (`onClick`, `onValueChange`, `onCheck
 
 ## Package coverage
 
-The React package contains native ports of the complete public Flux surface:
+The React package exports components and helpers from these Flux families:
 
 - Core components, forms, navigation, tables, trees, Kanban, calendars, filters, overlays, dialogs, notifications, and utilities
 - Application shell components
@@ -61,6 +61,8 @@ The React package contains native ports of the complete public Flux surface:
 - Shared types, color constants, hooks, focus helpers, input masks, transitions, and stores
 
 The package entry point is checked against every public export of `@flux-ui/components`, `@flux-ui/application`, `@flux-ui/ai`, `@flux-ui/flow`, `@flux-ui/statistics`, `@flux-ui/visuals`, `@flux-ui/internals`, and `@flux-ui/types` with `bun run audit:exports`.
+
+Matching export names does not establish behavioral parity. Transitions, localization, context hooks and some component APIs still need work. The [port status](https://flux-ui.dev/react/status) tracks these gaps.
 
 ## Vue-to-React conventions
 
