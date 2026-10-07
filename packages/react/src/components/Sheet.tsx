@@ -177,6 +177,8 @@ export function FluxSheet({children, className, isDraggable = true, position = '
         function select(event: Event) {if (pointer) event.preventDefault();}
         function resize() {
             const next = vertical ? element!.offsetHeight : element!.offsetWidth;
+            // The observer's initial notification must not stop the spring started by the first measurement.
+            if (next === size) return;
             const first = size === 0 && next > 0;
             size = next;
             if (owner === 'sheet' || closingAt !== null) return;

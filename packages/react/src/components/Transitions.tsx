@@ -1,9 +1,8 @@
 import {clsx} from 'clsx';
 import {
-    Children,
+    Component,
+    createRef,
     cloneElement,
-    Fragment,
-    isValidElement,
     useId,
     useLayoutEffect,
     useRef,
@@ -251,7 +250,7 @@ export function FluxFlyoutTransition(props: TransitionProps) {
 }
 
 export function FluxSnackbarTransitionGroup(props: HTMLAttributes<HTMLElement> & {children?: ReactNode}) {
-    return <TransitionGroup {...props} name="snackbars" styles={snackbarStyles} moveDuration={420} />;
+    return <TransitionGroup {...props} name="snackbars" styles={snackbarStyles} />;
 }
 
 export function FluxAutoHeightTransition(props: TransitionProps) {
@@ -306,76 +305,131 @@ export function FluxStaggerTransition(props: Omit<TransitionProps, 'onAfterEnter
     return <TransitionGroup {...props} />;
 }
 
-function TransitionGroup({
-    appear,
-    children,
-    className,
-    delay = 30,
-    max = 300,
-    style,
-    tag: Tag = 'div',
-    name = 'staggerTransition',
-    styles = transitionStyles,
-    moveDuration = 240,
-    ...props
-}: Omit<TransitionProps, 'onAfterEnter' | 'onAfterLeave'> & {
+type GroupProps = Omit<TransitionProps, 'onAfterEnter' | 'onAfterLeave'> & {
     delay?: number;
     max?: number;
     tag?: ElementType;
     name?: string;
     styles?: Record<string, string>;
-    moveDuration?: number;
-}) {
-    const next = elements(children);
-    const [retained, setRetained] = useState(next);
-    const previous = useRef(new Map<string | null, DOMRect>());
-    const ref = useRef<HTMLElement>(null);
-    const all = [...next, ...retained.filter((child) => !next.some((item) => same(item, child)))];
-    useLayoutEffect(() => {
-        const positions = new Map<string | null, DOMRect>();
-        Array.from(ref.current?.children ?? []).forEach((node, index) => {
-            const element = node as HTMLElement;
-            const key = all[index]?.key ?? null;
-            const box = element.getBoundingClientRect();
-            const old = previous.current.get(key);
-            positions.set(key, box);
-            if (old && next.some(item => item.key === key) && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-                const x = old.left - box.left;
-                const y = old.top - box.top;
-                if (x || y)
-                    element.animate?.([{transform: `translate(${x}px, ${y}px)`}, {transform: 'none'}], {
-                        duration: moveDuration,
-                        easing: 'cubic-bezier(.55, 0, .1, 1)'
-                    });
-            }
+};
+type GroupEntry = Entry & {index: number};
+type GroupState = {children: ReactNode; entries: GroupEntry[]};
+type GroupPosition = {node: HTMLElement; rect: DOMRect};
+
+// React's snapshot lifecycle reads the old layout before any child DOM mutations.
+class TransitionGroup extends Component<GroupProps, GroupState, GroupPosition[] | null> {
+    state: GroupState = {
+        children: this.props.children,
+        entries: elements(this.props.children).map((element, index) => ({element, index, entering: !!this.props.appear, leaving: false}))
+    };
+    private root = createRef<HTMLElement>();
+    private moves = new Map<HTMLElement, () => void>();
+
+    static getDerivedStateFromProps(props: GroupProps, state: GroupState): GroupState | null {
+        if (props.children === state.children) return null;
+        let index = 0;
+        const next = elements(props.children).map(element => {
+            const previous = state.entries.find(entry => same(entry.element, element));
+            return {element, index: previous && !previous.leaving ? previous.index : index++, entering: !previous || previous.leaving, leaving: false};
         });
-        previous.current = positions;
-    });
-    useLayoutEffect(() => {
-        setRetained(all);
-    }, [children]);
-    return (
-        <Tag
-            {...props}
-            ref={ref}
-            className={clsx(styles[name], className)}
-            style={{'--stagger-delay': `${delay}ms`, '--stagger-max': `${max}ms`, ...style}}
-        >
-            {all.map((child, index) => (
-                <Motion
-                    key={child.key}
-                    appear={appear || !retained.some((item) => same(item, child))}
-                    show={next.some((item) => same(item, child))}
-                    name={name}
-                    styles={styles}
-                    style={{'--index': index} as CSSProperties}
-                    onAfterLeave={() =>
-                        setRetained((current) => current.filter((item) => !same(item, child)))
-                    }
-                >
-                    {child}
-                </Motion>
-            ))}
-        </Tag>
-    );
+        const entries: GroupEntry[] = [];
+        const pending = new Map<GroupEntry, GroupEntry[]>();
+        let leaving: GroupEntry[] = [];
+        for (const previous of state.entries) {
+            const retained = next.find(entry => same(entry.element, previous.element));
+            if (retained) {
+                pending.set(retained, leaving);
+                leaving = [];
+            } else leaving.push({...previous, entering: false, leaving: true});
+        }
+        for (const entry of next) entries.push(...(pending.get(entry) ?? []), entry);
+        entries.push(...leaving);
+        return {children: props.children, entries};
+    }
+
+    getSnapshotBeforeUpdate(props: GroupProps, state: GroupState): GroupPosition[] | null {
+        if (props.children === this.props.children) return null;
+        const nodes = Array.from(this.root.current?.children ?? []) as HTMLElement[];
+        return state.entries.filter(entry => !entry.leaving || this.state.entries.some(current => current.leaving && same(current.element, entry.element))).flatMap(entry => {
+            const node = nodes.find(node => node.dataset.fluxGroupKey === String(entry.element.key));
+            return node ? [{node, rect: node.getBoundingClientRect()}] : [];
+        });
+    }
+
+    componentDidUpdate(_props: GroupProps, _state: GroupState, positions: GroupPosition[] | null) {
+        if (!positions) return;
+        const reset = new Set(positions.map(({node}) => node));
+        for (const node of this.moves.keys()) {
+            if (this.state.entries.some(entry => !entry.leaving && String(entry.element.key) === node.dataset.fluxGroupKey)) reset.add(node);
+        }
+        // DOM moves can cancel CSS transitions. Cancel the retained nodes too before measuring their destinations.
+        for (const node of reset) {
+            this.moves.get(node)?.();
+            for (const animation of node.getAnimations?.() ?? []) {
+                if ('transitionProperty' in animation && animation.transitionProperty === 'transform') animation.cancel();
+            }
+        }
+        if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+        const {name = 'staggerTransition', styles = transitionStyles} = this.props;
+        const moveClass = styles[`${name}Move`];
+        const targets = positions.filter(({node}) => node.isConnected).map(position => ({...position, target: position.node.getBoundingClientRect()}));
+        const moved = targets.filter(({node, rect, target}) => {
+            const x = rect.left - target.left, y = rect.top - target.top;
+            if (Math.abs(x) < .01 && Math.abs(y) < .01) return false;
+            const scaleX = node.offsetWidth ? target.width / node.offsetWidth : 1;
+            const scaleY = node.offsetHeight ? target.height / node.offsetHeight : 1;
+            node.style.transform = `translate(${x / (scaleX || 1)}px, ${y / (scaleY || 1)}px)`;
+            node.style.transitionDuration = '0s';
+            return true;
+        });
+        if (!moved.length) return;
+        void this.root.current?.offsetHeight;
+        for (const {node} of moved) {
+            node.classList.add(moveClass);
+            node.style.transform = '';
+            node.style.transitionDuration = '';
+            const cancel = () => {
+                node.classList.remove(moveClass);
+                node.removeEventListener('transitionend', ended);
+                clearTimeout(timer);
+                this.moves.delete(node);
+            };
+            const ended = (event: TransitionEvent) => {
+                if (event.target === node && event.propertyName === 'transform') cancel();
+            };
+            const computed = getComputedStyle(node);
+            const duration = Math.max(...computed.transitionDuration.split(',').map(milliseconds));
+            const timer = setTimeout(cancel, duration + 50);
+            this.moves.set(node, cancel);
+            node.addEventListener('transitionend', ended);
+        }
+    }
+
+    componentWillUnmount() {
+        this.moves.forEach(cancel => cancel());
+    }
+
+    render() {
+        const {appear, children, className, delay = 30, max = 300, style, tag: Tag = 'div', name = 'staggerTransition', styles = transitionStyles, ...props} = this.props;
+        const moving = new Set(Array.from(this.moves.keys(), node => node.dataset.fluxGroupKey));
+        return (
+            <Tag {...props} ref={this.root} className={clsx(styles[name], className)} style={{'--stagger-delay': `${delay}ms`, '--stagger-max': `${max}ms`, ...style}}>
+                {this.state.entries.map(entry => (
+                    <MotionItem
+                        key={entry.element.key}
+                        element={entry.element}
+                        entering={entry.entering}
+                        leaving={entry.leaving}
+                        name={name}
+                        styles={styles}
+                        className={moving.has(String(entry.element.key)) ? styles[`${name}Move`] : undefined}
+                        style={{'--index': entry.index} as CSSProperties}
+                        data-flux-group-key={String(entry.element.key)}
+                        onEntered={() => this.setState(state => ({entries: state.entries.map(item => item === entry ? {...item, entering: false} : item)}))}
+                        onExited={() => this.setState(state => ({entries: state.entries.filter(item => !same(item.element, entry.element) || !item.leaving)}))}
+                    />
+                ))}
+            </Tag>
+        );
+    }
 }

@@ -1,8 +1,8 @@
 .root {
     display: contents;
+}
 
-    &.isLocked {
-        cursor: default;
-        overflow: hidden;
-    }
+.isLocked {
+    cursor: default;
+    overflow: hidden;
 }

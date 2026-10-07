@@ -1,5 +1,6 @@
-import { fluxRegisterIcons, FluxRoot, FluxApplication } from '@flux-ui/react';
-import { Component, createElement, type ComponentType, type ErrorInfo, type ReactNode } from 'react';
+import { fluxRegisterIcons, FluxRoot, FluxApplication, useFluxStore } from '@flux-ui/react';
+import {useFluxStore as useVueStore} from '@flux-ui/components';
+import { Component, createElement, useLayoutEffect, type ComponentType, type ErrorInfo, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import examples from './manifest';
 import {previewExamples} from './previewExamples';
@@ -41,6 +42,17 @@ export async function mountExample(element: HTMLElement, name: string, onError: 
 
 export function mountProviders(element: HTMLElement) {
     const root = createRoot(element);
-    root.render(createElement(FluxRoot));
+    root.render(createElement(Providers));
     return () => root.unmount();
+}
+
+function Providers() {
+    const {inertMain} = useFluxStore();
+    useLayoutEffect(() => {
+        if (!inertMain) return;
+        // The docs shell belongs to Vue, so its root must also become inert for a React dialog.
+        const registration = useVueStore().registerDialog();
+        return () => registration.unregister();
+    }, [inertMain]);
+    return createElement(FluxRoot);
 }

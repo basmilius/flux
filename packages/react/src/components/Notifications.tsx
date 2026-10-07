@@ -2,7 +2,7 @@ import {useFluxTranslate} from '../i18n';
 import {FluxSnackbarTransitionGroup} from './Transitions';
 import {setOverlayShadeOpacity, useOverlayHost} from './overlayHost';
 import { clsx } from 'clsx';
-import { useEffect, useLayoutEffect, useState, useSyncExternalStore } from 'react';
+import { useLayoutEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import type { HTMLAttributes, ReactNode } from 'react';
 import type { FluxConfirmObject, FluxPromptObject } from '@flux-ui/types/notify';
 import type { FluxColor, FluxDirection, FluxIconName } from '../types';
@@ -23,6 +23,7 @@ export interface FluxSnackbarSpec extends Omit<HTMLAttributes<HTMLDivElement>, '
     color?: FluxColor;
     duration?: number;
     icon?: FluxIconName;
+    id?: number;
     isCloseable?: boolean;
     isRendered?: boolean;
     isLoading?: boolean;
@@ -64,7 +65,8 @@ let alerts: FluxAlertObject[] = [],
     prompts: FluxPromptObject[] = [],
     tooltips: FluxTooltipObject[] = [];
 const snackbarListeners = new Set<() => void>();
-const timers = new Map<number, ReturnType<typeof setTimeout>>();
+type SnackbarTimer = {remaining: number; startedAt: number; timeout: ReturnType<typeof setTimeout> | null};
+const timers = new Map<number, SnackbarTimer>();
 const snackbarResolvers = new Map<number, () => void>();
 function notify() {
     storeVersion++;
@@ -80,19 +82,24 @@ export function showSnackbar(spec: FluxSnackbarSpec): Promise<void> {
             }
         });
         snackbarResolvers.set(id, resolve);
-        if (spec.duration !== 0) timers.set(id, setTimeout(() => removeSnackbar(id), spec.duration ?? 6000));
+        const remaining = spec.duration ?? 6000;
+        timers.set(id, {remaining, startedAt: Date.now(), timeout: setTimeout(() => removeSnackbar(id), remaining)});
     });
 }
 export function removeSnackbar(id: number): void {
-    clearTimeout(timers.get(id));
+    const timer = timers.get(id);
+    if (timer?.timeout != null) clearTimeout(timer.timeout);
     timers.delete(id);
-    snackbars = snackbars.filter((item) => item.id !== id);
-    notify();
+    if (snackbars.some(item => item.id === id)) {
+        snackbars = snackbars.filter(item => item.id !== id);
+        notify();
+    }
     const resolve = snackbarResolvers.get(id);
     snackbarResolvers.delete(id);
     resolve?.();
 }
 export function updateSnackbar(id: number, spec: Partial<FluxSnackbarSpec>): void {
+    if (!snackbars.some(item => item.id === id)) return;
     snackbars = snackbars.map((item) => (item.id === id ? { ...item, ...spec } : item));
     notify();
 }
@@ -116,7 +123,7 @@ export function addPrompt(spec: Omit<FluxPromptObject, 'id'>): number {
 }
 export function addSnackbar(spec: Omit<FluxSnackbarObject, 'id'>): number {
     const item = { ...spec, id: ++snackbarId };
-    snackbars = [...snackbars, item];
+    snackbars = [item, ...snackbars];
     notify();
     return item.id;
 }
@@ -148,17 +155,16 @@ export function updateTooltip(id: number, spec: Partial<Omit<FluxTooltipObject, 
 }
 export function pauseSnackbar(id: number): void {
     const timer = timers.get(id);
-    if (timer) {
-        clearTimeout(timer);
-        timers.delete(id);
-    }
+    if (!timer || timer.timeout === null) return;
+    clearTimeout(timer.timeout);
+    timer.timeout = null;
+    timer.remaining = Math.max(0, timer.remaining - (Date.now() - timer.startedAt));
 }
-export function resumeSnackbar(id: number, duration = 5000): void {
-    if (timers.has(id) || !snackbars.some((item) => item.id === id)) return;
-    timers.set(
-        id,
-        setTimeout(() => removeSnackbar(id), duration)
-    );
+export function resumeSnackbar(id: number): void {
+    const timer = timers.get(id);
+    if (!timer || timer.timeout !== null) return;
+    timer.startedAt = Date.now();
+    timer.timeout = setTimeout(() => removeSnackbar(id), timer.remaining);
 }
 export function showAlert(spec: Omit<FluxAlertObject, 'id' | 'onClose'>): Promise<void> {
     return new Promise((resolve) => {
@@ -305,11 +311,27 @@ export function useFluxStore(): FluxStore {
     return storeSnapshot();
 }
 
-export function FluxSnackbar({ actions, className, color = 'gray', icon, isCloseable, isLoading, isRendered = true, message, onAction, onClose, progressIndeterminate, progressMax, progressMin, progressStatus, progressValue, subMessage, title, ...props }: FluxSnackbarSpec) {
+export function FluxSnackbar({actions, className, color = 'gray', duration, icon, id, isCloseable, isLoading, isRendered = false, message, onAction, onClose, onMouseEnter, onMouseLeave, progressIndeterminate, progressMax, progressMin, progressStatus, progressValue, subMessage, title, ...props}: FluxSnackbarSpec) {
     const translate = useFluxTranslate();
+    const registered = useRef<number | undefined>(undefined);
+    const spec = {actions, color, icon, isCloseable, isLoading, message, onAction, onClose, progressIndeterminate, progressMax, progressMin, progressStatus, progressValue, subMessage, title};
+    const current = useRef(spec);
+    current.current = spec;
+    useLayoutEffect(() => {
+        if (isRendered) return;
+        const id = addSnackbar(current.current);
+        registered.current = id;
+        return () => {
+            removeSnackbar(id);
+            registered.current = undefined;
+        };
+    }, [isRendered]);
+    useLayoutEffect(() => {
+        if (registered.current != null) updateSnackbar(registered.current, current.current);
+    }, [actions, color, icon, isCloseable, isLoading, message, onAction, onClose, progressIndeterminate, progressMax, progressMin, progressStatus, progressValue, subMessage, title]);
     if (!isRendered) return null;
     return (
-        <div {...props} className={clsx(snackbarStyles[`snackbar${capital(color)}`], className)} role={color === 'danger' ? 'alert' : 'status'} aria-live={color === 'danger' ? 'assertive' : 'polite'}>
+        <div {...props} className={clsx(snackbarStyles[`snackbar${capital(color)}`], className)} role={color === 'danger' ? 'alert' : 'status'} aria-live={color === 'danger' ? 'assertive' : 'polite'} onMouseEnter={event => {if (id != null) pauseSnackbar(id); onMouseEnter?.(event);}} onMouseLeave={event => {if (id != null) resumeSnackbar(id); onMouseLeave?.(event);}}>
             <div className={snackbarStyles.snackbarContent}>
                 {isLoading ? <FluxSpinner size={18} /> : icon && <FluxIcon size={18} name={icon} />}
                 <div className={snackbarStyles.snackbarBody}>
@@ -319,11 +341,11 @@ export function FluxSnackbar({ actions, className, color = 'gray', icon, isClose
                     {subMessage && <div className={snackbarStyles.snackbarSubMessage}>{subMessage}</div>}
                 </div>
             </div>
-            {actions && (
+            {actions && Object.keys(actions).length > 0 && (
                 <div className={snackbarStyles.snackbarActions}>
                     {Object.entries(actions).map(([key, label]) => (
                         <button key={key} className={snackbarStyles.snackbarAction} type="button" onClick={() => onAction?.(key)}>
-                            {label}
+                            <span>{label}</span>
                         </button>
                     ))}
                 </div>
@@ -333,72 +355,31 @@ export function FluxSnackbar({ actions, className, color = 'gray', icon, isClose
     );
 }
 
-export function FluxSnackbarProvider() {
-    const [, render] = useState(0);
-    useEffect(() => {
-        const listener = () => render((value) => value + 1);
-        snackbarListeners.add(listener);
-        return () => {
-            snackbarListeners.delete(listener);
-        };
-    }, []);
-    return (
-        <FluxSnackbarTransitionGroup className={snackbarStyles.snackbars}>
-            {[...snackbars].reverse().map((item) => (
-                <FluxSnackbar
-                    key={item.id}
-                    {...item}
-                    onAction={(key) => {
-                        item.onAction?.(key);
-                        removeSnackbar(item.id);
-                    }}
-                    onClose={() => {
-                        item.onClose?.();
-                        removeSnackbar(item.id);
-                    }}
-                />
-            ))}
-        </FluxSnackbarTransitionGroup>
-    );
+function subscribeNotifications(listener: () => void) {
+    snackbarListeners.add(listener);
+    return () => {snackbarListeners.delete(listener);};
 }
 
-function useLeavingDialogs<T extends {id: number}>(items: T[]) {
-    const [retained, setRetained] = useState(items);
-    useLayoutEffect(() => {
-        // A new dialog replaces content that is still leaving, as in the Vue provider.
-        if (items.length) setRetained(items);
-    }, [items]);
-    return retained.map(item => ({
-        item,
-        open: items.some(active => active.id === item.id),
-        onAfterClose: () => setRetained(current => current.filter(record => record.id !== item.id))
-    }));
+export function FluxSnackbarProvider() {
+    const records = useSyncExternalStore(subscribeNotifications, () => snackbars, () => snackbars);
+    const children = useMemo(() => [...records].reverse().map(item => <FluxSnackbar key={item.id} {...item} isRendered />), [records]);
+    return <FluxSnackbarTransitionGroup className={snackbarStyles.snackbars}>{children}</FluxSnackbarTransitionGroup>;
 }
 
 export function FluxDialogProvider() {
     useOverlayHost();
-    const renderedAlerts = useLeavingDialogs(alerts);
-    const renderedConfirms = useLeavingDialogs(confirms);
-    const renderedPrompts = useLeavingDialogs(prompts);
-    const [, render] = useState(0);
-    useEffect(() => {
-        const listener = () => render((value) => value + 1);
-        snackbarListeners.add(listener);
-        return () => {
-            snackbarListeners.delete(listener);
-        };
-    }, []);
+    const {alerts, confirms, prompts} = useFluxStore();
     return (
         <>
-            {renderedAlerts.map(({item, open, onAfterClose}) => (
-                <FluxAlert key={item.id} open={open} onAfterClose={onAfterClose} icon={item.icon} message={item.message} title={item.title} onClose={item.onClose} />
-            ))}
-            {renderedConfirms.map(({item, open, onAfterClose}) => (
-                <FluxConfirm key={item.id} open={open} onAfterClose={onAfterClose} icon={item.icon} message={item.message} title={item.title} onCancel={item.onCancel} onConfirm={item.onConfirm} />
-            ))}
-            {renderedPrompts.map(({item, open, onAfterClose}) => (
-                <FluxPrompt key={item.id} open={open} onAfterClose={onAfterClose} icon={item.icon} message={item.message} title={item.title} fieldLabel={item.fieldLabel} fieldPlaceholder={item.fieldPlaceholder} onCancel={item.onCancel} onConfirm={item.onConfirm} />
-            ))}
+            <FluxOverlay size="medium" open={alerts.length > 0} label={alerts.at(-1)?.title}>
+                {alerts.map(item => <AlertContent key={item.id} {...item} />)}
+            </FluxOverlay>
+            <FluxOverlay size="medium" open={confirms.length > 0} label={confirms.at(-1)?.title}>
+                {confirms.map(item => <ConfirmContent key={item.id} {...item} />)}
+            </FluxOverlay>
+            <FluxOverlay size="medium" open={prompts.length > 0} label={prompts.at(-1)?.title}>
+                {prompts.map(item => <PromptContent key={item.id} {...item} />)}
+            </FluxOverlay>
         </>
     );
 }
@@ -422,61 +403,45 @@ export function FluxPopConfirm({cancelLabel, children, confirmLabel, direction, 
     </FluxFlyout>;
 }
 
-export function FluxAlert({ icon, message, onAfterClose, onClose, open, title }: { icon?: FluxIconName; message?: string; onClose(): void; onAfterClose?: () => void; open: boolean; title: string }) {
-    const translate = useFluxTranslate();
-    return (
-        <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} label={title}>
-            <DialogLayout icon={icon} message={message} title={title} footer={<FluxPrimaryButton label={translate('flux.ok')} onClick={onClose} />} />
-        </FluxOverlay>
-    );
+type AlertContentProps = {icon?: FluxIconName; message?: string; onClose(): void; title: string};
+type ConfirmContentProps = Omit<AlertContentProps, 'onClose'> & {onCancel(): void; onConfirm(): void};
+type PromptContentProps = Omit<ConfirmContentProps, 'onConfirm'> & {fieldLabel: string; fieldPlaceholder?: string; onConfirm(value: string): void};
+type NotificationDialogProps = {open: boolean; onAfterClose?: () => void};
+
+export function FluxAlert({open, onAfterClose, ...props}: AlertContentProps & NotificationDialogProps) {
+    return <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} label={props.title}><AlertContent {...props} /></FluxOverlay>;
 }
-export function FluxConfirm({ icon, message, onCancel, onAfterClose, onConfirm, open, title }: { icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(): void; onAfterClose?: () => void; open: boolean; title: string }) {
-    const translate = useFluxTranslate();
-    return (
-        <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} isCloseable label={title} onClose={onCancel}>
-            <DialogLayout
-                icon={icon}
-                message={message}
-                title={title}
-                footer={
-                    <>
-                        <FluxSecondaryButton label={translate('flux.cancel')} onClick={onCancel} />
-                        <FluxPrimaryButton iconLeading="circle-check" label={translate('flux.ok')} onClick={onConfirm} />
-                    </>
-                }
-            />
-        </FluxOverlay>
-    );
+export function FluxConfirm({open, onAfterClose, ...props}: ConfirmContentProps & NotificationDialogProps) {
+    return <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} isCloseable label={props.title} onClose={props.onCancel}><ConfirmContent {...props} /></FluxOverlay>;
 }
-export function FluxPrompt({ fieldLabel, fieldPlaceholder, icon, message, onCancel, onAfterClose, onConfirm, open, title }: { fieldLabel: string; fieldPlaceholder?: string; icon?: FluxIconName; message?: string; onCancel(): void; onConfirm(value: string): void; onAfterClose?: () => void; open: boolean; title: string }) {
+export function FluxPrompt({open, onAfterClose, ...props}: PromptContentProps & NotificationDialogProps) {
+    return <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} isCloseable label={props.title} onClose={props.onCancel}><PromptContent {...props} /></FluxOverlay>;
+}
+function AlertContent({icon, message, onClose, title}: AlertContentProps) {
+    const translate = useFluxTranslate();
+    return <DialogLayout icon={icon} message={message} title={title} footer={<FluxPrimaryButton iconLeading="circle-check" label={translate('flux.ok')} onClick={onClose} />} />;
+}
+function ConfirmContent({icon, message, onCancel, onConfirm, title}: ConfirmContentProps) {
+    const translate = useFluxTranslate();
+    return <DialogLayout icon={icon} message={message} title={title} footer={<>
+        <FluxSecondaryButton label={translate('flux.cancel')} onClick={onCancel} />
+        <FluxPrimaryButton iconLeading="circle-check" label={translate('flux.ok')} onClick={onConfirm} />
+    </>} />;
+}
+function PromptContent({fieldLabel, fieldPlaceholder, icon, message, onCancel, onConfirm, title}: PromptContentProps) {
     const translate = useFluxTranslate();
     const [value, setValue] = useState('');
     return (
-        <FluxOverlay size="medium" open={open} onAfterClose={onAfterClose} isCloseable label={title} onClose={onCancel}>
-            <DialogLayout
-                icon={icon}
-                message={message}
-                title={title}
-                footer={
-                    <>
-                        <FluxSecondaryButton label={translate('flux.cancel')} onClick={onCancel} />
-                        <FluxPrimaryButton disabled={!value.trim()} label={translate('flux.ok')} onClick={() => onConfirm(value)} />
-                    </>
-                }
-            >
-                <FluxFormField label={fieldLabel}>
-                    <FluxFormInput
-                        autoFocus
-                        placeholder={fieldPlaceholder}
-                        value={value}
-                        onValueChange={(next) => setValue(String(next ?? ''))}
-                        onKeyDown={(event) => {
-                            if (event.key === 'Enter' && value.trim()) onConfirm(value);
-                        }}
-                    />
-                </FluxFormField>
-            </DialogLayout>
-        </FluxOverlay>
+        <DialogLayout icon={icon} message={message} title={title} footer={<>
+            <FluxSecondaryButton label={translate('flux.cancel')} onClick={onCancel} />
+            <FluxPrimaryButton disabled={!value.trim()} label={translate('flux.ok')} onClick={() => onConfirm(value)} />
+        </>}>
+            <FluxFormField label={fieldLabel}>
+                <FluxFormInput autoFocus placeholder={fieldPlaceholder} value={value} onValueChange={next => setValue(String(next ?? ''))} onKeyDown={event => {
+                    if (event.key === 'Enter' && value.trim()) onConfirm(value);
+                }} />
+            </FluxFormField>
+        </DialogLayout>
     );
 }
 function DialogLayout({ children, footer, icon, message, title }: { children?: ReactNode; footer: ReactNode; icon?: FluxIconName; message?: string; title: string }) {
@@ -485,7 +450,7 @@ function DialogLayout({ children, footer, icon, message, title }: { children?: R
             <FluxPaneHeader icon={icon} title={title} />
             {message && <FluxPaneBody>{message}</FluxPaneBody>}
             {children && <FluxPaneBody>{children}</FluxPaneBody>}
-            <FluxPaneFooter>{footer}</FluxPaneFooter>
+            <FluxPaneFooter><FluxSpacer />{footer}</FluxPaneFooter>
         </FluxPane>
     );
 }

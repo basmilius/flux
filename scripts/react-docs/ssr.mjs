@@ -20,6 +20,8 @@ function Fixture() {
             h(Flux.FluxFormField, {label: 'Name', isOptional: true}, h(Flux.FluxFormInput, {defaultValue: 'Ada'})),
             h(Flux.FluxFormSelect, {defaultValue: 2, options: [{label: 'One', value: 1}, {label: 'Two', value: 2}]}),
             h(Flux.FluxFormCheckbox, {checked, onCheckedChange: setChecked}),
+            h(Flux.FluxStaggerTransition, {'data-ssr-stagger': ''}, ['A', ...(checked ? ['B'] : []), 'C'].map(key => h('div', {key}, key))),
+            h(Flux.FluxSnackbar, {message: 'Hydrated notification'}),
             h(Flux.FluxFormSlider, {defaultValue: 35}),
             h(Flux.FluxExpandable, {title: 'Details', defaultOpened: true}, 'Expanded content'),
             h(Flux.FluxTooltip, {content: 'Help', open: true}, h(Flux.FluxSecondaryButton, {label: 'Help'})),
@@ -49,9 +51,13 @@ assert.deepEqual(errors, [], 'server and browser render must hydrate without rep
 assert.equal(document.querySelector('input').value, 'Ada');
 const checkbox = document.querySelector('input[type="checkbox"]');
 assert.equal(checkbox.checked, true);
+assert.equal(document.querySelectorAll('[data-ssr-stagger] > div').length, 3);
+assert(document.body.textContent.includes('Hydrated notification'));
 checkbox.click();
 await new Promise(resolve => setTimeout(resolve, 30));
 assert.equal(checkbox.checked, false, 'hydrated controls must respond to input');
+await new Promise(resolve => setTimeout(resolve, 100));
+assert.equal(document.querySelectorAll('[data-ssr-stagger] > div').length, 2, 'hydrated transition groups must finish removing a child');
 assert.deepEqual(errors, [], 'hydrated components must not raise runtime errors');
 root.unmount();
 dom.window.close();
