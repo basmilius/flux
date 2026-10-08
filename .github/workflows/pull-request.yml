@@ -5,69 +5,36 @@ on:
 
 concurrency:
     cancel-in-progress: true
-    group: ${{ format('ci-{0}', github.ref) }}
-
-env:
-    RELEASE_VERSION: ${{ github.event.release.tag_name }}
+    group: ${{ format('ci-{0}', github.event.pull_request.number) }}
 
 permissions:
     contents: read
-    deployments: write
 
 jobs:
-    publish:
+    test:
+        # Keep this name until the upstream required-check rule is updated.
         runs-on: ubuntu-latest
         name: 🚀 Build and preview
         steps:
             -   name: 👀 Checkout
-                uses: actions/checkout@v6
+                uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+                with:
+                    persist-credentials: false
 
             -   name: 🍞 Setup Bun
-                uses: oven-sh/setup-bun@v2
+                uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
 
-            -   name: ✨ Setup node 25.x
-                uses: actions/setup-node@v6
-                with:
-                    node-version: '25.x'
-                    registry-url: https://registry.npmjs.org
+            -   name: Use public package registry
+                run: rm -f .npmrc
 
-            -   name: 📦️ Install dependencies
-                run: bun install --frozen-lockfile
-                env:
-                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+            -   name: 📦 Install React dependencies
+                run: bun install --filter @flux-ui/react --frozen-lockfile --ignore-scripts --config=.github/public-bunfig.toml
 
-            -   name: 🔨 Build
-                run: |
-                    bun --cwd packages/internals build
-                    bun --cwd packages/visuals build
-                    bun --cwd packages/components build
-                    bun --cwd packages/application build
-                    bun --cwd packages/statistics build
-                    bun --cwd packages/flow build
-                    bun --cwd packages/ai build
-                    node scripts/transform-dts.mjs
-                    bun --cwd docs build
-                env:
-                    FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+            -   name: 🧪 Test React
+                run: bun run --cwd packages/react test
 
-            -   name: 🎨 Check color contract
-                run: |
-                    bun scripts/check-contrast.ts
-                    bun scripts/check-palette-refs.ts
+            -   name: 🔨 Build React
+                run: bun run --cwd packages/react build
 
-            -   name: 🌍 Check translations
-                run: bun scripts/generate-translations.ts --check
-
-            -   name: 🚀 Publish Docs
-                uses: cloudflare/wrangler-action@v3
-                id: publish
-                with:
-                    accountId: 5e565cf9fa55b0eae1f8131903da2ca9
-                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-                    command: versions upload --tag pr-${{ github.event.pull_request.number }}
-                    gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-                    wranglerVersion: "4.69.0"
-
-            -   name: ⭐️ Output
-                run: |
-                    echo "Deployed on ${{ steps.publish.outputs.deployment-url }}"
+            -   name: 🌐 Build React showcase
+                run: bun run --cwd packages/react build:showcase

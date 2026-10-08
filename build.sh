@@ -5,4 +5,5 @@ bun --cwd packages/application build
 bun --cwd packages/statistics build
 bun --cwd packages/flow build
 bun --cwd packages/ai build
+bun --cwd packages/react build
 node scripts/transform-dts.mjs

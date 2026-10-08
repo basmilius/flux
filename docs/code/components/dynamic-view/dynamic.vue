@@ -2,9 +2,9 @@
     <FluxFlex
         direction="vertical"
         :gap="9">
-        <FluxToggle v-model="showPrimary">
-            Emphasise the action
-        </FluxToggle>
+        <FluxFormField label="Emphasise the action">
+            <FluxToggle v-model="showPrimary"/>
+        </FluxFormField>
 
         <FluxDynamicView :vnode="action"/>
     </FluxFlex>
@@ -13,7 +13,7 @@
 <script
     setup
     lang="ts">
-    import { FluxDynamicView, FluxFlex, FluxPrimaryButton, FluxSecondaryButton, FluxToggle } from '@flux-ui/components';
+    import { FluxDynamicView, FluxFlex, FluxFormField, FluxPrimaryButton, FluxSecondaryButton, FluxToggle } from '@flux-ui/components';
     import { computed, h, ref } from 'vue';
 
     const showPrimary = ref(true);

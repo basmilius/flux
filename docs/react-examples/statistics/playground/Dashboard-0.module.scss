@@ -1,0 +1,34 @@
+
+    .dashboard {
+        display: flex;
+        flex-flow: column;
+        gap: 24px;
+    }
+
+    .dashboardMain,
+    .dashboardBottom {
+        display: grid;
+        align-items: start;
+        gap: 24px;
+    }
+
+    .dashboardMain {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
+
+    .dashboardBottom {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboardSide {
+        display: flex;
+        flex-flow: column;
+        gap: 24px;
+    }
+
+    @container playground (width < 1008px) {
+        .dashboardMain,
+        .dashboardBottom {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }

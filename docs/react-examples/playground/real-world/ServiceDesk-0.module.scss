@@ -1,0 +1,8 @@
+
+    .serviceDeskFrame {
+        position: relative;
+        min-height: 345px;
+        padding-bottom: 96px;
+        // Anchor the fixed dial to this example instead of the viewport.
+        transform: translate(0);
+    }

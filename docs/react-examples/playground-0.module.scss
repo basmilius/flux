@@ -1,0 +1,76 @@
+
+    .componentsPlayground {
+        container: playground / inline-size;
+        padding-block: 60px;
+        max-width: 1800px;
+        margin-inline: auto;
+    }
+
+    .componentsPlayground > :global([data-prose-full]) {
+        margin-inline: 30px;
+    }
+
+    // Fixed column counts rather than `auto-fill`, so a card is the same width in
+    // every section of the page.
+    .cardGrid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+        align-items: start;
+    }
+
+    @container playground (width < 1320px) {
+        .cardGrid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @container playground (width < 690px) {
+        .cardGrid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    .gridIntents {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        align-items: start;
+    }
+
+    @container playground (width < 1008px) {
+        .gridIntents {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @container playground (width < 690px) {
+        .gridIntents {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    .shadows {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    @container playground (width < 690px) {
+        .shadows {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    .shadow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90px;
+        font-size: 13px;
+        background: var(--surface-raised);
+        background-clip: padding-box;
+        border: 1px solid var(--surface-stroke-out);
+        border-radius: var(--radius);
+        color: var(--foreground-secondary);
+    }

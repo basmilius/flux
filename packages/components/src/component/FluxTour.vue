@@ -26,6 +26,7 @@
                     role="dialog">
                     <FluxPane
                         ref="popover"
+                        tabindex="-1"
                         :class="$style.tourPane">
                         <div
                             ref="bodyViewport"

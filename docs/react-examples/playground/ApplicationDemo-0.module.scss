@@ -1,0 +1,49 @@
+
+    // `--application-height` is what the shell measures against instead of the
+    // viewport, and containment makes this the containing block for its
+    // `position: fixed` rail and backdrop, clipped to the radius.
+    .demoFrame {
+        --application-height: 1080px;
+
+        position: relative;
+        height: var(--application-height);
+        contain: layout paint;
+        border: 1px solid var(--surface-stroke);
+        border-radius: var(--radius);
+    }
+
+    // The shell's top bar is sticky, so it needs a scroll container that is not the page.
+    .scroller {
+        height: 100%;
+        overscroll-behavior: contain;
+        overflow-y: auto;
+    }
+
+    .demoSearch {
+        width: 261px;
+    }
+
+    .demoMetrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 21px;
+    }
+
+    .demoMetric {
+        display: flex;
+        align-items: start;
+        flex-flow: column;
+        gap: 6px;
+    }
+
+    .demoMetricLabel {
+        font-size: var(--font-size-small);
+        color: var(--foreground-secondary);
+    }
+
+    .demoMetricValue {
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--foreground-prominent);
+    }

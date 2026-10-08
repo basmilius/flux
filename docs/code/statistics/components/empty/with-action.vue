@@ -9,7 +9,7 @@
             description="Add a deal to start tracking conversion rate and value.">
             <FluxPrimaryButton
                 label="Create deal"
-                icon-before="plus"/>
+                icon-leading="plus"/>
         </FluxStatisticsEmpty>
     </FluxStatisticsChartPane>
 </template>

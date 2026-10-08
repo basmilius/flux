@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { composeLibrary, preset } from '@basmilius/vite-preset';
 import { defineFilterMacro } from '@flux-ui/components/vite';
 import { defineConfig } from 'vitepress';
@@ -22,12 +23,13 @@ export const fluxStatistics = composeFluxLibrary('@flux-ui/statistics', '~flux/s
 export const fluxVisuals = composeFluxLibrary('@flux-ui/visuals', '~flux/visuals');
 export const fluxFlow = composeFluxLibrary('@flux-ui/flow', '~flux/flow');
 
-export default defineConfig({
+const config = defineConfig({
     title: 'Flux',
     titleTemplate: ':title — Flux',
     description: 'Component library for Vue 3.',
     ignoreDeadLinks: true,
     cleanUrls: true,
+    srcExclude: ['react-guide/**', 'react-examples/**'],
     head: [
         ['link', {rel: 'stylesheet', href: 'https://font.bmcdn.nl/css2?family=inter-variable|jetbrains-mono'}]
     ],
@@ -54,6 +56,12 @@ export default defineConfig({
         }
     },
     vite: {
+        resolve: {
+            alias: {'@flux-ui/react': resolve(import.meta.dirname, '../../packages/react/src/index.ts')},
+            dedupe: ['react', 'react-dom'],
+            extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json', '.vue']
+        },
+        oxc: {jsx: {runtime: 'automatic'}},
         build: {
             cssTarget: 'chrome120'
         },
@@ -82,6 +90,7 @@ export default defineConfig({
             })
         ],
         server: {
+            watch: {ignored: ['**/.vitepress/dist/**', '**/.vitepress/.temp/**']},
             port: 5174
         }
     },
@@ -113,12 +122,13 @@ export default defineConfig({
             },
             {
                 text: 'Packages',
-                activeMatch: '/(ai|application|flow|internals|statistics|visuals)/',
+                activeMatch: '/(ai|application|flow|internals|react|statistics|visuals)/',
                 items: [
                     {text: 'AI', link: '/ai/'},
                     {text: 'Application', link: '/application/'},
                     {text: 'Flow', link: '/flow/'},
                     {text: 'Internals', link: '/internals/'},
+                    {text: 'React', link: '/react/'},
                     {text: 'Statistics', link: '/statistics/'},
                     {text: 'Visuals', link: '/visuals/'}
                 ]
@@ -137,6 +147,7 @@ export default defineConfig({
                     collapsed: false,
                     items: [
                         {text: 'What is Flux', link: '/guide/introduction/what-is-flux'},
+                        {text: 'React', link: '/guide/introduction/react'},
                         {
                             text: 'Installation',
                             collapsed: true,
@@ -543,3 +554,47 @@ export default defineConfig({
         ]
     }
 });
+
+const reactLabels: Record<string, string> = {
+    'Vue Router': 'Routing',
+    'Composables': 'Hooks',
+    'Directives': 'DOM behavior',
+    'focusTrap': 'Focus trap',
+    'heightTransition': 'Height transitions'
+};
+
+function reactNavigation<T>(value: T): T {
+    if (Array.isArray(value)) return value.filter(item => !['React', 'Nuxt'].includes(item?.text)).map(reactNavigation) as T;
+    if (!value || typeof value !== 'object') return value;
+    return Object.fromEntries(Object.entries(value).map(([key, entry]) => [
+        key.startsWith('/') ? `/react${key}` : key,
+        key === 'link' && typeof entry === 'string' && entry.startsWith('/')
+            ? `/react${entry}`
+            : key === 'activeMatch' && typeof entry === 'string'
+                ? entry.replace(/^\^?\//, '^/react/').replace(/\|react/g, '')
+                : key === 'text' && typeof entry === 'string' ? reactLabels[entry] ?? entry : reactNavigation(entry)
+    ])) as T;
+}
+
+config.locales = {
+    root: {label: 'Vue', lang: 'en', link: '/'},
+    react: {
+        label: 'React',
+        lang: 'en',
+        link: '/react/',
+        description: 'Flux components for React.',
+        themeConfig: {
+            siteTitle: 'Flux · React',
+            nav: [
+                {text: 'Home', link: '/react/'},
+                {text: 'Guide', link: '/react/guide/introduction/installation/manual', activeMatch: '^/react/(guide|internals)/'},
+                {text: 'Components', link: '/react/components/', activeMatch: '^/react/components/'},
+                reactNavigation(config.themeConfig!.nav![3]),
+                {text: 'Port status', link: '/react/status'}
+            ],
+            sidebar: reactNavigation(config.themeConfig!.sidebar)
+        }
+    }
+};
+
+export default config;
