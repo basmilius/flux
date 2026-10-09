@@ -6,6 +6,10 @@ emits:
         description: Triggered when the per-page limit is changed by the user.
         type: [ number ]
 
+    -   name: load-more
+        description: Triggered in `infinite` pagination when the end of the table scrolls into view while `has-more` is set and nothing is loading. Append the next rows to `items` in response.
+        type: []
+
     -   name: navigate
         description: Triggered when the user navigates to a different page.
         type: [ number ]
@@ -13,6 +17,10 @@ emits:
     -   name: row-click
         description: Triggered when a row is activated by a click, or by pressing `Enter`/`Space` while the row is focused, with the row's item, the index of the clicked column and the original event. Activations from interactive elements within the row (buttons, links, inputs) are ignored. Not triggered when `selection-mode` is set, since there the row activation toggles the selection instead. It is also not triggered for an expandable row when `expand-trigger` is `row`, since the activation expands that row. The column index is the raw cell index (the selection and expand cells are counted), or `-1` when the row is activated by keyboard.
         type: [ "T", "number", "MouseEvent" ]
+
+    -   name: row-intent
+        description: Triggered with the row's item when the pointer rests on a row for a moment or the row receives focus. Use it to prefetch the detail of a row before it is expanded.
+        type: [ "T" ]
 
     -   name: update:selected
         description: Triggered when the selection changes. The payload type matches `selection-mode`, so it is a single id (or `null`) for `single` and an array of ids for `multiple`.
@@ -66,17 +74,51 @@ props:
         optional: true
         default: false
 
+    -   name: has-more
+        description: Whether more rows can be loaded. Only relevant when `pagination` is `infinite`.
+        type: boolean
+        optional: true
+        default: false
+
+    -   name: is-expand-loading
+        description: A predicate that tells whether the detail of an expanded row is still loading. While it returns `true`, the row shows a spinner in place of the `expandable` slot.
+        type: "(item: T) => boolean"
+        optional: true
+
+    -   name: is-loading-more
+        description: Shows a spinner at the end of the table while the next rows load. Only relevant when `pagination` is `infinite`.
+        type: boolean
+        optional: true
+        default: false
+
     -   name: limits
-        description: The available options for the pagination limit.
+        description: The available options for the pagination limit. The pagination bar only shows when this is set and `total` exceeds the first limit.
         type: number[]
+        optional: true
+        default: "[]"
 
     -   name: page
         description: The currently active page, starting from 1. Used for slot bindings and the pagination bar display only; it does not slice the items array.
         type: number
+        optional: true
+        default: 1
+
+    -   name: pagination
+        description: Use `pages` for a pagination bar that you drive from the server. Use `infinite` to drop the bar and emit `load-more` when the end of the table scrolls into view.
+        type: "'pages' | 'infinite'"
+        optional: true
+        default: pages
 
     -   name: per-page
-        description: The number of rows to show per page.
+        description: The number of rows to show per page. Defaults to the number of items.
         type: number
+        optional: true
+
+    -   name: expand-style
+        description: How an expanded row is presented. Use `inline` to show the detail as an extra row. Use `card` to lift the row and its detail off the table as one card.
+        type: "'inline' | 'card'"
+        optional: true
+        default: inline
 
     -   name: expand-mode
         description: How expandable rows behave. Use `multiple` to allow several rows open at once, or `single` to keep only one open. Requires `unique-key` and the `expandable` slot.
@@ -106,8 +148,9 @@ props:
         optional: true
 
     -   name: total
-        description: The total number of items in the data set.
+        description: The total number of items in the data set. Defaults to the number of items.
         type: number
+        optional: true
 
     -   name: unique-key
         description: The unique key for each row.
@@ -224,6 +267,10 @@ The data table does **not** paginate `items` internally. The `items` prop should
 By default a collapsed group unmounts its rows, so re-expanding a group of rich rows (per-row flyouts, links, indicators) re-mounts all of them. Set `collapse-mode="hide"` to keep the rows mounted and hide them instead, making every toggle instant. Hidden rows are excluded from keyboard navigation and assistive technology, so there is no visible or behavioral change beyond the speed.
 :::
 
+::: tip Infinite loading
+With `pagination="infinite"` the data table shows every item in `items` and asks for more through `load-more`. Give the table a bounded height, for example with `max-height`, so the end of the table can scroll into view.
+:::
+
 ## Examples
 
 ::: example File manager || A data table that is used for file management.
@@ -284,6 +331,14 @@ example=../code/components/data-table/expand-conditional.vue
 
 ::: example Expand on row click || A data table without expand toggles, where clicking a row expands it.
 example=../code/components/data-table/expand-row.vue
+:::
+
+::: example Card expansion || Expanded rows lift off the table as a card. The detail of a row is prefetched on hover and shows a spinner until it is in, and a separator splits the pinned row from the rest.
+example=../code/components/data-table/expand-card.vue
+:::
+
+::: example Infinite loading || A data table that loads the next rows when its end scrolls into view.
+example=../code/components/data-table/infinite.vue
 :::
 
 ::: example Grouped rows || A data table whose rows are grouped under collapsible headers.
@@ -354,3 +409,4 @@ example=../code/components/data-table/empty.vue
     - [Group](./table/group)
     - [Header](./table/header)
     - [Row](./table/row)
+    - [Separator](./table/separator)

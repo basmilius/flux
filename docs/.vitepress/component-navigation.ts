@@ -305,6 +305,7 @@ const navigation: SidebarItem[] = [
                     {text: 'Group', link: '/components/table/group'},
                     {text: 'Header', link: '/components/table/header'},
                     {text: 'Row', link: '/components/table/row'},
+                    {text: 'Separator', link: '/components/table/separator'},
                     {text: 'Tree cell', link: '/components/table/tree-cell'}
                 ]
             },

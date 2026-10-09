@@ -1,7 +1,7 @@
 <template>
     <FluxTable
         ref="table"
-        :aria-rowcount="total + 1"
+        :aria-rowcount="ariaRowcount"
         :is-filled="limitedItems.length !== 0 && isFilled"
         :is-hoverable="isHoverable"
         :is-loading="isLoading"
@@ -55,7 +55,7 @@
         </template>
 
         <template
-            v-if="total > limits[0]"
+            v-if="pagination === 'pages' && total > limits[0]"
             #pagination>
             <slot
                 name="pagination"
@@ -87,9 +87,12 @@
                     toggle: () => toggleGroup(chunk.id!)
                 }"/>
 
-            <template
+            <component
+                :is="expandStyle === 'card' ? 'div' : PassThrough"
                 v-for="entry of chunk.entries"
-                :key="entry.key">
+                :key="entry.key"
+                :class="expandStyle === 'card' ? clsx($style.tableCard, rowStates.get(entry.key)?.isExpanded && $style.isExpanded) : undefined"
+                :role="expandStyle === 'card' ? 'presentation' : undefined">
                 <FluxTableRow
                     :aria-rowindex="(page - 1) * perPage + entry.index + 2"
                     :aria-expanded="rowStates.get(entry.key)?.isToggle ? rowStates.get(entry.key)?.isExpanded : undefined"
@@ -97,6 +100,9 @@
                     :is-clickable="rowStates.get(entry.key)?.isClickable"
                     :is-hidden="chunk.isCollapsed"
                     :is-selected="rowStates.get(entry.key)?.isSelected"
+                    @focusin="emit('rowIntent', entry.item)"
+                    @pointerenter="onRowPointerEnter(entry.item)"
+                    @pointerleave="onRowPointerLeave"
                     @row-click="(columnIndex, event) => onRowClick(entry.item, columnIndex, event)">
                     <FluxTableCell
                         v-if="selectionMode"
@@ -136,15 +142,33 @@
                     <FluxTableCell :colspan="columnCount">
                         <template #content>
                             <div :class="$style.tableExpandContent">
+                                <div
+                                    v-if="isExpandLoading?.(entry.item)"
+                                    :class="$style.tableExpandLoading">
+                                    <FluxSpinner/>
+                                </div>
+
                                 <slot
+                                    v-else
                                     name="expandable"
                                     v-bind="{index: entry.index, item: entry.item, isExpanded: true, toggle: () => toggleExpand(entry.item)}"/>
                             </div>
                         </template>
                     </FluxTableCell>
                 </FluxTableRow>
-            </template>
+            </component>
         </component>
+
+        <FluxTableRow
+            v-if="pagination === 'infinite' && (hasMore || isLoadingMore)"
+            aria-hidden="true">
+            <div
+                ref="sentinel"
+                :class="$style.tableInfinite"
+                role="cell">
+                <FluxSpinner v-if="isLoadingMore"/>
+            </div>
+        </FluxTableRow>
 
         <template
             v-if="'loading' in slots"
@@ -174,14 +198,16 @@
     setup
     generic="T extends Record<string, any>">
     import type { FluxColor } from '@flux-ui/types';
+    import { useInView } from '@basmilius/common';
     import { clsx } from 'clsx';
-    import { computed, getCurrentInstance, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { computed, getCurrentInstance, onBeforeUnmount, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxTableActions from './table/FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
     import FluxAction from './FluxAction.vue';
     import FluxFormCheckbox from './form/FluxFormCheckbox.vue';
     import FluxPaginationBar from './FluxPaginationBar.vue';
+    import FluxSpinner from './FluxSpinner.vue';
     import FluxTable from './table/FluxTable.vue';
     import FluxTableBar from './table/FluxTableBar.vue';
     import FluxTableCell from './table/FluxTableCell.vue';
@@ -218,7 +244,9 @@
     const emit = defineEmits<{
         limit: [number];
         navigate: [number];
+        loadMore: [];
         rowClick: [item: T, columnIndex: number, event: MouseEvent];
+        rowIntent: [item: T];
     }>();
 
     const selected = defineModel<SelectionValue>('selected');
@@ -233,36 +261,47 @@
         canExpand,
         collapseMode = 'unmount',
         expandMode = 'multiple',
+        expandStyle = 'inline',
         expandTrigger = 'button',
         groupBy,
+        hasMore = false,
+        isExpandLoading,
         isFilled = false,
         isHoverable = false,
         isLoading = false,
+        isLoadingMore = false,
         isSticky = false,
         items,
-        page,
-        perPage,
+        limits = [],
+        page = 1,
+        pagination = 'pages',
+        perPage: perPageProp,
         rowColor,
         selectionMode,
-        total,
+        total: totalProp,
         uniqueKey
     } = defineProps<{
         readonly canExpand?: (item: T) => boolean;
         readonly collapseMode?: 'hide' | 'unmount';
         readonly expandMode?: 'single' | 'multiple';
+        readonly expandStyle?: 'inline' | 'card';
         readonly expandTrigger?: 'button' | 'row';
         readonly groupBy?: (item: T) => SelectionId;
+        readonly hasMore?: boolean;
+        readonly isExpandLoading?: (item: T) => boolean;
         readonly isFilled?: boolean;
         readonly isHoverable?: boolean;
         readonly isLoading?: boolean;
+        readonly isLoadingMore?: boolean;
         readonly isSticky?: boolean;
         readonly items: T[];
-        readonly limits: number[];
-        readonly page: number;
-        readonly perPage: number;
+        readonly limits?: number[];
+        readonly page?: number;
+        readonly pagination?: 'pages' | 'infinite';
+        readonly perPage?: number;
         readonly rowColor?: (item: T) => FluxColor | undefined;
         readonly selectionMode?: 'single' | 'multiple';
-        readonly total: number;
+        readonly total?: number;
         readonly uniqueKey?: string;
     }>();
 
@@ -340,7 +379,13 @@
 
     const IGNORED_SLOTS: string[] = ['filter', 'header', 'footer', 'pagination', 'expandable', 'group', 'empty', 'loading', 'selection'];
 
+    // Long enough to skip the rows a pointer only passes over on its way.
+    const INTENT_DELAY = 150;
+
+    let intentTimer = 0;
+
     const instance = getCurrentInstance();
+    const sentinel = useTemplateRef<HTMLElement>('sentinel');
     const table = useTemplateRef('table');
     const treeDisabled = useDisabledInjection();
     const translate = useTranslate();
@@ -348,7 +393,15 @@
     const hasRowClickListener = computed(() => !!instance?.vnode?.props?.onRowClick);
     const isRowInteractive = computed(() => (!!selectionMode && !unref(treeDisabled)) || unref(hasRowClickListener));
 
-    const limitedItems = computed(() => items.slice(0, perPage));
+    const isAtEnd = useInView(sentinel);
+
+    const perPage = computed(() => perPageProp ?? items.length);
+    const total = computed(() => totalProp ?? items.length);
+
+    // ARIA marks a row count that is not known (yet) as -1.
+    const ariaRowcount = computed(() => totalProp === undefined && hasMore ? -1 : unref(total) + 1);
+
+    const limitedItems = computed(() => pagination === 'infinite' ? items : items.slice(0, unref(perPage)));
 
     const hasExpandable = computed(() => 'expandable' in slots);
     const hasExpandColumn = computed(() => unref(hasExpandable) && expandTrigger === 'button');
@@ -490,8 +543,19 @@
     });
 
     watch(() => items, () => {
-        unref(table)?.$el.scrollTo(0, 0);
+        if (pagination === 'pages') {
+            unref(table)?.$el.scrollTo(0, 0);
+        }
     });
+
+    // Also after a page arrived, since a short page can leave the end in view.
+    watch([isAtEnd, () => items.length], () => {
+        if (pagination === 'infinite' && isAtEnd.value && hasMore && !isLoading && !isLoadingMore) {
+            emit('loadMore');
+        }
+    });
+
+    onBeforeUnmount(() => window.clearTimeout(intentTimer));
 
     function clearSelection(): void {
         selected.value = selectionMode === 'multiple' ? [] : null;
@@ -517,6 +581,15 @@
         }
 
         return unref(selectedSet).has(id);
+    }
+
+    function onRowPointerEnter(item: T): void {
+        window.clearTimeout(intentTimer);
+        intentTimer = window.setTimeout(() => emit('rowIntent', item), INTENT_DELAY);
+    }
+
+    function onRowPointerLeave(): void {
+        window.clearTimeout(intentTimer);
     }
 
     function onRowClick(item: T, columnIndex: number, event: MouseEvent): void {
