@@ -88,9 +88,9 @@
         background: var(--card-list-item-fill, var(--surface-sunken));
     }
 
-    // The inset is made up for in the padding, so the columns stay as wide as when closed.
+    // Lines up with the content of the body, so the first column steps in a little on open.
     .isExpanded > & {
-        padding: 12px calc(24px - var(--card-list-inset));
+        padding: 12px 15px;
         border-radius: var(--radius) var(--radius) 0 0;
     }
 }
