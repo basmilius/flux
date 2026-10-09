@@ -166,6 +166,7 @@ export type FluxExpandableGroupInjection = {
 };
 
 export type FluxFilterInjection = {
+    readonly cache: Map<string, unknown>;
     readonly state: Ref<FluxFilterState>;
 
     back(): void;

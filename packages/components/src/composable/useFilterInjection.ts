@@ -5,6 +5,7 @@ export default function () {
     return inject(FluxFilterInjectionKey, {
         // note(Bas): The default value is never used, but required by
         //  Vue, so that explains the empty getter and function below.
+        cache: new Map(),
         state: ref({}),
         back: () => void 0,
         clear: () => void 0,

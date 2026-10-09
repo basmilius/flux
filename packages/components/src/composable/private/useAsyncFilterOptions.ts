@@ -1,9 +1,11 @@
 import { useDebouncedRef, useLoaded } from '@basmilius/common';
 import type { FluxFilterOptionRow, FluxFilterValue } from '@flux-ui/types';
 import { computed, type ComputedRef, type ModelRef, ref, type Ref, unref, watch } from 'vue';
+import { useFilterInjection } from '~flux/components/composable';
 import { isFluxFilterOptionItem } from '~flux/components/util';
 
 type UseAsyncFilterOptionsParams = {
+    readonly name: string;
     readonly currentValueIds: ComputedRef<FluxFilterValue[]>;
     readonly modelSearch: ModelRef<string, string, string, string>;
     fetchOptions(ids: FluxFilterValue[]): Promise<FluxFilterOptionRow[]>;
@@ -18,8 +20,13 @@ export default function (params: UseAsyncFilterOptionsParams) {
     const fetchRelevant = computed(() => loaded(params.fetchRelevant));
     const fetchSearch = computed(() => loaded(params.fetchSearch));
 
-    const selectedOptions = ref<FluxFilterOptionRow[]>([]);
-    const visibleOptions = ref<FluxFilterOptionRow[]>([]);
+    const {cache} = useFilterInjection();
+
+    const selectedKey = (ids: FluxFilterValue[]) => `${params.name}:selected:${JSON.stringify(ids)}`;
+    const visibleKey = (searchQuery: string) => `${params.name}:visible:${searchQuery}`;
+
+    const selectedOptions = ref<FluxFilterOptionRow[]>(cache.get(selectedKey(unref(params.currentValueIds))) as FluxFilterOptionRow[] ?? []);
+    const visibleOptions = ref<FluxFilterOptionRow[]>(cache.get(visibleKey(unref(debouncedModelSearch))) as FluxFilterOptionRow[] ?? []);
 
     const options = computed(() => {
         const options: FluxFilterOptionRow[] = [];
@@ -57,7 +64,16 @@ export default function (params: UseAsyncFilterOptionsParams) {
         }
 
         const generation = ++selectedGeneration;
+        const key = selectedKey(ids);
+        const cached = cache.get(key) as FluxFilterOptionRow[] | undefined;
+
+        if (cached) {
+            selectedOptions.value = cached;
+        }
+
         const options = await unref(fetchOptions)(ids);
+
+        cache.set(key, options);
 
         if (generation === selectedGeneration) {
             selectedOptions.value = options;
@@ -66,9 +82,18 @@ export default function (params: UseAsyncFilterOptionsParams) {
 
     watch(debouncedModelSearch, async searchQuery => {
         const generation = ++visibleGeneration;
+        const key = visibleKey(searchQuery);
+        const cached = cache.get(key) as FluxFilterOptionRow[] | undefined;
+
+        if (cached) {
+            visibleOptions.value = cached;
+        }
+
         const options = searchQuery.length > 0
             ? await unref(fetchSearch)(searchQuery)
             : await unref(fetchRelevant)();
+
+        cache.set(key, options);
 
         if (generation === visibleGeneration) {
             visibleOptions.value = options;

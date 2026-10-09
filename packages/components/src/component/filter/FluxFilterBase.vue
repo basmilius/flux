@@ -36,6 +36,9 @@
 
     const translate = useTranslate();
 
+    // Loaded options outlive the filter panels, so reopening a filter shows them right away.
+    const cache = new Map<string, unknown>();
+
     const flattenedFilters = computed(() => flattenVNodeTree(slots.filters?.() ?? []));
 
     const buttons = computed(() => {
@@ -166,6 +169,7 @@
     }
 
     provide(FluxFilterInjectionKey, {
+        cache,
         state: modelValue,
         back,
         clear,

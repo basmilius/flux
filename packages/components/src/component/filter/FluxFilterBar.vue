@@ -45,9 +45,7 @@
                                     <FluxMenu is-persistent>
                                         <VNodeRenderer :vnode="filters[button.name]"/>
 
-                                        <FluxSeparator/>
-
-                                        <FluxMenuGroup>
+                                        <FluxMenuGroup :class="$style.filterFooter">
                                             <FluxMenuItem
                                                 v-if="isResettable(button, modelValue[button.name])"
                                                 :class="$style.filterAction"

@@ -58,6 +58,7 @@
     });
 
     const {isLoading, options} = useAsyncFilterOptions({
+        name,
         currentValueIds,
         modelSearch,
         fetchOptions: (ids: FluxFilterValue[]) => fetchOptionsProp(ids),

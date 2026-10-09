@@ -51,6 +51,7 @@
     const {currentValue, onSelect} = useFilterOptionMulti(name);
 
     const {isLoading, options} = useAsyncFilterOptions({
+        name,
         currentValueIds: currentValue,
         modelSearch,
         fetchOptions: (ids: FluxFilterValue[]) => fetchOptionsProp(ids),

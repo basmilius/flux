@@ -58,6 +58,8 @@ Looking for a toolbar-style filter with a search input? See [Filter bar](./bar).
 - [Async option](./async-option)
 - [Async options](./async-options)
 
+Building custom filters? Use [Search](./search) for a sticky search input.
+
 ## Common props
 
 Every filter component (built-in and custom) accepts the following props in addition to its own:

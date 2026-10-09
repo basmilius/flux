@@ -76,6 +76,21 @@
     }
 }
 
+.filterFooter {
+    position: sticky;
+    margin: 3px -9px -9px;
+    padding: 9px;
+    bottom: -9px;
+    background: var(--surface-current);
+    border-top: 1px solid var(--surface-stroke);
+    z-index: 2;
+
+    &:last-child {
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
+}
+
 .filterBack {
     flex-grow: 1;
 }

@@ -60,6 +60,7 @@ export { default as FluxFilterOptionAsync } from './filter/FluxFilterOptionAsync
 export { default as FluxFilterOptions } from './filter/FluxFilterOptions.vue';
 export { default as FluxFilterOptionsAsync } from './filter/FluxFilterOptionsAsync.vue';
 export { default as FluxFilterRange } from './filter/FluxFilterRange.vue';
+export { default as FluxFilterSearch } from './filter/FluxFilterSearch.vue';
 export { default as FluxFlex } from './FluxFlex.vue';
 export { default as FluxFlexItem } from './FluxFlexItem.vue';
 export { default as FluxFlyout } from './FluxFlyout.vue';

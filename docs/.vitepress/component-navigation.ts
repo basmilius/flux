@@ -288,6 +288,7 @@ const navigation: SidebarItem[] = [
                     {text: 'Option', link: '/components/filter/option'},
                     {text: 'Options', link: '/components/filter/options'},
                     {text: 'Range', link: '/components/filter/range'},
+                    {text: 'Search', link: '/components/filter/search'},
                     {text: 'Async option', link: '/components/filter/async-option'},
                     {text: 'Async options', link: '/components/filter/async-options'}
                 ]
