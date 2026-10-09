@@ -87,12 +87,9 @@
                     toggle: () => toggleGroup(chunk.id!)
                 }"/>
 
-            <component
-                :is="expandStyle === 'card' ? 'div' : PassThrough"
+            <template
                 v-for="entry of chunk.entries"
-                :key="entry.key"
-                :class="expandStyle === 'card' ? clsx($style.tableCard, rowStates.get(entry.key)?.isExpanded && $style.isExpanded) : undefined"
-                :role="expandStyle === 'card' ? 'presentation' : undefined">
+                :key="entry.key">
                 <FluxTableRow
                     :aria-rowindex="(page - 1) * perPage + entry.index + 2"
                     :aria-expanded="rowStates.get(entry.key)?.isToggle ? rowStates.get(entry.key)?.isExpanded : undefined"
@@ -135,28 +132,33 @@
                     </template>
                 </FluxTableRow>
 
-                <FluxTableRow
-                    v-if="hasExpandable && rowStates.get(entry.key)?.isExpanded"
-                    :color="rowStates.get(entry.key)?.color"
-                    :is-hidden="chunk.isCollapsed">
-                    <FluxTableCell :colspan="columnCount">
-                        <template #content>
-                            <div :class="$style.tableExpandContent">
-                                <div
-                                    v-if="isExpandLoading?.(entry.item)"
-                                    :class="$style.tableExpandLoading">
-                                    <FluxSpinner/>
-                                </div>
+                <Transition
+                    :css="false"
+                    @enter="onExpandEnter"
+                    @leave="onExpandLeave">
+                    <FluxTableRow
+                        v-if="hasExpandable && rowStates.get(entry.key)?.isExpanded"
+                        :color="rowStates.get(entry.key)?.color"
+                        :is-hidden="chunk.isCollapsed">
+                        <FluxTableCell :colspan="columnCount">
+                            <template #content>
+                                <div :class="$style.tableExpandContent">
+                                    <div
+                                        v-if="isExpandLoading?.(entry.item)"
+                                        :class="$style.tableExpandLoading">
+                                        <FluxSpinner/>
+                                    </div>
 
-                                <slot
-                                    v-else
-                                    name="expandable"
-                                    v-bind="{index: entry.index, item: entry.item, isExpanded: true, toggle: () => toggleExpand(entry.item)}"/>
-                            </div>
-                        </template>
-                    </FluxTableCell>
-                </FluxTableRow>
-            </component>
+                                    <slot
+                                        v-else
+                                        name="expandable"
+                                        v-bind="{index: entry.index, item: entry.item, isExpanded: true, toggle: () => toggleExpand(entry.item)}"/>
+                                </div>
+                            </template>
+                        </FluxTableCell>
+                    </FluxTableRow>
+                </Transition>
+            </template>
         </component>
 
         <FluxTableRow
@@ -200,7 +202,7 @@
     import type { FluxColor } from '@flux-ui/types';
     import { useInView } from '@basmilius/common';
     import { clsx } from 'clsx';
-    import { computed, getCurrentInstance, onBeforeUnmount, unref, useTemplateRef, type VNode, watch } from 'vue';
+    import { computed, getCurrentInstance, onBeforeUnmount, Transition, unref, useTemplateRef, type VNode, watch } from 'vue';
     import FluxTableActions from './table/FluxTableActions.vue';
     import { useDisabledInjection } from '~flux/components/composable';
     import { useTranslate } from '~flux/components/composable/private';
@@ -261,7 +263,6 @@
         canExpand,
         collapseMode = 'unmount',
         expandMode = 'multiple',
-        expandStyle = 'inline',
         expandTrigger = 'button',
         groupBy,
         hasMore = false,
@@ -284,7 +285,6 @@
         readonly canExpand?: (item: T) => boolean;
         readonly collapseMode?: 'hide' | 'unmount';
         readonly expandMode?: 'single' | 'multiple';
-        readonly expandStyle?: 'inline' | 'card';
         readonly expandTrigger?: 'button' | 'row';
         readonly groupBy?: (item: T) => SelectionId;
         readonly hasMore?: boolean;
@@ -381,6 +381,7 @@
 
     // Long enough to skip the rows a pointer only passes over on its way.
     const INTENT_DELAY = 150;
+    const EXPAND_DURATION = 280;
 
     let intentTimer = 0;
 
@@ -590,6 +591,50 @@
 
     function onRowPointerLeave(): void {
         window.clearTimeout(intentTimer);
+    }
+
+    function onExpandEnter(element: Element, done: () => void): void {
+        animateExpand(element, 'normal', done);
+    }
+
+    function onExpandLeave(element: Element, done: () => void): void {
+        animateExpand(element, 'reverse', done);
+    }
+
+    // The row is display: contents, so the content inside it carries the animation. It runs
+    // to the measured height and then falls back to its natural one, which lets content that
+    // arrives later (a loaded detail) take its own height.
+    function animateExpand(element: Element, direction: PlaybackDirection, done: () => void): void {
+        const content = element.querySelector<HTMLElement>(`.${$style.tableExpandContent}`);
+
+        if (!content || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            done();
+            return;
+        }
+
+        // The row's v-show runs the same hook once more for the same element.
+        const running = content.getAnimations().find(animation => animation.effect?.getTiming().direction === direction);
+
+        if (running) {
+            running.finished.then(done, done);
+            return;
+        }
+
+        content.getAnimations().forEach(animation => animation.cancel());
+
+        const {paddingBottom, paddingTop} = getComputedStyle(content);
+        const height = content.offsetHeight;
+
+        content.style.overflow = 'hidden';
+
+        content.animate([
+            {height: '0px', opacity: 0, paddingBottom: '0px', paddingTop: '0px'},
+            {height: `${height}px`, opacity: 1, paddingBottom, paddingTop}
+        ], {
+            direction,
+            duration: EXPAND_DURATION,
+            easing: 'cubic-bezier(.2, .8, .2, 1)'
+        }).finished.then(done, done);
     }
 
     function onRowClick(item: T, columnIndex: number, event: MouseEvent): void {

@@ -527,42 +527,10 @@
     rotate: 90deg;
 }
 
+// The detail spans every column, so its own width would otherwise take part in sizing them.
 .tableExpandContent {
+    contain: inline-size;
     padding: 9px 15px;
-}
-
-// Rows are display: contents, so a card needs a wrapper that spans the row and its detail.
-// The inset also pushes the first and last cell inward by the same amount.
-.tableCard {
-    --flux-table-card-inset: 9px;
-
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: subgrid;
-    border-radius: var(--radius);
-    transition: margin 280ms var(--swift-out), box-shadow 280ms var(--swift-out);
-}
-
-.tableCard.isExpanded {
-    margin: 9px var(--flux-table-card-inset);
-    overflow: clip;
-    background: var(--surface);
-    box-shadow: var(--shadow-md), 0 0 0 1px var(--surface-stroke);
-}
-
-// A wrapper is no row, so the rule between consecutive rows has to be restated per card.
-.tableBody .tableCard + .tableCard > .tableRow:first-child > .tableCell {
-    border-top-width: 1px;
-}
-
-// The open card sets itself apart, so the rules around it would only double its edge.
-.tableBody .tableCard.isExpanded + .tableCard > .tableRow:first-child > .tableCell,
-.tableBody .tableCard.isExpanded .tableCell {
-    border-width: 0;
-}
-
-.tableBody .tableCard.isExpanded .tableCell {
-    background: var(--surface);
 }
 
 .tableExpandLoading {
@@ -587,12 +555,6 @@
     height: 12px;
     background: repeating-linear-gradient(135deg, var(--surface-sunken) 0 6px, var(--surface-active) 6px 12px);
     border-block: 1px solid var(--surface-stroke-muted);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .tableCard {
-        transition: none;
-    }
 }
 
 .tableTreeCell {

@@ -6,6 +6,7 @@ export const FluxAdaptiveGroupInjectionKey: InjectionKey<FluxAdaptiveGroupInject
 export const FluxBreadcrumbCollapsedInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxBreadcrumbSeparatorInjectionKey: InjectionKey<Ref<FluxIconName>> = Symbol();
 export const FluxCalendarInjectionKey: InjectionKey<FluxCalendarInjection> = Symbol();
+export const FluxCardListInjectionKey: InjectionKey<FluxCardListInjection> = Symbol();
 export const FluxDisabledInjectionKey: InjectionKey<Ref<boolean>> = Symbol();
 export const FluxKanbanInjectionKey: InjectionKey<FluxKanbanInjection> = Symbol();
 export const FluxKanbanLayoutInjectionKey: InjectionKey<FluxKanbanLayoutInjection> = Symbol();
@@ -150,6 +151,12 @@ export type FluxCalendarInjection = {
     onItemKeyboardMove(direction: FluxCalendarKeyboardDirection): void;
     onItemKeyboardCommit(): void;
     onItemKeyboardCancel(): void;
+};
+
+export type FluxCardListInjection = {
+    opened(uid: string): void;
+    register(uid: string, close: () => void): void;
+    unregister(uid: string): void;
 };
 
 export type FluxExpandableGroupInjection = {

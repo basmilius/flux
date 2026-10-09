@@ -163,6 +163,16 @@ const navigation: SidebarItem[] = [
                     {text: 'Flyout', link: '/components/breadcrumb/flyout'}
                 ]
             },
+            {
+                text: 'Card list',
+                link: '/components/card-list/',
+                collapsed: true,
+                items: [
+                    {text: 'Item', link: '/components/card-list/item'},
+                    {text: 'Group', link: '/components/card-list/group'},
+                    {text: 'Separator', link: '/components/card-list/separator'}
+                ]
+            },
             {text: 'Command palette', link: '/components/command-palette'},
             {text: 'Context menu', link: '/components/context-menu'},
             {

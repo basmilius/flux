@@ -114,12 +114,6 @@ props:
         type: number
         optional: true
 
-    -   name: expand-style
-        description: How an expanded row is presented. Use `inline` to show the detail as an extra row. Use `card` to lift the row and its detail off the table as one card.
-        type: "'inline' | 'card'"
-        optional: true
-        default: inline
-
     -   name: expand-mode
         description: How expandable rows behave. Use `multiple` to allow several rows open at once, or `single` to keep only one open. Requires `unique-key` and the `expandable` slot.
         type: "'single' | 'multiple'"
@@ -331,10 +325,6 @@ example=../code/components/data-table/expand-conditional.vue
 
 ::: example Expand on row click || A data table without expand toggles, where clicking a row expands it.
 example=../code/components/data-table/expand-row.vue
-:::
-
-::: example Card expansion || Expanded rows lift off the table as a card. The detail of a row is prefetched on hover and shows a spinner until it is in, and a separator splits the pinned row from the rest.
-example=../code/components/data-table/expand-card.vue
 :::
 
 ::: example Infinite loading || A data table that loads the next rows when its end scrolls into view.

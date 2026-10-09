@@ -4,6 +4,7 @@ export { default as useDisabled } from './useDisabled';
 export { default as useAdaptiveGroupInjection } from './useAdaptiveGroupInjection';
 export { default as useCalendarInjection } from './useCalendarInjection';
 export { default as useDisabledInjection } from './useDisabledInjection';
+export { default as useCardListInjection } from './useCardListInjection';
 export { default as useExpandableGroupInjection } from './useExpandableGroupInjection';
 export { default as useFilterInjection } from './useFilterInjection';
 export { default as useFlyoutInjection } from './useFlyoutInjection';

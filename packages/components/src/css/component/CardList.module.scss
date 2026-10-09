@@ -1,0 +1,197 @@
+// The list reads as cards rather than a table: a closed item runs edge to edge, an opened one
+// lifts off as a card, set in from the edge. Every item shares the columns of the list, which
+// keeps them from resizing as items open.
+.cardList {
+    --card-list-inset: 15px;
+
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    padding-bottom: 15px;
+    background: color-mix(in srgb, var(--surface-sunken) 50%, var(--surface));
+
+    // Follows the pane it sits in, so the fill of the first and last row does not square its corners.
+    border-radius: inherit;
+    overflow: clip;
+}
+
+.cardListMore {
+    display: flex;
+    justify-content: center;
+    min-height: 1px;
+    padding-top: 15px;
+}
+
+.cardListLoader {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: var(--surface-loader);
+}
+
+// Sticks to the middle of what is in view, also when a reload starts far down a long list.
+.cardListLoaderBox {
+    position: sticky;
+    top: 0;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardListItem {
+    position: relative;
+    background: color-mix(in srgb, var(--surface-sunken) 50%, var(--surface));
+    border-bottom: 1px solid var(--surface-stroke-muted);
+    transition: margin 280ms var(--swift-out), border-radius 280ms var(--swift-out), box-shadow 280ms var(--swift-out);
+
+    &.isExpanded {
+        margin: 9px var(--card-list-inset);
+        background: var(--surface);
+        border: 0;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-md), 0 0 0 1px var(--surface-stroke);
+    }
+
+    // The open card sets itself apart, so the line above it would only double its edge.
+    &:has(+ .isExpanded) {
+        border-bottom-color: transparent;
+    }
+
+    // Room for the loader only. On a card with its content in, a minimum height would snap
+    // the card open before the content could unfold.
+    &.isLoading {
+        min-height: 210px;
+    }
+}
+
+.cardListItemSummary {
+    display: grid;
+    grid-template-columns: var(--card-list-columns);
+    gap: 15px;
+    align-items: center;
+    padding: 9px 24px;
+    background: var(--card-list-item-fill, transparent);
+    outline: 0;
+    transition: padding 280ms var(--swift-out), background 150ms var(--swift-out);
+
+    &.isExpandable {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &:focus-visible {
+        box-shadow: inset 0 0 0 2px var(--focus-ring);
+    }
+
+    .cardListItem:not(.isExpanded) > &.isExpandable:hover {
+        background: var(--card-list-item-fill, var(--surface-sunken));
+    }
+
+    // The inset is made up for in the padding, so the columns stay as wide as when closed.
+    .isExpanded > & {
+        padding: 12px calc(24px - var(--card-list-inset));
+        border-radius: var(--radius) var(--radius) 0 0;
+    }
+}
+
+// Collapses with the card on close as well; with v-if alone the content vanished at once.
+.cardListItemBody {
+    transition: height 280ms var(--swift-out), opacity 280ms var(--swift-out);
+
+    &:global(.v-enter-from),
+    &:global(.v-leave-to) {
+        opacity: 0;
+    }
+
+    &:global(.v-enter-active),
+    &:global(.v-leave-active) {
+        overflow: hidden;
+    }
+}
+
+.cardListItemContent {
+    padding: 6px 15px 15px;
+}
+
+// Same overlay as the pane loader, over the whole card while its content loads.
+.cardListItemLoader {
+    position: absolute;
+    display: flex;
+    inset: 0;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--surface) 95%, transparent);
+    backdrop-filter: blur(3px) saturate(180%);
+    border-radius: inherit;
+}
+
+// Same striped band as the gaps in a week grid.
+.cardListSeparator {
+    height: 12px;
+    background: repeating-linear-gradient(135deg, var(--surface-sunken) 0 6px, var(--surface-active) 6px 12px);
+    border-block: 1px solid var(--surface-stroke-muted);
+
+    &.isTall {
+        height: 24px;
+    }
+}
+
+.cardListGroup {
+    display: flex;
+    flex-flow: column;
+}
+
+.cardListGroup:first-child > .cardListGroupSeparator {
+    display: none;
+}
+
+.cardListGroupHeader {
+    display: flex;
+    width: 100%;
+    gap: 9px;
+    align-items: center;
+    padding: 12px 24px;
+    background: color-mix(in srgb, var(--surface-sunken) 50%, var(--surface));
+    border: 0;
+    border-bottom: 1px solid var(--surface-stroke-muted);
+    color: var(--foreground-subtle);
+    font: inherit;
+    font-size: var(--font-size-xsmall);
+    font-weight: 500;
+    text-align: left;
+}
+
+button.cardListGroupHeader {
+    cursor: pointer;
+    outline: 0;
+    transition: background 150ms var(--swift-out);
+    user-select: none;
+
+    &:hover {
+        background: var(--surface-sunken);
+    }
+
+    &:focus-visible {
+        box-shadow: inset 0 0 0 2px var(--focus-ring);
+    }
+}
+
+.cardListGroupToggle {
+    margin-left: auto;
+    transition: rotate 200ms var(--swift-out);
+
+    &.isExpanded {
+        rotate: 180deg;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cardListItem,
+    .cardListItemSummary,
+    .cardListItemBody,
+    .cardListGroupToggle {
+        transition: none;
+    }
+}
