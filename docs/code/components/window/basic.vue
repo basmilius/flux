@@ -13,7 +13,7 @@
                 style="width: 300px">
                 <FluxWindow>
                     <template #default="{navigate}">
-                        <FluxMenu>
+                        <FluxMenu is-persistent>
                             <FluxMenuGroup>
                                 <FluxMenuItem
                                     icon-leading="arrow-up-arrow-down"
@@ -68,7 +68,7 @@
                     </template>
 
                     <template #sorting="{ back }">
-                        <FluxMenu>
+                        <FluxMenu is-persistent>
                             <FluxMenuGroup>
                                 <FluxMenuItem
                                     icon-leading="angle-left"
@@ -96,7 +96,7 @@
                     </template>
 
                     <template #period="{ back }">
-                        <FluxMenu>
+                        <FluxMenu is-persistent>
                             <FluxMenuGroup>
                                 <FluxMenuItem
                                     icon-leading="angle-left"
@@ -132,7 +132,7 @@
                     </template>
 
                     <template #status="{ back }">
-                        <FluxMenu>
+                        <FluxMenu is-persistent>
                             <FluxMenuGroup>
                                 <FluxMenuItem
                                     icon-leading="angle-left"

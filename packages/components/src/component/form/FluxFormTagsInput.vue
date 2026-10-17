@@ -128,7 +128,6 @@
         useClickOutside([anchorRef, popupRef], isOpen, () => isOpen.value = false);
     }
 
-    const isMaxReached = computed(() => max !== undefined && modelValue.value.length >= max);
     const filteredSuggestions = computed(() => {
         if (!suggestions) {
             return [];
@@ -150,28 +149,31 @@
         inputElementRef.value?.focus();
     }
 
-    function addTag(rawValue: string): void {
+    function addTag(rawValue: string, current = modelValue.value): string[] {
         const value = rawValue.trim();
 
-        if (value === '' || isMaxReached.value) {
-            return;
+        if (value === '' || (max !== undefined && current.length >= max)) {
+            return current;
         }
 
-        if (!allowDuplicates && modelValue.value.includes(value)) {
+        if (!allowDuplicates && current.includes(value)) {
             query.value = '';
-            return;
+            return current;
         }
 
         if (validate && !validate(value)) {
-            return;
+            return current;
         }
 
-        modelValue.value = [...modelValue.value, value];
+        const next = [...current, value];
+        modelValue.value = next;
         emit('add', value);
 
         query.value = '';
         highlightedIndex.value = -1;
         isOpen.value = false;
+
+        return next;
     }
 
     function removeAt(index: number): void {
@@ -264,6 +266,6 @@
         }
 
         evt.preventDefault();
-        parts.forEach(addTag);
+        parts.reduce((current, part) => addTag(part, current), modelValue.value);
     }
 </script>

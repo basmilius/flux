@@ -1,7 +1,7 @@
 <template>
     <a
         :class="$style.componentGridItem"
-        :href="url">
+        :href="withFramework(url)">
         <img
             :src="imageUrl ?? '/assets/components/blank.svg'"
             alt="">
@@ -14,12 +14,20 @@
 <script
     lang="ts"
     setup>
+    import { useData } from 'vitepress';
+
     defineProps<{
         readonly imageUrl?: string;
         readonly title: string;
         readonly description?: string;
         readonly url: string;
     }>();
+
+    const {localeIndex} = useData();
+
+    function withFramework(url: string): string {
+        return localeIndex.value === 'react' && url.startsWith('/') && !url.startsWith('/react/') ? `/react${url}` : url;
+    }
 </script>
 
 <style

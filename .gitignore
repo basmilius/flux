@@ -11,6 +11,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+docs/public/react/
 *.local
 
 # Environment
@@ -36,3 +37,12 @@ dist-ssr
 # Claude
 .claude/*
 !.claude/skills/
+
+# React documentation generated from the shared docs and checked React examples.
+docs/react/
+docs/react-examples/generated/
+docs/.vitepress/react/examples.json
+docs/.vitepress/react/diagnostics.json
+docs/.vitepress/react/manifest.ts
+
+.artifacts/react-parity/

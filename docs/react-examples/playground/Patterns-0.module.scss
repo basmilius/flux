@@ -1,0 +1,21 @@
+
+    // Not FluxPlaceholder: it has no boxed icon, no slot for an action and no way to
+    // span the columns of a table grid.
+    .emptyView {
+        display: flex;
+        max-width: 450px;
+        margin-inline: auto;
+        padding-block: 45px;
+        align-items: center;
+        flex-flow: column;
+        text-align: center;
+        text-wrap: pretty;
+    }
+
+    .emptyViewIcon {
+        margin-bottom: 30px;
+    }
+
+    .emptyViewEnd {
+        margin-top: 30px;
+    }

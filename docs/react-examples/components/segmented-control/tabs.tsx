@@ -1,0 +1,4 @@
+import { FluxPane, FluxPaneBody, FluxSegmentedControl, FluxSegmentedControlItem, FluxTab, FluxTabs } from '@flux-ui/react';
+export default function Example() {
+    return (<><FluxPane style={{ "width": "100%" }}><FluxTabs tabs={({ tabs, value, activate }) => (<><FluxPaneBody><FluxSegmentedControl isFill value={value} onValueChange={value => activate(Number(value))}>{(tabs).map((tab, index) => (<FluxSegmentedControlItem key={index} value={index} icon={tab.icon} label={tab.label}></FluxSegmentedControlItem>))}</FluxSegmentedControl></FluxPaneBody></>)}><FluxTab icon={"grid-2"} label={"Grid"}><FluxPaneBody>{" Showing the knowledge base as a grid. "}</FluxPaneBody></FluxTab><FluxTab icon={"list"} label={"List"}><FluxPaneBody>{" Showing the knowledge base as a list. "}</FluxPaneBody></FluxTab><FluxTab icon={"rectangle-history"} label={"Stack"}><FluxPaneBody>{" Showing the knowledge base as a stack. "}</FluxPaneBody></FluxTab></FluxTabs></FluxPane></>);
+}

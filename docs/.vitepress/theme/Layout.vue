@@ -1,6 +1,7 @@
 <template>
     <FluxRoot>
         <Layout/>
+        <ReactProviders v-if="data.localeIndex.value === 'react'"/>
     </FluxRoot>
 </template>
 
@@ -12,6 +13,7 @@
     import { useData } from 'vitepress';
     import Layout from 'vitepress/dist/client/theme-default/Layout.vue';
     import { watch } from 'vue';
+    import ReactProviders from './ReactProviders.vue';
 
     const data = useData();
 

@@ -1,0 +1,630 @@
+:root {
+    color-scheme: dark;
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    background: #080c18;
+    color: #eef2ff;
+    font-synthesis: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    min-width: 320px;
+    background: radial-gradient(circle at 75% 0%, rgba(75, 80, 230, 0.17), transparent 35rem), #080c18;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+button,
+input {
+    font: inherit;
+}
+
+.demo-root {
+    min-height: 100vh;
+    background: transparent !important;
+}
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    padding: 0 max(24px, calc((100vw - 1180px) / 2));
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 12, 24, 0.78);
+    backdrop-filter: blur(18px);
+}
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 760;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+}
+.brand-mark {
+    width: 31px;
+    height: 31px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: linear-gradient(145deg, #7c6fff, #4842c7);
+    box-shadow: 0 8px 30px rgba(96, 78, 255, 0.35);
+}
+.react-pill {
+    padding: 4px 8px;
+    color: #9fdcff;
+    background: rgba(51, 184, 255, 0.1);
+    border: 1px solid rgba(100, 199, 255, 0.22);
+    border-radius: 99px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+.topbar nav {
+    display: flex;
+    gap: 28px;
+    margin: auto;
+    color: #939bb5;
+    font-size: 13px;
+}
+.topbar nav a:hover {
+    color: #fff;
+}
+.github-link {
+    color: #bfc5d9;
+    font-size: 13px;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 9px;
+}
+
+main {
+    overflow: hidden;
+}
+.hero {
+    min-height: 680px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 100px 24px 84px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 50px;
+}
+.eyebrow,
+.kicker {
+    color: #8e83ff;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.eyebrow span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #54e9ad;
+    box-shadow: 0 0 14px #54e9ad;
+}
+.hero h1 {
+    margin: 22px 0;
+    font-size: clamp(52px, 6vw, 79px);
+    line-height: 0.99;
+    letter-spacing: -0.055em;
+    font-weight: 720;
+}
+.hero h1 em {
+    color: transparent;
+    font-style: normal;
+    background: linear-gradient(90deg, #8c7cff, #50c9ff);
+    background-clip: text;
+}
+.hero-copy > p {
+    max-width: 650px;
+    color: #a5aec8;
+    font-size: 17px;
+    line-height: 1.72;
+}
+.hero-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+.verification {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 23px;
+    margin-top: 37px;
+    color: #7f899f;
+    font-size: 12px;
+}
+.verification b {
+    color: #f6f7ff;
+    font-size: 16px;
+    margin-right: 4px;
+}
+.hero-visual {
+    position: relative;
+    min-height: 470px;
+    display: grid;
+    place-items: center;
+}
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(131, 119, 255, 0.18);
+    border-radius: 50%;
+}
+.orbit-one {
+    width: 400px;
+    height: 400px;
+    animation: spin 22s linear infinite;
+}
+.orbit-two {
+    width: 286px;
+    height: 286px;
+    border-style: dashed;
+    animation: spin 17s linear infinite reverse;
+}
+.orbit::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #7367ed;
+    box-shadow: 0 0 18px #7367ed;
+}
+.flux-core,
+.runtime {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(17, 22, 43, 0.85);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+.flux-core {
+    width: 164px;
+    height: 164px;
+    border-radius: 45px;
+    transform: rotate(8deg);
+}
+.flux-core > * {
+    transform: rotate(-8deg);
+}
+.flux-core span {
+    font-size: 46px;
+    font-weight: 800;
+    color: #8d80ff;
+}
+.flux-core strong {
+    font-size: 15px;
+}
+.flux-core small,
+.runtime small {
+    color: #737d98;
+    margin-top: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+.runtime {
+    width: 104px;
+    height: 104px;
+    border-radius: 30px;
+}
+.runtime span {
+    font-size: 30px;
+    font-weight: 800;
+}
+.runtime strong {
+    font-size: 12px;
+}
+.vue-runtime {
+    left: 3%;
+    top: 13%;
+    transform: rotate(-8deg);
+}
+.vue-runtime span {
+    color: #4ad49c;
+}
+.react-runtime {
+    right: 0;
+    bottom: 14%;
+    transform: rotate(7deg);
+}
+.react-runtime span {
+    color: #51c7ff;
+}
+
+.section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 84px 24px;
+}
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 35px;
+}
+.section-heading h2 {
+    margin: 9px 0 0;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+}
+.section-heading > p {
+    max-width: 470px;
+    margin: 0;
+    color: #8f99b3;
+    line-height: 1.65;
+    font-size: 14px;
+}
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.package-card {
+    position: relative;
+    min-height: 210px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+.package-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(134, 120, 255, 0.38);
+}
+.package-card > div {
+    position: relative;
+}
+.package-card h3 {
+    margin: 0 0 6px;
+    font-size: 21px;
+}
+.package-card strong {
+    color: #8d96b0;
+    font-size: 12px;
+    font-weight: 600;
+}
+.package-card p {
+    max-width: 240px;
+    margin: 14px 0 0;
+    color: #7f899f;
+    font-size: 13px;
+    line-height: 1.55;
+}
+.package-card > :last-child {
+    align-self: flex-start;
+}
+.package-number {
+    position: absolute;
+    right: 17px;
+    top: 4px;
+    font-size: 86px;
+    font-weight: 800;
+    letter-spacing: -0.08em;
+    opacity: 0.08;
+}
+.tone-1,
+.tone-4 {
+    color: #8a79ff;
+}
+.tone-2,
+.tone-5 {
+    color: #51c7ff;
+}
+.tone-3,
+.tone-6 {
+    color: #4bd9a1;
+}
+
+.component-section {
+    max-width: none;
+    padding-left: max(24px, calc((100vw - 1180px) / 2));
+    padding-right: max(24px, calc((100vw - 1180px) / 2));
+    background: rgba(255, 255, 255, 0.018);
+    border-block: 1px solid rgba(255, 255, 255, 0.05);
+}
+.demo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+.demo-panel {
+    min-height: 360px;
+    padding: 25px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 20px;
+    background: #0d1222;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+}
+.panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    color: #aab2ca;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.form-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+.form-panel .panel-title {
+    margin-bottom: 4px;
+}
+.inline-actions {
+    display: flex;
+    gap: 9px;
+    margin-top: 5px;
+}
+.kpi-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.distribution-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 28px 0 16px;
+    color: #9da6bf;
+    font-size: 13px;
+}
+.ai-panel {
+    height: 470px;
+}
+.ai-panel > :last-child {
+    height: calc(100% - 45px);
+    min-height: 0;
+}
+.release-panel {
+    display: flex;
+    flex-direction: column;
+}
+.check-list {
+    display: grid;
+    gap: 2px;
+    padding: 0;
+    margin: 22px 0 0;
+    list-style: none;
+}
+.check-list li {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 13px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.check-list li > span {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(124, 111, 255, 0.12);
+    color: #9a8fff;
+    font-size: 11px;
+}
+.check-list b,
+.check-list small {
+    display: block;
+}
+.check-list b {
+    font-size: 13px;
+}
+.check-list small {
+    margin-top: 3px;
+    color: #737d97;
+}
+.check-list i {
+    color: #4de0aa;
+    font-style: normal;
+}
+
+.architecture-section {
+    padding-bottom: 110px;
+}
+.architecture-card {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 22px;
+    overflow: hidden;
+    background: #0d1222;
+}
+.tree {
+    padding: 38px;
+    background: #090e1b;
+    font:
+        13px/1.7 "JetBrains Mono",
+        Consolas,
+        monospace;
+    color: #a7afc4;
+}
+.tree > div:first-child {
+    margin-bottom: 12px;
+    color: #fff;
+    font-weight: 700;
+}
+.tree-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 8px 12px;
+}
+.tree-line small {
+    color: #59637d;
+}
+.tree-line.highlighted {
+    color: #a69cff;
+    background: rgba(124, 111, 255, 0.09);
+    border: 1px solid rgba(124, 111, 255, 0.16);
+    border-radius: 8px;
+}
+.tree-line.highlighted small {
+    color: #5be2b1;
+}
+.architecture-copy {
+    padding: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.architecture-copy h3 {
+    margin: 0 0 15px;
+    font-size: 24px;
+}
+.architecture-copy p {
+    margin: 0;
+    color: #8e98b1;
+    font-size: 14px;
+    line-height: 1.7;
+}
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 25px;
+}
+.chips span {
+    padding: 6px 9px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 7px;
+    color: #aab2c8;
+    font-size: 10px;
+}
+.footer {
+    max-width: 1132px;
+    margin: 0 auto;
+    padding: 30px 0 45px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    color: #5f6981;
+    font-size: 11px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+@media (max-width: 900px) {
+    .topbar nav {
+        display: none;
+    }
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 72px;
+    }
+    .hero-visual {
+        min-height: 380px;
+    }
+    .package-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .architecture-card {
+        grid-template-columns: 1fr;
+    }
+    .demo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 580px) {
+    .topbar {
+        height: 62px;
+        gap: 12px;
+    }
+    .github-link {
+        margin-left: auto;
+    }
+    .hero {
+        min-height: auto;
+        padding-top: 58px;
+    }
+    .hero h1 {
+        font-size: 48px;
+    }
+    .hero-visual {
+        transform: scale(0.78);
+        margin: -45px 0;
+    }
+    .verification {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .package-grid {
+        grid-template-columns: 1fr;
+    }
+    .kpi-row {
+        grid-template-columns: 1fr;
+    }
+    .inline-actions {
+        flex-direction: column;
+    }
+    .tree,
+    .architecture-copy {
+        padding: 24px;
+    }
+    .tree-line {
+        flex-direction: column;
+        gap: 0;
+    }
+    .footer {
+        margin-inline: 24px;
+    }
+    .react-pill {
+        display: none;
+    }
+}

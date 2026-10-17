@@ -1,7 +1,8 @@
 <template>
     <div
         ref="previewRef"
-        :class="$style.preview">
+        :class="$style.preview"
+        :style="{'--preview-min-height': minHeight}">
         <FluxVisualGridPattern :stroke-dasharray="3"/>
 
         <slot name="body">
@@ -48,60 +49,4 @@
     }
 </script>
 
-<style
-    lang="scss"
-    module>
-    .preview {
-        position: relative;
-        margin: 16px 0;
-        background: color-mix(in srgb, var(--vp-c-bg), var(--vp-c-bg-soft));
-        border: 1px solid var(--vp-c-gutter);
-        border-radius: var(--radius);
-        font-size: 15px;
-        line-height: 1.6;
-
-        /* The ground is a mix of two tokens, so no stroke token lands on it in both
-           themes. Translucent ink flips direction by itself. */
-        > :global(svg) {
-            stroke: color-mix(in oklab, var(--foreground) 10%, transparent);
-        }
-    }
-
-    .previewBody.isFlush {
-        display: block;
-        min-height: 0;
-        padding: 0;
-    }
-
-    .previewBody {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: calc(v-bind(minHeight) * 1px - 1px);
-        padding: 15px 60px;
-
-        > .button,
-        > .flyout > .button {
-            align-self: center;
-        }
-
-        > .pane {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 639px) {
-        .preview {
-            margin-left: -24px;
-            margin-right: -24px;
-            border-left: 0;
-            border-right: 0;
-            border-radius: 0;
-        }
-
-        .previewBody {
-            padding: 15px 24px;
-        }
-    }
-</style>
+<style lang="scss" module src="./Preview.module.scss"/>

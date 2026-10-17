@@ -241,10 +241,9 @@
         style.borderBottomRightRadius = footHeight.value > 0 ? '0' : '';
     });
 
-    // The columns registered during setup only reach the DOM with the next
-    // template patch, which lands after ancestors' mounted hooks. Write the
-    // template immediately so mounted-time measurements see the real layout.
+    // Commit the column layout before an ancestor measures this table.
     onMounted(() => {
+        measureFallbackColumns();
         unref(base)?.style.setProperty('--flux-table-columns', gridTemplateColumns.value);
     });
 

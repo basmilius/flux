@@ -1,7 +1,8 @@
-import type { FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
+import type { FluxApplicationLayout, FluxIconName, FluxPressableType, FluxTo } from '@flux-ui/types';
 import type { ComputedRef, InjectionKey, Ref } from 'vue';
 
 export * from './i18n';
+export type {FluxApplicationLayout} from '@flux-ui/types';
 
 export const FluxApplicationInjectionKey: InjectionKey<FluxApplicationInjection> = Symbol();
 
@@ -33,10 +34,3 @@ export type FluxApplicationInjection = {
     removeContext(id: symbol): void;
     updateContext(id: symbol, info: Omit<FluxApplicationContextInfo, 'id'>): void;
 };
-
-export type FluxApplicationLayout =
-    | 'default'
-    | 'dashboard'
-    | 'full'
-    | 'medium'
-    | 'narrow';

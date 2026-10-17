@@ -1,0 +1,143 @@
+
+    .visualsPlayground {
+        container: playground / inline-size;
+        padding-block: 60px;
+        max-width: 1800px;
+        margin-inline: auto;
+    }
+
+    .visualsPlayground > :global([data-prose-full]) {
+        margin-inline: 30px;
+    }
+
+    .effectGrid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        align-items: start;
+    }
+
+    @container playground (width < 1320px) {
+        .effectGrid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @container playground (width < 690px) {
+        .effectGrid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    // The pulse-outside beam paints its halo outside the element, so this row
+    // needs more room between the cells than the rest of the page.
+    .beams {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 42px;
+        align-items: start;
+    }
+
+    @container playground (width < 1320px) {
+        .beams {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @container playground (width < 690px) {
+        .beams {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    .tiles {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+        align-items: start;
+    }
+
+    @container playground (width < 1320px) {
+        .tiles {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @container playground (width < 690px) {
+        .tiles {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    // Isolated so the blend mode of the noise tile bites into the tile surface
+    // rather than into whatever the page paints behind it.
+    .tile {
+        position: relative;
+        display: flex;
+        isolation: isolate;
+        overflow: hidden;
+        flex-direction: column;
+        background: var(--surface);
+        border: 1px solid var(--surface-stroke);
+        border-radius: var(--radius);
+    }
+
+    .tileLabel {
+        padding: 9px 12px;
+        font-size: 13px;
+        background: var(--surface);
+        border-top: 1px solid var(--surface-stroke);
+        color: var(--foreground-secondary);
+    }
+
+    .hero {
+        position: relative;
+        display: flex;
+        isolation: isolate;
+        overflow: hidden;
+        align-items: center;
+        min-height: 291px;
+        padding: 45px;
+        background: var(--surface);
+        border: 1px solid var(--surface-stroke);
+        border-radius: var(--radius);
+    }
+
+    .heroContent {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: start;
+        max-width: 600px;
+    }
+
+    .heroTitle {
+        font-size: 33px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .heroText {
+        color: var(--foreground-secondary);
+    }
+
+    .caption {
+        font-size: 13px;
+        color: var(--foreground-secondary);
+    }
+
+    .price {
+        font-size: 33px;
+        font-weight: 700;
+    }
+
+    .effectMetric {
+        font-size: 33px;
+        font-weight: 700;
+    }
+
+    .assistant {
+        font-size: 18px;
+        font-weight: 600;
+    }
