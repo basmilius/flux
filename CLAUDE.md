@@ -325,6 +325,7 @@ from there**. `internals` does not re-export it: one function, one import path.
 Utilities (`packages/internals/src/util/`):
 - Focus helpers - `wrapFocus`, `focusTrap`, `getFocusableElement`, `getFocusableElements`, `getKeyboardFocusableElements`, `getBidirectionalFocusElement`
 - VNode helpers - `flattenVNodeTree`, `getComponentName`, `getComponentProps`
+- Drum roll - `drumRoll`, `createDrumRollReel` (the rolling digits behind `FluxVisualDrumRoll` and the `FluxDateScrubber` date label)
 - Types - `TemplateElement`, `TemplateRef` (the shape a Flux template ref has; resolve one with `unwrapElement` from `@basmilius/common`)
 - Misc - `isActiveElement`, `isSSR`, `warn`
 

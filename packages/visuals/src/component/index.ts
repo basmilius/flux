@@ -3,6 +3,7 @@ export { default as FluxVisualAttention } from './FluxVisualAttention.vue';
 export { default as FluxVisualBorderBeam } from './FluxVisualBorderBeam.vue';
 export { default as FluxVisualBorderShine } from './FluxVisualBorderShine.vue';
 export { default as FluxVisualDotPattern } from './FluxVisualDotPattern.vue';
+export { default as FluxVisualDrumRoll } from './FluxVisualDrumRoll.vue';
 export { default as FluxVisualFlickeringGrid } from './FluxVisualFlickeringGrid.vue';
 export { default as FluxVisualGridPattern } from './FluxVisualGridPattern.vue';
 export { default as FluxVisualHighlighter } from './FluxVisualHighlighter.vue';

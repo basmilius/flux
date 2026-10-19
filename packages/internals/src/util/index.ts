@@ -1,3 +1,4 @@
+export { createDrumRollReel, drumRoll } from './drumRoll';
 export { default as flattenVNodeTree } from './flattenVNodeTree';
 export { default as getBidirectionalFocusElement } from './getBidirectionalFocusElement';
 export { default as getComponentName } from './getComponentName';

@@ -173,6 +173,7 @@ const navigation: SidebarItem[] = [
                     {text: 'Separator', link: '/components/card-list/separator'}
                 ]
             },
+            {text: 'Date scrubber', link: '/components/date-scrubber'},
             {text: 'Command palette', link: '/components/command-palette'},
             {text: 'Context menu', link: '/components/context-menu'},
             {

@@ -39,6 +39,7 @@ export { default as FluxContainer } from './FluxContainer.vue';
 export { default as FluxContextMenu } from './FluxContextMenu.vue';
 export { default as FluxDataTable } from './FluxDataTable.vue';
 export { default as FluxDatePicker } from './FluxDatePicker.vue';
+export { default as FluxDateScrubber } from './FluxDateScrubber.vue';
 export { default as FluxDescriptionItem } from './FluxDescriptionItem.vue';
 export { default as FluxDescriptionList } from './FluxDescriptionList.vue';
 export { default as FluxDestructiveButton } from './FluxDestructiveButton.vue';

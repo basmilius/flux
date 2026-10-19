@@ -452,6 +452,7 @@ export default defineConfig({
                         {text: 'Border beam', link: '/visuals/components/border-beam'},
                         {text: 'Border shine', link: '/visuals/components/border-shine'},
                         {text: 'Dot pattern', link: '/visuals/components/dot-pattern'},
+                        {text: 'Drum roll', link: '/visuals/components/drum-roll'},
                         {text: 'Flickering grid', link: '/visuals/components/flickering-grid'},
                         {text: 'Grid pattern', link: '/visuals/components/grid-pattern'},
                         {text: 'Highlighter', link: '/visuals/components/highlighter'},
@@ -504,6 +505,8 @@ export default defineConfig({
                     text: 'Utils',
                     collapsed: false,
                     items: [
+                        {text: 'createDrumRollReel', link: '/internals/utils/createDrumRollReel'},
+                        {text: 'drumRoll', link: '/internals/utils/drumRoll'},
                         {text: 'flattenVNodeTree', link: '/internals/utils/flattenVNodeTree'},
                         {text: 'getBidirectionalFocusElement', link: '/internals/utils/getBidirectionalFocusElement'},
                         {text: 'getComponentName', link: '/internals/utils/getComponentName'},

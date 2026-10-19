@@ -1,0 +1,19 @@
+.drumRoll {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    white-space: pre;
+}
+
+.cell {
+    position: relative;
+    display: inline-block;
+    height: 1lh;
+    vertical-align: top;
+    transition: width .52s cubic-bezier(.4, 0, .2, 1);
+
+    > span {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
