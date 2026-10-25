@@ -1,0 +1,15 @@
+@scope (.react-example-fcr03lnlqe92) {
+
+    /* The transform makes the fixed button sit in this frame instead of the viewport. */
+    .frame {
+        position: relative;
+        width: 100%;
+        transform: translate(0);
+    }
+
+    .scroller {
+        height: 300px;
+        overflow-y: auto;
+    }
+
+}

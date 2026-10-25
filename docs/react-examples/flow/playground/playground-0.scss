@@ -1,0 +1,33 @@
+@scope (.react-example-o4r27jle41cb) {
+
+    .flow-playground {
+        display: flex;
+        flex-direction: column;
+        gap: 42px;
+        width: 100%;
+        max-width: 1320px;
+        margin-inline: auto;
+        padding: 48px 30px 60px;
+    }
+
+    .flow-playground__intro {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 720px;
+    }
+
+    .flow-playground__intro h1 {
+        font-size: 27px;
+        font-weight: 700;
+    }
+
+    .flow-playground__intro ul {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding-left: 21px;
+        list-style: disc;
+    }
+
+}

@@ -15,7 +15,7 @@
 <script
     setup
     lang="ts">
-    import { FluxFormCombobox } from '@flux-ui/components';
+    import { FluxFormCombobox, FluxPane, FluxPaneBody } from '@flux-ui/components';
     import type { FluxFormSelectValue } from '@flux-ui/types';
     import { ref } from 'vue';
 

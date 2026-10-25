@@ -1,0 +1,19 @@
+
+    .loading {
+        display: flex;
+        flex-flow: column;
+        gap: 24px;
+    }
+
+    .loadingPair {
+        display: grid;
+        align-items: start;
+        gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @container playground (width < 1008px) {
+        .loadingPair {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }

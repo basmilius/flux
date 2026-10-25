@@ -16,6 +16,12 @@ export type {
     FluxTo
 } from './common';
 
+export type {TranslateFunction, TranslateParams} from './translate';
+
+export type {FluxApplicationLayout} from './application';
+
+export type {FluxFlowPath, FluxFlowPosition} from './flow';
+
 export type {
     FluxButtonEmits,
     FluxButtonProps,

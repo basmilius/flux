@@ -6,17 +6,4 @@
     </section>
 </template>
 
-<style
-    lang="scss"
-    module>
-    .fluxView {
-        > .button,
-        > .flyout > .button {
-            align-self: center;
-        }
-
-        > .pane {
-            width: 100%;
-        }
-    }
-</style>
+<style lang="scss" module src="./Preview.module.scss"/>

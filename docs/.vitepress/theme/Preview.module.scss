@@ -1,0 +1,87 @@
+
+    .preview {
+        position: relative;
+        margin: 16px 0;
+        background: color-mix(in srgb, var(--vp-c-bg), var(--vp-c-bg-soft));
+        border: 1px solid var(--vp-c-gutter);
+        border-radius: var(--radius);
+        font-size: 15px;
+        line-height: 1.6;
+
+        /* The ground is a mix of two tokens, so no stroke token lands on it in both
+           themes. Translucent ink flips direction by itself. */
+        > :global(svg) {
+            stroke: color-mix(in oklab, var(--foreground) 10%, transparent);
+        }
+    }
+
+    .previewBody.isFlush {
+        display: block;
+        min-height: 0;
+        padding: 0;
+    }
+
+    .previewBody {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(var(--preview-min-height, 0) * 1px - 1px);
+        padding: 15px 60px;
+
+        > .button,
+        > .flyout > .button {
+            align-self: center;
+        }
+
+        > .pane,
+        > :global([data-react-example-scope]) > .pane {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 639px) {
+        .preview {
+            margin-left: -24px;
+            margin-right: -24px;
+            border-left: 0;
+            border-right: 0;
+            border-radius: 0;
+        }
+
+        .previewBody {
+            padding: 15px 24px;
+        }
+    }
+
+
+    .previewColumn {
+        display: flex;
+        min-width: 90px;
+        height: 40px;
+        padding: 0 12px;
+        align-items: center;
+        justify-content: center;
+
+        background: var(--surface-sunken);
+        border: 1px dashed var(--surface-stroke-hover);
+        border-radius: var(--radius);
+
+        color: var(--foreground-secondary);
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+
+    .fluxView {
+        > .button,
+        > .flyout > .button {
+            align-self: center;
+        }
+
+        > .pane,
+        > :global([data-react-example-scope]) > .pane {
+            width: 100%;
+        }
+    }
+
