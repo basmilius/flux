@@ -5,17 +5,16 @@
         :class="clsx(
             $style.formSelect,
             disabled && $style.isDisabled,
-            isPopupOpen && $style.isFocused,
-            isSearchable && $style.isSearchable
+            isPopupOpen && $style.isFocused
         )"
-        :id="id"
-        role="combobox"
-        :aria-activedescendant="isPopupOpen && activeDescendant ? activeDescendant : undefined"
-        :aria-controls="isPopupOpen ? popupId : undefined"
+        :id="isSearchOpen ? undefined : id"
+        :role="isSearchOpen ? undefined : 'combobox'"
+        :aria-activedescendant="isPopupOpen && !isSearchOpen && activeDescendant ? activeDescendant : undefined"
+        :aria-controls="isPopupOpen && !isSearchOpen ? popupId : undefined"
         :aria-describedby="describedBy"
         :aria-disabled="disabled ? true : undefined"
-        :aria-expanded="isPopupOpen"
-        aria-haspopup="menu"
+        :aria-expanded="isSearchOpen ? undefined : isPopupOpen"
+        :aria-haspopup="isSearchOpen ? undefined : 'menu'"
         :aria-readonly="isReadonly ? true : undefined"
         :tabindex="disabled ? -1 : 0"
         tag-name="div"
@@ -31,11 +30,8 @@
             <input
                 v-model="modelSearch"
                 ref="searchInput"
-                :class="$style.formSelectSearchInput"
-                autocomplete="off"
+                :="searchInputAttributes"
                 :placeholder="selected[0]?.label ?? placeholder ?? translate('flux.search')"
-                :aria-activedescendant="activeDescendant || undefined"
-                :aria-controls="popupId"
                 @click.stop/>
         </template>
 
@@ -70,11 +66,8 @@
             v-if="isSearchOpen && isMultiple"
             v-model="modelSearch"
             ref="searchInput"
-            :class="$style.formSelectSearchInput"
-            autocomplete="off"
+            :="searchInputAttributes"
             :placeholder="selected.length === 0 ? placeholder ?? translate('flux.search') : undefined"
-            :aria-activedescendant="activeDescendant || undefined"
-            :aria-controls="popupId"
             @click.stop/>
 
         <FluxSpinner
@@ -105,6 +98,7 @@
                 use-anchor-width>
                 <FluxMenu v-if="canCreate">
                     <FluxMenuItem
+                        :is-highlighted="highlightedIndex === INITIAL_HIGHLIGHTED_INDEX"
                         icon-leading="plus"
                         :label="translate('flux.createOption', {value: trimmedSearch})"
                         type="button"
@@ -173,7 +167,7 @@
     import { unwrapElement } from '@basmilius/common';
     import type { FluxFormSelectOption, FluxFormSelectOptions } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, nextTick, onMounted, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, type InputHTMLAttributes, nextTick, onMounted, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import { INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate } from '~flux/components/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
@@ -211,6 +205,7 @@
         autoFocus,
         disabled: componentDisabled,
         isCreatable,
+        isLoading,
         isMultiple,
         isReadonly,
         isSearchable,
@@ -236,6 +231,7 @@
 
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
     const isKeyboardAction = ref(false);
+    const navigatedValue = ref<string | number | null>();
 
     const disabled = useDisabled(toRef(() => componentDisabled));
     const {id, describedBy} = useFormFieldInjection();
@@ -269,6 +265,19 @@
     });
 
     const isSearchOpen = computed(() => isSearchable && unref(isPopupOpen) && !unref(disabled));
+
+    // While searching, the input is the combobox and takes over the field's id, so the label names it.
+    const searchInputAttributes = computed((): InputHTMLAttributes => ({
+        class: $style.formSelectSearchInput,
+        id,
+        autocomplete: 'off',
+        role: 'combobox',
+        'aria-activedescendant': unref(activeDescendant) || undefined,
+        'aria-autocomplete': 'list',
+        'aria-controls': popupId,
+        'aria-describedby': unref(describedBy),
+        'aria-expanded': true
+    }));
 
     watch(highlightedIndex, highlightedIndex => {
         const options = unref(optionElementRefs)!;
@@ -308,7 +317,19 @@
 
     watch(modelSearch, searchQuery => emit('search', searchQuery));
 
-    watch([() => options, isPopupOpen], () => highlightedIndex.value = initialHighlightedIndex());
+    watch([isPopupOpen, trimmedSearch], () => {
+        navigatedValue.value = undefined;
+        highlightedIndex.value = initialHighlightedIndex();
+    });
+
+    // Results that arrive later (an async search) keep the option the user moved to with the arrows.
+    watch(() => options, () => {
+        const navigatedIndex = unref(navigatedValue) !== undefined
+            ? unref(rawOptions).findIndex(option => option.value === unref(navigatedValue))
+            : INITIAL_HIGHLIGHTED_INDEX;
+
+        highlightedIndex.value = navigatedIndex >= 0 ? navigatedIndex : initialHighlightedIndex();
+    });
 
     onMounted(() => {
         if (autoFocus) {
@@ -317,9 +338,10 @@
     });
 
     // A searchable select keeps an option highlighted, so Enter picks the first result. Before the
-    // first keystroke that is the current value of a single select.
+    // first keystroke that is the current value of a single select. When the query can be created,
+    // nothing is highlighted, so Enter creates it.
     function initialHighlightedIndex(): number {
-        if (!unref(isSearchOpen) || unref(rawOptions).length === 0) {
+        if (!unref(isSearchOpen) || unref(canCreate) || unref(rawOptions).length === 0) {
             return INITIAL_HIGHLIGHTED_INDEX;
         }
 
@@ -373,6 +395,11 @@
     function onKeyDown(evt: KeyboardEvent): void {
         emit('keyDown', evt);
 
+        // Keys that confirm or browse an IME composition belong to the input method.
+        if (evt.isComposing || evt.keyCode === 229) {
+            return;
+        }
+
         if (!unref(isPopupOpen)) {
             if (evt.key === 'Enter' && !unref(disabled) && !isReadonly) {
                 isPopupOpen.value = true;
@@ -396,11 +423,13 @@
 
         switch (evt.key) {
             case 'ArrowUp':
-                highlightedIndex.value = Math.max(0, unref(highlightedIndex) - 1);
+                highlightedIndex.value = Math.max(unref(canCreate) ? INITIAL_HIGHLIGHTED_INDEX : 0, unref(highlightedIndex) - 1);
+                navigatedValue.value = unref(highlightedId);
                 break;
 
             case 'ArrowDown':
                 highlightedIndex.value = Math.min(unref(rawOptions).length - 1, unref(highlightedIndex) + 1);
+                navigatedValue.value = unref(highlightedId);
                 break;
 
             case 'Backspace':
@@ -415,6 +444,11 @@
 
             case 'Enter':
                 const id = unref(highlightedId);
+
+                // The results on screen may not match the query yet.
+                if (isLoading) {
+                    break;
+                }
 
                 if (id !== undefined) {
                     select(id);

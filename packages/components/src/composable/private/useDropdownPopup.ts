@@ -64,6 +64,9 @@ export default function useDropdownPopup(options: UseDropdownPopupOptions): UseD
         }
 
         if (evt.key === 'Tab' && unref(isOpen)) {
+            // A search input inside the anchor disappears on close; tabbing on from the anchor keeps
+            // Shift+Tab from landing on the anchor itself.
+            unwrapElement(options.anchorRef)?.focus();
             isOpen.value = false;
             return true;
         }

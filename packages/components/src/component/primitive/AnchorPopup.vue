@@ -89,7 +89,9 @@
             return;
         }
 
-        // Measure without the cap of an earlier reposition, so there is room to grow again.
+        // Measure without the cap of an earlier reposition, so there is room to grow again. Lifting
+        // the cap clamps the scroll position, so it is put back afterwards.
+        const scrollTop = popup.scrollTop;
         popup.style.maxHeight = '';
 
         const {x, y, height, width} = anchor.getBoundingClientRect();
@@ -197,6 +199,7 @@
 
         state.x = px;
         state.y = py;
+        popup.scrollTop = scrollTop;
     }
 
     // The popup never covers its anchor: it goes below when it fits, above when only that
@@ -232,7 +235,16 @@
         reposition();
     }
 
-    const onScroll = animationFrameDebounce(reposition);
+    const repositionDebounced = animationFrameDebounce(reposition);
+
+    // Scrolling inside the popup leaves its position unchanged.
+    function onScroll(evt: Event): void {
+        if (evt.target instanceof Node && unref(popupRef)?.contains(evt.target)) {
+            return;
+        }
+
+        repositionDebounced();
+    }
 
     defineExpose({
         reposition,

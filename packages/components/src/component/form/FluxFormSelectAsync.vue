@@ -9,13 +9,14 @@
         )"
         :auto-focus="autoFocus"
         :disabled="disabled"
-        :is-loading="isLoading || isFetchingLoading"
+        :is-loading="isLoading || isFetchingLoading || isSearchPending"
         :is-multiple="isMultiple"
         :is-readonly="isReadonly"
         is-searchable
         :options="groups"
         :placeholder="placeholder"
         :selected="selected"
+        @close="isOpen = false"
         @deselect="onDeselect"
         @open="onOpen()"
         @select="onSelect"/>
@@ -56,6 +57,7 @@
         readonly isMultiple?: boolean;
     }>();
 
+    const isOpen = ref(false);
     const selectedOptions = ref<FluxFormSelectEntry[]>([]);
     const visibleOptions = ref<FluxFormSelectEntry[]>([]);
 
@@ -97,6 +99,9 @@
     const fetchRelevant = computed(() => loaded(fetchRelevantProp));
     const fetchSearch = computed(() => loaded(fetchSearchProp));
 
+    // Until the debounced search runs, the options on screen belong to the previous query.
+    const isSearchPending = computed(() => unref(isOpen) && unref(modelSearch) !== unref(debouncedModelSearch));
+
     watch(values, async values => {
         const definedValues = values.filter(value => value !== null && value !== undefined);
 
@@ -115,6 +120,11 @@
     }, {immediate: true});
 
     watch(debouncedModelSearch, async searchQuery => {
+        // Clearing the query on close needs no results; opening fetches them again.
+        if (!unref(isOpen)) {
+            return;
+        }
+
         const generation = ++visibleGeneration;
         const options = searchQuery.length > 0
             ? await unref(fetchSearch)(searchQuery)
@@ -132,6 +142,8 @@
     }
 
     async function onOpen(): Promise<void> {
+        isOpen.value = true;
+
         const generation = ++visibleGeneration;
         const search = unref(modelSearch).trim();
         const options = search.length > 0

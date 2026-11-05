@@ -10,13 +10,13 @@
             isSecondary && $formStyle.isSecondary,
             error && $formStyle.isInvalid
         )"
-        :id="id"
-        role="combobox"
-        :aria-activedescendant="isPopupOpen && highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
-        :aria-controls="isPopupOpen ? listId : undefined"
+        :id="isSearchOpen ? undefined : id"
+        :role="isSearchOpen ? undefined : 'combobox'"
+        :aria-activedescendant="isPopupOpen && !isSearchOpen && highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
+        :aria-controls="isPopupOpen && !isSearchOpen ? listId : undefined"
         :aria-disabled="disabled ? true : undefined"
-        :aria-expanded="isPopupOpen"
-        aria-haspopup="listbox"
+        :aria-expanded="isSearchOpen ? undefined : isPopupOpen"
+        :aria-haspopup="isSearchOpen ? undefined : 'listbox'"
         :aria-readonly="isReadonly ? true : undefined"
         :aria-invalid="error ? true : undefined"
         :aria-describedby="describedBy"
@@ -34,11 +34,8 @@
             <input
                 v-model="searchQuery"
                 ref="searchInput"
-                :class="$formStyle.formSelectSearchInput"
-                autocomplete="off"
+                :="searchInputAttributes"
                 :placeholder="selectedOptions[0]?.label ?? placeholder ?? translate('flux.search')"
-                :aria-activedescendant="highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
-                :aria-controls="listId"
                 @click.stop/>
         </template>
 
@@ -67,11 +64,8 @@
             v-if="isSearchOpen && isMultiple"
             v-model="searchQuery"
             ref="searchInput"
-            :class="$formStyle.formSelectSearchInput"
-            autocomplete="off"
+            :="searchInputAttributes"
             :placeholder="selectedOptions.length === 0 ? placeholder ?? translate('flux.search') : undefined"
-            :aria-activedescendant="highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
-            :aria-controls="listId"
             @click.stop/>
 
         <FluxSpinner
@@ -166,7 +160,7 @@
     import { unwrapElement } from '@basmilius/common';
     import type { FluxColor, FluxFormInputBaseProps, FluxFormTreeViewSelectOption, FluxFormTreeViewSelectValue } from '@flux-ui/types';
     import { clsx } from 'clsx';
-    import { type ComponentPublicInstance, computed, nextTick, provide, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
+    import { type ComponentPublicInstance, computed, type InputHTMLAttributes, nextTick, provide, ref, toRef, unref, useId, useTemplateRef, watch } from 'vue';
     import { useDisabled, useFormFieldInjection } from '~flux/components/composable';
     import { collectExpandedIds, flattenAll, flattenSearch, flattenVisible, INITIAL_HIGHLIGHTED_INDEX, type TreeFlatNode, useDropdownPopup, useTranslate, useTreeView } from '~flux/components/composable/private';
     import { type FluxFormRadioGroupValue, FluxFormRadioGroupInjectionKey, FluxItemControlInjectionKey } from '~flux/components/data';
@@ -255,7 +249,6 @@
     const {
         isOpen: isPopupOpen,
         toggle,
-        focusAnchor,
         onKeyDownBase
     } = useDropdownPopup({
         anchorRef,
@@ -266,6 +259,19 @@
     });
 
     const isSearchOpen = computed(() => isSearchable && unref(isPopupOpen) && !unref(disabled));
+
+    // While searching, the input is the combobox and takes over the field's id, so the label names it.
+    const searchInputAttributes = computed((): InputHTMLAttributes => ({
+        class: $formStyle.formSelectSearchInput,
+        id,
+        autocomplete: 'off',
+        role: 'combobox',
+        'aria-activedescendant': unref(highlightedIndex) >= 0 ? optionId(unref(highlightedIndex)) : undefined,
+        'aria-autocomplete': 'list',
+        'aria-controls': listId,
+        'aria-describedby': unref(describedBy),
+        'aria-expanded': true
+    }));
 
     const selectedIds = computed(() => {
         const value = unref(modelValue);
@@ -368,7 +374,7 @@
         if (Array.isArray(current)) {
             modelValue.value = current.filter(v => v !== nodeId);
         }
-        focusAnchor();
+        nextTick(() => unref(focusElement)?.focus());
     }
 
     // Selecting a parent implicitly covers its whole subtree, so its descendants are locked — but
@@ -404,6 +410,11 @@
     }
 
     function onKeyDown(evt: KeyboardEvent): void {
+        // Keys that confirm or browse an IME composition belong to the input method.
+        if (evt.isComposing || evt.keyCode === 229) {
+            return;
+        }
+
         if (!unref(isPopupOpen)) {
             if ((evt.key === 'Enter' || evt.key === ' ') && !unref(disabled) && !isReadonly) {
                 evt.preventDefault();
@@ -433,6 +444,11 @@
         // Letters, and a space typed into the search input, belong to the search query.
         if (isSearchable && evt.key.length === 1 && (evt.key !== ' ' || evt.target === unref(searchInputRef))) {
             return;
+        }
+
+        // Without results there is nothing to activate, and the search input must not submit the form.
+        if (evt.key === 'Enter') {
+            evt.preventDefault();
         }
 
         onKeyNavigate(evt, onNodeClick);
