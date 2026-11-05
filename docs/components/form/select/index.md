@@ -57,7 +57,7 @@ props:
         optional: true
 
     -   name: is-searchable
-        description: If the select element is searchable.
+        description: If the select element is searchable. While the popup is open, the field itself turns into the search input.
         type: boolean
         optional: true
 

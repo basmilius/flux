@@ -22,7 +22,24 @@
         @click="toggle()"
         @keydown="onKeyDown"
         @keyup="onKeyUp">
-        <template v-if="!isMultiple && selected[0]">
+        <template v-if="isSearchOpen && !isMultiple">
+            <FluxIcon
+                :class="$style.formSelectSearchIcon"
+                name="magnifying-glass"
+                :size="15"/>
+
+            <input
+                v-model="modelSearch"
+                ref="searchInput"
+                :class="$style.formSelectSearchInput"
+                autocomplete="off"
+                :placeholder="selected[0]?.label ?? placeholder ?? translate('flux.search')"
+                :aria-activedescendant="activeDescendant || undefined"
+                :aria-controls="popupId"
+                @click.stop/>
+        </template>
+
+        <template v-else-if="!isMultiple && selected[0]">
             <FluxMenuItem
                 :class="$style.formSelectSelected"
                 :command="selected[0].command"
@@ -43,11 +60,22 @@
                 @delete="deselect(option.value)"/>
         </template>
 
-        <template v-else-if="placeholder">
+        <template v-else-if="placeholder && !isSearchOpen">
             <span :class="$style.formSelectPlaceholder">
                 {{ placeholder }}
             </span>
         </template>
+
+        <input
+            v-if="isSearchOpen && isMultiple"
+            v-model="modelSearch"
+            ref="searchInput"
+            :class="$style.formSelectSearchInput"
+            autocomplete="off"
+            :placeholder="selected.length === 0 ? placeholder ?? translate('flux.search') : undefined"
+            :aria-activedescendant="activeDescendant || undefined"
+            :aria-controls="popupId"
+            @click.stop/>
 
         <FluxSpinner
             v-if="isLoading"
@@ -58,7 +86,7 @@
             v-else
             :class="$style.formSelectIcon"
             name="angles-up-down"
-            :size="15"/>
+            :size="12"/>
     </Anchor>
 
     <Teleport to="body">
@@ -69,28 +97,12 @@
                 :id="popupId"
                 :class="clsx(
                     $style.formSelectPopup,
-                    isKeyboardAction && $style.isKeyboardAction,
-                    isSearchable && $style.isSearchable
+                    isKeyboardAction && $style.isKeyboardAction
                 )"
                 :anchor="anchorRef"
                 direction="vertical"
+                :margin="6"
                 use-anchor-width>
-                <div
-                    v-if="isSearchable"
-                    :class="$style.formSelectSearch">
-                    <FluxFormInput
-                        v-model="modelSearch"
-                        ref="searchInputElement"
-                        auto-complete="off"
-                        is-secondary
-                        type="search"
-                        icon-leading="magnifying-glass"
-                        :placeholder="translate('flux.search')"
-                        :aria-activedescendant="activeDescendant || undefined"
-                        :aria-controls="popupId"
-                        @keydown="onKeyDown"/>
-                </div>
-
                 <FluxMenu v-if="canCreate">
                     <FluxMenuItem
                         icon-leading="plus"
@@ -166,7 +178,6 @@
     import { INITIAL_HIGHLIGHTED_INDEX, useDropdownPopup, useTranslate } from '~flux/components/composable/private';
     import { isFluxFormSelectGroup, isFluxFormSelectOption } from '~flux/components/data';
     import { FluxFadeTransition } from '~flux/components/transition';
-    import FluxFormInput from '../form/FluxFormInput.vue';
     import FluxIcon from '../FluxIcon.vue';
     import FluxMenu from '../menu/FluxMenu.vue';
     import FluxMenuGroup from '../menu/FluxMenuGroup.vue';
@@ -202,6 +213,7 @@
         isCreatable,
         isMultiple,
         isReadonly,
+        isSearchable,
         options,
         selected
     } = defineProps<{
@@ -220,7 +232,7 @@
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');
     const optionElementRefs = useTemplateRef<typeof FluxMenuItem[]>('optionElements');
-    const searchInputElementRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInputElement');
+    const searchInputRef = useTemplateRef<HTMLInputElement>('searchInput');
 
     const highlightedIndex = ref(INITIAL_HIGHLIGHTED_INDEX);
     const isKeyboardAction = ref(false);
@@ -230,13 +242,7 @@
     const translate = useTranslate();
     const popupId = useId();
 
-    const focusElement = computed(() => {
-        // The search input's template ref resolves to FluxFormInput's wrapper element, which is not
-        // focusable. Reach for the inner <input> so opening the popup focuses the search box.
-        const searchInput = unwrapElement(searchInputElementRef);
-
-        return searchInput?.querySelector<HTMLElement>('input') ?? unwrapElement(anchorRef);
-    });
+    const focusElement = computed(() => unref(searchInputRef) ?? unwrapElement(anchorRef));
     const rawOptions = computed(() => options.map(group => group[1]).flat());
     const highlightedId = computed(() => unref(rawOptions)[unref(highlightedIndex)]?.value);
     const activeDescendant = computed(() => unref(highlightedId) !== undefined ? optionId(unref(highlightedId)) : '');
@@ -262,6 +268,8 @@
         readonly: toRef(() => !!isReadonly)
     });
 
+    const isSearchOpen = computed(() => isSearchable && unref(isPopupOpen) && !unref(disabled));
+
     watch(highlightedIndex, highlightedIndex => {
         const options = unref(optionElementRefs)!;
         options[highlightedIndex]?.$el.scrollIntoView({
@@ -271,6 +279,7 @@
 
     watch(isPopupOpen, isPopupOpen => {
         if (!isPopupOpen) {
+            modelSearch.value = '';
             emit('close');
             return;
         }
@@ -299,13 +308,31 @@
 
     watch(modelSearch, searchQuery => emit('search', searchQuery));
 
-    watch([() => options, isPopupOpen], () => highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX);
+    watch([() => options, isPopupOpen], () => highlightedIndex.value = initialHighlightedIndex());
 
     onMounted(() => {
         if (autoFocus) {
             nextTick(() => unwrapElement(anchorRef)?.focus());
         }
     });
+
+    // A searchable select keeps an option highlighted, so Enter picks the first result. Before the
+    // first keystroke that is the current value of a single select.
+    function initialHighlightedIndex(): number {
+        if (!unref(isSearchOpen) || unref(rawOptions).length === 0) {
+            return INITIAL_HIGHLIGHTED_INDEX;
+        }
+
+        if (!isMultiple && unref(trimmedSearch) === '') {
+            const selectedIndex = unref(rawOptions).findIndex(option => option.value === selected[0]?.value);
+
+            if (selectedIndex >= 0) {
+                return selectedIndex;
+            }
+        }
+
+        return 0;
+    }
 
     function optionId(value: string | number | null): string {
         return `${popupId}-option-${value ?? 'null'}`;
@@ -397,6 +424,11 @@
                 break;
 
             default:
+                // Typing and moving the caret belong to the search input; the highlight follows the results.
+                if (isSearchable) {
+                    return;
+                }
+
                 if (evt.key.length === 1) {
                     highlightedIndex.value = unref(rawOptions).findIndex(o => o.label.toLowerCase().startsWith(evt.key.toLowerCase()));
                 } else {

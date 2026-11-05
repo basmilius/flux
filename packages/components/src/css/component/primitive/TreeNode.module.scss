@@ -4,14 +4,16 @@
 // than composed: .menuItem builds on the base button, whose `[aria-disabled=true]` rule sets
 // `pointer-events: none` and would kill the expand marker on disabled nodes.
 .treeNode {
+    @include mixin.text(default);
+
     display: flex;
     width: 100%;
-    min-height: 42px;
+    min-height: var(--control-height-medium);
     padding: 0 12px;
     align-items: center;
     border-radius: var(--radius);
     color: var(--foreground);
-    font: inherit;
+    font-family: inherit;
     gap: 15px;
     outline: 0;
     transition: 150ms var(--swift-out);

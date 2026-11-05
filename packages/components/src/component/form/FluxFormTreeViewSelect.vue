@@ -25,7 +25,24 @@
         @click="toggle()"
         @keydown="onKeyDown">
 
-        <template v-if="isMultiple && selectedOptions.length > 0">
+        <template v-if="isSearchOpen && !isMultiple">
+            <FluxIcon
+                :class="$formStyle.formSelectSearchIcon"
+                name="magnifying-glass"
+                :size="16"/>
+
+            <input
+                v-model="searchQuery"
+                ref="searchInput"
+                :class="$formStyle.formSelectSearchInput"
+                autocomplete="off"
+                :placeholder="selectedOptions[0]?.label ?? placeholder ?? translate('flux.search')"
+                :aria-activedescendant="highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
+                :aria-controls="listId"
+                @click.stop/>
+        </template>
+
+        <template v-else-if="isMultiple && selectedOptions.length > 0">
             <FluxTag
                 v-for="option in selectedOptions"
                 :key="option.id"
@@ -42,9 +59,20 @@
                 tabindex="-1"/>
         </template>
 
-        <template v-else-if="placeholder">
+        <template v-else-if="placeholder && !isSearchOpen">
             <span :class="$formStyle.formSelectPlaceholder">{{ placeholder }}</span>
         </template>
+
+        <input
+            v-if="isSearchOpen && isMultiple"
+            v-model="searchQuery"
+            ref="searchInput"
+            :class="$formStyle.formSelectSearchInput"
+            autocomplete="off"
+            :placeholder="selectedOptions.length === 0 ? placeholder ?? translate('flux.search') : undefined"
+            :aria-activedescendant="highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined"
+            :aria-controls="listId"
+            @click.stop/>
 
         <FluxSpinner
             v-if="isLoading"
@@ -55,7 +83,7 @@
             v-else
             :class="$formStyle.formSelectIcon"
             name="angles-up-down"
-            :size="16"/>
+            :size="12"/>
     </Anchor>
 
     <Teleport to="body">
@@ -63,25 +91,11 @@
             <AnchorPopup
                 v-if="isPopupOpen && !disabled"
                 ref="anchorPopup"
-                :class="clsx($formStyle.formSelectPopup, isSearchable && $formStyle.isSearchable)"
+                :class="$formStyle.formSelectPopup"
                 :anchor="anchorRef"
                 direction="vertical"
+                :margin="6"
                 use-anchor-width>
-
-                <div
-                    v-if="isSearchable"
-                    :class="$formStyle.formSelectSearch">
-                    <FluxFormInput
-                        v-model="searchQuery"
-                        ref="searchInput"
-                        auto-complete="off"
-                        is-secondary
-                        type="search"
-                        icon-leading="magnifying-glass"
-                        :placeholder="translate('flux.search')"
-                        @keydown="onKeyDown"/>
-                </div>
-
                 <div
                     :id="listId"
                     :class="$style.treeViewSelectList"
@@ -163,7 +177,6 @@
     import FluxMenuItem from '../menu/FluxMenuItem.vue';
     import { Anchor, AnchorPopup, TreeNodeRenderer } from '../primitive';
     import FluxFormCheckbox from './FluxFormCheckbox.vue';
-    import FluxFormInput from './FluxFormInput.vue';
     import FluxFormRadio from './FluxFormRadio.vue';
     import $formStyle from '~flux/components/css/component/Form.module.scss';
     import $style from '~flux/components/css/component/TreeViewSelect.module.scss';
@@ -198,7 +211,7 @@
     const anchorRef = useTemplateRef<ComponentPublicInstance>('anchor');
     const anchorPopupRef = useTemplateRef<ComponentPublicInstance>('anchorPopup');
     const nodeElementRefs = useTemplateRef<HTMLDivElement[]>('nodeElements');
-    const searchInputRef = useTemplateRef<ComponentPublicInstance<typeof FluxFormInput>>('searchInput');
+    const searchInputRef = useTemplateRef<HTMLInputElement>('searchInput');
 
     const expandedIds = ref(new Set<string | number>());
     const searchQuery = ref('');
@@ -237,7 +250,7 @@
         select: () => undefined
     });
 
-    const focusElement = computed(() => unwrapElement(searchInputRef) ?? unwrapElement(anchorRef));
+    const focusElement = computed(() => unref(searchInputRef) ?? unwrapElement(anchorRef));
 
     const {
         isOpen: isPopupOpen,
@@ -251,6 +264,8 @@
         disabled,
         readonly: toRef(() => !!isReadonly)
     });
+
+    const isSearchOpen = computed(() => isSearchable && unref(isPopupOpen) && !unref(disabled));
 
     const selectedIds = computed(() => {
         const value = unref(modelValue);
@@ -305,18 +320,30 @@
 
         nextTick(() => {
             const ids = unref(selectedIds);
-            if (ids.size > 0) {
-                const firstSelectedIndex = unref(visibleNodes).findIndex(n => ids.has(n.id));
-                if (firstSelectedIndex >= 0) {
-                    highlightedIndex.value = firstSelectedIndex;
-                }
+            const firstSelectedIndex = unref(visibleNodes).findIndex(n => ids.has(n.id));
+
+            if (firstSelectedIndex >= 0) {
+                highlightedIndex.value = firstSelectedIndex;
+            } else if (isSearchable) {
+                highlightedIndex.value = firstResultIndex();
             }
         });
     });
 
     watch(searchQuery, () => {
-        highlightedIndex.value = INITIAL_HIGHLIGHTED_INDEX;
+        highlightedIndex.value = unref(isPopupOpen) ? firstResultIndex() : INITIAL_HIGHLIGHTED_INDEX;
     });
+
+    // The first selectable node whose own label matches, so Enter picks it instead of the
+    // ancestor that is only shown to keep the hierarchy readable.
+    function firstResultIndex(): number {
+        const nodes = unref(visibleNodes);
+        const query = unref(searchQuery).toLowerCase().trim();
+        const isCandidate = (node: FlatNode) => node.selectable !== false && !isNodeDisabled(node);
+        const matchIndex = nodes.findIndex(node => isCandidate(node) && node.label.toLowerCase().includes(query));
+
+        return matchIndex >= 0 ? matchIndex : nodes.findIndex(isCandidate);
+    }
 
     function optionId(index: number): string {
         return `${listId}-option-${index}`;
@@ -403,17 +430,9 @@
             return;
         }
 
-        // When searchable, don't intercept letter keys — let the search input handle them
-        if (isSearchable && evt.key.length === 1 && evt.key !== 'Enter') {
-            if (evt.key !== ' ') {
-                return;
-            }
-
-            const searchElement = unwrapElement(searchInputRef);
-
-            if (searchElement && evt.target instanceof Node && searchElement.contains(evt.target)) {
-                return;
-            }
+        // Letters, and a space typed into the search input, belong to the search query.
+        if (isSearchable && evt.key.length === 1 && (evt.key !== ' ' || evt.target === unref(searchInputRef))) {
+            return;
         }
 
         onKeyNavigate(evt, onNodeClick);

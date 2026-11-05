@@ -59,7 +59,7 @@ props:
         optional: true
 
     -   name: is-searchable
-        description: If the tree view select has a search input to filter options.
+        description: If the options can be filtered. While the popup is open, the field itself turns into the search input.
         type: boolean
         optional: true
 

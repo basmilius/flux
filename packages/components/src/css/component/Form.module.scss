@@ -179,10 +179,14 @@
     font-weight: 600;
 }
 
+// Next to a label that wraps, the marker stays whole and lines up with its first line.
 .formFieldOptional {
     @include mixin.text(xsmall);
 
+    align-self: first baseline;
+    flex-shrink: 0;
     color: var(--foreground-secondary);
+    white-space: nowrap;
 }
 
 .formFieldValue {
@@ -645,12 +649,30 @@
     translate: 0 -50%;
 }
 
-.formSelectSearch {
-    position: sticky;
-    top: 0;
-    padding: 9px;
-    background: linear-gradient(to bottom, var(--surface-current) calc(100% - 9px), transparent);
-    z-index: 2;
+.formSelectSearchIcon {
+    margin-inline-start: 3px;
+    flex-shrink: 0;
+    color: var(--foreground-secondary);
+}
+
+.formSelectSearchInput {
+    min-width: 60px;
+    padding: 0 3px;
+    align-self: stretch;
+    flex: 1 1 0;
+    background: unset;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    outline: 0;
+
+    &::placeholder {
+        color: var(--foreground-secondary);
+    }
+
+    .formSelectSearchIcon + & {
+        padding-inline-start: 0;
+    }
 }
 
 .formSelectPlaceholder {
@@ -681,14 +703,6 @@
 
     &.isKeyboardAction .menuItem {
         transition: 0s;
-    }
-
-    &.isSearchable {
-        scroll-padding-top: calc(var(--control-height-medium) + 18px);
-
-        .menuSubHeader {
-            top: calc(var(--control-height-medium) + 18px);
-        }
     }
 }
 

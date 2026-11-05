@@ -89,6 +89,9 @@
             return;
         }
 
+        // Measure without the cap of an earlier reposition, so there is room to grow again.
+        popup.style.maxHeight = '';
+
         const {x, y, height, width} = anchor.getBoundingClientRect();
         const {height: popupHeight, width: popupWidth} = popup.getBoundingClientRect();
 
@@ -164,17 +167,13 @@
                     if (px + popupWidth > innerWidth) {
                         px = x - popupWidth - margin;
                     }
+
+                    if (py < 0 || py + popupHeight > innerHeight) {
+                        py = innerHeight / 2 - popupHeight / 2;
+                    }
                 } else {
                     px = x + width / 2 - popupWidth / 2;
-                    py = y + height + margin;
-
-                    if (py + popupHeight + margin > innerHeight) {
-                        py = y - popupHeight - margin;
-                    }
-                }
-
-                if (py < 0 || py + popupHeight > innerHeight) {
-                    py = innerHeight / 2 - popupHeight / 2;
+                    py = placeVertically(popup, y, height, popupHeight);
                 }
                 break;
         }
@@ -198,6 +197,23 @@
 
         state.x = px;
         state.y = py;
+    }
+
+    // The popup never covers its anchor: it goes below when it fits, above when only that
+    // fits, and otherwise on the roomier side with its height capped to that space.
+    function placeVertically(popup: HTMLElement, y: number, height: number, popupHeight: number): number {
+        const spaceBelow = innerHeight - y - height - margin * 2;
+        const spaceAbove = y - margin * 2;
+        const isBelow = popupHeight <= spaceBelow || (popupHeight > spaceAbove && spaceBelow >= spaceAbove);
+        const space = isBelow ? spaceBelow : spaceAbove;
+
+        if (popupHeight > space) {
+            popup.style.maxHeight = `${space}px`;
+        }
+
+        return isBelow
+            ? y + height + margin
+            : y - Math.min(popupHeight, space) - margin;
     }
 
     function resize(): void {

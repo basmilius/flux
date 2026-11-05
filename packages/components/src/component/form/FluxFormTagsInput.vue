@@ -50,6 +50,7 @@
                 :class="$style.formTagsInputPopup"
                 :anchor="anchorRef"
                 direction="vertical"
+                :margin="6"
                 use-anchor-width>
                 <FluxMenu>
                     <FluxMenuItem
