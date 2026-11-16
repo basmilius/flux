@@ -43,15 +43,15 @@
 
         scrubber = createDateScrubber(zoneRef.value, {
             classes: {
-                cap: $style.cap,
-                current: $style.current,
-                date: $style.date,
-                fineLabel: $style.fineLabel,
-                held: $style.held,
-                month: $style.month,
-                reel: $style.reel,
-                separator: $style.separator,
-                tick: $style.tick
+                cap: $style.dateScrubberCap,
+                current: $style.isCurrent,
+                date: $style.dateScrubberDate,
+                fineLabel: $style.dateScrubberFineLabel,
+                held: $style.isHeld,
+                month: $style.isMonth,
+                reel: $style.dateScrubberReel,
+                separator: $style.dateScrubberSeparator,
+                tick: $style.dateScrubberTick
             },
             dates: dates.map(date => date.toMillis()),
             initialIndex: modelValue.value,

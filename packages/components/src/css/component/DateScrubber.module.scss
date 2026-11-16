@@ -18,19 +18,19 @@
             content: '';
         }
 
-        &.held::before {
+        &.isHeld::before {
             position: absolute;
             inset: calc(-1 * var(--tl-reach, 0px)) 0;
             content: '';
         }
     }
 
-    &.held {
+    &.isHeld {
         cursor: none;
     }
 }
 
-.tick {
+.dateScrubberTick {
     position: absolute;
     top: 0;
     left: 0;
@@ -41,7 +41,7 @@
     will-change: transform, height, opacity;
 }
 
-.separator {
+.dateScrubberSeparator {
     position: absolute;
     top: 0;
     left: 0;
@@ -51,7 +51,7 @@
     pointer-events: none;
 }
 
-.fineLabel {
+.dateScrubberFineLabel {
     position: absolute;
     top: 0;
     left: 0;
@@ -67,18 +67,18 @@
     white-space: nowrap;
     will-change: transform, opacity;
 
-    &.current {
+    &.isCurrent {
         color: var(--tl-hot);
     }
 
-    &.month {
+    &.isMonth {
         padding-left: .04em;
         color: var(--tl-secondary);
         letter-spacing: .04em;
     }
 }
 
-.cap {
+.dateScrubberCap {
     position: absolute;
     top: 0;
     left: 0;
@@ -90,7 +90,7 @@
     will-change: transform, opacity;
 }
 
-.date {
+.dateScrubberDate {
     position: absolute;
     top: 0;
     left: 0;
@@ -105,7 +105,7 @@
     white-space: pre;
 }
 
-.reel {
+.dateScrubberReel {
     position: relative;
     display: inline-block;
     height: 1.3em;
